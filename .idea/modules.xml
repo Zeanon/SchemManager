@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SchemManager.iml" filepath="$PROJECT_DIR$/SchemManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SchemManager.iml" filepath="$PROJECT_DIR$/.idea/modules/SchemManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SchemManager.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SchemManager.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SchemManager.test.iml" filepath="$PROJECT_DIR$/.idea/modules/SchemManager.test.iml" />
     </modules>
   </component>
 </project>
