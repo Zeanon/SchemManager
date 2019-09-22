@@ -1,3 +1,2 @@
 language: java
-jdk: oraclejdk10
-script: javac src.de.Zeanon.SchemManager.Main.java
+jdk: oraclejdk8
