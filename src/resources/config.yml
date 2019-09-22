@@ -1,0 +1,21 @@
+###############################################################################################################
+#||=========================================================================================================||#
+#|| SchemManager Konfigurationsdatei                                                                        ||#
+#|| mit -d kann man Unterordner durchsuchen                                                                 ||#
+#||                                                                                                         ||#
+#|| Der Schem Path muss nur editiert werden, wenn Standard Worldedit Pfad fuer schematics veraendert wurde. ||#
+#|| Space lists: Soll eine Leerzeiche vor jede Schem Liste gesetzt werden                                   ||#
+#|| Save Function Overide: Soll das Plugin auch den schem save Command ueberschreiben?                      ||#
+#|| Autoreload: Soll das Plugin nach einem Update den Server automatisch reloaden?                          ||#
+#||=========================================================================================================||#
+###############################################################################################################
+
+Plugin Version: "2.7.0"
+
+WorldEdit Schematic-Path: Default Schematic Path
+
+Space Lists: true
+
+Save Function Override: true
+
+Automatic Reload: true
