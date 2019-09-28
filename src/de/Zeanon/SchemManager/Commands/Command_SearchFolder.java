@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager;
+package de.Zeanon.SchemManager.Commands;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
+import de.Zeanon.SchemManager.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Command_SearchFolder {

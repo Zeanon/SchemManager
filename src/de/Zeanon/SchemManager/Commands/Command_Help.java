@@ -1,8 +1,9 @@
-package de.Zeanon.SchemManager;
+package de.Zeanon.SchemManager.Commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import de.Zeanon.SchemManager.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Command_Help {
@@ -15,6 +16,10 @@ public class Command_Help {
 		p.sendMessage(ChatColor.AQUA + "=== SchemManager | Version "
 				+ Bukkit.getServer().getPluginManager().getPlugin("SchemManager").getDescription().getVersion()
 				+ " ===");
+		Helper.sendSuggestMessage(ChatColor.RED + "Get some help: ",
+				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "help", ChatColor.LIGHT_PURPLE + ""
+						+ ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "OMG PLS HELP ME",
+				slash + "schem help", p);
 		Helper.sendSuggestMessage(ChatColor.RED + "Load a schematic: ",
 				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load " + ChatColor.YELLOW + "<"
 						+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",

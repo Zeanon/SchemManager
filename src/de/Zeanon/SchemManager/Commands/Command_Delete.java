@@ -1,9 +1,10 @@
-package de.Zeanon.SchemManager;
+package de.Zeanon.SchemManager.Commands;
 
 import java.io.File;
 
 import org.bukkit.entity.Player;
 
+import de.Zeanon.SchemManager.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Command_Delete {

@@ -1,9 +1,11 @@
-package de.Zeanon.SchemManager;
+package de.Zeanon.SchemManager.Main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.Zeanon.SchemManager.Helper.Helper;
+import de.Zeanon.SchemManager.Listener.MyListener;
 import de.leonhard.storage.Config;
 
 public class Main extends JavaPlugin {

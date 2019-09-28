@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager;
+package de.Zeanon.SchemManager.Commands;
 
 import java.io.File;
 
@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import com.sk89q.worldedit.EmptyClipboardException;
 import com.sk89q.worldedit.LocalSession;
 
+import de.Zeanon.SchemManager.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Command_Save {

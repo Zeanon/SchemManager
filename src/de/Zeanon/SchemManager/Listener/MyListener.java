@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager;
+package de.Zeanon.SchemManager.Listener;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -9,6 +9,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import de.Zeanon.SchemManager.Commands.Command_Delete;
+import de.Zeanon.SchemManager.Commands.Command_DeleteFolder;
+import de.Zeanon.SchemManager.Commands.Command_Folder;
+import de.Zeanon.SchemManager.Commands.Command_Help;
+import de.Zeanon.SchemManager.Commands.Command_List;
+import de.Zeanon.SchemManager.Commands.Command_Rename;
+import de.Zeanon.SchemManager.Commands.Command_RenameFolder;
+import de.Zeanon.SchemManager.Commands.Command_Save;
+import de.Zeanon.SchemManager.Commands.Command_Search;
+import de.Zeanon.SchemManager.Commands.Command_SearchFolder;
+import de.Zeanon.SchemManager.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class MyListener implements Listener {

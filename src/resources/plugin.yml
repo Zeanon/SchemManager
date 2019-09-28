@@ -1,7 +1,8 @@
 name: SchemManager
-version: 3.5.2
+version: 3.5.3
 api-version: 1.14
 authors: [Zeanon, JavaFactoryDev]
 main: de.Zeanon.SchemManager.Main
 softdepend:
 - WorldEdit
+- FastAsyncWorldEdit

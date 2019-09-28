@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.Zeanon.SchemManager</groupId>
 	<artifactId>SchemManager</artifactId>
-	<version>3.5.2</version>
+	<version>3.5.3</version>
 	<build>
-		<defaultGoal>clean install</defaultGoal>
+		<defaultGoal>clean install -U</defaultGoal>
 		<finalName>${project.name}</finalName>
 		<sourceDirectory>${basedir}/src/</sourceDirectory>
 		<resources>
@@ -28,6 +28,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -45,7 +46,7 @@
 					<relocations>
 						<relocation>
 							<pattern>de.leonhard</pattern>
-							<shadedPattern>de.Zeanon.SchemManager.storage</shadedPattern>
+							<shadedPattern>de.Zeanon.SchemManager.Storage</shadedPattern>
 						</relocation>
 					</relocations>
 				</configuration>
@@ -57,16 +58,19 @@
 			<id>LightningStorage</id>
 			<url>http://thewarking.de:8081/repository/Storage/</url>
 		</repository>
+
 		<repository>
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
+
 		<!--Bungeecord Repo -->
 		<!--Only include if using the Spigot API dependency -->
 		<repository>
 			<id>bungeecord-repo</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</repository>
+
 		<repository>
 			<id>enginehub-maven</id>
 			<url>http://maven.enginehub.org/repo/</url>
@@ -81,23 +85,24 @@
 			<version>1.14.4-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>com.sk89q.worldedit</groupId>
 			<artifactId>worldedit-bukkit</artifactId>
 			<version>7.0.1-SNAPSHOT</version>
 		</dependency>
+
 		<dependency>
 			<groupId>de.leonhard</groupId>
 			<artifactId>LightningStorage</artifactId>
 			<version>2.7.4</version>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
 		</dependency>
-
-
 	</dependencies>
 </project>
