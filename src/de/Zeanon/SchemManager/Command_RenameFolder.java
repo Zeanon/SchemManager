@@ -3,7 +3,7 @@ package de.Zeanon.SchemManager;
 import java.io.File;
 import java.io.IOException;
 
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
@@ -20,9 +20,8 @@ public class Command_RenameFolder {
 				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				return false;
 			}
-			if (file_new.exists() && file_new.isDirectory()) {
-				p.sendMessage(
-						ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
+			else if (file_new.exists() && file_new.isDirectory()) {
+				p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 				int id = 0;
 				String[] extension = { "schematic", "schem" };
 				for (File oldFile : FileUtils.listFiles(file_old, extension, true)) {
@@ -50,6 +49,7 @@ public class Command_RenameFolder {
 						}
 					}
 				}
+				
 				int i = 0;
 				for (File oldFolder : Helper.getFolders(file_old, true)) {
 					for (File newFolder : Helper.getFolders(file_new, true)) {
@@ -92,13 +92,15 @@ public class Command_RenameFolder {
 		}
 		
 
-		if (args.length == 5 && Helper.checkRenameFolderRequest(p, args[2])) {
+		else {
 			if (args[4].equals("confirm")) {
 				if (!file_old.exists() || !file_old.isDirectory()) {
+					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
+					Helper.removeRenameFolderRequest(p);
 					return false;
 				}
-				Helper.removeRenameFolderRequest(p);
-				if (file_old.exists() && file_old.isDirectory()) {
+
+				else {
 					if (deepMerge(file_old, file_new)) {
 						try {
 							FileUtils.deleteDirectory(file_old);
@@ -106,13 +108,20 @@ public class Command_RenameFolder {
 							return true;
 						} catch (IOException e) {
 							e.printStackTrace();
+							p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
+							Helper.removeRenameFolderRequest(p);
+							return false;
 						}
 					}
+					else {
+						p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
+						Helper.removeRenameFolderRequest(p);
+						return false;
+					}
 				}
-				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
-				return false;
 			}
-			if (args[4].equals("deny")) {
+			
+			else if (args[4].equals("deny")) {
 				if (!file_old.exists() || !file_old.isDirectory()) {
 					return false;
 				}
@@ -120,8 +129,10 @@ public class Command_RenameFolder {
 				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed");
 				return true;
 			}
+			else {
+				return false;
+			}
 		}
-		return false;
 	}
 	
 	

@@ -28,10 +28,12 @@ public class Command_Delete {
 		else if (args.length == 4 && Helper.checkDeleteRequest(p, args[2])) {
 			if (args[3].equals("confirm")) {
 				if ((!schematicFile.exists() || schematicFile.isDirectory()) && (!schemFile.exists() || schemFile.isDirectory())) {
+					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
+					Helper.removeDeleteRequest(p);
 					return false;
 				}
-				Helper.removeDeleteRequest(p);
-				if ((schematicFile.exists() && !schematicFile.isDirectory()) || (schemFile.exists() && !schemFile.isDirectory())) {
+				
+				else if ((schematicFile.exists() && !schematicFile.isDirectory()) || (schemFile.exists() && !schemFile.isDirectory())) {
 					if (schematicFile.exists()) {
 						schematicFile.delete();
 					}
@@ -39,23 +41,32 @@ public class Command_Delete {
 						schemFile.delete();
 					}
 					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was deleted successfully.");
+					Helper.removeDeleteRequest(p);
 					return true;
 				}
-				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
-				return false;
+				else {
+					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
+					Helper.removeDeleteRequest(p);
+					return false;
+				}
+
 			}
 			else if (args[3].equals("deny")) {
 				if ((!schematicFile.exists() || schematicFile.isDirectory()) && (!schemFile.exists() || schemFile.isDirectory())) {
 					return false;
 				}
-				Helper.removeDeleteRequest(p);
-				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not deleted.");
-				return true;
+				else {
+					Helper.removeDeleteRequest(p);
+					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not deleted.");
+					return true;
+				}
 			}
 			else {
 				return false;
 			}
 		}
-		return false;
+		else {
+			return false;
+		}
 	}
 }

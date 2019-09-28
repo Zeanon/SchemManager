@@ -33,6 +33,13 @@ public class Main extends JavaPlugin {
 			Helper.disable();
 			return;
 		}
-		System.out.println("[SchemManager] Schemmanager v" + Bukkit.getServer().getPluginManager().getPlugin(this.getName()).getDescription().getVersion() + " successfully launched...");
+		else if (!pm.getPlugin("WorldEdit").isEnabled()) {
+			System.out.println("[" + this.getName() + "] could not load plugin, it needs WorldEdit or FastAsyncWorldEdit to work");
+			Helper.disable();
+			return;
+		}
+		else {
+			System.out.println("[" + this.getName() + "] " + this.getName() + " v" + this.getDescription().getVersion() + " successfully launched...");
+		}
 	}
 }

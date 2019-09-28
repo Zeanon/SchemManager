@@ -376,8 +376,7 @@ public class MyListener implements Listener {
 					return true;
 				}
 
-				else if (args.length > 5 || Helper.getBoolean("Save Function Override")
-						&& (args.length > 4 || args.length == 4 && !Helper.checkOverWriteRequest(p, args[2])
+				else if (args.length > 5 || (Helper.getBoolean("Save Function Override") && (args.length > 4 || args.length == 4 && !Helper.checkOverWriteRequest(p, args[2]))
 								&& !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny"))) {
 					event.setCancelled(true);
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -392,8 +391,7 @@ public class MyListener implements Listener {
 
 				else if (Helper.getBoolean("Save Function Override") && !args[2].equals("-f")) {
 					event.setCancelled(true);
-					if (args.length != 3 && (args.length != 4
-							|| !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny"))) {
+					if (args.length != 3 && !Helper.checkOverWriteRequest(p, args[2]) && (args.length != 4 || (!args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save " + ChatColor.YELLOW + "<"
@@ -427,7 +425,7 @@ public class MyListener implements Listener {
 				}
 				
 				if (args.length <= 4) {
-					if (args.length == 4 && !StringUtils.isNumeric(args[3])) {
+					if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[4]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "list " + ChatColor.YELLOW + "["
@@ -478,7 +476,7 @@ public class MyListener implements Listener {
 				}
 				
 				if (args.length <= 4) {
-					if (args.length == 4 && !StringUtils.isNumeric(args[3])) {
+					if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[3]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "folder " + ChatColor.YELLOW + "["
@@ -546,7 +544,7 @@ public class MyListener implements Listener {
 						return true;
 					}
 
-					else if (args.length == 5 && !StringUtils.isNumeric(args[4])) {
+					else if (args.length == 5 && (StringUtils.isNumeric(args[3]) || !StringUtils.isNumeric(args[4]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "["
@@ -617,7 +615,7 @@ public class MyListener implements Listener {
 						return true;
 					}
 
-					else if (args.length == 5 && !StringUtils.isNumeric(args[4])) {
+					else if (args.length == 5 && (StringUtils.isNumeric(args[3]) || !StringUtils.isNumeric(args[4]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW

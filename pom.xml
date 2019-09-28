@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.Zeanon.SchemManager</groupId>
 	<artifactId>SchemManager</artifactId>
-	<version>3.5.1</version>
+	<version>3.5.2</version>
 	<build>
 		<defaultGoal>clean install</defaultGoal>
 		<finalName>${project.name}</finalName>
@@ -91,5 +91,13 @@
 			<artifactId>LightningStorage</artifactId>
 			<version>2.7.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+
 	</dependencies>
 </project>

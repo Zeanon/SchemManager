@@ -28,7 +28,7 @@ public class Helper {
 	
 	private static Plugin plugin;
 	private static String pluginFolderPath;
-	private static String slash;
+	private static String slash = "/";
 	private static String schemFolderPath;
 	private static ArrayList<String> disableRequests = new ArrayList<String>();
 	private static ArrayList<String> updateRequests = new ArrayList<String>();
@@ -258,8 +258,9 @@ public class Helper {
 	public static boolean checkDeleteFolderRequest(Player p, String name) {
 		if (deleteFolderRequests.containsKey(p.getUniqueId().toString())) {
 			return deleteFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		} else {
+			return false;
 		}
-		return false;
 	}
 	
 	
@@ -276,8 +277,9 @@ public class Helper {
 	public static boolean checkRenameRequest(Player p, String name) {
 		if (renameRequests.containsKey(p.getUniqueId().toString())) {
 			return renameRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		} else {
+			return false;
 		}
-		return false;
 	}
 	
 	
@@ -294,8 +296,9 @@ public class Helper {
 	public static boolean checkRenameFolderRequest(Player p, String name) {
 		if (renameFolderRequests.containsKey(p.getUniqueId().toString())) {
 			return renameFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		} else {
+			return false;
 		}
-		return false;
 	}
 	
 	
@@ -312,8 +315,9 @@ public class Helper {
 	public static boolean checkOverWriteRequest(Player p, String name) {
 		if (overwriteRequests.containsKey(p.getUniqueId().toString())) {
 			return overwriteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		} else {
+			return false;
 		}
-		return false;
 	}
 	
 	
@@ -426,6 +430,7 @@ public class Helper {
 				.getName();
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
+			return false;
 		}
 		
 		try {

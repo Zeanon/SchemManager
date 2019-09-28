@@ -3,7 +3,7 @@ package de.Zeanon.SchemManager;
 import java.io.File;
 import java.io.IOException;
 
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
@@ -22,20 +22,21 @@ public class Command_DeleteFolder {
 				Helper.addDeleteFolderRequest(p, args[2]);
 				return true;
 			}
-			if (!file.exists() || !file.isDirectory()) {
+			else {
 				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				return false;
 			}
 		}
 		
 		
-		if (args.length == 4 && Helper.checkDeleteFolderRequest(p, args[2])) {
+		else if (args.length == 4 && Helper.checkDeleteFolderRequest(p, args[2])) {
 			if (args[3].equals("confirm")) {
 				if (!file.exists() || !file.isDirectory()) {
+					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
+					Helper.removeDeleteFolderRequest(p);
 					return false;
 				}
-				Helper.removeDeleteFolderRequest(p);
-				if (file.exists() && file.isDirectory()) {
+				else {
 					try {
 						FileUtils.deleteDirectory(file);
 						p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was deleted successfully.");
@@ -46,18 +47,18 @@ public class Command_DeleteFolder {
 						return false;
 					}
 				}
-				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
-				return false;
 			}
-			if (args[3].equals("deny")) {
-				if (!file.exists() || !file.isDirectory()) {
-					return false;
-				}
+			else if (args[3].equals("deny")) {
 				Helper.removeDeleteFolderRequest(p);
 				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not deleted.");
 				return true;
 			}
+			else {
+				return false;
+			}
 		}
-		return false;
+		else {
+			return false;
+		}
 	}
 }

@@ -31,17 +31,18 @@ public class Command_Save {
 				}
 			} catch (EmptyClipboardException e) {
 				p.sendMessage(ChatColor.RED + "Your clipboard is empty. Use //copy first.");
+				return true;
 			}
 		}
 		
 		
-		if (args.length == 4 && Helper.checkOverWriteRequest(p, args[2])) {
+		else {
 			if (args[3].equals("confirm")) {
 				p.performCommand("/schem save -f " + args[2]);
 				Helper.removeOverWriteRequest(p);
 				return true;
 			}
-			if (args[3].equals("deny")) {
+			else if (args[3].equals("deny")) {
 				if ((!schematicFile.exists() || schematicFile.isDirectory()) && (!schemFile.exists() || schemFile.isDirectory())) {
 					return false;
 				}
@@ -49,7 +50,9 @@ public class Command_Save {
 				p.sendMessage(ChatColor.LIGHT_PURPLE + args[2] + " was not overwritten.");
 				return true;
 			}
+			else {
+				return false;
+			}
 		}
-		return false;
 	}
 }
