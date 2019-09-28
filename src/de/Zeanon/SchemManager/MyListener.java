@@ -133,7 +133,8 @@ public class MyListener implements Listener {
 					&& !args[1].equalsIgnoreCase("rename") && !args[1].equalsIgnoreCase("renamefolder")
 					&& !args[1].equalsIgnoreCase("list") && !args[1].equalsIgnoreCase("folder")
 					&& !args[1].equalsIgnoreCase("search") && !args[1].equalsIgnoreCase("searchfolder")
-					&& !args[1].equalsIgnoreCase("update") && !args[1].equalsIgnoreCase("disable")) {
+					&& !args[1].equalsIgnoreCase("update") && !args[1].equalsIgnoreCase("disable")
+					&& !args[1].equalsIgnoreCase("help")) {
 				event.setCancelled(true);
 				p.sendMessage(ChatColor.RED + "Invalid sub-command '" + ChatColor.GOLD + "" + args[1] + ChatColor.RED
 						+ "'. Options: " + ChatColor.GOLD + "load" + ChatColor.RED + ", " + ChatColor.GOLD + "save"
@@ -684,6 +685,111 @@ public class MyListener implements Listener {
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "update", ChatColor.DARK_GREEN + ""
 									+ ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
 							slash + "schem update", p);
+					return true;
+				}
+			}
+			
+			
+			else if (args[1].equalsIgnoreCase("help")) {
+				if (args.length == 2) {
+					event.setCancelled(true);
+					if (Helper.getBoolean("Space Lists")) {
+						p.sendMessage(" ");
+					}
+	
+					p.sendMessage(ChatColor.AQUA + "=== SchemManager | Version "
+							+ Bukkit.getServer().getPluginManager().getPlugin("SchemManager").getDescription().getVersion()
+							+ " ===");
+					Helper.sendSuggestMessage(ChatColor.RED + "Load a schematic: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load " + ChatColor.YELLOW + "<"
+									+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load "
+									+ ChatColor.GOLD + "example",
+							slash + "schem load ", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "Save a schematic: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save " + ChatColor.YELLOW + "<"
+									+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save "
+									+ ChatColor.GOLD + "example",
+							slash + "schem save ", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "Rename a schematic: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename " + ChatColor.YELLOW + "<"
+									+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename "
+									+ ChatColor.GOLD + "example",
+							slash + "schem rename ", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "Rename a folder: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "renamefolder " + ChatColor.YELLOW + "<"
+									+ ChatColor.GREEN + "name" + ChatColor.YELLOW + ">",
+							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "renamefolder "
+									+ ChatColor.GREEN + "example",
+							slash + "schem renamefolder ", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "Delete a schematic: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete " + ChatColor.YELLOW + "<"
+									+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete "
+									+ ChatColor.GOLD + "example",
+							slash + "schem delete ", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "Delete a folder: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "deletefolder " + ChatColor.YELLOW + "<"
+									+ ChatColor.GREEN + "name" + ChatColor.YELLOW + ">",
+							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "deletefolder "
+									+ ChatColor.GREEN + "example",
+							slash + "schem deletefolder ", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "List schematics: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "list " + ChatColor.YELLOW + "["
+									+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder"
+									+ ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
+							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "list "
+									+ ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
+									+ ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page"
+									+ ChatColor.YELLOW + "]",
+							slash + "schem list ", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "List folder: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "folder " + ChatColor.YELLOW + "["
+									+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder"
+									+ ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
+							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "folder "
+									+ ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
+									+ ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page"
+									+ ChatColor.YELLOW + "]",
+							slash + "schem folder ", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "Search for a schematic: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "["
+									+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder"
+									+ ChatColor.YELLOW + "] <" + ChatColor.GOLD + "name" + ChatColor.YELLOW + "> ["
+									+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
+							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search "
+									+ ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
+									+ ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] " + ChatColor.GOLD + "example"
+									+ ChatColor.YELLOW + " [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
+							slash + "schem search ", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "Search for a folder: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW + "["
+									+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder"
+									+ ChatColor.YELLOW + "] <" + ChatColor.GOLD + "name" + ChatColor.YELLOW + "> ["
+									+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
+							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder "
+									+ ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
+									+ ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] " + ChatColor.GOLD + "example"
+									+ ChatColor.YELLOW + " [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
+							slash + "schem searchfolder ", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "Update the plugin: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "update", ChatColor.DARK_GREEN + ""
+									+ ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
+							slash + "schem update", p);
+					Helper.sendSuggestMessage(ChatColor.RED + "Disable the plugin: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "disable", ChatColor.DARK_RED + ""
+									+ ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",
+							slash + "schem disable", p);
+					return true;
+				}
+				else {
+					p.sendMessage(ChatColor.RED + "Too many arguments.");
+					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "help", ChatColor.LIGHT_PURPLE + ""
+									+ ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS HELP ME",
+							slash + "schem help", p);
 					return true;
 				}
 			}
