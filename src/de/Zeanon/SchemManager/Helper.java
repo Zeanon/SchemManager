@@ -27,9 +27,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 public class Helper {
 	
 	private static Plugin plugin;
-	private static String schemPath;
-	private static String pluginFolder;
-	private static Boolean spacer = false;
+	private static String pluginFolderPath;
+	private static String slash;
+	private static String schemFolderPath;
 	private static ArrayList<String> disableRequests = new ArrayList<String>();
 	private static ArrayList<String> updateRequests = new ArrayList<String>();
 	private static HashMap<String, String> deleteRequests = new HashMap<String, String>();
@@ -44,63 +44,43 @@ public class Helper {
 	@SuppressWarnings("static-access")
 	public Helper (Plugin plugin) {
 		this.plugin = plugin;
-		if (Main.config.getBoolean("Space Lists")) {
-			spacer = true;
-		}
-		String slash = null;
 		if (plugin.getDataFolder().getAbsolutePath().contains("/")) {
 			slash = "/";
 		}
 		if (plugin.getDataFolder().getAbsolutePath().contains("\\")) {
 			slash = "\\\\";
 		}
-		if (Main.config.getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
-			String[] parts = plugin.getDataFolder().getAbsolutePath().split(slash);
-			String path = parts[0] + slash;
-			for (int i = 1; i < parts.length - 1; i++) {
-				path = path + parts[i] + slash;
-			}
-			this.pluginFolder = path;
-			this.schemPath = path + "WorldEdit" + slash + "schematics" + slash;
+		String[] parts = plugin.getDataFolder().getAbsolutePath().split(slash);
+		String path = parts[0] + slash;
+		for (int i = 1; i < parts.length - 1; i++) {
+			path = path + parts[i] + slash;
 		}
-		else {
-			if (Main.config.getString("WorldEdit Schematic-Path").endsWith(slash)) {
-				if (Main.config.getString("WorldEdit Schematic-Path").startsWith(slash)) {
-					this.schemPath = Main.config.getString("WorldEdit Schematic-Path");
-				}
-				else {
-					this.schemPath =  slash + Main.config.getString("WorldEdit Schematic-Path");
-				}
-			}
-			else {
-				if (Main.config.getString("WorldEdit Schematic-Path").startsWith(slash)) {
-					this.schemPath = Main.config.getString("WorldEdit Schematic-Path") + slash;
-				}
-				else {
-					this.schemPath =  slash + Main.config.getString("WorldEdit Schematic-Path") + slash;
-				}
-			}
-		}
+		pluginFolderPath = path;
 	}
 	
+	
+	
 	public static void sendCommandMessage(String message, String commandMessage, String hoverMessage, String command, Player target){
-		TextComponent localMessage = new TextComponent(message);
-		TextComponent commandPart = new TextComponent(commandMessage);
+		new TextComponent();
+		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
+		TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
 		commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
 		commandPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverMessage).create()));
 		localMessage.addExtra(commandPart);
 		target.spigot().sendMessage(localMessage);
 	}
 	
+	
 	public static void sendBooleanMessage(String message, String commandYes, String commandNo, Player target){
-		TextComponent localMessage = new TextComponent(message);
-		TextComponent seperator = new TextComponent(ChatColor.BLACK + " " + ChatColor.BOLD + "| ");
-		TextComponent commandPartYes = new TextComponent(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "[J]");
-		TextComponent commandPartNo = new TextComponent(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[N]");
+		new TextComponent();
+		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
+		TextComponent seperator = new TextComponent(TextComponent.fromLegacyText(ChatColor.BLACK + " " + ChatColor.BOLD + "| "));
+		TextComponent commandPartYes = new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "[Y]"));
+		TextComponent commandPartNo = new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[N]"));
 		commandPartYes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandYes));
-		commandPartYes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "[JA]").create()));
+		commandPartYes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "[YES]"))).create()));
 		commandPartNo.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandNo));
-		commandPartNo.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[NEIN]").create()));
+		commandPartNo.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[NO]"))).create()));
 		localMessage.addExtra(" ");
 		localMessage.addExtra(commandPartYes);
 		localMessage.addExtra(seperator);
@@ -108,14 +88,15 @@ public class Helper {
 		target.spigot().sendMessage(localMessage);
 	}
 	
+	
 	public static void sendScrollMessage(String commandForward, String commandBackward, String messageForward, String messageBackward, Player target, ChatColor buttonColor) {
-		TextComponent localMessage = new TextComponent(ChatColor.AQUA + "=== ");
-		TextComponent commandPartBackward = new TextComponent(buttonColor + "[<<<]");
-		TextComponent commandPartForward = new TextComponent(buttonColor + "[>>>]");
+		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
+		TextComponent commandPartBackward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[<<<]"));
+		TextComponent commandPartForward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[>>>]"));
 		commandPartBackward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandBackward));
-		commandPartBackward.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(messageBackward).create()));
+		commandPartBackward.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(messageBackward))).create()));
 		commandPartForward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandForward));
-		commandPartForward.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(messageForward).create()));
+		commandPartForward.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(messageForward))).create()));
 		localMessage.addExtra(commandPartBackward);
 		localMessage.addExtra(ChatColor.AQUA + " " + ChatColor.BOLD + "| ");
 		localMessage.addExtra(commandPartForward);
@@ -123,79 +104,94 @@ public class Helper {
 		target.spigot().sendMessage(localMessage);
 	}
 	
+	
 	public static void sendSuggestMessage(String message, String suggestMessage, String hoverMessage, String command, Player target){
 		TextComponent localMessage = new TextComponent(message);
 		TextComponent suggestPart = new TextComponent(suggestMessage);
 		suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
-		suggestPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverMessage).create()));
+		suggestPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(hoverMessage))).create()));
 		localMessage.addExtra(suggestPart);
 		target.spigot().sendMessage(localMessage);
 	}
 	
+	
 	public static void sendHoverMessage(String message1, String message2, String message3, String hoverMessage, Player target) {
-		TextComponent localMessage1 = new TextComponent(message1);
-		TextComponent hoverPart = new TextComponent(message2);
-		TextComponent localMessage2 = new TextComponent(message3);
-		hoverPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverMessage).create()));
+		TextComponent localMessage1 = new TextComponent(TextComponent.fromLegacyText(message1));
+		TextComponent hoverPart = new TextComponent(TextComponent.fromLegacyText(message2));
+		TextComponent localMessage2 = new TextComponent(TextComponent.fromLegacyText(message3));
+		hoverPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(hoverMessage))).create()));
 		localMessage1.addExtra(hoverPart);
 		localMessage1.addExtra(localMessage2);
 		target.spigot().sendMessage(localMessage1);
 	}
 	
+	
 	public static void sendInvalidSubCommand(Player target, String slash) {
-		TextComponent base = new TextComponent(ChatColor.RED + "Usage: ");
-		TextComponent schem = new TextComponent(ChatColor.GRAY + slash + "schem");
-		TextComponent load = new TextComponent(ChatColor.AQUA + "load");
-		TextComponent save = new TextComponent(ChatColor.AQUA + "save");
-		TextComponent delete = new TextComponent(ChatColor.AQUA + "delete");
-		TextComponent deletefolder = new TextComponent(ChatColor.AQUA + "deletefolder");
-		TextComponent list = new TextComponent(ChatColor.AQUA + "list");
-		TextComponent folder = new TextComponent(ChatColor.AQUA + "folder");
-		TextComponent search = new TextComponent(ChatColor.AQUA + "search");
-		TextComponent searchfolder = new TextComponent(ChatColor.AQUA + "searchfolder");
-		TextComponent update = new TextComponent(ChatColor.AQUA + "update");
+		TextComponent base = new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "Usage: "));
+		TextComponent schem = new TextComponent(TextComponent.fromLegacyText(ChatColor.GRAY + slash + "schem"));
+		TextComponent load = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "load"));
+		TextComponent save = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "save"));
+		TextComponent rename = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "delete"));
+		TextComponent renamefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "deletefolder"));
+		TextComponent delete = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "delete"));
+		TextComponent deletefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "deletefolder"));
+		TextComponent list = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "list"));
+		TextComponent folder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "folder"));
+		TextComponent search = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "search"));
+		TextComponent searchfolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "searchfolder"));
+		TextComponent update = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "update"));
 		schem.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem "));
-		schem.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.RED + "z.B. " + ChatColor.GRAY + "" + slash + "schem").create()));
+		schem.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem"))).create()));
 		load.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem load "));
-		load.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.RED + "z.B. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "load" + ChatColor.GOLD + " Beispiel").create()));
+		load.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "load" + ChatColor.GOLD + " example"))).create()));
 		list.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem list "));
-		list.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.RED + "z.B. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "list " + ChatColor.YELLOW + "[" + ChatColor.GREEN + "Bsp" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]").create()));
+		list.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "list " + ChatColor.YELLOW + "[" + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]"))).create()));
+		rename.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem rename "));
+		rename.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "rename" + ChatColor.GOLD + " example"))).create()));
+		renamefolder.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem renamefolder "));
+		renamefolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "renamefolder" + ChatColor.GREEN + " example"))).create()));		
 		delete.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem delete "));
-		delete.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.RED + "z.B. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "delete" + ChatColor.GOLD + " Beispiel").create()));
+		delete.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "delete" + ChatColor.GOLD + " example"))).create()));
 		deletefolder.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem deletefolder "));
-		deletefolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.RED + "z.B. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "deletefolder" + ChatColor.GREEN + " Beispiel").create()));		
+		deletefolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "deletefolder" + ChatColor.GREEN + " example"))).create()));		
 		save.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem save "));
-		save.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.RED + "z.B. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "save" + ChatColor.GOLD + " Beispiel").create()));
+		save.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "save" + ChatColor.GOLD + " example"))).create()));
 		search.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem search "));
-		search.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.RED + "z.B. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "[" + ChatColor.GREEN + "Bsp" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]").create()));
+		search.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]"))).create()));
 		folder.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem folder "));
-		folder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.RED + "z.B. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "folder " + ChatColor.YELLOW + "[" + ChatColor.GREEN + "Bsp" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]").create()));
+		folder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "folder " + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]"))).create()));
 		searchfolder.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem searchfolder "));
-		searchfolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.RED + "z.B. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW + "[" + ChatColor.GREEN + "Bsp" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]").create()));
+		searchfolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW + "[" + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]"))).create()));
 		update.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem update"));
-		update.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!").create()));
+		update.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!"))).create()));
 		base.addExtra(schem);
-		base.addExtra(ChatColor.YELLOW + " <");
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + " <")));
 		base.addExtra(load);
-		base.addExtra(ChatColor.YELLOW + "|");
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(save);
-		base.addExtra(ChatColor.YELLOW + "|");
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
+		base.addExtra(rename);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
+		base.addExtra(renamefolder);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(delete);
-		base.addExtra(ChatColor.YELLOW + "|");
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(deletefolder);
-		base.addExtra(ChatColor.YELLOW + "|");		
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(list);
-		base.addExtra(ChatColor.YELLOW + "|");
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(folder);
-		base.addExtra(ChatColor.YELLOW + "|");
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(search);
-		base.addExtra(ChatColor.YELLOW + "|");
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(searchfolder);
-		base.addExtra(ChatColor.YELLOW + "|");
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(update);
-		base.addExtra(ChatColor.YELLOW + ">");
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + ">")));
 		target.spigot().sendMessage(base);
 	}
+	
+	
 	
 	public static void addDisableRequest(Player p) {
 		if (!disableRequests.contains(p.getUniqueId().toString())) {
@@ -213,6 +209,7 @@ public class Helper {
 		return disableRequests.contains(p.getUniqueId().toString());
 	}
 	
+	
 	public static void addUpdateRequest(Player p) {
 		if (!updateRequests.contains(p.getUniqueId().toString())) {
 			updateRequests.add(p.getUniqueId().toString());
@@ -228,6 +225,7 @@ public class Helper {
 	public static boolean checkUpdateRequest(Player p) {
 		return updateRequests.contains(p.getUniqueId().toString());
 	}
+	
 	
 	public static void addDeleteRequest(Player p, String name) {
 		deleteRequests.put(p.getUniqueId().toString(), name);
@@ -246,6 +244,7 @@ public class Helper {
 		return false;
 	}
 	
+	
 	public static void addDeleteFolderRequest(Player p, String name) {
 		deleteFolderRequests.put(p.getUniqueId().toString(), name);
 	}
@@ -262,6 +261,7 @@ public class Helper {
 		}
 		return false;
 	}
+	
 	
 	public static void addRenameRequest(Player p, String name) {
 		renameRequests.put(p.getUniqueId().toString(), name);
@@ -280,6 +280,7 @@ public class Helper {
 		return false;
 	}
 	
+	
 	public static void addRenameFolderRequest(Player p, String name) {
 		renameFolderRequests.put(p.getUniqueId().toString(), name);
 	}
@@ -296,6 +297,7 @@ public class Helper {
 		}
 		return false;
 	}
+	
 	
 	public static void addOverwriteRequest(Player p, String name) {
 		overwriteRequests.put(p.getUniqueId().toString(), name);
@@ -314,13 +316,7 @@ public class Helper {
 		return false;
 	}
 	
-	public static void clearLists() {
-		disableRequests.clear();
-		updateRequests.clear();
-		deleteRequests.clear();
-		deleteFolderRequests.clear();
-		overwriteRequests.clear();
-	}
+	
 	
 	public static ArrayList<File> getFolders(File folder, Boolean deep) {
 		ArrayList<File> files = new ArrayList<File>();
@@ -335,15 +331,90 @@ public class Helper {
 		return files;
 	}
 	
+	
 	public static String getSchemPath() {
-		return schemPath;
+		if (Main.config.hasNotChanged()) {
+			return schemFolderPath;
+		}
+		else {
+			if (getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
+				schemFolderPath = pluginFolderPath + "WorldEdit" + slash + "schematics" + slash;
+				return pluginFolderPath + "WorldEdit" + slash + "schematics" + slash;
+			}
+			else {
+				if (slash.equals("\\\\")) {
+					if (getString("WorldEdit Schematic-Path").endsWith(slash)) {
+						schemFolderPath = getString("WorldEdit Schematic-Path");
+						return getString("WorldEdit Schematic-Path");
+					}
+					else {
+						schemFolderPath = getString("WorldEdit Schematic-Path") + slash;
+						return getString("WorldEdit Schematic-Path") + slash;
+					}
+				}
+				else {
+					if (getString("WorldEdit Schematic-Path").endsWith(slash)) {
+						if (getString("WorldEdit Schematic-Path").startsWith(slash)) {
+							schemFolderPath = getString("WorldEdit Schematic-Path");
+							return getString("WorldEdit Schematic-Path");
+						}
+						else {
+							schemFolderPath = slash + getString("WorldEdit Schematic-Path");
+							return slash + getString("WorldEdit Schematic-Path");
+						}
+					}
+					else {
+						if (getString("WorldEdit Schematic-Path").startsWith(slash)) {
+							schemFolderPath = getString("WorldEdit Schematic-Path") + slash;
+							return getString("WorldEdit Schematic-Path") + slash;
+						}
+						else {
+							schemFolderPath = slash + getString("WorldEdit Schematic-Path") + slash;
+							return slash + getString("WorldEdit Schematic-Path") + slash;
+						}
+					}
+				}
+			}
+		}
 	}
 	
-	public static Boolean getSpacer() {
-		return spacer;
+	
+	
+	public static String getString(String path) {
+		if (Main.config.contains(path)) {
+			return Main.config.getString(path);
+		}
+		else {
+			updateConfig();
+			Main.config.update();
+			return Main.config.getString(path);
+		}
 	}
 	
-	@SuppressWarnings("finally")
+	public static int getInt(String path) {
+		if (Main.config.contains(path)) {
+			return Main.config.getInt(path);
+		}
+		else {
+			updateConfig();
+			Main.config.update();
+			return Main.config.getInt(path);
+		}
+	}
+	
+	public static boolean getBoolean(String path) {
+		if (Main.config.contains(path)) {
+			return Main.config.getBoolean(path);
+		}
+		else {
+			updateConfig();
+			Main.config.update();
+			return Main.config.getBoolean(path);
+		}
+	}
+	
+	
+	
 	public static boolean update(Player p) {
 		String fileName = null;
 		try {
@@ -358,29 +429,29 @@ public class Helper {
 		}
 		
 		try {
-			File file = new File(pluginFolder + fileName);
+			File file = new File(pluginFolderPath + fileName);
 			BufferedInputStream inputStream = null;
 			FileOutputStream outputStream = null;
 			try {
 				inputStream = new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream());
 				if (!file.exists()) {
-					Files.copy(inputStream, Paths.get(pluginFolder + fileName), StandardCopyOption.REPLACE_EXISTING);
+					Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
 				}
 				else {
-					outputStream = new FileOutputStream(pluginFolder + fileName);
+					outputStream = new FileOutputStream(file.getAbsolutePath());
 					final byte data[] = new byte[1024];
 					int count;
 					while ((count = inputStream.read(data, 0, 1024)) != -1) {
 							outputStream.write(data, 0, count);
 					}
 				}
-				p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " wurde geupdatet.");
-				if (Main.config.getBoolean("Automatic Reload")) {
+				p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
+				if (getBoolean("Automatic Reload")) {
 					Bukkit.getServer().reload();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-				p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " konnte nicht geupdatet werden.");
+				p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
 				return false;
 			}
 			finally {
@@ -390,15 +461,100 @@ public class Helper {
 				if (outputStream != null) {
 					outputStream.close();
 				}
-				return true;
 			}
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 	
+	
+	
+	public static boolean updateConfig() {
+		if (!Main.config.contains("WorldEdit Schematic-Path") || !Main.config.contains("Listmax") || !Main.config.contains("Space Lists") || !Main.config.contains("Save Function Override") || !Main.config.contains("Automatic Reload") || !Main.config.contains("Plugin Version") || !Main.config.getString("Plugin Version").equals(Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion())) {
+			String schemPath = null;
+			if (Main.config.contains("WorldEdit Schematic-Path")) {
+				schemPath = Main.config.getString("WorldEdit Schematic-Path");
+			}
+			int listmax = 10;
+			if (Main.config.contains("Listmax")) {
+				listmax = Main.config.getInt("Listmax");
+			}
+			boolean spaceLists = true;
+			if (Main.config.contains("Space Lists")) {
+				spaceLists= Main.config.getBoolean("Space Lists");
+			}
+			boolean saveOverride = true;
+			if (Main.config.contains("Save Function Override")) {
+				saveOverride =  Main.config.getBoolean("Save Function Override");
+			}
+			boolean autoReload = true;
+			if (Main.config.contains("Automatic Reload")) {
+				autoReload = Main.config.getBoolean("Automatic Reload");
+			}
+			
+			try {
+				File file = new File(plugin.getDataFolder(), "config.yml");
+				BufferedInputStream inputStream = null;
+				FileOutputStream outputStream = null;
+				try {
+					inputStream = new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/config.yml").openStream());
+					if (!file.exists()) {
+						Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+					}
+					else {
+						outputStream = new FileOutputStream(file.getAbsolutePath());
+						final byte data[] = new byte[1024];
+						int count;
+						while ((count = inputStream.read(data, 0, 1024)) != -1) {
+								outputStream.write(data, 0, count);
+						}
+					}
+					Main.config.update();
+					Main.config.set("Plugin Version", Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion());
+					if (schemPath != null) {
+						Main.config.set("WorldEdit Schematic-Path", schemPath);
+					}
+					if (listmax != 10) {
+						Main.config.set("Listmax", listmax);
+					}
+					if (!spaceLists) {
+						Main.config.set("Space Lists", spaceLists);
+					}
+					if (!saveOverride) {
+						Main.config.set("Save Function Override", saveOverride);
+					}
+					if (!autoReload) {
+						Main.config.set("Save Function Override", autoReload);
+					}
+					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + Main.config.getFile().getName() +" updated");
+					
+				} catch (IOException e) {
+					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + Main.config.getFile().getName() +" could not be updated");
+					e.printStackTrace();
+					return false;
+				}
+				finally {
+					if (inputStream != null) {
+						inputStream.close();
+					}
+					if (outputStream != null) {
+						outputStream.close();
+					}
+				}
+				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	
 	public static void disable() {
-		Bukkit.getPluginManager().disablePlugin(plugin);
+		Bukkit.getPluginManager().disablePlugin(Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()));
 	}
 }

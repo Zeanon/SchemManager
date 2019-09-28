@@ -1,7 +1,8 @@
 name: SchemManager
-version: 2.7.0
+version: 3.5.1
 api-version: 1.14
 author: Zeanon
+authors: [JavaFactoryDev]
 main: de.Zeanon.SchemManager.Main
 depend:
 - WorldEdit

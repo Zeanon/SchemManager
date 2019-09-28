@@ -21,8 +21,8 @@ public class Command_Save {
 				session.getClipboard();
 				Helper.addOverwriteRequest(p, args[2]);
 				if ((schematicFile.exists() && !schematicFile.isDirectory()) || (schemFile.exists() && !schemFile.isDirectory())) {
-					p.sendMessage(ChatColor.RED + "Die Schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " existiert bereits.");
-					Helper.sendBooleanMessage(ChatColor.RED + "Möchtest du " + ChatColor.GOLD + args[2] + ChatColor.RED + " überschreiben?", "//schem save " + args[2] + " confirm", "//schem save " + args[2] + " deny", p);
+					p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
+					Helper.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem save " + args[2] + " confirm", "//schem save " + args[2] + " deny", p);
 					return true;
 				}
 				else {
@@ -33,6 +33,8 @@ public class Command_Save {
 				p.sendMessage(ChatColor.RED + "Your clipboard is empty. Use //copy first.");
 			}
 		}
+		
+		
 		if (args.length == 4 && Helper.checkOverWriteRequest(p, args[2])) {
 			if (args[3].equals("confirm")) {
 				p.performCommand("/schem save -f " + args[2]);

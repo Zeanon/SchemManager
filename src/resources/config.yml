@@ -1,18 +1,28 @@
 ###############################################################################################################
 #||=========================================================================================================||#
-#|| SchemManager Konfigurationsdatei                                                                        ||#
-#|| mit -d kann man Unterordner durchsuchen                                                                 ||#
 #||                                                                                                         ||#
-#|| Der Schem Path muss nur editiert werden, wenn Standard Worldedit Pfad fuer schematics veraendert wurde. ||#
-#|| Space lists: Soll eine Leerzeiche vor jede Schem Liste gesetzt werden                                   ||#
-#|| Save Function Overide: Soll das Plugin auch den schem save Command ueberschreiben?                      ||#
-#|| Autoreload: Soll das Plugin nach einem Update den Server automatisch reloaden?                          ||#
+#||                                     SchemManager Config-File                                            ||#
+#||                                         Plugin by Zeanon                                                ||#
+#||                    Config-Management-System: LightningStorage by JavaFactoryDev                         ||#
+#||                                                                                                         ||#
 #||=========================================================================================================||#
 ###############################################################################################################
+#                                                                                                             #
+###############################################################################################################
+# You don't need to reload the plugin when editing the config, it will automatically detect changes.          #
+# You can perform a deep search or deep listing by using -d                                                   #  
+# You only need to edit WorldEdit Schematic-Path when you use a path other than the standard WorldEdit path.  #
+# Listmax: The maximum amount of schems per page to be shown.                                                 #
+# Space Lists: Should there be a blank line before each schem or folder page?                                 #
+# Save Funtion Override: Should the basic save function be overridden by the plugin?                          #
+# Automatic Reload: Should the plugin reload the Server after it got updated?                                 #
+###############################################################################################################
 
-Plugin Version: "2.7.0"
+Plugin Version: "3.5.1"
 
 WorldEdit Schematic-Path: Default Schematic Path
+ 
+Listmax: 10
 
 Space Lists: true
 
