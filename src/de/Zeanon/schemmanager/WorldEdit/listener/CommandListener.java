@@ -31,20 +31,20 @@ public class CommandListener implements Listener {
 
 	private boolean worldguardEnabled = false;
 	private Plugin plugin;
-	
+
 	public CommandListener(Plugin plugin) {
 		this.plugin = plugin;
 		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null && Bukkit.getPluginManager().getPlugin("WorldGuard").isEnabled()) {
 			this.worldguardEnabled = true;
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public boolean onCommand(PlayerCommandPreprocessEvent event) {
 		String message = event.getMessage().replaceAll("worldedit:", "/");
 		Player p;
 		String[] args;
-		
+
 		if (message.toLowerCase().startsWith("/schem") || message.toLowerCase().startsWith("/schematic")
 				|| message.toLowerCase().startsWith("//schem") || message.toLowerCase().startsWith("//schematic")) {
 			p = event.getPlayer();
@@ -55,15 +55,16 @@ public class CommandListener implements Listener {
 			} else {
 				slash = "/";
 			}
-			
+
 
 			if (args.length == 1) {
 				event.setCancelled(true);
 				return Help.onHelp(p, slash);
 			}
-			
 
-			else if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del")) && p.hasPermission("worldedit.schematic.delete")) {
+			if (!p.hasPermission("worldedit.schematic.delete")) {
+				return false;
+			} else if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del"))) {
 				event.setCancelled(true);
 				if (args.length <= 4) {
 					if (args.length < 3) {
@@ -76,9 +77,7 @@ public class CommandListener implements Listener {
 										+ ChatColor.GOLD + "example",
 								slash + "schem delete ", p);
 						return true;
-					}
-
-					else if (!Helper.checkDeleteRequest(p, args[2])
+					} else if (!Helper.checkDeleteRequest(p, args[2])
 							&& !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
@@ -88,14 +87,10 @@ public class CommandListener implements Listener {
 										+ ChatColor.GOLD + "example",
 								slash + "schem delete ", p);
 						return true;
-					}
-					
-					else {
+					} else {
 						return Delete.onDelete(p, args);
 					}
-				}
-				
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete " + ChatColor.YELLOW + "<"
@@ -105,10 +100,7 @@ public class CommandListener implements Listener {
 							slash + "schem delete ", p);
 					return true;
 				}
-			}
-			
-
-			else if ((args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("delfolder")) && p.hasPermission("worldedit.schematic.delete")) {
+			} else if ((args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("delfolder")) && p.hasPermission("worldedit.schematic.delete")) {
 				event.setCancelled(true);
 				if (args.length <= 4) {
 					if (args.length < 3) {
@@ -121,9 +113,7 @@ public class CommandListener implements Listener {
 										+ "deletefolder " + ChatColor.GREEN + "example",
 								slash + "schem deletefolder ", p);
 						return true;
-					}
-
-					else if (args.length == 4 && !Helper.checkDeleteFolderRequest(p, args[2])
+					} else if (args.length == 4 && !Helper.checkDeleteFolderRequest(p, args[2])
 							&& !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
@@ -133,14 +123,10 @@ public class CommandListener implements Listener {
 										+ "deletefolder " + ChatColor.GREEN + "example",
 								slash + "schem deletefolder ", p);
 						return true;
-					}
-					
-					else {
+					} else {
 						return DeleteFolder.onDeleteFolder(p, args);
 					}
-				}
-				
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "deletefolder " + ChatColor.YELLOW + "<"
@@ -150,10 +136,7 @@ public class CommandListener implements Listener {
 							slash + "schem deletefolder ", p);
 					return true;
 				}
-			}
-			
-
-			else if (args[1].equalsIgnoreCase("rename") && p.hasPermission("worldedit.schematic.save")) {
+			} else if (args[1].equalsIgnoreCase("rename") && p.hasPermission("worldedit.schematic.save")) {
 				event.setCancelled(true);
 				if (args.length <= 5) {
 					if (args.length < 3) {
@@ -166,9 +149,7 @@ public class CommandListener implements Listener {
 										+ ChatColor.GOLD + "example newname",
 								slash + "schem rename ", p);
 						return true;
-					}
-
-					else if (args.length == 5 && !Helper.checkRenameRequest(p, args[2])
+					} else if (args.length == 5 && !Helper.checkRenameRequest(p, args[2])
 							&& !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
@@ -178,14 +159,10 @@ public class CommandListener implements Listener {
 										+ ChatColor.GOLD + "example newname",
 								slash + "schem rename ", p);
 						return true;
-					}
-					
-					else {
+					} else {
 						return Rename.onRename(p, args);
 					}
-				}
-				
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename " + ChatColor.YELLOW + "<"
@@ -195,10 +172,7 @@ public class CommandListener implements Listener {
 							slash + "schem rename ", p);
 					return true;
 				}
-			}
-			
-
-			else if (args[1].equalsIgnoreCase("renamefolder") && p.hasPermission("worldedit.schematic.save")) {
+			} else if (args[1].equalsIgnoreCase("renamefolder") && p.hasPermission("worldedit.schematic.save")) {
 				event.setCancelled(true);
 				if (args.length <= 5) {
 					if (args.length < 3) {
@@ -211,9 +185,7 @@ public class CommandListener implements Listener {
 										+ "renamefolder " + ChatColor.GREEN + "example newname",
 								slash + "schem renamefolder ", p);
 						return true;
-					}
-
-					else if (args.length == 5 && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny") && !Helper.checkRenameFolderRequest(p, args[2])) {
+					} else if (args.length == 5 && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny") && !Helper.checkRenameFolderRequest(p, args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "renamefolder " + ChatColor.YELLOW
@@ -222,14 +194,10 @@ public class CommandListener implements Listener {
 										+ "renamefolder " + ChatColor.GREEN + "example newname",
 								slash + "schem renamefolder ", p);
 						return true;
-					}
-					
-					else {
+					} else {
 						return RenameFolder.onRenameFolder(p, args);
 					}
-				}
-
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "renamefolder " + ChatColor.YELLOW + "<"
@@ -239,10 +207,7 @@ public class CommandListener implements Listener {
 							slash + "schem renamefolder ", p);
 					return true;
 				}
-			}
-			
-
-			else if (args[1].equalsIgnoreCase("load") && p.hasPermission("worldedit.schematic.load")) {
+			} else if (args[1].equalsIgnoreCase("load") && p.hasPermission("worldedit.schematic.load")) {
 				if (args.length < 3) {
 					event.setCancelled(true);
 					p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
@@ -254,9 +219,7 @@ public class CommandListener implements Listener {
 									+ ChatColor.GOLD + "example",
 							slash + "schem load ", p);
 					return true;
-				}
-
-				else if (args.length > 3) {
+				} else if (args.length > 3) {
 					event.setCancelled(true);
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
@@ -269,15 +232,11 @@ public class CommandListener implements Listener {
 				} else {
 					return true;
 				}
-			}
-			
-
-			else if (args[1].equalsIgnoreCase("save") && p.hasPermission("worldedit.schematic.save")) {
-				if (!Helper.getBoolean("Save Function Override")){
+			} else if (args[1].equalsIgnoreCase("save") && p.hasPermission("worldedit.schematic.save")) {
+				if (!Helper.getBoolean("Save Function Override")) {
 					//TODO
 					return true;
-				}
-				else if (args[2].equals("-f") && args.length > 2 && args.length < 5) {
+				} else if (args[2].equals("-f") && args.length > 2 && args.length < 5) {
 					if (args.length == 3) {
 						event.setCancelled(true);
 						p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
@@ -289,12 +248,10 @@ public class CommandListener implements Listener {
 										+ ChatColor.GOLD + "example",
 								slash + "schem save ", p);
 						return true;
-					}
-					else {
+					} else {
 						return true;
 					}
-				}
-				else {
+				} else {
 					event.setCancelled(true);
 					if (args.length < 3) {
 						p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
@@ -306,9 +263,7 @@ public class CommandListener implements Listener {
 										+ ChatColor.GOLD + "example",
 								slash + "schem save ", p);
 						return true;
-					}
-					
-					else if (args.length > 4) {
+					} else if (args.length > 4) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save " + ChatColor.YELLOW + "<"
@@ -317,9 +272,7 @@ public class CommandListener implements Listener {
 										+ ChatColor.GOLD + "example",
 								slash + "schem save ", p);
 						return true;
-					}
-					
-					else {
+					} else {
 						if (!Helper.checkDeleteRequest(p, args[2]) && args.length == 4 && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
 							p.sendMessage(ChatColor.RED + "Too many arguments.");
 							Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
@@ -329,17 +282,12 @@ public class CommandListener implements Listener {
 											+ ChatColor.GOLD + "example",
 									slash + "schem save ", p);
 							return true;
-						}
-	
-						else {
+						} else {
 							return Save.onSave(p, args);
 						}
 					}
 				}
-			}
-			
-
-			else if (args[1].equalsIgnoreCase("list") && p.hasPermission("worldedit.schematic.list")) {
+			} else if (args[1].equalsIgnoreCase("list") && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
 				boolean deep = false;
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
@@ -350,7 +298,7 @@ public class CommandListener implements Listener {
 					deep = true;
 					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-d"));
 				}
-				
+
 				if (args.length <= 4) {
 					if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[3]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -365,14 +313,10 @@ public class CommandListener implements Listener {
 										+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
 								slash + "schem list ", p);
 						return true;
-					}
-
-					else {
+					} else {
 						return List.onList(p, args, deep);
 					}
-				}
-
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "list " + ChatColor.YELLOW + "["
@@ -385,13 +329,10 @@ public class CommandListener implements Listener {
 							slash + "schem list ", p);
 					return true;
 				}
-			}
-			
-
-			else if (args[1].equalsIgnoreCase("folder") && p.hasPermission("worldedit.schematic.list")) {
+			} else if (args[1].equalsIgnoreCase("folder") && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
 				boolean deep = false;
-				
+
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
 					deep = true;
 					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-deep"));
@@ -400,7 +341,7 @@ public class CommandListener implements Listener {
 					deep = true;
 					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-d"));
 				}
-				
+
 				if (args.length <= 4) {
 					if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[3]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -415,14 +356,10 @@ public class CommandListener implements Listener {
 										+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
 								slash + "schem folder ", p);
 						return true;
-					}
-					
-					else {
+					} else {
 						return Folder.onFolder(p, args, deep);
 					}
-				}
-
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "folder " + ChatColor.YELLOW + "["
@@ -435,10 +372,7 @@ public class CommandListener implements Listener {
 							slash + "schem folder ", p);
 					return true;
 				}
-			}
-			
-
-			else if (args[1].equalsIgnoreCase("search") && p.hasPermission("worldedit.schematic.list")) {
+			} else if (args[1].equalsIgnoreCase("search") && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
 				boolean deep = false;
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
@@ -467,9 +401,7 @@ public class CommandListener implements Listener {
 										+ ChatColor.YELLOW + "]",
 								slash + "schem search ", p);
 						return true;
-					}
-
-					else if (args.length == 5 && (StringUtils.isNumeric(args[2]) || StringUtils.isNumeric(args[3]) || !StringUtils.isNumeric(args[4]))) {
+					} else if (args.length == 5 && (StringUtils.isNumeric(args[2]) || StringUtils.isNumeric(args[3]) || !StringUtils.isNumeric(args[4]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "["
@@ -484,14 +416,10 @@ public class CommandListener implements Listener {
 										+ ChatColor.YELLOW + "]",
 								slash + "schem search ", p);
 						return true;
-					}
-
-					else {
+					} else {
 						return Search.onSearch(p, args, deep);
 					}
-				}
-
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "["
@@ -505,10 +433,7 @@ public class CommandListener implements Listener {
 							slash + "schem search ", p);
 					return true;
 				}
-			}
-			
-
-			else if (args[1].equalsIgnoreCase("searchfolder") && p.hasPermission("worldedit.schematic.list")) {
+			} else if (args[1].equalsIgnoreCase("searchfolder") && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
 				boolean deep = false;
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
@@ -537,9 +462,7 @@ public class CommandListener implements Listener {
 										+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
 								slash + "schem searchfolder ", p);
 						return true;
-					}
-
-					else if (args.length == 5 && (StringUtils.isNumeric(args[2]) || StringUtils.isNumeric(args[3]) || !StringUtils.isNumeric(args[4]))) {
+					} else if (args.length == 5 && (StringUtils.isNumeric(args[2]) || StringUtils.isNumeric(args[3]) || !StringUtils.isNumeric(args[4]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW
@@ -554,14 +477,10 @@ public class CommandListener implements Listener {
 										+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
 								slash + "schem searchfolder ", p);
 						return true;
-					}
-
-					else {
+					} else {
 						return SearchFolder.onSearchFolder(p, args, deep);
 					}
-				}
-
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW + "["
@@ -575,36 +494,26 @@ public class CommandListener implements Listener {
 							slash + "schem searchfolder ", p);
 					return true;
 				}
-			}
-			
-
-			else if (args[1].equalsIgnoreCase("update") && p.hasPermission("schemmanager.update")) {
+			} else if (args[1].equalsIgnoreCase("update") && p.hasPermission("schemmanager.update")) {
 				event.setCancelled(true);
 				if (args.length == 2) {
 					Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to update?", "//schem update confirm",
 							"//schem update deny", p);
 					Helper.addUpdateRequest(p);
 					return true;
-				}
-
-				else if (args.length == 3 && (args[2].equalsIgnoreCase("confirm") || args[2].equalsIgnoreCase("deny"))) {
+				} else if (args.length == 3 && (args[2].equalsIgnoreCase("confirm") || args[2].equalsIgnoreCase("deny"))) {
 					if (args[2].equalsIgnoreCase("confirm") && Helper.checkUpdateRequest(p)) {
 						p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is updating...");
 						Helper.removeUpdateRequest(p);
 						return Helper.update(p);
-					}
-
-					else if (args[2].equalsIgnoreCase("deny") && Helper.checkUpdateRequest(p)) {
+					} else if (args[2].equalsIgnoreCase("deny") && Helper.checkUpdateRequest(p)) {
 						Helper.removeUpdateRequest(p);
 						p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " will not be updated.");
 						return true;
-					}
-					else {
+					} else {
 						return true;
 					}
-				}
-
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "update", ChatColor.DARK_GREEN + ""
@@ -612,15 +521,11 @@ public class CommandListener implements Listener {
 							slash + "schem update", p);
 					return true;
 				}
-			}
-			
-			
-			else if (args[1].equalsIgnoreCase("help")) {
+			} else if (args[1].equalsIgnoreCase("help")) {
 				event.setCancelled(true);
 				if (args.length == 2) {
 					return Help.onHelp(p, slash);
-				}
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "help", ChatColor.LIGHT_PURPLE + ""
@@ -628,27 +533,20 @@ public class CommandListener implements Listener {
 							slash + "schem help", p);
 					return true;
 				}
-			}
-			
-
-			else if (args[1].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {
+			} else if (args[1].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {
 				event.setCancelled(true);
 				if (args.length == 2) {
 					Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to disable " + ChatColor.DARK_PURPLE
-							+ "SchemManager" + ChatColor.RED + "? ", "//schem disable confirm", "//schem disable deny",
+									+ "SchemManager" + ChatColor.RED + "? ", "//schem disable confirm", "//schem disable deny",
 							p);
 					Helper.addDisableRequest(p);
 					return true;
-				}
-
-				else if (args.length == 3 && (args[2].equalsIgnoreCase("confirm") || args[2].equalsIgnoreCase("deny"))) {
+				} else if (args.length == 3 && (args[2].equalsIgnoreCase("confirm") || args[2].equalsIgnoreCase("deny"))) {
 					if (args[2].equalsIgnoreCase("confirm") && Helper.checkDisableRequest(p)) {
 						p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is being disabled.");
 						WorldEditVersionMain.disable();
 						return true;
-					}
-
-					else if (args[2].equalsIgnoreCase("deny") && Helper.checkDisableRequest(p)) {
+					} else if (args[2].equalsIgnoreCase("deny") && Helper.checkDisableRequest(p)) {
 						Helper.removeDisableRequest(p);
 						p.sendMessage(
 								ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " will not be disabled.");
@@ -656,9 +554,7 @@ public class CommandListener implements Listener {
 					} else {
 						return true;
 					}
-				}
-				
-				else {
+				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "disable", ChatColor.DARK_RED + ""
@@ -666,9 +562,7 @@ public class CommandListener implements Listener {
 							slash + "schem disable", p);
 					return true;
 				}
-			}
-
-			else {
+			} else {
 				event.setCancelled(true);
 				p.sendMessage(ChatColor.RED + "Invalid sub-command '" + ChatColor.GOLD + "" + args[1] + ChatColor.RED
 						+ "'. Options: " + ChatColor.GOLD + "help" + ChatColor.RED + ", " + ChatColor.GOLD + "load" + ChatColor.RED + ", " + ChatColor.GOLD + "save"
@@ -681,10 +575,7 @@ public class CommandListener implements Listener {
 				Helper.sendInvalidSubCommand(p, slash);
 				return true;
 			}
-		}
-		
-		
-		else if (message.toLowerCase().startsWith("/stoplag") && this.worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
+		} else if (message.toLowerCase().startsWith("/stoplag") && this.worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
 			p = event.getPlayer();
 			args = event.getMessage().split(" ");
 			if (p.hasPermission("worldguard.halt-activity") && args.length == 1) {
@@ -698,8 +589,7 @@ public class CommandListener implements Listener {
 			return false;
 		}
 	}
-	
-	
+
 
 	public void onQuit(PlayerQuitEvent event) {
 		Player p = event.getPlayer();
@@ -711,16 +601,15 @@ public class CommandListener implements Listener {
 		Helper.removeRenameFolderRequest(p);
 		Helper.removeOverWriteRequest(p);
 	}
-	
-	
+
+
 	public void onPluginDisable(PluginDisableEvent e) {
 		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
 			if (Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit") != null && Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit").isEnabled()) {
 				WorldEditVersionMain.disable();
 				Bukkit.getPluginManager().enablePlugin(this.plugin);
 				return;
-			}
-			else {
+			} else {
 				System.out.println("[" + this.plugin.getName() + "] >> disabling Plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
 				WorldEditVersionMain.disable();
 				return;
@@ -731,7 +620,7 @@ public class CommandListener implements Listener {
 			return;
 		}
 	}
-	
+
 	public void onPluginEnable(PluginEnableEvent e) {
 		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
 			this.worldguardEnabled = true;

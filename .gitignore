@@ -1,1 +1,7 @@
-#/target/
+/target/
+.classpath
+.project
+bin
+.settings
+.idea
+.travis.yml
