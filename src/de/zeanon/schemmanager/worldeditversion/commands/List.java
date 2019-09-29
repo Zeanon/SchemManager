@@ -27,7 +27,6 @@ public class List {
 
         if (args.length == 2) {
             int side;
-
             File directory = new File(schemFolderPath);
             if (!directory.exists() || !directory.isDirectory()) {
                 p.sendMessage(ChatColor.RED + "There is no schematic folder.");
@@ -44,10 +43,10 @@ public class List {
                 } else {
                     side = (int) side_count;
                 }
+
                 if (count < listmax) {
                     listmax = (int) count;
                 }
-
                 if (spaceLists) {
                     p.sendMessage(" ");
                 }
@@ -82,7 +81,6 @@ public class List {
             if (StringUtils.isNumeric(args[2])) {
                 int side_number = Integer.parseInt(args[2]);
                 int side;
-
                 File directory = new File(schemFolderPath);
                 if (!directory.exists() || !directory.isDirectory()) {
                     p.sendMessage(ChatColor.RED + "There is no schematic folder.");
@@ -100,13 +98,14 @@ public class List {
                         side = (int) side_count;
                     }
 
-                    if (spaceLists) {
-                        p.sendMessage(" ");
-                    }
                     if (side_number > side) {
                         Helper.sendHoverMessage("", ChatColor.RED + "There are only " + side + " schematics in this list", "", ChatColor.GRAY + "global", p);
                         return false;
-                    } else if (count < 1) {
+                    }
+                    if (spaceLists) {
+                        p.sendMessage(" ");
+                    }
+                    if (count < 1) {
                         Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "0 Schematics | Page 0/0", ChatColor.AQUA + " ===", ChatColor.GRAY + "global", p);
                         return true;
                     } else {
@@ -163,7 +162,6 @@ public class List {
                 }
             } else {
                 int side;
-
                 File directory = new File(schemFolderPath + args[2]);
                 if (!directory.exists() || !directory.isDirectory()) {
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " is no folder.");
@@ -180,10 +178,10 @@ public class List {
                     } else {
                         side = (int) side_count;
                     }
+
                     if (count < listmax) {
                         listmax = (int) count;
                     }
-
                     if (spaceLists) {
                         p.sendMessage(" ");
                     }
@@ -218,7 +216,6 @@ public class List {
         } else {
             int side_number = Integer.parseInt(args[3]);
             int side;
-
             File directory = new File(schemFolderPath + args[2]);
             if (!directory.exists() || !directory.isDirectory()) {
                 p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " is no folder.");
@@ -236,13 +233,14 @@ public class List {
                     side = (int) side_count;
                 }
 
-                if (spaceLists) {
-                    p.sendMessage(" ");
-                }
                 if (side_number > side) {
                     Helper.sendHoverMessage("", ChatColor.RED + "There are only " + side + " schematics in this list", "", ChatColor.GRAY + args[2], p);
                     return false;
-                } else if (count < 1) {
+                }
+                if (spaceLists) {
+                    p.sendMessage(" ");
+                }
+                if (count < 1) {
                     Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "0 Schematics | Page 0/0", ChatColor.AQUA + " ===", ChatColor.GRAY + args[2], p);
                     return true;
                 } else {

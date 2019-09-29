@@ -45,10 +45,10 @@ public class Folder {
 				else {
 					side = (int)side_count;
 				}
+
 				if (count < listmax) {
 					listmax = (int) count;
 				}
-				
 				if (spaceLists) {
 					p.sendMessage(" ");
 				}
@@ -110,15 +110,15 @@ public class Folder {
 					else {
 						side = (int)side_count;
 					}
-					
-					if (spaceLists) {
-						p.sendMessage(" ");
-					}
+
 					if (side_number > side) {
 						Helper.sendHoverMessage("", ChatColor.RED + "There are only " + side + " pages of folders in this list", "", ChatColor.GRAY + "global", p);
 						return false;
 					}
-					else if (count < 1) {
+					if (spaceLists) {
+						p.sendMessage(" ");
+					}
+					if (count < 1) {
 						Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "0 Folder | Page 0/0", ChatColor.AQUA + " ===", ChatColor.GRAY + "global", p);
 						return true;
 					}
@@ -205,10 +205,10 @@ public class Folder {
 					else {
 						side = (int)side_count;
 					}
+
 					if (count < listmax) {
 						listmax = (int) count;
 					}
-					
 					if (spaceLists) {
 						p.sendMessage(" ");
 					}
@@ -269,15 +269,15 @@ public class Folder {
 				else {
 					side = (int)side_count;
 				}
-				
-				if (spaceLists) {
-					p.sendMessage(" ");
-				}
+
 				if (side_number > side) {
 					Helper.sendHoverMessage("", ChatColor.RED + "There are only " + side + " pages of folders in this list", "", ChatColor.GRAY + args[2], p);
 					return false;
 				}
-				else if (count < 1) {
+				if (spaceLists) {
+					p.sendMessage(" ");
+				}
+				if (count < 1) {
 					Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "0 Folder | Page 0/0", ChatColor.AQUA + " ===", ChatColor.GRAY + args[2], p);
 					return true;
 				}

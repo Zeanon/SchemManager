@@ -52,6 +52,7 @@ public class Search {
                 } else {
                     side = (int) side_count;
                 }
+
                 if (count < listmax) {
                     listmax = (int) count;
                 }
@@ -109,13 +110,15 @@ public class Search {
                     } else {
                         side = (int) side_count;
                     }
+
+                    if (side_number > side) {
+                        Helper.sendHoverMessage("", ChatColor.RED + "There are only " + side + " schematics in this list", "", ChatColor.GRAY + "global", p);
+                        return false;
+                    }
                     if (spaceLists) {
                         p.sendMessage(" ");
                     }
-                    if (side_number > side) {
-                        Helper.sendHoverMessage("", ChatColor.RED + "There is only one page of schematics in this list", "", ChatColor.GRAY + "global", p);
-                        return false;
-                    } else if (count < 1) {
+                    if (count < 1) {
                         Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "0 Schematics | Page 0/0", ChatColor.AQUA + " ===", ChatColor.GRAY + "global", p);
                         return true;
                     } else {
@@ -189,6 +192,7 @@ public class Search {
                     } else {
                         side = (int) side_count;
                     }
+
                     if (count < listmax) {
                         listmax = (int) count;
                     }
@@ -246,13 +250,15 @@ public class Search {
                 } else {
                     side = (int) side_count;
                 }
+
+                if (side_number > side) {
+                    Helper.sendHoverMessage("", ChatColor.RED + "There are only " + side + " schematics in this list", "", ChatColor.GRAY + args[2], p);
+                    return false;
+                }
                 if (spaceLists) {
                     p.sendMessage(" ");
                 }
-                if (side_number > side) {
-                    p.sendMessage(ChatColor.RED + "There is only one page of schematics in this list");
-                    return false;
-                } else if (count < 1) {
+                if (count < 1) {
                     Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "0 Schematics | Page 0/0", ChatColor.AQUA + " ===", ChatColor.GRAY + args[2], p);
                     return true;
                 } else {
