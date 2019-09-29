@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager.Main;
+package de.Zeanon.SchemManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import de.Zeanon.SchemManager.WorldEdit.Main.WorldEditVersionMain;
 
-public class Main extends JavaPlugin {
+public class SchemManager extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
