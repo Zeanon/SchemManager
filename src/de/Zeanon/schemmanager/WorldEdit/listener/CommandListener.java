@@ -27,12 +27,12 @@ import de.zeanon.schemmanager.worldedit.helper.Helper;
 import de.zeanon.schemmanager.worldedit.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
 
-public class MyListener implements Listener {
+public class CommandListener implements Listener {
 
 	private boolean worldguardEnabled = false;
 	private Plugin plugin;
 	
-	public MyListener(Plugin plugin) {
+	public CommandListener(Plugin plugin) {
 		this.plugin = plugin;
 		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null && Bukkit.getPluginManager().getPlugin("WorldGuard").isEnabled()) {
 			this.worldguardEnabled = true;

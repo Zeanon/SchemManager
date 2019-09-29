@@ -7,53 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94c3c2ab-65f8-481e-abca-8729d736ceb8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/hotswap_agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_1_3_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_21_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sk89q_worldedit_worldedit_bukkit_7_0_1_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sk89q_worldedit_worldedit_core_7_0_1_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sk89q_worldedit_worldedit_libs_bukkit_7_0_1_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sk89q_worldedit_worldedit_libs_core_7_0_1_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__de_leonhard_LightningStorage_2_7_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__de_schlichtherle_truezip_6_8_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_papermc_paperlib_1_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_md_5_bungeecord_chat_1_13_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_slf4j_impl_2_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bstats_bstats_bukkit_1_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bukkit_bukkit_1_13_2_R0_1_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mozilla_rhino_1_7_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_26.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_spigotmc_spigot_api_1_14_4_R0_1_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_23.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/SchemManager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/SchemManager.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/bin/plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/SchemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/SchemManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Commands/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/Delete.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Commands/DeleteFolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/DeleteFolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Commands/Folder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/Folder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Commands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Commands/List.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/List.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Commands/Rename.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/Rename.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Commands/RenameFolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/RenameFolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Commands/Save.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/Save.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Commands/Search.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/Search.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Commands/SearchFolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/SearchFolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Helper/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/helper/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Listener/MyListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/listener/MyListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/SchemManager/WorldEdit/Main/WorldEditVersionMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/WorldEditVersionMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,6 +23,9 @@
   <component name="Git.Settings">
     <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="f8f61dee-1dda-423f-94d5-f0213c0418d8" />
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -126,7 +83,7 @@
       <workItem from="1568274746395" duration="250000" />
       <workItem from="1568275006636" duration="121000" />
       <workItem from="1568275191973" duration="263000" />
-      <workItem from="1569781906266" duration="535000" />
+      <workItem from="1569781906266" duration="855000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1569186621575</created>
@@ -149,7 +106,21 @@
       <option name="project" value="LOCAL" />
       <updated>1569189369339</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="CodeStyle improvements">
+      <created>1569782484081</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1569782484081</updated>
+    </task>
+    <task id="LOCAL-00005" summary="CodeStyle improvements">
+      <created>1569782530258</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1569782530258</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,95 +139,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <last-edited>SchemManager:jar</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>SchemManager</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Gradle: junit:junit:4.12</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+    <MESSAGE value="CodeStyle improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="CodeStyle improvements" />
   </component>
 </project>

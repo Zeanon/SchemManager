@@ -13,7 +13,7 @@ public class DeleteFolder {
 
 	public static boolean onDeleteFolder(Player p, String[] args) {
 		File file = new File(Helper.getSchemPath() + args[2]);
-		
+
 		if (args.length == 3) {
 			if (file.exists() && file.isDirectory()) {
 				if (file.listFiles().length > 0) {
@@ -28,7 +28,7 @@ public class DeleteFolder {
 				return false;
 			}
 		}
-		
+
 		
 		else if (args.length == 4 && Helper.checkDeleteFolderRequest(p, args[2])) {
 			if (args[3].equals("confirm")) {

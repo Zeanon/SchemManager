@@ -25,8 +25,7 @@ public class SchemManager extends JavaPlugin {
 			return;
 		}
 	}
-	
-	
+
 	@Override
 	public void onDisable() {
 		System.out.println("[" + this.getName() + "] >> unloaded");
