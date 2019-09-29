@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 import de.zeanon.schemmanager.worldedit.helper.Helper;
-import de.zeanon.schemmanager.worldedit.listener.MyListener;
+import de.zeanon.schemmanager.worldedit.listener.CommandListener;
 import de.leonhard.storage.Config;
 
 public class WorldEditVersionMain {
@@ -39,7 +39,7 @@ public class WorldEditVersionMain {
 		}
 		
 		helper = new Helper(plugin);
-		Bukkit.getServer().getPluginManager().registerEvents(new MyListener(plugin), plugin);
+		Bukkit.getServer().getPluginManager().registerEvents(new CommandListener(plugin), plugin);
 		
 		if (!Helper.updateConfig(false)) {
 			disable();
