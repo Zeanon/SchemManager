@@ -60,7 +60,7 @@ public class CommandListener implements Listener {
 			}
 
 
-			if (args.length == 1 && p.hasPermission("worldedit.help")) {
+			if (args.length == 1) {
 				event.setCancelled(true);
 				return Help.onHelp(p, slash);
 			}
