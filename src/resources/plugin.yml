@@ -1,5 +1,5 @@
 name: SchemManager
-version: 3.5.6
+version: 3.5.7
 api-version: 1.14
 authors: [Zeanon, JavaFactoryDev]
 main: de.zeanon.SchemManager.Main.Main
