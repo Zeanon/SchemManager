@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94c3c2ab-65f8-481e-abca-8729d736ceb8" name="Default Changelist" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/de/zeanon/schemmanager/SchemManager.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Delete.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/DeleteFolder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Folder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Help.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/List.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Rename.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/RenameFolder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Save.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Search.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/SearchFolder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/WorldEditVersionMain.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/helper/Helper.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/listener/CommandListener.java">
+    <list default="true" id="94c3c2ab-65f8-481e-abca-8729d736ceb8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/SchemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/SchemManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/WorldEditVersionMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/WorldEditVersionMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Delete.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/DeleteFolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/DeleteFolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Folder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Folder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/List.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/List.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Rename.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Rename.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/RenameFolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/RenameFolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Save.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Save.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Search.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/Search.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/SearchFolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/SearchFolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/helper/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/helper/Helper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/listener/CommandListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/listener/CommandListener.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -55,7 +42,7 @@
         <entry file="file://$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/RenameFolder.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="231">
-              <caret line="143" column="73" selection-start-line="143" selection-start-column="73" selection-end-line="143" selection-end-column="73" />
+              <caret line="143" column="66" selection-start-line="143" selection-start-column="66" selection-end-line="143" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#7495#7541#0" expanded="true" />
@@ -115,10 +102,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/listener/CommandListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="256" column="31" lean-forward="true" selection-start-line="256" selection-start-column="31" selection-end-line="256" selection-end-column="31" />
+            <state relative-caret-position="-711">
+              <caret line="434" column="85" selection-start-line="434" selection-start-column="85" selection-end-line="434" selection-end-column="85" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1794#1825#0" expanded="true" />
+                <element signature="e#16944#16975#0" expanded="true" />
+                <element signature="e#18079#18110#0" expanded="true" />
+                <element signature="e#19190#19221#0" expanded="true" />
+                <element signature="e#20204#20235#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -296,7 +288,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569791832726" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569792145458" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="E:/Servers/BuildPath/worldedit-bukkit-7.0.1.jar" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -332,7 +324,7 @@
       <workItem from="1568275006636" duration="121000" />
       <workItem from="1568275191973" duration="263000" />
       <workItem from="1569781906266" duration="1482000" />
-      <workItem from="1569783690029" duration="8381000" />
+      <workItem from="1569783690029" duration="8443000" />
     </task>
     <task id="LOCAL-00001" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/de/zeanon/schemmanager/SchemManager.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Delete.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/DeleteFolder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Folder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Help.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/List.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Rename.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/RenameFolder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Save.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Search.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/SearchFolder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/WorldEditVersionMain.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/helper/Helper.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/listener/CommandListener.java">
       <created>1569787407220</created>
@@ -362,12 +354,12 @@
       <option name="project" value="LOCAL" />
       <updated>1569790419893</updated>
     </task>
-    <task id="LOCAL-00005" summary="CodeStyle improvements">
-      <created>1569782530258</created>
+    <task id="LOCAL-00005" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/de/zeanon/schemmanager/SchemManager.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Delete.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/DeleteFolder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Folder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Help.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/List.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Rename.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/RenameFolder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Save.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/Search.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/Commands/SearchFolder.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/WorldEditVersionMain.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/helper/Helper.java&#10;#&#9;src/de/zeanon/schemmanager/WorldEdit/listener/CommandListener.java">
+      <created>1569792090696</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1569782530258</updated>
+      <updated>1569792090696</updated>
     </task>
     <task id="LOCAL-00006" summary="CodeStyle improvements">
       <created>1569782841136</created>
@@ -404,11 +396,11 @@
       <option name="project" value="LOCAL" />
       <updated>1569786331861</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5715000" />
+    <option name="totallyTimeSpent" value="5777000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -613,7 +605,7 @@
     <entry file="file://$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/commands/RenameFolder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
-          <caret line="143" column="73" selection-start-line="143" selection-start-column="73" selection-end-line="143" selection-end-column="73" />
+          <caret line="143" column="66" selection-start-line="143" selection-start-column="66" selection-end-line="143" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#7495#7541#0" expanded="true" />
@@ -623,10 +615,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/zeanon/schemmanager/worldeditversion/listener/CommandListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="256" column="31" lean-forward="true" selection-start-line="256" selection-start-column="31" selection-end-line="256" selection-end-column="31" />
+        <state relative-caret-position="-711">
+          <caret line="434" column="85" selection-start-line="434" selection-start-column="85" selection-end-line="434" selection-end-column="85" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1794#1825#0" expanded="true" />
+            <element signature="e#16944#16975#0" expanded="true" />
+            <element signature="e#18079#18110#0" expanded="true" />
+            <element signature="e#19190#19221#0" expanded="true" />
+            <element signature="e#20204#20235#0" expanded="true" />
           </folding>
         </state>
       </provider>

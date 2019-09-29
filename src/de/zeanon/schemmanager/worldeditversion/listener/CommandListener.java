@@ -41,7 +41,8 @@ public class CommandListener implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@SuppressWarnings("Duplicates")
+    @EventHandler(priority = EventPriority.HIGHEST)
 	public boolean onCommand(PlayerCommandPreprocessEvent event) {
 		String message = event.getMessage().replaceAll("worldedit:", "/");
 		Player p;
@@ -373,6 +374,7 @@ public class CommandListener implements Listener {
 		}
 	}
 
+    @SuppressWarnings("Duplicates")
     private boolean searchFolderUsage(Player p, String slash) {
         Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW
@@ -389,6 +391,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
+    @SuppressWarnings("Duplicates")
     private boolean searchUsage(Player p, String slash) {
         Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "["
@@ -405,6 +408,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
+    @SuppressWarnings("Duplicates")
     private boolean folderUsage(Player p, String slash) {
         p.sendMessage(ChatColor.RED + "Too many arguments.");
         Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
@@ -420,6 +424,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
+    @SuppressWarnings("Duplicates")
     private boolean listUsage(Player p, String slash) {
         p.sendMessage(ChatColor.RED + "Too many arguments.");
         Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
