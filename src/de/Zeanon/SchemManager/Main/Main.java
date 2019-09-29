@@ -11,7 +11,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		PluginManager pm = Bukkit.getServer().getPluginManager();
-		/*if (pm.getPlugin("FastAsyncWorldEdit").isEnabled()) {
+		/*if (pm.getPlugin("FastAsyncWorldEdit") != null && pm.getPlugin("FastAsyncWorldEdit").isEnabled()) {
 			//TODO
 		}
 		else */if (pm.getPlugin("WorldEdit") != null && pm.getPlugin("WorldEdit").isEnabled()) {

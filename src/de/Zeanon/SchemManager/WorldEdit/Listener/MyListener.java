@@ -2,12 +2,16 @@ package de.Zeanon.SchemManager.WorldEdit.Listener;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.server.PluginDisableEvent;
+import org.bukkit.event.server.PluginEnableEvent;
+import org.bukkit.plugin.Plugin;
 
 import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Delete;
 import de.Zeanon.SchemManager.WorldEdit.Commands.Command_DeleteFolder;
@@ -25,6 +29,16 @@ import net.md_5.bungee.api.ChatColor;
 
 public class MyListener implements Listener {
 
+	private boolean worldguardEnabled = false;
+	private Plugin plugin;
+	
+	public MyListener(Plugin plugin) {
+		this.plugin = plugin;
+		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null && Bukkit.getPluginManager().getPlugin("WorldGuard").isEnabled()) {
+			this.worldguardEnabled = true;
+		}
+	}
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public boolean onCommand(PlayerCommandPreprocessEvent event) {
 		String message = event.getMessage().replaceAll("worldedit:", "/");
@@ -670,7 +684,7 @@ public class MyListener implements Listener {
 		}
 		
 		
-		else if (message.toLowerCase().startsWith("/stoplag")) {
+		else if (message.toLowerCase().startsWith("/stoplag") && this.worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
 			p = event.getPlayer();
 			args = event.getMessage().split(" ");
 			if (p.hasPermission("worldguard.halt-activity") && args.length == 1) {
@@ -687,7 +701,6 @@ public class MyListener implements Listener {
 	
 	
 
-	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onQuit(PlayerQuitEvent event) {
 		Player p = event.getPlayer();
 		Helper.removeDisableRequest(p);
@@ -697,5 +710,32 @@ public class MyListener implements Listener {
 		Helper.removeRenameRequest(p);
 		Helper.removeRenameFolderRequest(p);
 		Helper.removeOverWriteRequest(p);
+	}
+	
+	
+	public void onPluginDisable(PluginDisableEvent e) {
+		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
+			if (Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit") != null && Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit").isEnabled()) {
+				WorldEditVersionMain.disable();
+				Bukkit.getPluginManager().enablePlugin(this.plugin);
+				return;
+			}
+			else {
+				System.out.println("[" + this.plugin.getName() + "] >> disabling Plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
+				WorldEditVersionMain.disable();
+				return;
+			}
+		}
+		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
+			this.worldguardEnabled = false;
+			return;
+		}
+	}
+	
+	public void onPluginEnable(PluginEnableEvent e) {
+		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
+			this.worldguardEnabled = true;
+			return;
+		}
 	}
 }

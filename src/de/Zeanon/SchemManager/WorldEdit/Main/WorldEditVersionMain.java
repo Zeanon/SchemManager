@@ -39,7 +39,7 @@ public class WorldEditVersionMain {
 		}
 		
 		helper = new Helper(plugin);
-		Bukkit.getServer().getPluginManager().registerEvents(new MyListener(), plugin);
+		Bukkit.getServer().getPluginManager().registerEvents(new MyListener(plugin), plugin);
 		
 		if (!Helper.updateConfig()) {
 			disable();
