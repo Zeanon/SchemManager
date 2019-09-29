@@ -16,9 +16,10 @@ public class Rename {
 		File schemFile_old = new File(Helper.getSchemPath() + args[2] + ".schem");
 		File schematicFile_new = new File(Helper.getSchemPath() + args[3] + ".schematic");
 		File schemFile_new = new File(Helper.getSchemPath() + args[3] + ".schem");
-		
+
+		final boolean fileExists = (!schematicFile_old.exists() || schematicFile_old.isDirectory()) && (!schemFile_old.exists() || schemFile_old.isDirectory());
 		if (args.length == 4) {
-			if ((!schematicFile_old.exists() || schematicFile_old.isDirectory()) && (!schemFile_old.exists() || schemFile_old.isDirectory())) {
+			if (fileExists) {
 				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				return false;
 			}
@@ -37,7 +38,7 @@ public class Rename {
 		
 		else if (args.length == 5 && Helper.checkRenameRequest(p, args[2])) {
 			if (args[4].equals("confirm")) {
-				if ((!schematicFile_old.exists() || schematicFile_old.isDirectory()) && (!schemFile_old.exists() || schemFile_old.isDirectory())) {
+				if (fileExists) {
 					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
 					Helper.removeRenameRequest(p);
 					return false;
@@ -45,39 +46,11 @@ public class Rename {
 				
 				else {
 					if (schematicFile_old.exists() && !schematicFile_old.isDirectory()) {
-						try {
-							if ((schematicFile_new.exists() && !schematicFile_new.isDirectory())) {
-								schematicFile_new.delete();
-							}
-							if ((schemFile_new.exists() && !schemFile_new.isDirectory())) {
-								schemFile_new.delete();
-							}
-							FileUtils.moveFile(schematicFile_old, schematicFile_new);
-							p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was renamed successfully.");
-							return true;
-						} catch (IOException e) {
-							e.printStackTrace();
-							p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
-							return false;
-						}
+						return deleteFile(p, args, schematicFile_old, schematicFile_new, schemFile_new);
 					}
 					
 					if (schemFile_old.exists() && !schemFile_old.isDirectory()) {
-						try {
-							if ((schemFile_new.exists() && !schemFile_new.isDirectory())) {
-								schemFile_new.delete();
-							}
-							if ((schematicFile_new.exists() && !schematicFile_new.isDirectory())) {
-								schematicFile_new.delete();
-							}
-							FileUtils.moveFile(schemFile_old, schemFile_new);
-							p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was renamed successfully.");
-							return true;
-						} catch (IOException e) {
-							e.printStackTrace();
-							p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
-							return false;
-						}
+						return deleteFile(p, args, schemFile_old, schemFile_new, schematicFile_new);
 					}
 					
 					else {
@@ -88,7 +61,7 @@ public class Rename {
 			
 			
 			else if (args[4].equals("deny")) {
-				if ((!schematicFile_old.exists() || schematicFile_old.isDirectory()) && (!schemFile_old.exists() || schemFile_old.isDirectory())) {
+				if (fileExists) {
 					return false;
 				}
 				Helper.removeRenameRequest(p);
@@ -100,6 +73,24 @@ public class Rename {
 			}
 		}
 		else {
+			return false;
+		}
+	}
+
+	private static boolean deleteFile(Player p, String[] args, File schematicFile_old, File schematicFile_new, File schemFile_new) {
+		try {
+			if ((schematicFile_new.exists() && !schematicFile_new.isDirectory())) {
+				schematicFile_new.delete();
+			}
+			if ((schemFile_new.exists() && !schemFile_new.isDirectory())) {
+				schemFile_new.delete();
+			}
+			FileUtils.moveFile(schematicFile_old, schematicFile_new);
+			p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was renamed successfully.");
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
 			return false;
 		}
 	}

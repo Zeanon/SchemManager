@@ -1,9 +1,6 @@
 package de.zeanon.schemmanager.worldeditversion.helper;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -11,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import org.bukkit.Bukkit;
@@ -318,11 +316,11 @@ public class Helper {
 
 	public static ArrayList<File> getFolders(File folder, Boolean deep) {
 		ArrayList<File> files = new ArrayList<>();
-		for (File file : folder.listFiles()) {
+		for (File file : Objects.requireNonNull(folder.listFiles())) {
 			if (file.isDirectory()) {
 				files.add(file);
 				if (deep) {
-					files.addAll(getFolders(file, deep));
+					files.addAll(getFolders(file, true));
 				}
 			}
 		}
@@ -418,6 +416,7 @@ public class Helper {
 	
 	
 	public static boolean update(Player p) {
+		p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is updating...");
 		String fileName;
 		try {
 			fileName = new File(WorldEditVersionMain.class.getProtectionDomain()
@@ -426,48 +425,22 @@ public class Helper {
 					.toURI()
 					.getPath())
 				.getName();
-		} catch (URISyntaxException e1) {
-			e1.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+			p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
 			return false;
 		}
-		
-		try {
-			File file = new File(pluginFolderPath + fileName);
-			BufferedInputStream inputStream = null;
-			FileOutputStream outputStream = null;
-			try {
-				inputStream = new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream());
-				if (!file.exists()) {
-					Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
-				}
-				else {
-					outputStream = new FileOutputStream(file.getAbsolutePath());
-					final byte data[] = new byte[1024];
-					int count;
-					while ((count = inputStream.read(data, 0, 1024)) != -1) {
-							outputStream.write(data, 0, count);
-					}
-				}
-				p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
-				if (getBoolean("Automatic Reload")) {
-					Bukkit.getServer().reload();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-				p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
-				return false;
-			}
-			finally {
-				if (inputStream != null) {
-					inputStream.close();
-				}
-				if (outputStream != null) {
-					outputStream.close();
-				}
+
+		File file = new File(pluginFolderPath + fileName);
+		if(writeToFile(file, "https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar")) {
+			p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
+			if (getBoolean("Automatic Reload")) {
+				Bukkit.getServer().reload();
 			}
 			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
+		}
+		else {
+			p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
 			return false;
 		}
 	}
@@ -475,7 +448,7 @@ public class Helper {
 	
 	
 	public static boolean updateConfig(boolean force) {
-		if (force || (!WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") || !WorldEditVersionMain.config.contains("Listmax") || !WorldEditVersionMain.config.contains("Space Lists") || !WorldEditVersionMain.config.contains("Save Function Override") || !WorldEditVersionMain.config.contains("Automatic Reload") || !WorldEditVersionMain.config.contains("Plugin Version") || !WorldEditVersionMain.config.getString("Plugin Version").equals(Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion()))) {
+		if (force || (!WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") || !WorldEditVersionMain.config.contains("Listmax") || !WorldEditVersionMain.config.contains("Space Lists") || !WorldEditVersionMain.config.contains("Save Function Override") || !WorldEditVersionMain.config.contains("Automatic Reload") || !WorldEditVersionMain.config.contains("Plugin Version") || !WorldEditVersionMain.config.getString("Plugin Version").equals(plugin.getDescription().getVersion()))) {
 			String schemPath = "Default Schematic Path";
 			if (WorldEditVersionMain.config.contains("WorldEdit Schematic-Path")) {
 				schemPath = WorldEditVersionMain.config.getString("WorldEdit Schematic-Path");
@@ -500,54 +473,60 @@ public class Helper {
 			if (WorldEditVersionMain.config.contains("Automatic Reload")) {
 				autoReload = WorldEditVersionMain.config.getBoolean("Automatic Reload");
 			}
-			
-			try {
-				File file = new File(plugin.getDataFolder(), "config.yml");
-				BufferedInputStream inputStream = null;
-				FileOutputStream outputStream = null;
-				try {
-					inputStream = new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/config.yml").openStream());
-					if (!file.exists()) {
-						Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
-					}
-					else {
-						outputStream = new FileOutputStream(file.getAbsolutePath());
-						final byte data[] = new byte[1024];
-						int count;
-						while ((count = inputStream.read(data, 0, 1024)) != -1) {
-								outputStream.write(data, 0, count);
-						}
-					}
-					WorldEditVersionMain.config.update();
-					
-					WorldEditVersionMain.config.set("Plugin Version", Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion());
-					WorldEditVersionMain.config.set("WorldEdit Schematic-Path", schemPath);
-					WorldEditVersionMain.config.set("Listmax", listmax);
-					WorldEditVersionMain.config.set("Space Lists", spaceLists);
-					WorldEditVersionMain.config.set("Save Function Override", saveOverride);
-					WorldEditVersionMain.config.set("Stoplag Override", stoplagOverride);
-					WorldEditVersionMain.config.set("Automatic Reload", autoReload);
 
-					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() +" updated");
-					
-				} catch (IOException e) {
-					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() +" could not be updated");
-					e.printStackTrace();
-					return false;
-				}
-				finally {
-					if (inputStream != null) {
-						inputStream.close();
-					}
-					if (outputStream != null) {
-						outputStream.close();
-					}
-				}
+			File file = new File(plugin.getDataFolder(), "config.yml");
+			if (writeToFile(file, "https://github.com/Zeanon/SchemManager/releases/latest/download/config.yml")) {
+				WorldEditVersionMain.config.update();
+
+				WorldEditVersionMain.config.set("Plugin Version", plugin.getDescription().getVersion());
+				WorldEditVersionMain.config.set("WorldEdit Schematic-Path", schemPath);
+				WorldEditVersionMain.config.set("Listmax", listmax);
+				WorldEditVersionMain.config.set("Space Lists", spaceLists);
+				WorldEditVersionMain.config.set("Save Function Override", saveOverride);
+				WorldEditVersionMain.config.set("Stoplag Override", stoplagOverride);
+				WorldEditVersionMain.config.set("Automatic Reload", autoReload);
+
+				System.out.println("["+plugin.getName()+"] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() +" updated");
 				return true;
+			}
+			else {
+				System.out.println("["+plugin.getName()+"] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() +" could not be updated");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean writeToFile(File file, String url) {
+		try {
+			BufferedInputStream inputStream = null;
+			FileOutputStream outputStream = null;
+			try {
+				inputStream = new BufferedInputStream(new URL(url).openStream());
+				if (!file.exists()) {
+					Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+				} else {
+					outputStream = new FileOutputStream(file.getAbsolutePath());
+					final byte data[] = new byte[1024];
+					int count;
+					while ((count = inputStream.read(data, 0, 1024)) != -1) {
+						outputStream.write(data, 0, count);
+					}
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
+			} finally {
+				if (inputStream != null) {
+					inputStream.close();
+				}
+				if (outputStream != null) {
+					outputStream.close();
+				}
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
 		return true;
 	}
