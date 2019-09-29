@@ -404,7 +404,7 @@ public class Helper {
 			return WorldEditVersionMain.config.getString(path);
 		}
 		else {
-			updateConfig();
+			updateConfig(true);
 			WorldEditVersionMain.config.update();
 			return WorldEditVersionMain.config.getString(path);
 		}
@@ -415,7 +415,7 @@ public class Helper {
 			return WorldEditVersionMain.config.getInt(path);
 		}
 		else {
-			updateConfig();
+			updateConfig(true);
 			WorldEditVersionMain.config.update();
 			return WorldEditVersionMain.config.getInt(path);
 		}
@@ -426,7 +426,7 @@ public class Helper {
 			return WorldEditVersionMain.config.getBoolean(path);
 		}
 		else {
-			updateConfig();
+			updateConfig(true);
 			WorldEditVersionMain.config.update();
 			return WorldEditVersionMain.config.getBoolean(path);
 		}
@@ -491,9 +491,9 @@ public class Helper {
 	
 	
 	
-	public static boolean updateConfig() {
-		if (!WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") || !WorldEditVersionMain.config.contains("Listmax") || !WorldEditVersionMain.config.contains("Space Lists") || !WorldEditVersionMain.config.contains("Save Function Override") || !WorldEditVersionMain.config.contains("Automatic Reload") || !WorldEditVersionMain.config.contains("Plugin Version") || !WorldEditVersionMain.config.getString("Plugin Version").equals(Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion())) {
-			String schemPath = null;
+	public static boolean updateConfig(boolean force) {
+		if (force || (!WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") || !WorldEditVersionMain.config.contains("Listmax") || !WorldEditVersionMain.config.contains("Space Lists") || !WorldEditVersionMain.config.contains("Save Function Override") || !WorldEditVersionMain.config.contains("Automatic Reload") || !WorldEditVersionMain.config.contains("Plugin Version") || !WorldEditVersionMain.config.getString("Plugin Version").equals(Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion()))) {
+			String schemPath = "Default Schematic Path";
 			if (WorldEditVersionMain.config.contains("WorldEdit Schematic-Path")) {
 				schemPath = WorldEditVersionMain.config.getString("WorldEdit Schematic-Path");
 			}
@@ -508,6 +508,10 @@ public class Helper {
 			boolean saveOverride = true;
 			if (WorldEditVersionMain.config.contains("Save Function Override")) {
 				saveOverride =  WorldEditVersionMain.config.getBoolean("Save Function Override");
+			}
+			boolean stoplagOverride = true;
+			if (WorldEditVersionMain.config.contains("Stoplag Override")) {
+				stoplagOverride =  WorldEditVersionMain.config.getBoolean("Stoplag Override");
 			}
 			boolean autoReload = true;
 			if (WorldEditVersionMain.config.contains("Automatic Reload")) {
@@ -532,22 +536,15 @@ public class Helper {
 						}
 					}
 					WorldEditVersionMain.config.update();
+					
 					WorldEditVersionMain.config.set("Plugin Version", Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion());
-					if (schemPath != null) {
-						WorldEditVersionMain.config.set("WorldEdit Schematic-Path", schemPath);
-					}
-					if (listmax != 10) {
-						WorldEditVersionMain.config.set("Listmax", listmax);
-					}
-					if (!spaceLists) {
-						WorldEditVersionMain.config.set("Space Lists", spaceLists);
-					}
-					if (!saveOverride) {
-						WorldEditVersionMain.config.set("Save Function Override", saveOverride);
-					}
-					if (!autoReload) {
-						WorldEditVersionMain.config.set("Save Function Override", autoReload);
-					}
+					WorldEditVersionMain.config.set("WorldEdit Schematic-Path", schemPath);
+					WorldEditVersionMain.config.set("Listmax", listmax);
+					WorldEditVersionMain.config.set("Space Lists", spaceLists);
+					WorldEditVersionMain.config.set("Save Function Override", saveOverride);
+					WorldEditVersionMain.config.set("Stoplag Override", stoplagOverride);
+					WorldEditVersionMain.config.set("Automatic Reload", autoReload);
+
 					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() +" updated");
 					
 				} catch (IOException e) {

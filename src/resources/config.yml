@@ -9,9 +9,9 @@
 ###############################################################################################################
 #                                                                                                             #
 ###############################################################################################################
-# to get information about the custom commands, just type /schem or //schem                                   #
+# To get information about the custom commands, just type /schem or //schem.                                  #
 # You don't need to reload the plugin when editing the config, it will automatically detect changes.          #
-# You can perform a deep search or deep listing by using -d                                                   #  
+# You can perform a deep search or deep listing by using -d.                                                  #  
 # You only need to edit WorldEdit Schematic-Path when you use a path other than the standard WorldEdit path.  #
 # Listmax: The maximum amount of schematics per page to be shown.                                             #
 # Space Lists: Should there be a blank line before each schem or folder page?                                 #
@@ -19,8 +19,16 @@
 # Stoplag Override: Should the new stoplag activation method be reverted to it's old style?                   #
 # Automatic Reload: Should the plugin automatically reload the Server after it got updated?                   #
 ###############################################################################################################
+#|                                                                                                           |#
+###############################################################################################################
+# SchemManager mostly uses the standard WorldEdit and FAWE permission.                                        #
+# rename uses the save permission                                                                             #
+# search uses the list permission                                                                             #
+# update uses schemmanager.update                                                                             #
+# disable uses schemmanager.disable                                                                           #
+###############################################################################################################
 
-Plugin Version: "3.5.5"
+Plugin Version: "3.5.6"
 
 WorldEdit Schematic-Path: Default Schematic Path
  
