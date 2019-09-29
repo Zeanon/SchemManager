@@ -1,14 +1,13 @@
 package de.zeanon.schemmanager.worldedit.commands;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
-
+import de.zeanon.schemmanager.worldedit.helper.Helper;
+import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 
-import de.zeanon.schemmanager.worldedit.helper.Helper;
-import net.md_5.bungee.api.ChatColor;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 public class RenameFolder {
 
@@ -21,11 +20,10 @@ public class RenameFolder {
 			if (!file_old.exists() || !file_old.isDirectory()) {
 				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				return false;
-			}
-			else if (file_new.exists() && file_new.isDirectory()) {
+			} else if (file_new.exists() && file_new.isDirectory()) {
 				p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 				int id = 0;
-				String[] extension = { "schematic", "schem" };
+				String[] extension = {"schematic", "schem"};
 				for (File oldFile : FileUtils.listFiles(file_old, extension, true)) {
 					for (File newFile : FileUtils.listFiles(file_new, extension, true)) {
 						System.out.println(oldFile.getName());
@@ -33,7 +31,7 @@ public class RenameFolder {
 						if (newFile.getName().replaceAll("\\.schematic", "").replaceAll("\\.schem", "")
 								.equals(oldFile.getName().replaceAll("\\.schematic", "").replaceAll("\\.schem", ""))
 								&& newFile.toPath().relativize(file_new.toPath())
-										.equals(oldFile.toPath().relativize(file_old.toPath()))) {
+								.equals(oldFile.toPath().relativize(file_old.toPath()))) {
 							if (id == 0) {
 								p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GOLD
 										+ args[3] + ChatColor.RED + ", they will be overwritten.");
@@ -51,13 +49,13 @@ public class RenameFolder {
 						}
 					}
 				}
-				
+
 				int i = 0;
 				for (File oldFolder : Helper.getFolders(file_old, true)) {
 					for (File newFolder : Helper.getFolders(file_new, true)) {
 						if (newFolder.getName().equals(oldFolder.getName())
 								&& newFolder.toPath().relativize(file_new.toPath())
-										.equals(oldFolder.toPath().relativize(file_old.toPath()))) {
+								.equals(oldFolder.toPath().relativize(file_old.toPath()))) {
 							if (i == 0) {
 								p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GOLD
 										+ args[3] + ChatColor.RED + ", they will be merged.");
@@ -91,18 +89,13 @@ public class RenameFolder {
 					"//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
 			Helper.addRenameFolderRequest(p, args[2]);
 			return true;
-		}
-		
-
-		else {
+		} else {
 			if (args[4].equals("confirm")) {
 				if (!file_old.exists() || !file_old.isDirectory()) {
 					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
 					Helper.removeRenameFolderRequest(p);
 					return false;
-				}
-
-				else {
+				} else {
 					if (deepMerge(file_old, file_new)) {
 						try {
 							FileUtils.deleteDirectory(file_old);
@@ -114,30 +107,24 @@ public class RenameFolder {
 							Helper.removeRenameFolderRequest(p);
 							return false;
 						}
-					}
-					else {
+					} else {
 						p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
 						Helper.removeRenameFolderRequest(p);
 						return false;
 					}
 				}
-			}
-			
-			else if (args[4].equals("deny")) {
+			} else if (args[4].equals("deny")) {
 				if (!file_old.exists() || !file_old.isDirectory()) {
 					return false;
 				}
 				Helper.removeRenameFolderRequest(p);
 				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed");
 				return true;
-			}
-			else {
+			} else {
 				return false;
 			}
 		}
 	}
-	
-	
 
 	private static boolean deepMerge(File oldFile, File newFile) {
 		if (Objects.requireNonNull(oldFile.listFiles()).length == 0) {

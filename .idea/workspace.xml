@@ -7,7 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94c3c2ab-65f8-481e-abca-8729d736ceb8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldedit/commands/ExampleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/zeanon/schemmanager/worldedit/commands/ExampleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/ExampleCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/RenameFolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/Zeanon/schemmanager/WorldEdit/Commands/RenameFolder.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,12 +44,6 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
-  </component>
   <component name="ProjectId" id="1RWTZ4GiGH1sIsby8oLjlVzqxkr" />
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
@@ -63,7 +60,7 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -90,7 +87,7 @@
       <workItem from="1568274746395" duration="250000" />
       <workItem from="1568275006636" duration="121000" />
       <workItem from="1568275191973" duration="263000" />
-      <workItem from="1569781906266" duration="1482000" />
+      <workItem from="1569781906266" duration="2502000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1569186621575</created>
@@ -155,7 +152,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569783183717</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="CodeStyle improvements">
+      <created>1569783434182</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1569783434182</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,16 +180,5 @@
     <MESSAGE value="test" />
     <MESSAGE value="CodeStyle improvements" />
     <option name="LAST_COMMIT_MESSAGE" value="CodeStyle improvements" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/de/zeanon/schemmanager/worldedit/commands/Delete.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
