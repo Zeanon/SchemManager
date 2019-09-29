@@ -575,6 +575,7 @@ public class MyListener implements Listener {
 
 				else if (args.length == 3 && (args[2].equalsIgnoreCase("confirm") || args[2].equalsIgnoreCase("deny"))) {
 					if (args[2].equalsIgnoreCase("confirm") && Helper.checkUpdateRequest(p)) {
+						p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is updating.");
 						Helper.removeUpdateRequest(p);
 						return Helper.update(p);
 					}
