@@ -6,3 +6,4 @@ bin
 .idea
 .travis.yml
 .build.yml
+.idea/workspace.xml
