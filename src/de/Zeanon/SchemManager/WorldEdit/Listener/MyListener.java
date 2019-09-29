@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager.Listener;
+package de.Zeanon.SchemManager.WorldEdit.Listener;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -9,17 +9,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import de.Zeanon.SchemManager.Commands.Command_Delete;
-import de.Zeanon.SchemManager.Commands.Command_DeleteFolder;
-import de.Zeanon.SchemManager.Commands.Command_Folder;
-import de.Zeanon.SchemManager.Commands.Command_Help;
-import de.Zeanon.SchemManager.Commands.Command_List;
-import de.Zeanon.SchemManager.Commands.Command_Rename;
-import de.Zeanon.SchemManager.Commands.Command_RenameFolder;
-import de.Zeanon.SchemManager.Commands.Command_Save;
-import de.Zeanon.SchemManager.Commands.Command_Search;
-import de.Zeanon.SchemManager.Commands.Command_SearchFolder;
-import de.Zeanon.SchemManager.Helper.Helper;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Delete;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Command_DeleteFolder;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Folder;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Help;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Command_List;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Rename;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Command_RenameFolder;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Save;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Search;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Command_SearchFolder;
+import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
+import de.Zeanon.SchemManager.WorldEdit.Main.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
 
 public class MyListener implements Listener {
@@ -48,28 +49,6 @@ public class MyListener implements Listener {
 			}
 			
 
-			else if (args.length > 1 && !args[1].equalsIgnoreCase("load") && !args[1].equalsIgnoreCase("save")
-					&& !args[1].equalsIgnoreCase("delete") && !args[1].equalsIgnoreCase("del")
-					&& !args[1].equalsIgnoreCase("deletefolder") && !args[1].equalsIgnoreCase("delfolder")
-					&& !args[1].equalsIgnoreCase("rename") && !args[1].equalsIgnoreCase("renamefolder")
-					&& !args[1].equalsIgnoreCase("list") && !args[1].equalsIgnoreCase("folder")
-					&& !args[1].equalsIgnoreCase("search") && !args[1].equalsIgnoreCase("searchfolder")
-					&& !args[1].equalsIgnoreCase("update") && !args[1].equalsIgnoreCase("disable")
-					&& !args[1].equalsIgnoreCase("help")) {
-				event.setCancelled(true);
-				p.sendMessage(ChatColor.RED + "Invalid sub-command '" + ChatColor.GOLD + "" + args[1] + ChatColor.RED
-						+ "'. Options: " + ChatColor.GOLD + "help" + ChatColor.RED + ", " + ChatColor.GOLD + "load" + ChatColor.RED + ", " + ChatColor.GOLD + "save"
-						+ ChatColor.RED + ", " + ChatColor.GOLD + "rename" + ChatColor.RED + ", " + ChatColor.GOLD
-						+ "renamefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "delete" + ChatColor.RED + ", "
-						+ ChatColor.GOLD + "deletefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "list"
-						+ ChatColor.RED + ", " + ChatColor.GOLD + "folder" + ChatColor.RED + ", " + ChatColor.GOLD
-						+ "search" + ChatColor.RED + ", " + ChatColor.GOLD + "searchfolder" + ChatColor.RED + ", "
-						+ ChatColor.GOLD + "update" + ChatColor.RED + ", " + ChatColor.GOLD + "disable");
-				Helper.sendInvalidSubCommand(p, slash);
-				return true;
-			}
-			
-
 			else if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del")) && p.hasPermission("worldedit.schematic.delete")) {
 				event.setCancelled(true);
 				if (args.length <= 4) {
@@ -78,7 +57,7 @@ public class MyListener implements Listener {
 								+ "filename" + ChatColor.YELLOW + ">");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete " + ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete "
 										+ ChatColor.GOLD + "example",
 								slash + "schem delete ", p);
@@ -90,7 +69,7 @@ public class MyListener implements Listener {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete " + ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete "
 										+ ChatColor.GOLD + "example",
 								slash + "schem delete ", p);
@@ -106,7 +85,7 @@ public class MyListener implements Listener {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete " + ChatColor.YELLOW + "<"
-									+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+									+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete "
 									+ ChatColor.GOLD + "example",
 							slash + "schem delete ", p);
@@ -123,7 +102,7 @@ public class MyListener implements Listener {
 								+ "filename" + ChatColor.YELLOW + ">");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "deletefolder " + ChatColor.YELLOW
-										+ "<" + ChatColor.GREEN + "name" + ChatColor.YELLOW + ">",
+										+ "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + ">",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA
 										+ "deletefolder " + ChatColor.GREEN + "example",
 								slash + "schem deletefolder ", p);
@@ -135,7 +114,7 @@ public class MyListener implements Listener {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "deletefolder " + ChatColor.YELLOW
-										+ "<" + ChatColor.GREEN + "name" + ChatColor.YELLOW + ">",
+										+ "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + ">",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA
 										+ "deletefolder " + ChatColor.GREEN + "example",
 								slash + "schem deletefolder ", p);
@@ -151,7 +130,7 @@ public class MyListener implements Listener {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "deletefolder " + ChatColor.YELLOW + "<"
-									+ ChatColor.GREEN + "name" + ChatColor.YELLOW + ">",
+									+ ChatColor.GREEN + "filename" + ChatColor.YELLOW + ">",
 							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "deletefolder "
 									+ ChatColor.GREEN + "example",
 							slash + "schem deletefolder ", p);
@@ -168,9 +147,9 @@ public class MyListener implements Listener {
 								+ "filename" + ChatColor.YELLOW + ">");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename " + ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GOLD + "newname" + ChatColor.YELLOW + ">",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename "
-										+ ChatColor.GOLD + "example",
+										+ ChatColor.GOLD + "example newname",
 								slash + "schem rename ", p);
 						return true;
 					}
@@ -180,9 +159,9 @@ public class MyListener implements Listener {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename " + ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GOLD + "newname" + ChatColor.YELLOW + ">",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename "
-										+ ChatColor.GOLD + "example",
+										+ ChatColor.GOLD + "example newname",
 								slash + "schem rename ", p);
 						return true;
 					}
@@ -196,9 +175,9 @@ public class MyListener implements Listener {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename " + ChatColor.YELLOW + "<"
-									+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+									+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GOLD + "newname" + ChatColor.YELLOW + ">",
 							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename "
-									+ ChatColor.GOLD + "example",
+									+ ChatColor.GOLD + "example newname",
 							slash + "schem rename ", p);
 					return true;
 				}
@@ -213,21 +192,20 @@ public class MyListener implements Listener {
 								+ "filename" + ChatColor.YELLOW + ">");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "renamefolder " + ChatColor.YELLOW
-										+ "<" + ChatColor.GREEN + "name" + ChatColor.YELLOW + ">",
+										+ "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GREEN + "newname" + ChatColor.YELLOW + ">",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA
-										+ "renamefolder " + ChatColor.GREEN + "example",
+										+ "renamefolder " + ChatColor.GREEN + "example newname",
 								slash + "schem renamefolder ", p);
 						return true;
 					}
 
-					else if (args.length == 5 && !Helper.checkRenameFolderRequest(p, args[2])
-							&& !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
+					else if (args.length == 5 && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny") && !Helper.checkRenameFolderRequest(p, args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "renamefolder " + ChatColor.YELLOW
-										+ "<" + ChatColor.GREEN + "name" + ChatColor.YELLOW + ">",
+										+ "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GREEN + "newname" + ChatColor.YELLOW + ">",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA
-										+ "renamefolder " + ChatColor.GREEN + "example",
+										+ "renamefolder " + ChatColor.GREEN + "example newname",
 								slash + "schem renamefolder ", p);
 						return true;
 					}
@@ -241,9 +219,9 @@ public class MyListener implements Listener {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "renamefolder " + ChatColor.YELLOW + "<"
-									+ ChatColor.GREEN + "name" + ChatColor.YELLOW + ">",
+									+ ChatColor.GREEN + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GREEN + "newname" + ChatColor.YELLOW + ">",
 							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "renamefolder "
-									+ ChatColor.GREEN + "example",
+									+ ChatColor.GREEN + "example newname",
 							slash + "schem renamefolder ", p);
 					return true;
 				}
@@ -257,7 +235,7 @@ public class MyListener implements Listener {
 							+ "filename" + ChatColor.YELLOW + ">");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load " + ChatColor.YELLOW + "<"
-									+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+									+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load "
 									+ ChatColor.GOLD + "example",
 							slash + "schem load ", p);
@@ -269,7 +247,7 @@ public class MyListener implements Listener {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load " + ChatColor.YELLOW + "<"
-									+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+									+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load "
 									+ ChatColor.GOLD + "example",
 							slash + "schem load ", p);
@@ -281,14 +259,35 @@ public class MyListener implements Listener {
 			
 
 			else if (args[1].equalsIgnoreCase("save") && p.hasPermission("worldedit.schematic.save")) {
-				if (Helper.getBoolean("Save Function Override") && (args.length < 3 || args.length > 4 || !args[2].equals("-f"))) {
+				if (!Helper.getBoolean("Save Function Override")){
+					//TODO
+					return true;
+				}
+				else if (args[2].equals("-f") && args.length > 2 && args.length < 5) {
+					if (args.length == 3) {
+						event.setCancelled(true);
+						p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
+								+ "filename" + ChatColor.YELLOW + ">");
+						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save " + ChatColor.YELLOW + "<"
+										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
+								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save "
+										+ ChatColor.GOLD + "example",
+								slash + "schem save ", p);
+						return true;
+					}
+					else {
+						return true;
+					}
+				}
+				else {
 					event.setCancelled(true);
 					if (args.length < 3) {
 						p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
 								+ "filename" + ChatColor.YELLOW + ">");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save " + ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save "
 										+ ChatColor.GOLD + "example",
 								slash + "schem save ", p);
@@ -299,7 +298,7 @@ public class MyListener implements Listener {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save " + ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save "
 										+ ChatColor.GOLD + "example",
 								slash + "schem save ", p);
@@ -307,11 +306,11 @@ public class MyListener implements Listener {
 					}
 					
 					else {
-						if (!Helper.checkDeleteRequest(p, args[2]) && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
+						if (!Helper.checkDeleteRequest(p, args[2]) && args.length == 4 && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
 							p.sendMessage(ChatColor.RED + "Too many arguments.");
 							Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 									ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save " + ChatColor.YELLOW + "<"
-											+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+											+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 									ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save "
 											+ ChatColor.GOLD + "example",
 									slash + "schem save ", p);
@@ -322,13 +321,6 @@ public class MyListener implements Listener {
 							return Command_Save.onSave(p, args);
 						}
 					}
-				}
-				else if (!Helper.getBoolean("Save Function Override")){
-					//TODO
-					return true;
-				}
-				else {
-					return true;
 				}
 			}
 			
@@ -346,7 +338,7 @@ public class MyListener implements Listener {
 				}
 				
 				if (args.length <= 4) {
-					if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[4]))) {
+					if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[3]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "list " + ChatColor.YELLOW + "["
@@ -447,11 +439,11 @@ public class MyListener implements Listener {
 				if (args.length <= 5) {
 					if (args.length < 3) {
 						p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
-								+ "name" + ChatColor.YELLOW + ">");
+								+ "filename" + ChatColor.YELLOW + ">");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
-										+ "folder" + ChatColor.YELLOW + "] <" + ChatColor.GOLD + "name"
+										+ "folder" + ChatColor.YELLOW + "] <" + ChatColor.GOLD + "filename"
 										+ ChatColor.YELLOW + "> [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW
 										+ "]",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search "
@@ -468,7 +460,7 @@ public class MyListener implements Listener {
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
-										+ "folder" + ChatColor.YELLOW + "] <" + ChatColor.GOLD + "name"
+										+ "folder" + ChatColor.YELLOW + "] <" + ChatColor.GOLD + "filename"
 										+ ChatColor.YELLOW + "> [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW
 										+ "]",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search "
@@ -490,7 +482,7 @@ public class MyListener implements Listener {
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "["
 									+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder"
-									+ ChatColor.YELLOW + "] <" + ChatColor.GOLD + "name" + ChatColor.YELLOW + "> ["
+									+ ChatColor.YELLOW + "] <" + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> ["
 									+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
 							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search "
 									+ ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
@@ -517,12 +509,12 @@ public class MyListener implements Listener {
 				if (args.length <= 5) {
 					if (args.length < 3) {
 						p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
-								+ "name" + ChatColor.YELLOW + ">");
+								+ "filename" + ChatColor.YELLOW + ">");
 						Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW
 										+ "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
 										+ ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] <" + ChatColor.GOLD
-										+ "name" + ChatColor.YELLOW + "> [" + ChatColor.DARK_PURPLE + "page"
+										+ "filename" + ChatColor.YELLOW + "> [" + ChatColor.DARK_PURPLE + "page"
 										+ ChatColor.YELLOW + "]",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA
 										+ "searchfolder " + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d"
@@ -539,7 +531,7 @@ public class MyListener implements Listener {
 								ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW
 										+ "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
 										+ ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] <" + ChatColor.GOLD
-										+ "name" + ChatColor.YELLOW + "> [" + ChatColor.DARK_PURPLE + "page"
+										+ "filename" + ChatColor.YELLOW + "> [" + ChatColor.DARK_PURPLE + "page"
 										+ ChatColor.YELLOW + "]",
 								ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA
 										+ "searchfolder " + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d"
@@ -560,7 +552,7 @@ public class MyListener implements Listener {
 					Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
 							ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW + "["
 									+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder"
-									+ ChatColor.YELLOW + "] <" + ChatColor.GOLD + "name" + ChatColor.YELLOW + "> ["
+									+ ChatColor.YELLOW + "] <" + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> ["
 									+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
 							ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder "
 									+ ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
@@ -637,7 +629,7 @@ public class MyListener implements Listener {
 				else if (args.length == 3 && (args[2].equalsIgnoreCase("confirm") || args[2].equalsIgnoreCase("deny"))) {
 					if (args[2].equalsIgnoreCase("confirm") && Helper.checkDisableRequest(p)) {
 						p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is being disabled.");
-						Helper.disable();
+						WorldEditVersionMain.disable();
 						return true;
 					}
 
@@ -659,8 +651,20 @@ public class MyListener implements Listener {
 							slash + "schem disable", p);
 					return true;
 				}
-			} else {
-				return false;
+			}
+
+			else {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + "Invalid sub-command '" + ChatColor.GOLD + "" + args[1] + ChatColor.RED
+						+ "'. Options: " + ChatColor.GOLD + "help" + ChatColor.RED + ", " + ChatColor.GOLD + "load" + ChatColor.RED + ", " + ChatColor.GOLD + "save"
+						+ ChatColor.RED + ", " + ChatColor.GOLD + "rename" + ChatColor.RED + ", " + ChatColor.GOLD
+						+ "renamefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "delete" + ChatColor.RED + ", "
+						+ ChatColor.GOLD + "deletefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "list"
+						+ ChatColor.RED + ", " + ChatColor.GOLD + "folder" + ChatColor.RED + ", " + ChatColor.GOLD
+						+ "search" + ChatColor.RED + ", " + ChatColor.GOLD + "searchfolder" + ChatColor.RED + ", "
+						+ ChatColor.GOLD + "update" + ChatColor.RED + ", " + ChatColor.GOLD + "disable");
+				Helper.sendInvalidSubCommand(p, slash);
+				return true;
 			}
 		}
 		

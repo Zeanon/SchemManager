@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager.Commands;
+package de.Zeanon.SchemManager.WorldEdit.Commands;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.Arrays;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
-import de.Zeanon.SchemManager.Helper.Helper;
+import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Command_Folder {
@@ -27,9 +27,10 @@ public class Command_Folder {
 			
 			File directory = new File(schemFolderPath);
 			if (!directory.exists() || !directory.isDirectory()) {
-				p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
+				p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 				return false;
 			}
+			
 			else {
 				ArrayList<File> rawFiles = Helper.getFolders(directory, deepSearch);
 				File[] files = rawFiles.toArray(new File[rawFiles.size()]);
@@ -91,9 +92,10 @@ public class Command_Folder {
 				
 				File directory = new File(schemFolderPath);
 				if (!directory.exists() || !directory.isDirectory()) {
-					p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
+					p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 					return false;
 				}
+				
 				else {
 					ArrayList<File> rawFiles = Helper.getFolders(directory, deepSearch);
 					File[] files = rawFiles.toArray(new File[rawFiles.size()]);
@@ -188,6 +190,7 @@ public class Command_Folder {
 					p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
 					return false;
 				}
+				
 				else {
 					ArrayList<File> rawFiles = Helper.getFolders(directory, deepSearch);
 					File[] files = rawFiles.toArray(new File[rawFiles.size()]);
@@ -251,6 +254,7 @@ public class Command_Folder {
 				p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
 				return false;
 			}
+			
 			else {
 				ArrayList<File> rawFiles = Helper.getFolders(directory, deepSearch);
 				File[] files = rawFiles.toArray(new File[rawFiles.size()]);

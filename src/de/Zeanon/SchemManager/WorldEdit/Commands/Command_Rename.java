@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager.Commands;
+package de.Zeanon.SchemManager.WorldEdit.Commands;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 
-import de.Zeanon.SchemManager.Helper.Helper;
+import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Command_Rename {

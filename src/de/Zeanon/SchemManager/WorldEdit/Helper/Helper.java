@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager.Helper;
+package de.Zeanon.SchemManager.WorldEdit.Helper;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -18,7 +18,7 @@ import org.bukkit.plugin.Plugin;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
-import de.Zeanon.SchemManager.Main.Main;
+import de.Zeanon.SchemManager.WorldEdit.Main.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -42,9 +42,8 @@ public class Helper {
 	public static WorldEditPlugin we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
 	
 	
-	@SuppressWarnings("static-access")
 	public Helper (Plugin plugin) {
-		this.plugin = plugin;
+		Helper.plugin = plugin;
 		if (plugin.getDataFolder().getAbsolutePath().contains("/")) {
 			slash = "/";
 		}
@@ -57,6 +56,7 @@ public class Helper {
 			path = path + parts[i] + slash;
 		}
 		pluginFolderPath = path;
+		schemFolderPath = getInitialSchemPath();
 	}
 	
 	
@@ -133,8 +133,8 @@ public class Helper {
 		TextComponent help = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "help"));
 		TextComponent load = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "load"));
 		TextComponent save = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "save"));
-		TextComponent rename = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "delete"));
-		TextComponent renamefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "deletefolder"));
+		TextComponent rename = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "rename"));
+		TextComponent renamefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "renamefolder"));
 		TextComponent delete = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "delete"));
 		TextComponent deletefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "deletefolder"));
 		TextComponent list = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "list"));
@@ -152,9 +152,9 @@ public class Helper {
 		list.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem list "));
 		list.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "list " + ChatColor.YELLOW + "[" + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]"))).create()));
 		rename.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem rename "));
-		rename.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "rename" + ChatColor.GOLD + " example"))).create()));
+		rename.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "rename" + ChatColor.GOLD + " example newname"))).create()));
 		renamefolder.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem renamefolder "));
-		renamefolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "renamefolder" + ChatColor.GREEN + " example"))).create()));		
+		renamefolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "renamefolder" + ChatColor.GREEN + " example newname"))).create()));		
 		delete.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem delete "));
 		delete.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "delete" + ChatColor.GOLD + " example"))).create()));
 		deletefolder.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem deletefolder "));
@@ -348,45 +348,49 @@ public class Helper {
 	
 	
 	public static String getSchemPath() {
-		if (Main.config.hasNotChanged()) {
+		if (WorldEditVersionMain.config.hasNotChanged()) {
 			return schemFolderPath;
 		}
 		else {
-			if (getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
-				schemFolderPath = pluginFolderPath + "WorldEdit" + slash + "schematics" + slash;
-				return pluginFolderPath + "WorldEdit" + slash + "schematics" + slash;
+			return getInitialSchemPath();
+		}
+	}
+	
+	private static String getInitialSchemPath() {
+		if (getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
+			schemFolderPath = pluginFolderPath + "WorldEdit" + slash + "schematics" + slash;
+			return pluginFolderPath + "WorldEdit" + slash + "schematics" + slash;
+		}
+		else {
+			if (slash.equals("\\\\")) {
+				if (getString("WorldEdit Schematic-Path").endsWith(slash)) {
+					schemFolderPath = getString("WorldEdit Schematic-Path");
+					return getString("WorldEdit Schematic-Path");
+				}
+				else {
+					schemFolderPath = getString("WorldEdit Schematic-Path") + slash;
+					return getString("WorldEdit Schematic-Path") + slash;
+				}
 			}
 			else {
-				if (slash.equals("\\\\")) {
-					if (getString("WorldEdit Schematic-Path").endsWith(slash)) {
+				if (getString("WorldEdit Schematic-Path").endsWith(slash)) {
+					if (getString("WorldEdit Schematic-Path").startsWith(slash)) {
 						schemFolderPath = getString("WorldEdit Schematic-Path");
 						return getString("WorldEdit Schematic-Path");
 					}
 					else {
-						schemFolderPath = getString("WorldEdit Schematic-Path") + slash;
-						return getString("WorldEdit Schematic-Path") + slash;
+						schemFolderPath = slash + getString("WorldEdit Schematic-Path");
+						return slash + getString("WorldEdit Schematic-Path");
 					}
 				}
 				else {
-					if (getString("WorldEdit Schematic-Path").endsWith(slash)) {
-						if (getString("WorldEdit Schematic-Path").startsWith(slash)) {
-							schemFolderPath = getString("WorldEdit Schematic-Path");
-							return getString("WorldEdit Schematic-Path");
-						}
-						else {
-							schemFolderPath = slash + getString("WorldEdit Schematic-Path");
-							return slash + getString("WorldEdit Schematic-Path");
-						}
+					if (getString("WorldEdit Schematic-Path").startsWith(slash)) {
+						schemFolderPath = getString("WorldEdit Schematic-Path") + slash;
+						return getString("WorldEdit Schematic-Path") + slash;
 					}
 					else {
-						if (getString("WorldEdit Schematic-Path").startsWith(slash)) {
-							schemFolderPath = getString("WorldEdit Schematic-Path") + slash;
-							return getString("WorldEdit Schematic-Path") + slash;
-						}
-						else {
-							schemFolderPath = slash + getString("WorldEdit Schematic-Path") + slash;
-							return slash + getString("WorldEdit Schematic-Path") + slash;
-						}
+						schemFolderPath = slash + getString("WorldEdit Schematic-Path") + slash;
+						return slash + getString("WorldEdit Schematic-Path") + slash;
 					}
 				}
 			}
@@ -396,35 +400,35 @@ public class Helper {
 	
 	
 	public static String getString(String path) {
-		if (Main.config.contains(path)) {
-			return Main.config.getString(path);
+		if (WorldEditVersionMain.config.contains(path)) {
+			return WorldEditVersionMain.config.getString(path);
 		}
 		else {
 			updateConfig();
-			Main.config.update();
-			return Main.config.getString(path);
+			WorldEditVersionMain.config.update();
+			return WorldEditVersionMain.config.getString(path);
 		}
 	}
 	
 	public static int getInt(String path) {
-		if (Main.config.contains(path)) {
-			return Main.config.getInt(path);
+		if (WorldEditVersionMain.config.contains(path)) {
+			return WorldEditVersionMain.config.getInt(path);
 		}
 		else {
 			updateConfig();
-			Main.config.update();
-			return Main.config.getInt(path);
+			WorldEditVersionMain.config.update();
+			return WorldEditVersionMain.config.getInt(path);
 		}
 	}
 	
 	public static boolean getBoolean(String path) {
-		if (Main.config.contains(path)) {
-			return Main.config.getBoolean(path);
+		if (WorldEditVersionMain.config.contains(path)) {
+			return WorldEditVersionMain.config.getBoolean(path);
 		}
 		else {
 			updateConfig();
-			Main.config.update();
-			return Main.config.getBoolean(path);
+			WorldEditVersionMain.config.update();
+			return WorldEditVersionMain.config.getBoolean(path);
 		}
 	}
 	
@@ -433,7 +437,7 @@ public class Helper {
 	public static boolean update(Player p) {
 		String fileName = null;
 		try {
-			fileName = new File(Main.class.getProtectionDomain()
+			fileName = new File(WorldEditVersionMain.class.getProtectionDomain()
 					.getCodeSource()
 					.getLocation()
 					.toURI()
@@ -488,26 +492,26 @@ public class Helper {
 	
 	
 	public static boolean updateConfig() {
-		if (!Main.config.contains("WorldEdit Schematic-Path") || !Main.config.contains("Listmax") || !Main.config.contains("Space Lists") || !Main.config.contains("Save Function Override") || !Main.config.contains("Automatic Reload") || !Main.config.contains("Plugin Version") || !Main.config.getString("Plugin Version").equals(Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion())) {
+		if (!WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") || !WorldEditVersionMain.config.contains("Listmax") || !WorldEditVersionMain.config.contains("Space Lists") || !WorldEditVersionMain.config.contains("Save Function Override") || !WorldEditVersionMain.config.contains("Automatic Reload") || !WorldEditVersionMain.config.contains("Plugin Version") || !WorldEditVersionMain.config.getString("Plugin Version").equals(Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion())) {
 			String schemPath = null;
-			if (Main.config.contains("WorldEdit Schematic-Path")) {
-				schemPath = Main.config.getString("WorldEdit Schematic-Path");
+			if (WorldEditVersionMain.config.contains("WorldEdit Schematic-Path")) {
+				schemPath = WorldEditVersionMain.config.getString("WorldEdit Schematic-Path");
 			}
 			int listmax = 10;
-			if (Main.config.contains("Listmax")) {
-				listmax = Main.config.getInt("Listmax");
+			if (WorldEditVersionMain.config.contains("Listmax")) {
+				listmax = WorldEditVersionMain.config.getInt("Listmax");
 			}
 			boolean spaceLists = true;
-			if (Main.config.contains("Space Lists")) {
-				spaceLists= Main.config.getBoolean("Space Lists");
+			if (WorldEditVersionMain.config.contains("Space Lists")) {
+				spaceLists= WorldEditVersionMain.config.getBoolean("Space Lists");
 			}
 			boolean saveOverride = true;
-			if (Main.config.contains("Save Function Override")) {
-				saveOverride =  Main.config.getBoolean("Save Function Override");
+			if (WorldEditVersionMain.config.contains("Save Function Override")) {
+				saveOverride =  WorldEditVersionMain.config.getBoolean("Save Function Override");
 			}
 			boolean autoReload = true;
-			if (Main.config.contains("Automatic Reload")) {
-				autoReload = Main.config.getBoolean("Automatic Reload");
+			if (WorldEditVersionMain.config.contains("Automatic Reload")) {
+				autoReload = WorldEditVersionMain.config.getBoolean("Automatic Reload");
 			}
 			
 			try {
@@ -527,27 +531,27 @@ public class Helper {
 								outputStream.write(data, 0, count);
 						}
 					}
-					Main.config.update();
-					Main.config.set("Plugin Version", Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion());
+					WorldEditVersionMain.config.update();
+					WorldEditVersionMain.config.set("Plugin Version", Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion());
 					if (schemPath != null) {
-						Main.config.set("WorldEdit Schematic-Path", schemPath);
+						WorldEditVersionMain.config.set("WorldEdit Schematic-Path", schemPath);
 					}
 					if (listmax != 10) {
-						Main.config.set("Listmax", listmax);
+						WorldEditVersionMain.config.set("Listmax", listmax);
 					}
 					if (!spaceLists) {
-						Main.config.set("Space Lists", spaceLists);
+						WorldEditVersionMain.config.set("Space Lists", spaceLists);
 					}
 					if (!saveOverride) {
-						Main.config.set("Save Function Override", saveOverride);
+						WorldEditVersionMain.config.set("Save Function Override", saveOverride);
 					}
 					if (!autoReload) {
-						Main.config.set("Save Function Override", autoReload);
+						WorldEditVersionMain.config.set("Save Function Override", autoReload);
 					}
-					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + Main.config.getFile().getName() +" updated");
+					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() +" updated");
 					
 				} catch (IOException e) {
-					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + Main.config.getFile().getName() +" could not be updated");
+					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() +" could not be updated");
 					e.printStackTrace();
 					return false;
 				}
@@ -566,11 +570,5 @@ public class Helper {
 			}
 		}
 		return true;
-	}
-	
-	
-	
-	public static void disable() {
-		Bukkit.getPluginManager().disablePlugin(Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()));
 	}
 }

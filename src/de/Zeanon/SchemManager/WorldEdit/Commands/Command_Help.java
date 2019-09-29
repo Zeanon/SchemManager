@@ -1,9 +1,9 @@
-package de.Zeanon.SchemManager.Commands;
+package de.Zeanon.SchemManager.WorldEdit.Commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import de.Zeanon.SchemManager.Helper.Helper;
+import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Command_Help {
@@ -22,37 +22,39 @@ public class Command_Help {
 				slash + "schem help", p);
 		Helper.sendSuggestMessage(ChatColor.RED + "Load a schematic: ",
 				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load " + ChatColor.YELLOW + "<"
-						+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+						+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 				ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load "
 						+ ChatColor.GOLD + "example",
 				slash + "schem load ", p);
 		Helper.sendSuggestMessage(ChatColor.RED + "Save a schematic: ",
 				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save " + ChatColor.YELLOW + "<"
-						+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+						+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 				ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save "
 						+ ChatColor.GOLD + "example",
 				slash + "schem save ", p);
 		Helper.sendSuggestMessage(ChatColor.RED + "Rename a schematic: ",
 				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename " + ChatColor.YELLOW + "<"
-						+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+						+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> <"
+						+ ChatColor.GOLD + "newname" + ChatColor.YELLOW + ">",
 				ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "rename "
-						+ ChatColor.GOLD + "example",
+						+ ChatColor.GOLD + "example newname",
 				slash + "schem rename ", p);
 		Helper.sendSuggestMessage(ChatColor.RED + "Rename a folder: ",
 				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "renamefolder " + ChatColor.YELLOW + "<"
-						+ ChatColor.GREEN + "name" + ChatColor.YELLOW + ">",
+						+ ChatColor.GREEN + "filename" + ChatColor.YELLOW + "> <"
+						+ ChatColor.GREEN + "newname" + ChatColor.YELLOW + ">",
 				ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "renamefolder "
-						+ ChatColor.GREEN + "example",
+						+ ChatColor.GREEN + "example newname",
 				slash + "schem renamefolder ", p);
 		Helper.sendSuggestMessage(ChatColor.RED + "Delete a schematic: ",
 				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete " + ChatColor.YELLOW + "<"
-						+ ChatColor.GOLD + "name" + ChatColor.YELLOW + ">",
+						+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
 				ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "delete "
 						+ ChatColor.GOLD + "example",
 				slash + "schem delete ", p);
 		Helper.sendSuggestMessage(ChatColor.RED + "Delete a folder: ",
 				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "deletefolder " + ChatColor.YELLOW + "<"
-						+ ChatColor.GREEN + "name" + ChatColor.YELLOW + ">",
+						+ ChatColor.GREEN + "filename" + ChatColor.YELLOW + ">",
 				ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "deletefolder "
 						+ ChatColor.GREEN + "example",
 				slash + "schem deletefolder ", p);
@@ -77,7 +79,7 @@ public class Command_Help {
 		Helper.sendSuggestMessage(ChatColor.RED + "Search for a schematic: ",
 				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "["
 						+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder"
-						+ ChatColor.YELLOW + "] <" + ChatColor.GOLD + "name" + ChatColor.YELLOW + "> ["
+						+ ChatColor.YELLOW + "] <" + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> ["
 						+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
 				ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "search "
 						+ ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
@@ -87,7 +89,7 @@ public class Command_Help {
 		Helper.sendSuggestMessage(ChatColor.RED + "Search for a folder: ",
 				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder " + ChatColor.YELLOW + "["
 						+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder"
-						+ ChatColor.YELLOW + "] <" + ChatColor.GOLD + "name" + ChatColor.YELLOW + "> ["
+						+ ChatColor.YELLOW + "] <" + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> ["
 						+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
 				ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "searchfolder "
 						+ ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["

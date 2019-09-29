@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager.Commands;
+package de.Zeanon.SchemManager.WorldEdit.Commands;
 
 import java.io.File;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
-import de.Zeanon.SchemManager.Helper.Helper;
+import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Command_List {
@@ -28,9 +28,10 @@ public class Command_List {
 			
 			File directory = new File(schemFolderPath);
 			if (!directory.exists() || !directory.isDirectory()) {
-				p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
+				p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 				return false;
 			}
+			
 			else {
 				String[] extension = {"schematic", "schem"};
 				Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
@@ -93,9 +94,10 @@ public class Command_List {
 				
 				File directory = new File(schemFolderPath);
 				if (!directory.exists() || !directory.isDirectory()) {
-					p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
+					p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 					return false;
 				}
+				
 				else {
 					String[] extension = {"schematic", "schem"};
 					Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
@@ -188,9 +190,10 @@ public class Command_List {
 				
 				File directory = new File(schemFolderPath + args[2]);
 				if (!directory.exists() || !directory.isDirectory()) {
-					p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
+					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " is no folder.");
 					return false;
 				}
+				
 				else {
 					String[] extension = {"schematic", "schem"};
 					Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
@@ -253,9 +256,10 @@ public class Command_List {
 		
 			File directory = new File(schemFolderPath + args[2]);
 			if (!directory.exists() || !directory.isDirectory()) {
-				p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
+				p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " is no folder.");
 				return false;
 			}
+			
 			else {
 				String[] extension = {"schematic", "schem"};
 				Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
