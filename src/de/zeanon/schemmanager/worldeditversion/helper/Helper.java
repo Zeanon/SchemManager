@@ -104,9 +104,10 @@ public class Helper {
     }
 
 
+    @SuppressWarnings("Duplicates")
     public static void sendSuggestMessage(String message, String suggestMessage, String hoverMessage, String command, Player target) {
-        TextComponent localMessage = new TextComponent(message);
-        TextComponent suggestPart = new TextComponent(suggestMessage);
+        TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
+        TextComponent suggestPart = new TextComponent(TextComponent.fromLegacyText(suggestMessage));
         suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
         suggestPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(hoverMessage))).create()));
         localMessage.addExtra(suggestPart);
@@ -114,6 +115,7 @@ public class Helper {
     }
 
 
+    @SuppressWarnings("Duplicates")
     public static void sendHoverMessage(String message1, String message2, String message3, String hoverMessage, Player target) {
         TextComponent localMessage1 = new TextComponent(TextComponent.fromLegacyText(message1));
         TextComponent hoverPart = new TextComponent(TextComponent.fromLegacyText(message2));
@@ -125,6 +127,7 @@ public class Helper {
     }
 
 
+    @SuppressWarnings("Duplicates")
     public static void sendInvalidSubCommand(Player target, String slash) {
         TextComponent base = new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "Usage: "));
         TextComponent schem = new TextComponent(TextComponent.fromLegacyText(ChatColor.GRAY + slash + "schem"));

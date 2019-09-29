@@ -65,9 +65,7 @@ public class CommandListener implements Listener {
 				return Help.onHelp(p, slash);
 			}
 
-			if (!p.hasPermission("worldedit.schematic.delete")) {
-				return false;
-			} else if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del"))) {
+			if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del") && p.hasPermission("worldedit.schematic.delete"))) {
 				event.setCancelled(true);
 				if (args.length <= 4) {
 					if (args.length < 3) {
