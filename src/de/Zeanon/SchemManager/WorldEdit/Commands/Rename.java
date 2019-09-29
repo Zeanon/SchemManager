@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
-public class Command_Rename {
+public class Rename {
 
 	public static boolean onRename(Player p, String[] args) {
 		File schematicFile_old = new File(Helper.getSchemPath() + args[2] + ".schematic");

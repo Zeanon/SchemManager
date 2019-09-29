@@ -13,16 +13,16 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
 
-import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Delete;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Command_DeleteFolder;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Folder;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Help;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Command_List;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Rename;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Command_RenameFolder;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Save;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Command_Search;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Command_SearchFolder;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Delete;
+import de.Zeanon.SchemManager.WorldEdit.Commands.DeleteFolder;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Folder;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Help;
+import de.Zeanon.SchemManager.WorldEdit.Commands.List;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Rename;
+import de.Zeanon.SchemManager.WorldEdit.Commands.RenameFolder;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Save;
+import de.Zeanon.SchemManager.WorldEdit.Commands.Search;
+import de.Zeanon.SchemManager.WorldEdit.Commands.SearchFolder;
 import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import de.Zeanon.SchemManager.WorldEdit.Main.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
@@ -59,7 +59,7 @@ public class MyListener implements Listener {
 
 			if (args.length == 1) {
 				event.setCancelled(true);
-				return Command_Help.onHelp(p, slash);
+				return Help.onHelp(p, slash);
 			}
 			
 
@@ -91,7 +91,7 @@ public class MyListener implements Listener {
 					}
 					
 					else {
-						return Command_Delete.onDelete(p, args);
+						return Delete.onDelete(p, args);
 					}
 				}
 				
@@ -136,7 +136,7 @@ public class MyListener implements Listener {
 					}
 					
 					else {
-						return Command_DeleteFolder.onDeleteFolder(p, args);
+						return DeleteFolder.onDeleteFolder(p, args);
 					}
 				}
 				
@@ -181,7 +181,7 @@ public class MyListener implements Listener {
 					}
 					
 					else {
-						return Command_Rename.onRename(p, args);
+						return Rename.onRename(p, args);
 					}
 				}
 				
@@ -225,7 +225,7 @@ public class MyListener implements Listener {
 					}
 					
 					else {
-						return Command_RenameFolder.onRenameFolder(p, args);
+						return RenameFolder.onRenameFolder(p, args);
 					}
 				}
 
@@ -332,7 +332,7 @@ public class MyListener implements Listener {
 						}
 	
 						else {
-							return Command_Save.onSave(p, args);
+							return Save.onSave(p, args);
 						}
 					}
 				}
@@ -368,7 +368,7 @@ public class MyListener implements Listener {
 					}
 
 					else {
-						return Command_List.onList(p, args, deep);
+						return List.onList(p, args, deep);
 					}
 				}
 
@@ -418,7 +418,7 @@ public class MyListener implements Listener {
 					}
 					
 					else {
-						return Command_Folder.onFolder(p, args, deep);
+						return Folder.onFolder(p, args, deep);
 					}
 				}
 
@@ -487,7 +487,7 @@ public class MyListener implements Listener {
 					}
 
 					else {
-						return Command_Search.onSearch(p, args, deep);
+						return Search.onSearch(p, args, deep);
 					}
 				}
 
@@ -557,7 +557,7 @@ public class MyListener implements Listener {
 					}
 
 					else {
-						return Command_SearchFolder.onSearchFolder(p, args, deep);
+						return SearchFolder.onSearchFolder(p, args, deep);
 					}
 				}
 
@@ -618,7 +618,7 @@ public class MyListener implements Listener {
 			else if (args[1].equalsIgnoreCase("help")) {
 				event.setCancelled(true);
 				if (args.length == 2) {
-					return Command_Help.onHelp(p, slash);
+					return Help.onHelp(p, slash);
 				}
 				else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");

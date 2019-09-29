@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
-public class Command_DeleteFolder {
+public class DeleteFolder {
 
 	public static boolean onDeleteFolder(Player p, String[] args) {
 		File file = new File(Helper.getSchemPath() + args[2]);

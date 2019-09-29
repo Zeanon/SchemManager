@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
-public class Command_Folder {
+public class Folder {
 	
 	public static boolean onFolder(Player p, String[] args, boolean deepSearch) {
 		int listmax = Helper.getInt("Listmax");

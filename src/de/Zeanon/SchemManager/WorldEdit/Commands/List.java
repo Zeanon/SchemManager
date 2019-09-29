@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
-public class Command_List {
+public class List {
 
 	public static boolean onList(Player p, String[] args, boolean deepSearch) {
 		int listmax = Helper.getInt("Listmax");

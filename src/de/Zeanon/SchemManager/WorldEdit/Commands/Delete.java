@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
-public class Command_Delete {
+public class Delete {
 
 	public static boolean onDelete(Player p, String[] args) {
 		File schematicFile = new File(Helper.getSchemPath() + args[2] + ".schematic");

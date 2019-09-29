@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
-public class Command_Help {
+public class Help {
 
 	public static boolean onHelp(Player p, String slash) {
 		if (Helper.getBoolean("Space Lists")) {

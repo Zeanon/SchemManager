@@ -10,7 +10,7 @@ import com.sk89q.worldedit.LocalSession;
 import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
-public class Command_Save {
+public class Save {
 
 	public static boolean onSave(Player p, String[] args) {
 		File schematicFile = new File(Helper.getSchemPath() + args[2] + ".schematic");
