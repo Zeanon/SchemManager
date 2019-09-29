@@ -19,7 +19,7 @@
 # Automatic Reload: Should the plugin automatically reload the Server after it got updated?                   #
 ###############################################################################################################
 
-Plugin Version: "3.5.2"
+Plugin Version: "3.5.3"
 
 WorldEdit Schematic-Path: Default Schematic Path
  
