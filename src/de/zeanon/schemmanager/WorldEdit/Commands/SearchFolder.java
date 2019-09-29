@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.worldedit.commands;
+package de.zeanon.schemmanager.WorldEdit.Commands;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.Arrays;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
-import de.zeanon.schemmanager.worldedit.helper.Helper;
+import de.zeanon.schemmanager.WorldEdit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class SearchFolder {
@@ -23,7 +23,7 @@ public class SearchFolder {
 		}
 		
 		if (args.length == 3) {
-			int side = 0;
+			int side;
 			
 			File directory = new File(schemFolderPath);
 			if (!directory.exists() || !directory.isDirectory()) {
@@ -32,14 +32,14 @@ public class SearchFolder {
 			}
 			
 			else {
-				ArrayList<File> fileArray = new ArrayList<File>();
+				ArrayList<File> fileArray = new ArrayList<>();
 				for (File file : Helper.getFolders(directory, deepSearch)) {
 					String name = file.getName().toLowerCase();
 					if (name.contains(args[2].toLowerCase())) {
 						fileArray.add(file);
 					}
 				}
-				File[] files = fileArray.toArray(new File[fileArray.size()]);
+				File[] files = fileArray.toArray(new File[0]);
 				Arrays.sort(files);
 				
 				double count = files.length;
@@ -87,7 +87,7 @@ public class SearchFolder {
 		
 		else if (args.length == 4) {
 			if (StringUtils.isNumeric(args[3])) {
-				int side = 0;
+				int side;
 				int side_number = Integer.parseInt(args[3]);
 				
 				File directory = new File(schemFolderPath);
@@ -97,14 +97,14 @@ public class SearchFolder {
 				}
 				
 				else {
-					ArrayList<File> fileArray = new ArrayList<File>();
+					ArrayList<File> fileArray = new ArrayList<>();
 					for (File file : Helper.getFolders(directory, deepSearch)) {
 						String name = file.getName().toLowerCase();
 						if (name.contains(args[2].toLowerCase())) {
 							fileArray.add(file);
 						}
 					}
-					File[] files = fileArray.toArray(new File[fileArray.size()]);
+					File[] files = fileArray.toArray(new File[0]);
 					Arrays.sort(files);
 					
 					double count = files.length;
@@ -177,7 +177,7 @@ public class SearchFolder {
 			}
 			
 			else {
-				int side = 0;
+				int side;
 				
 				File directory = new File(schemFolderPath + args[2]);
 				if (!directory.exists() || !directory.isDirectory()) {
@@ -186,14 +186,14 @@ public class SearchFolder {
 				}
 				
 				else {
-					ArrayList<File> fileArray = new ArrayList<File>();
+					ArrayList<File> fileArray = new ArrayList<>();
 					for (File file : Helper.getFolders(directory, deepSearch)) {
 						String name = file.getName().toLowerCase();
 						if (name.contains(args[2].toLowerCase())) {
 							fileArray.add(file);
 						}
 					}
-					File[] files = fileArray.toArray(new File[fileArray.size()]);
+					File[] files = fileArray.toArray(new File[0]);
 					Arrays.sort(files);
 					
 					double count = files.length;
@@ -241,7 +241,7 @@ public class SearchFolder {
 		
 		
 		else {
-			int side = 0;
+			int side;
 			int side_number = Integer.parseInt(args[4]);
 			
 			File directory = new File(schemFolderPath + args[2]);
@@ -251,14 +251,14 @@ public class SearchFolder {
 			}
 			
 			else {
-				ArrayList<File> fileArray = new ArrayList<File>();
+				ArrayList<File> fileArray = new ArrayList<>();
 				for (File file : Helper.getFolders(directory, deepSearch)) {
 					String name = file.getName().toLowerCase();
 					if (name.contains(args[2].toLowerCase())) {
 						fileArray.add(file);
 					}
 				}
-				File[] files = fileArray.toArray(new File[fileArray.size()]);
+				File[] files = fileArray.toArray(new File[0]);
 				Arrays.sort(files);
 				
 				double count = files.length;

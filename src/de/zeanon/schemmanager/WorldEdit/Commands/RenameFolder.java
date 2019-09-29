@@ -1,13 +1,13 @@
-package de.zeanon.schemmanager.worldedit.commands;
+package de.zeanon.schemmanager.WorldEdit.Commands;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+import de.zeanon.schemmanager.WorldEdit.helper.Helper;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 
-import de.zeanon.schemmanager.worldedit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class RenameFolder {

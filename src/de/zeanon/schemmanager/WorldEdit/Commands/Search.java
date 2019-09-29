@@ -1,15 +1,15 @@
-package de.zeanon.schemmanager.worldedit.commands;
+package de.zeanon.schemmanager.WorldEdit.Commands;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import de.zeanon.schemmanager.WorldEdit.helper.Helper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
-import de.zeanon.schemmanager.worldedit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Search {
@@ -25,7 +25,7 @@ public class Search {
 		}
 		
 		if (args.length == 3) {
-			int side = 0;
+			int side;
 			
 			File directory = new File(schemFolderPath);
 			if (!directory.exists() || !directory.isDirectory()) {
@@ -36,14 +36,14 @@ public class Search {
 			else {
 				String[] extension = {"schematic", "schem"};
 				Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
-				ArrayList<File> fileArray = new ArrayList<File>();
+				ArrayList<File> fileArray = new ArrayList<>();
 				for (File file : rawFiles) {
 					String named = file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
 					if (named.contains(args[2].toLowerCase()) && file.isFile()) {
 						fileArray.add(file);
 					}
 				}
-				File[] files = fileArray.toArray(new File[fileArray.size()]);
+				File[] files = fileArray.toArray(new File[0]);
 				Arrays.sort(files);
 				
 				double count = files.length;
@@ -91,7 +91,7 @@ public class Search {
 		
 		else if (args.length == 4) {
 			if (StringUtils.isNumeric(args[3])) {
-				int side = 0;
+				int side;
 				int side_number = Integer.parseInt(args[3]);
 				
 				File directory = new File(schemFolderPath);
@@ -103,14 +103,14 @@ public class Search {
 				else {
 					String[] extension = {"schematic", "schem"};
 					Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
-					ArrayList<File> fileArray = new ArrayList<File>();
+					ArrayList<File> fileArray = new ArrayList<>();
 					for (File file : rawFiles) {
 						String named = file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
 						if (named.contains(args[2].toLowerCase()) && file.isFile()) {
 							fileArray.add(file);
 						}
 					}
-					File[] files = fileArray.toArray(new File[fileArray.size()]);
+					File[] files = fileArray.toArray(new File[0]);
 					Arrays.sort(files);
 					
 					double count = files.length;
@@ -184,7 +184,7 @@ public class Search {
 			
 			
 			else {
-				int side = 0;
+				int side;
 
 				File directory = new File(schemFolderPath + args[2]);
 				if (!directory.exists() || !directory.isDirectory()) {
@@ -195,7 +195,7 @@ public class Search {
 				else {
 					String[] extension = {"schematic", "schem"};
 					Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
-					ArrayList<File> fileArray = new ArrayList<File>();
+					ArrayList<File> fileArray = new ArrayList<>();
 					for (File file : rawFiles) {
 						String named = file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
 						String name = file.getName().toLowerCase();
@@ -203,7 +203,7 @@ public class Search {
 							fileArray.add(file);
 						}
 					}
-					File[] files = fileArray.toArray(new File[fileArray.size()]);
+					File[] files = fileArray.toArray(new File[0]);
 					Arrays.sort(files);
 					
 					double count = files.length;
@@ -251,7 +251,7 @@ public class Search {
 		
 		
 		else {
-			int side = 0;
+			int side;
 			int side_number = Integer.parseInt(args[4]);
 			File directory = new File(schemFolderPath + args[2]);
 			if (!directory.exists() || !directory.isDirectory()) {
@@ -262,7 +262,7 @@ public class Search {
 			else {
 				String[] extension = {"schematic", "schem"};
 				Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
-				ArrayList<File> fileArray = new ArrayList<File>();
+				ArrayList<File> fileArray = new ArrayList<>();
 				for (File file : rawFiles) {
 					String named = file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
 					String name = file.getName().toLowerCase();
@@ -270,7 +270,7 @@ public class Search {
 						fileArray.add(file);
 					}
 				}
-				File[] files = fileArray.toArray(new File[fileArray.size()]);
+				File[] files = fileArray.toArray(new File[0]);
 				Arrays.sort(files);
 				
 				double count = files.length;

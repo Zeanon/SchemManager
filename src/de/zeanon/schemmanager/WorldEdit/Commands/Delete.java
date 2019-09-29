@@ -1,10 +1,10 @@
-package de.zeanon.schemmanager.worldedit.commands;
+package de.zeanon.schemmanager.WorldEdit.Commands;
 
 import java.io.File;
 
+import de.zeanon.schemmanager.WorldEdit.helper.Helper;
 import org.bukkit.entity.Player;
 
-import de.zeanon.schemmanager.worldedit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Delete {

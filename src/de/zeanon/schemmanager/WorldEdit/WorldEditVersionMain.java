@@ -1,10 +1,10 @@
-package de.zeanon.schemmanager.worldedit;
+package de.zeanon.schemmanager.WorldEdit;
 
+import de.zeanon.schemmanager.WorldEdit.listener.CommandListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
-import de.zeanon.schemmanager.worldedit.helper.Helper;
-import de.zeanon.schemmanager.worldedit.listener.CommandListener;
+import de.zeanon.schemmanager.WorldEdit.helper.Helper;
 import de.leonhard.storage.Config;
 
 public class WorldEditVersionMain {
@@ -15,7 +15,7 @@ public class WorldEditVersionMain {
 	
 	public static Config config;
 	public static Helper helper;
-	private static Plugin plugin;
+	public static Plugin plugin;
 	
 	public void onEnable() {
 		boolean failedToLoad = false;
@@ -43,7 +43,6 @@ public class WorldEditVersionMain {
 		
 		if (!Helper.updateConfig(false)) {
 			disable();
-			return;
 		}
 		else {
 			System.out.println("[" + plugin.getName() + "] >> " + plugin.getName() + " v" + plugin.getDescription().getVersion() + " successfully launched...");

@@ -1,9 +1,10 @@
-package de.zeanon.schemmanager.worldedit.commands;
+package de.zeanon.schemmanager.WorldEdit.Commands;
 
+import de.zeanon.schemmanager.WorldEdit.WorldEditVersionMain;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import de.zeanon.schemmanager.worldedit.helper.Helper;
+import de.zeanon.schemmanager.WorldEdit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Help {
@@ -14,7 +15,7 @@ public class Help {
 		}
 
 		p.sendMessage(ChatColor.AQUA + "=== SchemManager | Version "
-				+ Bukkit.getServer().getPluginManager().getPlugin("SchemManager").getDescription().getVersion()
+				+ WorldEditVersionMain.plugin.getDescription().getVersion()
 				+ " ===");
 		Helper.sendSuggestMessage(ChatColor.RED + "Get some help: ",
 				ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "help", ChatColor.LIGHT_PURPLE + ""

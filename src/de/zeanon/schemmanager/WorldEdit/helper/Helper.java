@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.worldedit.helper;
+package de.zeanon.schemmanager.WorldEdit.helper;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -12,13 +12,15 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
+import de.zeanon.schemmanager.WorldEdit.WorldEditVersionMain;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
-import de.zeanon.schemmanager.worldedit.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -31,13 +33,13 @@ public class Helper {
 	private static String pluginFolderPath;
 	private static String slash = "/";
 	private static String schemFolderPath;
-	private static ArrayList<String> disableRequests = new ArrayList<String>();
-	private static ArrayList<String> updateRequests = new ArrayList<String>();
-	private static HashMap<String, String> deleteRequests = new HashMap<String, String>();
-	private static HashMap<String, String> deleteFolderRequests = new HashMap<String, String>();
-	private static HashMap<String, String> renameRequests = new HashMap<String, String>();
-	private static HashMap<String, String> renameFolderRequests = new HashMap<String, String>();
-	private static HashMap<String, String> overwriteRequests = new HashMap<String, String>();
+	private static ArrayList<String> disableRequests = new ArrayList<>();
+	private static ArrayList<String> updateRequests = new ArrayList<>();
+	private static HashMap<String, String> deleteRequests = new HashMap<>();
+	private static HashMap<String, String> deleteFolderRequests = new HashMap<>();
+	private static HashMap<String, String> renameRequests = new HashMap<>();
+	private static HashMap<String, String> renameFolderRequests = new HashMap<>();
+	private static HashMap<String, String> overwriteRequests = new HashMap<>();
 	
 	public static WorldEditPlugin we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
 	
@@ -52,15 +54,16 @@ public class Helper {
 		}
 		String[] parts = plugin.getDataFolder().getAbsolutePath().split(slash);
 		String path = parts[0] + slash;
+		StringBuilder pathBuilder = new StringBuilder(path);
 		for (int i = 1; i < parts.length - 1; i++) {
-			path = path + parts[i] + slash;
+			pathBuilder.append(parts[i] + slash);
 		}
-		pluginFolderPath = path;
+		pluginFolderPath = pathBuilder.toString();
 		schemFolderPath = getInitialSchemPath();
 	}
-	
-	
-	
+
+
+
 	public static void sendCommandMessage(String message, String commandMessage, String hoverMessage, String command, Player target){
 		new TextComponent();
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
@@ -70,8 +73,8 @@ public class Helper {
 		localMessage.addExtra(commandPart);
 		target.spigot().sendMessage(localMessage);
 	}
-	
-	
+
+
 	public static void sendBooleanMessage(String message, String commandYes, String commandNo, Player target){
 		new TextComponent();
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
@@ -88,8 +91,8 @@ public class Helper {
 		localMessage.addExtra(commandPartNo);
 		target.spigot().sendMessage(localMessage);
 	}
-	
-	
+
+
 	public static void sendScrollMessage(String commandForward, String commandBackward, String messageForward, String messageBackward, Player target, ChatColor buttonColor) {
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
 		TextComponent commandPartBackward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[<<<]"));
@@ -205,15 +208,11 @@ public class Helper {
 	
 	
 	public static void addDisableRequest(Player p) {
-		if (!disableRequests.contains(p.getUniqueId().toString())) {
-			disableRequests.add(p.getUniqueId().toString());
-		}
+	    disableRequests.add(p.getUniqueId().toString());
 	}
 	
 	public static void removeDisableRequest(Player p) {
-		if (disableRequests.contains(p.getUniqueId().toString())) {
-			disableRequests.remove(p.getUniqueId().toString());
-		}
+	    disableRequests.remove(p.getUniqueId().toString());
 	}
 	
 	public static boolean checkDisableRequest(Player p) {
@@ -222,15 +221,11 @@ public class Helper {
 	
 	
 	public static void addUpdateRequest(Player p) {
-		if (!updateRequests.contains(p.getUniqueId().toString())) {
-			updateRequests.add(p.getUniqueId().toString());
-		}
+	    updateRequests.add(p.getUniqueId().toString());
 	}
 	
 	public static void removeUpdateRequest(Player p) {
-		if (updateRequests.contains(p.getUniqueId().toString())) {
-			updateRequests.remove(p.getUniqueId().toString());
-		}
+	    updateRequests.remove(p.getUniqueId().toString());
 	}
 	
 	public static boolean checkUpdateRequest(Player p) {
@@ -243,9 +238,7 @@ public class Helper {
 	}
 	
 	public static void removeDeleteRequest(Player p) {
-		if (deleteRequests.containsKey(p.getUniqueId().toString())) {
-			deleteRequests.remove(p.getUniqueId().toString());
-		}
+	    deleteRequests.remove(p.getUniqueId().toString());
 	}
 	
 	public static boolean checkDeleteRequest(Player p, String name) {
@@ -261,9 +254,7 @@ public class Helper {
 	}
 	
 	public static void removeDeleteFolderRequest(Player p) {
-		if (deleteFolderRequests.containsKey(p.getUniqueId().toString())) {
-			deleteFolderRequests.remove(p.getUniqueId().toString());
-		}
+	    deleteFolderRequests.remove(p.getUniqueId().toString());
 	}
 	
 	public static boolean checkDeleteFolderRequest(Player p, String name) {
@@ -280,9 +271,7 @@ public class Helper {
 	}
 	
 	public static void removeRenameRequest(Player p) {
-		if (renameRequests.containsKey(p.getUniqueId().toString())) {
-			renameRequests.remove(p.getUniqueId().toString());
-		}
+	    renameRequests.remove(p.getUniqueId().toString());
 	}
 	
 	public static boolean checkRenameRequest(Player p, String name) {
@@ -299,9 +288,7 @@ public class Helper {
 	}
 	
 	public static void removeRenameFolderRequest(Player p) {
-		if (renameFolderRequests.containsKey(p.getUniqueId().toString())) {
-			renameFolderRequests.remove(p.getUniqueId().toString());
-		}
+	    renameFolderRequests.remove(p.getUniqueId().toString());
 	}
 	
 	public static boolean checkRenameFolderRequest(Player p, String name) {
@@ -318,9 +305,7 @@ public class Helper {
 	}
 	
 	public static void removeOverWriteRequest(Player p) {
-		if (overwriteRequests.containsKey(p.getUniqueId().toString())) {
-			overwriteRequests.remove(p.getUniqueId().toString());
-		}
+	    overwriteRequests.remove(p.getUniqueId().toString());
 	}
 	
 	public static boolean checkOverWriteRequest(Player p, String name) {
@@ -332,9 +317,9 @@ public class Helper {
 	}
 	
 	
-	
+
 	public static ArrayList<File> getFolders(File folder, Boolean deep) {
-		ArrayList<File> files = new ArrayList<File>();
+		ArrayList<File> files = new ArrayList<>();
 		for (File file : folder.listFiles()) {
 			if (file.isDirectory()) {
 				files.add(file);
@@ -435,7 +420,7 @@ public class Helper {
 	
 	
 	public static boolean update(Player p) {
-		String fileName = null;
+		String fileName;
 		try {
 			fileName = new File(WorldEditVersionMain.class.getProtectionDomain()
 					.getCodeSource()

@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.worldedit.commands;
+package de.zeanon.schemmanager.WorldEdit.Commands;
 
 import java.io.File;
 
@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import com.sk89q.worldedit.EmptyClipboardException;
 import com.sk89q.worldedit.LocalSession;
 
-import de.zeanon.schemmanager.worldedit.helper.Helper;
+import de.zeanon.schemmanager.WorldEdit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Save {
@@ -38,12 +38,12 @@ public class Save {
 		
 		
 		else {
-			if (args[3].equals("confirm")) {
+			if (args[3].equals("confirm") && Helper.checkOverWriteRequest(p, args[2])) {
 				p.performCommand("/schem save -f " + args[2]);
 				Helper.removeOverWriteRequest(p);
 				return true;
 			}
-			else if (args[3].equals("deny")) {
+			else if (args[3].equals("deny") && Helper.checkOverWriteRequest(p, args[2])) {
 				if ((!schematicFile.exists() || schematicFile.isDirectory()) && (!schemFile.exists() || schemFile.isDirectory())) {
 					return false;
 				}

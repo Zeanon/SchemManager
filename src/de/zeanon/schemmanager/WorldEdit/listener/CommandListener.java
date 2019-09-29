@@ -1,5 +1,9 @@
-package de.zeanon.schemmanager.worldedit.listener;
+package de.zeanon.schemmanager.WorldEdit.listener;
 
+import de.zeanon.schemmanager.WorldEdit.Commands.DeleteFolder;
+import de.zeanon.schemmanager.WorldEdit.Commands.Folder;
+import de.zeanon.schemmanager.WorldEdit.Commands.Rename;
+import de.zeanon.schemmanager.WorldEdit.Commands.Save;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -13,18 +17,14 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
 
-import de.zeanon.schemmanager.worldedit.commands.Delete;
-import de.zeanon.schemmanager.worldedit.commands.DeleteFolder;
-import de.zeanon.schemmanager.worldedit.commands.Folder;
-import de.zeanon.schemmanager.worldedit.commands.Help;
-import de.zeanon.schemmanager.worldedit.commands.List;
-import de.zeanon.schemmanager.worldedit.commands.Rename;
-import de.zeanon.schemmanager.worldedit.commands.RenameFolder;
-import de.zeanon.schemmanager.worldedit.commands.Save;
-import de.zeanon.schemmanager.worldedit.commands.Search;
-import de.zeanon.schemmanager.worldedit.commands.SearchFolder;
-import de.zeanon.schemmanager.worldedit.helper.Helper;
-import de.zeanon.schemmanager.worldedit.WorldEditVersionMain;
+import de.zeanon.schemmanager.WorldEdit.Commands.Delete;
+import de.zeanon.schemmanager.WorldEdit.Commands.Help;
+import de.zeanon.schemmanager.WorldEdit.Commands.List;
+import de.zeanon.schemmanager.WorldEdit.Commands.RenameFolder;
+import de.zeanon.schemmanager.WorldEdit.Commands.Search;
+import de.zeanon.schemmanager.WorldEdit.Commands.SearchFolder;
+import de.zeanon.schemmanager.WorldEdit.helper.Helper;
+import de.zeanon.schemmanager.WorldEdit.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
 
 public class CommandListener implements Listener {
@@ -49,7 +49,7 @@ public class CommandListener implements Listener {
 				|| message.toLowerCase().startsWith("//schem") || message.toLowerCase().startsWith("//schematic")) {
 			p = event.getPlayer();
 			args = event.getMessage().split(" ");
-			String slash = null;
+			String slash;
 			if (!message.toLowerCase().startsWith("/schem") && !message.toLowerCase().startsWith("/schematic")) {
 				slash = "//";
 			} else {
@@ -236,7 +236,7 @@ public class CommandListener implements Listener {
 				if (!Helper.getBoolean("Save Function Override")) {
 					//TODO
 					return true;
-				} else if (args[2].equals("-f") && args.length > 2 && args.length < 5) {
+				} else if (args.length > 2 && args.length < 5 && args[2].equals("-f")) {
 					if (args.length == 3) {
 						event.setCancelled(true);
 						p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
@@ -292,11 +292,11 @@ public class CommandListener implements Listener {
 				boolean deep = false;
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
 					deep = true;
-					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-deep"));
+					args = (String[]) ArrayUtils.removeElement(args, "-deep");
 				}
 				if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
 					deep = true;
-					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-d"));
+					args = (String[]) ArrayUtils.removeElement(args, "-d");
 				}
 
 				if (args.length <= 4) {
@@ -335,11 +335,11 @@ public class CommandListener implements Listener {
 
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
 					deep = true;
-					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-deep"));
+					args = (String[]) ArrayUtils.removeElement(args, "-deep");
 				}
 				if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
 					deep = true;
-					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-d"));
+					args = (String[]) ArrayUtils.removeElement(args, "-d");
 				}
 
 				if (args.length <= 4) {
@@ -377,11 +377,11 @@ public class CommandListener implements Listener {
 				boolean deep = false;
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
 					deep = true;
-					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-deep"));
+					args = (String[]) ArrayUtils.removeElement(args, "-deep");
 				}
 				if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
 					deep = true;
-					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-d"));
+					args = (String[]) ArrayUtils.removeElement(args, "-d");
 				}
 
 				if (args.length <= 5) {
@@ -438,11 +438,11 @@ public class CommandListener implements Listener {
 				boolean deep = false;
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
 					deep = true;
-					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-deep"));
+					args = (String[]) ArrayUtils.removeElement(args, "-deep");
 				}
 				if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
 					deep = true;
-					args = (String[]) ((String[]) ArrayUtils.removeElement(args, "-d"));
+					args = (String[]) ArrayUtils.removeElement(args, "-d");
 				}
 
 				if (args.length <= 5) {
@@ -591,6 +591,7 @@ public class CommandListener implements Listener {
 	}
 
 
+	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		Player p = event.getPlayer();
 		Helper.removeDisableRequest(p);
@@ -603,6 +604,7 @@ public class CommandListener implements Listener {
 	}
 
 
+	@EventHandler
 	public void onPluginDisable(PluginDisableEvent e) {
 		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
 			if (Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit") != null && Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit").isEnabled()) {
@@ -617,14 +619,13 @@ public class CommandListener implements Listener {
 		}
 		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
 			this.worldguardEnabled = false;
-			return;
 		}
 	}
 
+	@EventHandler
 	public void onPluginEnable(PluginEnableEvent e) {
 		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
 			this.worldguardEnabled = true;
-			return;
 		}
 	}
 }

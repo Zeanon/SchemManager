@@ -1,14 +1,14 @@
-package de.zeanon.schemmanager.worldedit.commands;
+package de.zeanon.schemmanager.WorldEdit.Commands;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 
+import de.zeanon.schemmanager.WorldEdit.helper.Helper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
-import de.zeanon.schemmanager.worldedit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class List {
@@ -24,7 +24,7 @@ public class List {
 		}
 		
 		if (args.length == 2) {
-			int side = 0;
+			int side;
 			
 			File directory = new File(schemFolderPath);
 			if (!directory.exists() || !directory.isDirectory()) {
@@ -35,7 +35,7 @@ public class List {
 			else {
 				String[] extension = {"schematic", "schem"};
 				Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
-				File[] files = rawFiles.toArray(new File[rawFiles.size()]);
+				File[] files = rawFiles.toArray(new File[0]);
 				Arrays.sort(files);
 				
 				double count = files.length;
@@ -90,7 +90,7 @@ public class List {
 		else if (args.length == 3) {
 			if (StringUtils.isNumeric(args[2])) {
 				int side_number = Integer.parseInt(args[2]);
-				int side = 0;
+				int side;
 				
 				File directory = new File(schemFolderPath);
 				if (!directory.exists() || !directory.isDirectory()) {
@@ -101,7 +101,7 @@ public class List {
 				else {
 					String[] extension = {"schematic", "schem"};
 					Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
-					File[] files = rawFiles.toArray(new File[rawFiles.size()]);
+					File[] files = rawFiles.toArray(new File[0]);
 					Arrays.sort(files);
 					
 					double count = files.length;
@@ -186,7 +186,7 @@ public class List {
 			
 			
 			else {
-				int side = 0;
+				int side;
 				
 				File directory = new File(schemFolderPath + args[2]);
 				if (!directory.exists() || !directory.isDirectory()) {
@@ -197,7 +197,7 @@ public class List {
 				else {
 					String[] extension = {"schematic", "schem"};
 					Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
-					File[] files = rawFiles.toArray(new File[rawFiles.size()]);
+					File[] files = rawFiles.toArray(new File[0]);
 					Arrays.sort(files);
 					
 					double count = files.length;
@@ -252,7 +252,7 @@ public class List {
 		
 		else {
 			int side_number = Integer.parseInt(args[3]);
-			int side = 0;
+			int side;
 		
 			File directory = new File(schemFolderPath + args[2]);
 			if (!directory.exists() || !directory.isDirectory()) {
@@ -263,7 +263,7 @@ public class List {
 			else {
 				String[] extension = {"schematic", "schem"};
 				Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
-				File[] files = rawFiles.toArray(new File[rawFiles.size()]);
+				File[] files = rawFiles.toArray(new File[0]);
 				Arrays.sort(files);
 				
 				double count = files.length;
