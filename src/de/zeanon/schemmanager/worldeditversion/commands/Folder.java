@@ -161,7 +161,7 @@ public class Folder {
 						if (side > 1) {
 							if (side_number > 1) {
 								if (side_number < side) {
-									Helper.sendScrollMessage("//schem folder " + deep + (side_number + 1), "//schem folder " + (side_number - 1), ChatColor.DARK_PURPLE + "Page " + (side_number + 1), ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+									Helper.sendScrollMessage("//schem folder " + deep + (side_number + 1), "//schem folder " + deep + (side_number - 1), ChatColor.DARK_PURPLE + "Page " + (side_number + 1), ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
 									return true;
 								}
 								else {
