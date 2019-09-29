@@ -1,10 +1,10 @@
-package de.zeanon.schemmanager.WorldEdit;
+package de.zeanon.schemmanager.worldeditversion;
 
-import de.zeanon.schemmanager.WorldEdit.listener.CommandListener;
+import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
-import de.zeanon.schemmanager.WorldEdit.helper.Helper;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import de.leonhard.storage.Config;
 
 public class WorldEditVersionMain {

@@ -1,8 +1,8 @@
-package de.zeanon.schemmanager.WorldEdit.Commands;
+package de.zeanon.schemmanager.worldeditversion.commands;
 
 import java.io.File;
 
-import de.zeanon.schemmanager.WorldEdit.helper.Helper;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;

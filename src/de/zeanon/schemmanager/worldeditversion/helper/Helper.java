@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.WorldEdit.helper;
+package de.zeanon.schemmanager.worldeditversion.helper;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -12,9 +12,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
-import de.zeanon.schemmanager.WorldEdit.WorldEditVersionMain;
+import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -56,7 +54,7 @@ public class Helper {
 		String path = parts[0] + slash;
 		StringBuilder pathBuilder = new StringBuilder(path);
 		for (int i = 1; i < parts.length - 1; i++) {
-			pathBuilder.append(parts[i] + slash);
+			pathBuilder.append(parts[i]).append(slash);
 		}
 		pluginFolderPath = pathBuilder.toString();
 		schemFolderPath = getInitialSchemPath();

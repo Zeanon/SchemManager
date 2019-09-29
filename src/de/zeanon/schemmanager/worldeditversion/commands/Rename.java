@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.WorldEdit.Commands;
+package de.zeanon.schemmanager.worldeditversion.commands;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 
-import de.zeanon.schemmanager.WorldEdit.helper.Helper;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Rename {

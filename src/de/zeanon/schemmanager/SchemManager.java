@@ -1,6 +1,6 @@
 package de.zeanon.schemmanager;
 
-import de.zeanon.schemmanager.WorldEdit.WorldEditVersionMain;
+import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;

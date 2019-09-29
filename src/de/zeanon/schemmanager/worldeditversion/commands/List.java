@@ -1,10 +1,10 @@
-package de.zeanon.schemmanager.WorldEdit.Commands;
+package de.zeanon.schemmanager.worldeditversion.commands;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 
-import de.zeanon.schemmanager.WorldEdit.helper.Helper;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
@@ -17,7 +17,8 @@ public class List {
 		int listmax = Helper.getInt("Listmax");
 		String schemFolderPath = Helper.getSchemPath();
 		boolean spaceLists = Helper.getBoolean("Space Lists");
-		
+		String[] extension = {"schematic", "schem"};
+
 		String deep = "";
 		if (deepSearch) {
 			deep = "-deep ";
@@ -33,7 +34,6 @@ public class List {
 			}
 			
 			else {
-				String[] extension = {"schematic", "schem"};
 				Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
 				File[] files = rawFiles.toArray(new File[0]);
 				Arrays.sort(files);
@@ -99,7 +99,6 @@ public class List {
 				}
 				
 				else {
-					String[] extension = {"schematic", "schem"};
 					Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
 					File[] files = rawFiles.toArray(new File[0]);
 					Arrays.sort(files);
@@ -195,7 +194,6 @@ public class List {
 				}
 				
 				else {
-					String[] extension = {"schematic", "schem"};
 					Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
 					File[] files = rawFiles.toArray(new File[0]);
 					Arrays.sort(files);
@@ -261,7 +259,6 @@ public class List {
 			}
 			
 			else {
-				String[] extension = {"schematic", "schem"};
 				Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
 				File[] files = rawFiles.toArray(new File[0]);
 				Arrays.sort(files);
