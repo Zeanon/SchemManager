@@ -12,6 +12,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Folder {
 	
+	@SuppressWarnings("Duplicates")
 	public static boolean onFolder(Player p, String[] args, boolean deepSearch) {
 		int listmax = Helper.getInt("Listmax");
 		String schemFolderPath = Helper.getSchemPath();
@@ -57,7 +58,7 @@ public class Folder {
 				}
 				else {
 					Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int)count + " Folder | Page 1/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "global", p);
-		
+
 					for (int i = 0; i < listmax; i++) {
 						if (files[i].isDirectory()) {
 							String name = files[i].getName();
@@ -70,7 +71,7 @@ public class Folder {
 							}
 						}
 					}
-					
+
 					if (side > 1) {
 						Helper.sendScrollMessage("//schem folder " + deep + "2", "//schem folder " + deep + side, ChatColor.DARK_PURPLE + "Page 2", ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 						return true;
@@ -217,7 +218,7 @@ public class Folder {
 					}
 					else {
 						Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int)count + " Folder | Page 1/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + args[2], p);
-	
+
 						for (int i = 0; i < listmax; i++) {
 							if (files[i].isDirectory()) {
 								String name = files[i].getName();

@@ -9,12 +9,14 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Delete {
 
+	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public static boolean onDelete(Player p, String[] args) {
 		File schematicFile = new File(Helper.getSchemPath() + args[2] + ".schematic");
 		File schemFile = new File(Helper.getSchemPath() + args[2] + ".schem");
-		
+		final boolean fileExists = (schematicFile.exists() && !schematicFile.isDirectory()) || (schemFile.exists() && !schemFile.isDirectory());
+
 		if (args.length == 3) {
-			if ((schematicFile.exists() && !schematicFile.isDirectory()) || (schemFile.exists() && !schemFile.isDirectory())) {
+			if (fileExists) {
 				Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem del " + args[2] + " confirm", "//schem del " + args[2] + " deny", p);
 				Helper.addDeleteRequest(p, args[2]);
 				return true;
@@ -28,13 +30,7 @@ public class Delete {
 		
 		else if (args.length == 4 && Helper.checkDeleteRequest(p, args[2])) {
 			if (args[3].equals("confirm")) {
-				if ((!schematicFile.exists() || schematicFile.isDirectory()) && (!schemFile.exists() || schemFile.isDirectory())) {
-					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
-					Helper.removeDeleteRequest(p);
-					return false;
-				}
-				
-				else if ((schematicFile.exists() && !schematicFile.isDirectory()) || (schemFile.exists() && !schemFile.isDirectory())) {
+				if (fileExists) {
 					if (schematicFile.exists()) {
 						schematicFile.delete();
 					}
