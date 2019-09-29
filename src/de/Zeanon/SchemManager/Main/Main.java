@@ -14,15 +14,21 @@ public class Main extends JavaPlugin {
 		/*if (pm.getPlugin("FastAsyncWorldEdit").isEnabled()) {
 			//TODO
 		}
-		else */if (pm.getPlugin("WorldEdit").isEnabled()) {
-			WorldEditVersionMain main = new WorldEditVersionMain();
-			main.onEnable(this);
+		else */if (pm.getPlugin("WorldEdit") != null && pm.getPlugin("WorldEdit").isEnabled()) {
+			WorldEditVersionMain main = new WorldEditVersionMain(this);
+			main.onEnable();
 			return;
 		}
 		else {
-			System.out.println("[" + this.getName() + "] could not load plugin, it needs WorldEdit or FastAsyncWorldEdit to work");
+			System.out.println("[" + this.getName() + "] >> could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
+	}
+	
+	
+	@Override
+	public void onDisable() {
+		System.out.println("[" + this.getName() + "] >> unloaded");
 	}
 }
