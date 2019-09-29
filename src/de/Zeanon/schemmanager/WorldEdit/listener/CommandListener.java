@@ -1,5 +1,9 @@
 package de.zeanon.schemmanager.worldedit.listener;
 
+import de.zeanon.schemmanager.worldedit.WorldEditVersionMain;
+import de.zeanon.schemmanager.worldedit.commands.*;
+import de.zeanon.schemmanager.worldedit.helper.Helper;
+import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -13,29 +17,15 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
 
-import de.zeanon.schemmanager.worldedit.commands.Delete;
-import de.zeanon.schemmanager.worldedit.commands.DeleteFolder;
-import de.zeanon.schemmanager.worldedit.commands.Folder;
-import de.zeanon.schemmanager.worldedit.commands.Help;
-import de.zeanon.schemmanager.worldedit.commands.List;
-import de.zeanon.schemmanager.worldedit.commands.Rename;
-import de.zeanon.schemmanager.worldedit.commands.RenameFolder;
-import de.zeanon.schemmanager.worldedit.commands.Save;
-import de.zeanon.schemmanager.worldedit.commands.Search;
-import de.zeanon.schemmanager.worldedit.commands.SearchFolder;
-import de.zeanon.schemmanager.worldedit.helper.Helper;
-import de.zeanon.schemmanager.worldedit.WorldEditVersionMain;
-import net.md_5.bungee.api.ChatColor;
-
 public class CommandListener implements Listener {
 
 	private boolean worldguardEnabled = false;
-	private Plugin plugin;
+	private final Plugin plugin;
 
 	public CommandListener(Plugin plugin) {
 		this.plugin = plugin;
 		if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null && Bukkit.getPluginManager().getPlugin("WorldGuard").isEnabled()) {
-			this.worldguardEnabled = true;
+			worldguardEnabled = true;
 		}
 	}
 
@@ -575,7 +565,7 @@ public class CommandListener implements Listener {
 				Helper.sendInvalidSubCommand(p, slash);
 				return true;
 			}
-		} else if (message.toLowerCase().startsWith("/stoplag") && this.worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
+		} else if (message.toLowerCase().startsWith("/stoplag") && worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
 			p = event.getPlayer();
 			args = event.getMessage().split(" ");
 			if (p.hasPermission("worldguard.halt-activity") && args.length == 1) {
@@ -607,23 +597,23 @@ public class CommandListener implements Listener {
 		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
 			if (Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit") != null && Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit").isEnabled()) {
 				WorldEditVersionMain.disable();
-				Bukkit.getPluginManager().enablePlugin(this.plugin);
+				Bukkit.getPluginManager().enablePlugin(plugin);
 				return;
 			} else {
-				System.out.println("[" + this.plugin.getName() + "] >> disabling Plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
+				System.out.println("[" + plugin.getName() + "] >> disabling Plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
 				WorldEditVersionMain.disable();
 				return;
 			}
 		}
 		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
-			this.worldguardEnabled = false;
+			worldguardEnabled = false;
 			return;
 		}
 	}
 
 	public void onPluginEnable(PluginEnableEvent e) {
 		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
-			this.worldguardEnabled = true;
+			worldguardEnabled = true;
 			return;
 		}
 	}

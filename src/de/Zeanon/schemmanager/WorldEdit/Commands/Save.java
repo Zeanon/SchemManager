@@ -1,21 +1,19 @@
 package de.zeanon.schemmanager.worldedit.commands;
 
-import java.io.File;
-
-import org.bukkit.entity.Player;
-
 import com.sk89q.worldedit.EmptyClipboardException;
 import com.sk89q.worldedit.LocalSession;
-
 import de.zeanon.schemmanager.worldedit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.entity.Player;
+
+import java.io.File;
 
 public class Save {
 
 	public static boolean onSave(Player p, String[] args) {
 		File schematicFile = new File(Helper.getSchemPath() + args[2] + ".schematic");
 		File schemFile = new File(Helper.getSchemPath() + args[2] + ".schem");
-		
+
 		LocalSession session = Helper.we.getSession(p);
 		if (args.length == 3) {
 			try {
@@ -25,8 +23,7 @@ public class Save {
 					p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
 					Helper.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem save " + args[2] + " confirm", "//schem save " + args[2] + " deny", p);
 					return true;
-				}
-				else {
+				} else {
 					p.performCommand("/schem save -f " + args[2]);
 					return true;
 				}
@@ -34,24 +31,19 @@ public class Save {
 				p.sendMessage(ChatColor.RED + "Your clipboard is empty. Use //copy first.");
 				return true;
 			}
-		}
-		
-		
-		else {
+		} else {
 			if (args[3].equals("confirm")) {
 				p.performCommand("/schem save -f " + args[2]);
 				Helper.removeOverWriteRequest(p);
 				return true;
-			}
-			else if (args[3].equals("deny")) {
+			} else if (args[3].equals("deny")) {
 				if ((!schematicFile.exists() || schematicFile.isDirectory()) && (!schemFile.exists() || schemFile.isDirectory())) {
 					return false;
 				}
 				Helper.removeOverWriteRequest(p);
 				p.sendMessage(ChatColor.LIGHT_PURPLE + args[2] + " was not overwritten.");
 				return true;
-			}
-			else {
+			} else {
 				return false;
 			}
 		}

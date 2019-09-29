@@ -1,5 +1,16 @@
 package de.zeanon.schemmanager.worldedit.helper;
 
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import de.zeanon.schemmanager.worldedit.WorldEditVersionMain;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,37 +23,24 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-
-import de.zeanon.schemmanager.worldedit.WorldEditVersionMain;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-
 public class Helper {
-	
+
 	private static Plugin plugin;
 	private static String pluginFolderPath;
 	private static String slash = "/";
 	private static String schemFolderPath;
-	private static ArrayList<String> disableRequests = new ArrayList<String>();
-	private static ArrayList<String> updateRequests = new ArrayList<String>();
-	private static HashMap<String, String> deleteRequests = new HashMap<String, String>();
-	private static HashMap<String, String> deleteFolderRequests = new HashMap<String, String>();
-	private static HashMap<String, String> renameRequests = new HashMap<String, String>();
-	private static HashMap<String, String> renameFolderRequests = new HashMap<String, String>();
-	private static HashMap<String, String> overwriteRequests = new HashMap<String, String>();
-	
+	private static final ArrayList<String> disableRequests = new ArrayList<String>();
+	private static final ArrayList<String> updateRequests = new ArrayList<String>();
+	private static final HashMap<String, String> deleteRequests = new HashMap<String, String>();
+	private static final HashMap<String, String> deleteFolderRequests = new HashMap<String, String>();
+	private static final HashMap<String, String> renameRequests = new HashMap<String, String>();
+	private static final HashMap<String, String> renameFolderRequests = new HashMap<String, String>();
+	private static final HashMap<String, String> overwriteRequests = new HashMap<String, String>();
+
 	public static WorldEditPlugin we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
-	
-	
-	public Helper (Plugin plugin) {
+
+
+	public Helper(Plugin plugin) {
 		Helper.plugin = plugin;
 		if (plugin.getDataFolder().getAbsolutePath().contains("/")) {
 			slash = "/";
@@ -58,10 +56,9 @@ public class Helper {
 		pluginFolderPath = path;
 		schemFolderPath = getInitialSchemPath();
 	}
-	
-	
-	
-	public static void sendCommandMessage(String message, String commandMessage, String hoverMessage, String command, Player target){
+
+
+	public static void sendCommandMessage(String message, String commandMessage, String hoverMessage, String command, Player target) {
 		new TextComponent();
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
 		TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
@@ -70,9 +67,9 @@ public class Helper {
 		localMessage.addExtra(commandPart);
 		target.spigot().sendMessage(localMessage);
 	}
-	
-	
-	public static void sendBooleanMessage(String message, String commandYes, String commandNo, Player target){
+
+
+	public static void sendBooleanMessage(String message, String commandYes, String commandNo, Player target) {
 		new TextComponent();
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
 		TextComponent seperator = new TextComponent(TextComponent.fromLegacyText(ChatColor.BLACK + " " + ChatColor.BOLD + "| "));
@@ -88,8 +85,8 @@ public class Helper {
 		localMessage.addExtra(commandPartNo);
 		target.spigot().sendMessage(localMessage);
 	}
-	
-	
+
+
 	public static void sendScrollMessage(String commandForward, String commandBackward, String messageForward, String messageBackward, Player target, ChatColor buttonColor) {
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
 		TextComponent commandPartBackward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[<<<]"));
@@ -104,9 +101,9 @@ public class Helper {
 		localMessage.addExtra(ChatColor.AQUA + " ===");
 		target.spigot().sendMessage(localMessage);
 	}
-	
-	
-	public static void sendSuggestMessage(String message, String suggestMessage, String hoverMessage, String command, Player target){
+
+
+	public static void sendSuggestMessage(String message, String suggestMessage, String hoverMessage, String command, Player target) {
 		TextComponent localMessage = new TextComponent(message);
 		TextComponent suggestPart = new TextComponent(suggestMessage);
 		suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
@@ -114,8 +111,8 @@ public class Helper {
 		localMessage.addExtra(suggestPart);
 		target.spigot().sendMessage(localMessage);
 	}
-	
-	
+
+
 	public static void sendHoverMessage(String message1, String message2, String message3, String hoverMessage, Player target) {
 		TextComponent localMessage1 = new TextComponent(TextComponent.fromLegacyText(message1));
 		TextComponent hoverPart = new TextComponent(TextComponent.fromLegacyText(message2));
@@ -125,8 +122,8 @@ public class Helper {
 		localMessage1.addExtra(localMessage2);
 		target.spigot().sendMessage(localMessage1);
 	}
-	
-	
+
+
 	public static void sendInvalidSubCommand(Player target, String slash) {
 		TextComponent base = new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "Usage: "));
 		TextComponent schem = new TextComponent(TextComponent.fromLegacyText(ChatColor.GRAY + slash + "schem"));
@@ -154,11 +151,11 @@ public class Helper {
 		rename.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem rename "));
 		rename.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "rename" + ChatColor.GOLD + " example newname"))).create()));
 		renamefolder.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem renamefolder "));
-		renamefolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "renamefolder" + ChatColor.GREEN + " example newname"))).create()));		
+		renamefolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "renamefolder" + ChatColor.GREEN + " example newname"))).create()));
 		delete.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem delete "));
 		delete.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "delete" + ChatColor.GOLD + " example"))).create()));
 		deletefolder.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem deletefolder "));
-		deletefolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "deletefolder" + ChatColor.GREEN + " example"))).create()));		
+		deletefolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "deletefolder" + ChatColor.GREEN + " example"))).create()));
 		list.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem list "));
 		list.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "e.g. " + ChatColor.GRAY + "" + slash + "schem " + ChatColor.AQUA + "list " + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]"))).create()));
 		folder.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "schem folder "));
@@ -201,71 +198,70 @@ public class Helper {
 		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + ">")));
 		target.spigot().sendMessage(base);
 	}
-	
-	
-	
+
+
 	public static void addDisableRequest(Player p) {
 		if (!disableRequests.contains(p.getUniqueId().toString())) {
 			disableRequests.add(p.getUniqueId().toString());
 		}
 	}
-	
+
 	public static void removeDisableRequest(Player p) {
 		if (disableRequests.contains(p.getUniqueId().toString())) {
 			disableRequests.remove(p.getUniqueId().toString());
 		}
 	}
-	
+
 	public static boolean checkDisableRequest(Player p) {
 		return disableRequests.contains(p.getUniqueId().toString());
 	}
-	
-	
+
+
 	public static void addUpdateRequest(Player p) {
 		if (!updateRequests.contains(p.getUniqueId().toString())) {
 			updateRequests.add(p.getUniqueId().toString());
 		}
 	}
-	
+
 	public static void removeUpdateRequest(Player p) {
 		if (updateRequests.contains(p.getUniqueId().toString())) {
 			updateRequests.remove(p.getUniqueId().toString());
 		}
 	}
-	
+
 	public static boolean checkUpdateRequest(Player p) {
 		return updateRequests.contains(p.getUniqueId().toString());
 	}
-	
-	
+
+
 	public static void addDeleteRequest(Player p, String name) {
 		deleteRequests.put(p.getUniqueId().toString(), name);
 	}
-	
+
 	public static void removeDeleteRequest(Player p) {
 		if (deleteRequests.containsKey(p.getUniqueId().toString())) {
 			deleteRequests.remove(p.getUniqueId().toString());
 		}
 	}
-	
+
 	public static boolean checkDeleteRequest(Player p, String name) {
 		if (deleteRequests.containsKey(p.getUniqueId().toString())) {
 			return deleteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 		}
 		return false;
 	}
-	
-	
+
+
 	public static void addDeleteFolderRequest(Player p, String name) {
 		deleteFolderRequests.put(p.getUniqueId().toString(), name);
 	}
-	
+
 	public static void removeDeleteFolderRequest(Player p) {
 		if (deleteFolderRequests.containsKey(p.getUniqueId().toString())) {
 			deleteFolderRequests.remove(p.getUniqueId().toString());
 		}
 	}
-	
+
 	public static boolean checkDeleteFolderRequest(Player p, String name) {
 		if (deleteFolderRequests.containsKey(p.getUniqueId().toString())) {
 			return deleteFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
@@ -273,18 +269,18 @@ public class Helper {
 			return false;
 		}
 	}
-	
-	
+
+
 	public static void addRenameRequest(Player p, String name) {
 		renameRequests.put(p.getUniqueId().toString(), name);
 	}
-	
+
 	public static void removeRenameRequest(Player p) {
 		if (renameRequests.containsKey(p.getUniqueId().toString())) {
 			renameRequests.remove(p.getUniqueId().toString());
 		}
 	}
-	
+
 	public static boolean checkRenameRequest(Player p, String name) {
 		if (renameRequests.containsKey(p.getUniqueId().toString())) {
 			return renameRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
@@ -292,18 +288,18 @@ public class Helper {
 			return false;
 		}
 	}
-	
-	
+
+
 	public static void addRenameFolderRequest(Player p, String name) {
 		renameFolderRequests.put(p.getUniqueId().toString(), name);
 	}
-	
+
 	public static void removeRenameFolderRequest(Player p) {
 		if (renameFolderRequests.containsKey(p.getUniqueId().toString())) {
 			renameFolderRequests.remove(p.getUniqueId().toString());
 		}
 	}
-	
+
 	public static boolean checkRenameFolderRequest(Player p, String name) {
 		if (renameFolderRequests.containsKey(p.getUniqueId().toString())) {
 			return renameFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
@@ -311,18 +307,18 @@ public class Helper {
 			return false;
 		}
 	}
-	
-	
+
+
 	public static void addOverwriteRequest(Player p, String name) {
 		overwriteRequests.put(p.getUniqueId().toString(), name);
 	}
-	
+
 	public static void removeOverWriteRequest(Player p) {
 		if (overwriteRequests.containsKey(p.getUniqueId().toString())) {
 			overwriteRequests.remove(p.getUniqueId().toString());
 		}
 	}
-	
+
 	public static boolean checkOverWriteRequest(Player p, String name) {
 		if (overwriteRequests.containsKey(p.getUniqueId().toString())) {
 			return overwriteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
@@ -330,9 +326,8 @@ public class Helper {
 			return false;
 		}
 	}
-	
-	
-	
+
+
 	public static ArrayList<File> getFolders(File folder, Boolean deep) {
 		ArrayList<File> files = new ArrayList<File>();
 		for (File file : folder.listFiles()) {
@@ -345,50 +340,43 @@ public class Helper {
 		}
 		return files;
 	}
-	
-	
+
+
 	public static String getSchemPath() {
 		if (WorldEditVersionMain.config.hasNotChanged()) {
 			return schemFolderPath;
-		}
-		else {
+		} else {
 			return getInitialSchemPath();
 		}
 	}
-	
+
 	private static String getInitialSchemPath() {
 		if (getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
 			schemFolderPath = pluginFolderPath + "WorldEdit" + slash + "schematics" + slash;
 			return pluginFolderPath + "WorldEdit" + slash + "schematics" + slash;
-		}
-		else {
+		} else {
 			if (slash.equals("\\\\")) {
 				if (getString("WorldEdit Schematic-Path").endsWith(slash)) {
 					schemFolderPath = getString("WorldEdit Schematic-Path");
 					return getString("WorldEdit Schematic-Path");
-				}
-				else {
+				} else {
 					schemFolderPath = getString("WorldEdit Schematic-Path") + slash;
 					return getString("WorldEdit Schematic-Path") + slash;
 				}
-			}
-			else {
+			} else {
 				if (getString("WorldEdit Schematic-Path").endsWith(slash)) {
 					if (getString("WorldEdit Schematic-Path").startsWith(slash)) {
 						schemFolderPath = getString("WorldEdit Schematic-Path");
 						return getString("WorldEdit Schematic-Path");
-					}
-					else {
+					} else {
 						schemFolderPath = slash + getString("WorldEdit Schematic-Path");
 						return slash + getString("WorldEdit Schematic-Path");
 					}
-				}
-				else {
+				} else {
 					if (getString("WorldEdit Schematic-Path").startsWith(slash)) {
 						schemFolderPath = getString("WorldEdit Schematic-Path") + slash;
 						return getString("WorldEdit Schematic-Path") + slash;
-					}
-					else {
+					} else {
 						schemFolderPath = slash + getString("WorldEdit Schematic-Path") + slash;
 						return slash + getString("WorldEdit Schematic-Path") + slash;
 					}
@@ -396,44 +384,39 @@ public class Helper {
 			}
 		}
 	}
-	
-	
-	
+
+
 	public static String getString(String path) {
 		if (WorldEditVersionMain.config.contains(path)) {
 			return WorldEditVersionMain.config.getString(path);
-		}
-		else {
+		} else {
 			updateConfig(true);
 			WorldEditVersionMain.config.update();
 			return WorldEditVersionMain.config.getString(path);
 		}
 	}
-	
+
 	public static int getInt(String path) {
 		if (WorldEditVersionMain.config.contains(path)) {
 			return WorldEditVersionMain.config.getInt(path);
-		}
-		else {
+		} else {
 			updateConfig(true);
 			WorldEditVersionMain.config.update();
 			return WorldEditVersionMain.config.getInt(path);
 		}
 	}
-	
+
 	public static boolean getBoolean(String path) {
 		if (WorldEditVersionMain.config.contains(path)) {
 			return WorldEditVersionMain.config.getBoolean(path);
-		}
-		else {
+		} else {
 			updateConfig(true);
 			WorldEditVersionMain.config.update();
 			return WorldEditVersionMain.config.getBoolean(path);
 		}
 	}
-	
-	
-	
+
+
 	public static boolean update(Player p) {
 		String fileName = null;
 		try {
@@ -442,12 +425,12 @@ public class Helper {
 					.getLocation()
 					.toURI()
 					.getPath())
-				.getName();
+					.getName();
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 			return false;
 		}
-		
+
 		try {
 			File file = new File(pluginFolderPath + fileName);
 			BufferedInputStream inputStream = null;
@@ -456,13 +439,12 @@ public class Helper {
 				inputStream = new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream());
 				if (!file.exists()) {
 					Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
-				}
-				else {
+				} else {
 					outputStream = new FileOutputStream(file.getAbsolutePath());
 					final byte data[] = new byte[1024];
 					int count;
 					while ((count = inputStream.read(data, 0, 1024)) != -1) {
-							outputStream.write(data, 0, count);
+						outputStream.write(data, 0, count);
 					}
 				}
 				p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
@@ -473,8 +455,7 @@ public class Helper {
 				e.printStackTrace();
 				p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
 				return false;
-			}
-			finally {
+			} finally {
 				if (inputStream != null) {
 					inputStream.close();
 				}
@@ -488,9 +469,8 @@ public class Helper {
 			return false;
 		}
 	}
-	
-	
-	
+
+
 	public static boolean updateConfig(boolean force) {
 		if (force || (!WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") || !WorldEditVersionMain.config.contains("Listmax") || !WorldEditVersionMain.config.contains("Space Lists") || !WorldEditVersionMain.config.contains("Save Function Override") || !WorldEditVersionMain.config.contains("Automatic Reload") || !WorldEditVersionMain.config.contains("Plugin Version") || !WorldEditVersionMain.config.getString("Plugin Version").equals(Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion()))) {
 			String schemPath = "Default Schematic Path";
@@ -503,21 +483,21 @@ public class Helper {
 			}
 			boolean spaceLists = true;
 			if (WorldEditVersionMain.config.contains("Space Lists")) {
-				spaceLists= WorldEditVersionMain.config.getBoolean("Space Lists");
+				spaceLists = WorldEditVersionMain.config.getBoolean("Space Lists");
 			}
 			boolean saveOverride = true;
 			if (WorldEditVersionMain.config.contains("Save Function Override")) {
-				saveOverride =  WorldEditVersionMain.config.getBoolean("Save Function Override");
+				saveOverride = WorldEditVersionMain.config.getBoolean("Save Function Override");
 			}
 			boolean stoplagOverride = true;
 			if (WorldEditVersionMain.config.contains("Stoplag Override")) {
-				stoplagOverride =  WorldEditVersionMain.config.getBoolean("Stoplag Override");
+				stoplagOverride = WorldEditVersionMain.config.getBoolean("Stoplag Override");
 			}
 			boolean autoReload = true;
 			if (WorldEditVersionMain.config.contains("Automatic Reload")) {
 				autoReload = WorldEditVersionMain.config.getBoolean("Automatic Reload");
 			}
-			
+
 			try {
 				File file = new File(plugin.getDataFolder(), "config.yml");
 				BufferedInputStream inputStream = null;
@@ -526,17 +506,16 @@ public class Helper {
 					inputStream = new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/config.yml").openStream());
 					if (!file.exists()) {
 						Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
-					}
-					else {
+					} else {
 						outputStream = new FileOutputStream(file.getAbsolutePath());
 						final byte data[] = new byte[1024];
 						int count;
 						while ((count = inputStream.read(data, 0, 1024)) != -1) {
-								outputStream.write(data, 0, count);
+							outputStream.write(data, 0, count);
 						}
 					}
 					WorldEditVersionMain.config.update();
-					
+
 					WorldEditVersionMain.config.set("Plugin Version", Bukkit.getServer().getPluginManager().getPlugin(plugin.getName()).getDescription().getVersion());
 					WorldEditVersionMain.config.set("WorldEdit Schematic-Path", schemPath);
 					WorldEditVersionMain.config.set("Listmax", listmax);
@@ -545,14 +524,13 @@ public class Helper {
 					WorldEditVersionMain.config.set("Stoplag Override", stoplagOverride);
 					WorldEditVersionMain.config.set("Automatic Reload", autoReload);
 
-					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() +" updated");
-					
+					System.out.println("[" + plugin.getName() + "] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() + " updated");
+
 				} catch (IOException e) {
-					System.out.println("["+plugin.getName()+"] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() +" could not be updated");
+					System.out.println("[" + plugin.getName() + "] >> [Configs] >> " + WorldEditVersionMain.config.getFile().getName() + " could not be updated");
 					e.printStackTrace();
 					return false;
-				}
-				finally {
+				} finally {
 					if (inputStream != null) {
 						inputStream.close();
 					}
