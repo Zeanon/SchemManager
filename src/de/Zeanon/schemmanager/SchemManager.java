@@ -1,10 +1,10 @@
-package de.Zeanon.SchemManager;
+package de.zeanon.schemmanager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.Zeanon.SchemManager.WorldEdit.Main.WorldEditVersionMain;
+import de.zeanon.schemmanager.worldedit.WorldEditVersionMain;
 
 public class SchemManager extends JavaPlugin {
 	

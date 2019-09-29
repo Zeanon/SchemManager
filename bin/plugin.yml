@@ -2,6 +2,6 @@ name: SchemManager
 version: 2.8.0
 api-version: 1.14
 author: Zeanon
-main: de.Zeanon.SchemManager.Main
+main: de.zeanon.SchemManager.Main
 depend:
 - WorldEdit

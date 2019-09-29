@@ -1,9 +1,9 @@
-package de.Zeanon.SchemManager.WorldEdit.Commands;
+package de.zeanon.schemmanager.worldedit.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
+import de.zeanon.schemmanager.worldedit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class Help {

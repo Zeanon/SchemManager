@@ -1,12 +1,13 @@
-package de.Zeanon.SchemManager.WorldEdit.Commands;
+package de.zeanon.schemmanager.worldedit.commands;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 
-import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
+import de.zeanon.schemmanager.worldedit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class RenameFolder {
@@ -139,10 +140,10 @@ public class RenameFolder {
 	
 
 	private static boolean deepMerge(File oldFile, File newFile) {
-		if (oldFile.listFiles().length == 0) {
+		if (Objects.requireNonNull(oldFile.listFiles()).length == 0) {
 			return true;
 		} else {
-			for (File tempFile : oldFile.listFiles()) {
+			for (File tempFile : Objects.requireNonNull(oldFile.listFiles())) {
 				if (new File(newFile, tempFile.getName()).exists()) {
 					if (tempFile.isDirectory()) {
 						if (!deepMerge(tempFile, new File(newFile, tempFile.getName()))) {

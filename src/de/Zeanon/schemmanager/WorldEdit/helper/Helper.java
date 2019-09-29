@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager.WorldEdit.Helper;
+package de.zeanon.schemmanager.worldedit.helper;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -18,7 +18,7 @@ import org.bukkit.plugin.Plugin;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
-import de.Zeanon.SchemManager.WorldEdit.Main.WorldEditVersionMain;
+import de.zeanon.schemmanager.worldedit.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;

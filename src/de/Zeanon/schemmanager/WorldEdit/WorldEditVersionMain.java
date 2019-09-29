@@ -1,10 +1,10 @@
-package de.Zeanon.SchemManager.WorldEdit.Main;
+package de.zeanon.schemmanager.worldedit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
-import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
-import de.Zeanon.SchemManager.WorldEdit.Listener.MyListener;
+import de.zeanon.schemmanager.worldedit.helper.Helper;
+import de.zeanon.schemmanager.worldedit.listener.MyListener;
 import de.leonhard.storage.Config;
 
 public class WorldEditVersionMain {

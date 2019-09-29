@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager.WorldEdit.Listener;
+package de.zeanon.schemmanager.worldedit.listener;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -13,18 +13,18 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
 
-import de.Zeanon.SchemManager.WorldEdit.Commands.Delete;
-import de.Zeanon.SchemManager.WorldEdit.Commands.DeleteFolder;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Folder;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Help;
-import de.Zeanon.SchemManager.WorldEdit.Commands.List;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Rename;
-import de.Zeanon.SchemManager.WorldEdit.Commands.RenameFolder;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Save;
-import de.Zeanon.SchemManager.WorldEdit.Commands.Search;
-import de.Zeanon.SchemManager.WorldEdit.Commands.SearchFolder;
-import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
-import de.Zeanon.SchemManager.WorldEdit.Main.WorldEditVersionMain;
+import de.zeanon.schemmanager.worldedit.commands.Delete;
+import de.zeanon.schemmanager.worldedit.commands.DeleteFolder;
+import de.zeanon.schemmanager.worldedit.commands.Folder;
+import de.zeanon.schemmanager.worldedit.commands.Help;
+import de.zeanon.schemmanager.worldedit.commands.List;
+import de.zeanon.schemmanager.worldedit.commands.Rename;
+import de.zeanon.schemmanager.worldedit.commands.RenameFolder;
+import de.zeanon.schemmanager.worldedit.commands.Save;
+import de.zeanon.schemmanager.worldedit.commands.Search;
+import de.zeanon.schemmanager.worldedit.commands.SearchFolder;
+import de.zeanon.schemmanager.worldedit.helper.Helper;
+import de.zeanon.schemmanager.worldedit.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
 
 public class MyListener implements Listener {

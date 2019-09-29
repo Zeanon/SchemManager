@@ -1,4 +1,4 @@
-package de.Zeanon.SchemManager.WorldEdit.Commands;
+package de.zeanon.schemmanager.worldedit.commands;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.Arrays;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
-import de.Zeanon.SchemManager.WorldEdit.Helper.Helper;
+import de.zeanon.schemmanager.worldedit.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
 public class SearchFolder {
