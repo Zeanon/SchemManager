@@ -31,7 +31,7 @@ public class Save {
                 }
             } catch (EmptyClipboardException e) {
                 p.sendMessage(ChatColor.RED + "Your clipboard is empty. Use //copy first.");
-                return true;
+                return false;
             }
         } else {
             if (args[3].equals("confirm") && Helper.checkOverWriteRequest(p, args[2])) {
