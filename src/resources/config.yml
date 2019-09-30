@@ -19,7 +19,7 @@
 # Stoplag Override: Should the new stoplag activation method be reverted to it's old style?                   #
 # Automatic Reload: Should the plugin automatically reload the Server after it got updated?                   #
 ###############################################################################################################
-#                                                                                                             #
+#																											  #
 ###############################################################################################################
 # SchemManager mostly uses the standard WorldEdit and FAWE permissions                                        #
 # rename and renamefolder use the save permission                                                             #
