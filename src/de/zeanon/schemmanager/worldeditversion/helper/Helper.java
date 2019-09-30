@@ -439,9 +439,8 @@ public class Helper {
     public static ArrayList<File> getExistingFiles(String path) {
         ArrayList<File> files = new ArrayList<>();
         getStringList("File Extensions").iterator().forEachRemaining(extension -> files.add(new File(path + "." + extension)));
-        ArrayList<File> tempFiles = new ArrayList<>();
-        files.iterator().forEachRemaining(file -> {if (file.exists() && !file.isDirectory()) tempFiles.add(file); });
-        return tempFiles;
+        files.iterator().forEachRemaining(file -> {if (!file.exists() || file.isDirectory()) files.remove(file); });
+        return files;
     }
 
 
@@ -547,12 +546,6 @@ public class Helper {
     }
 
     public static String getExtension(String path) {
-        int index = path.lastIndexOf(".");
-        if (index == 0) {
-            return "";
-        }
-        else {
-            return path.substring(index + 1);
-        }
+        return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : "";
     }
 }
