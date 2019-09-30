@@ -119,9 +119,9 @@ public class Help {
         p.sendMessage(ChatColor.RED + "Available formats:");
         if (Helper.getStringList("File Extensions").size() > 0) {
             String[] formats = Helper.getStringList("File Extensions").toArray(new String[0]);
-            StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&0 | ");
+            StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&0, ");
             for (int i = 1; i < formats.length - 1; i++) {
-                pathBuilder.append("&d").append(formats[i]).append("&0").append(" | ");
+                pathBuilder.append("&d").append(formats[i]).append("&0").append(", ");
             }
             pathBuilder.append("&d").append(formats[formats.length - 1]);
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', pathBuilder.toString()));

@@ -29,11 +29,11 @@
 # disable uses schemmanager.disable                                                                           #
 ###############################################################################################################
 
-Plugin Version: "3.6.5"
+Plugin Version: "3.6.6"
 
 WorldEdit Schematic-Path: Default Schematic Path
 
-File Extensions: [schematic, schem]
+File Extensions: [schem, schematic]
 
 Listmax: 10
 
