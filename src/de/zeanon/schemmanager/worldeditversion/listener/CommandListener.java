@@ -43,13 +43,13 @@ public class CommandListener implements Listener {
             p = event.getPlayer();
             args = event.getMessage().split(" ");
             String slash;
-            if (!message.toLowerCase().startsWith("/schem") && !message.toLowerCase().startsWith("/schematic")) {
+            if (message.toLowerCase().startsWith("//schem") || message.toLowerCase().startsWith("//schematic")) {
                 slash = "//";
             } else {
                 slash = "/";
             }
             String schemAlias;
-            if (!message.toLowerCase().startsWith("/schem") && !message.toLowerCase().startsWith("//schem")) {
+            if (message.toLowerCase().startsWith("/schematic") || message.toLowerCase().startsWith("//schematic")) {
                 schemAlias = "schematic";
             } else {
                 schemAlias = "schem";
