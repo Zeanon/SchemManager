@@ -116,12 +116,11 @@ public class Help {
     }
 
     public static boolean onFormats(Player p) {
+        if (Helper.getBoolean("Space Lists")) {
+            p.sendMessage(" ");
+        }
         p.sendMessage(ChatColor.RED + "Available formats:");
         if (Helper.getStringList("File Extensions").size() > 0) {
-            if (Helper.getBoolean("Space Lists")) {
-                p.sendMessage(" ");
-            }
-
             String[] formats = Helper.getStringList("File Extensions").toArray(new String[0]);
             StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&0 | ");
             for (int i = 1; i < formats.length - 1; i++) {
