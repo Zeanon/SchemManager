@@ -125,10 +125,10 @@ public class Help {
             String[] formats = Helper.getStringList("File Extensions").toArray(new String[0]);
             StringBuilder pathBuilder = new StringBuilder(formats[0] + " | ");
             for (int i = 1; i < formats.length - 1; i++) {
-                pathBuilder.append(ChatColor.LIGHT_PURPLE).append(formats[i]).append(ChatColor.BLACK).append(" | ");
+                pathBuilder.append("&d").append(formats[i]).append("&0").append(" | ");
             }
-            pathBuilder.append(formats[formats.length - 1]);
-            p.sendMessage(pathBuilder.toString());
+            pathBuilder.append("&d").append(formats[formats.length - 1]);
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', pathBuilder.toString()));
         }
         else {
             p.sendMessage(ChatColor.LIGHT_PURPLE + "schematic" + ChatColor.BLACK + " | " + ChatColor.LIGHT_PURPLE + "schem");
