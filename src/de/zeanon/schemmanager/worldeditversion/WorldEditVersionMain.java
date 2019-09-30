@@ -8,13 +8,16 @@ import org.bukkit.plugin.Plugin;
 
 public class WorldEditVersionMain {
 
+    public static Config config;
+    public static Helper helper;
+    public static Plugin plugin;
     public WorldEditVersionMain(Plugin plugin) {
         WorldEditVersionMain.plugin = plugin;
     }
 
-    public static Config config;
-    public static Helper helper;
-    public static Plugin plugin;
+    public static void disable() {
+        Bukkit.getPluginManager().disablePlugin(plugin);
+    }
 
     public void onEnable() {
         boolean failedToLoad = false;
@@ -43,10 +46,5 @@ public class WorldEditVersionMain {
         } else {
             System.out.println("[" + plugin.getName() + "] >> " + plugin.getName() + " v" + plugin.getDescription().getVersion() + " successfully launched...");
         }
-    }
-
-
-    public static void disable() {
-        Bukkit.getPluginManager().disablePlugin(plugin);
     }
 }

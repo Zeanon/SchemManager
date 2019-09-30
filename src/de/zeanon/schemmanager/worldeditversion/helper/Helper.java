@@ -24,6 +24,7 @@ import java.util.*;
 
 public class Helper {
 
+    public static WorldEditPlugin we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
     private static Plugin plugin;
     private static String pluginFolderPath;
     private static String slash = "/";
@@ -35,8 +36,6 @@ public class Helper {
     private static HashMap<String, String> renameRequests = new HashMap<>();
     private static HashMap<String, String> renameFolderRequests = new HashMap<>();
     private static HashMap<String, String> overwriteRequests = new HashMap<>();
-
-    public static WorldEditPlugin we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
 
 
     public Helper(Plugin plugin) {
