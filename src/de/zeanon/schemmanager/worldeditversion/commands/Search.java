@@ -3,9 +3,12 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
@@ -223,7 +226,11 @@ public class Search {
 
     private static File[] getFileArray(File directory, String[] extensions, boolean deepSearch, String regex) {
         ArrayList<File> files = new ArrayList<>();
-        FileUtils.iterateFiles(directory, extensions, deepSearch).forEachRemaining(file -> {if (Helper.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) files.add(file); });
+        for (File file : FileUtils.listFiles(directory, extensions, deepSearch)) {
+            if (Helper.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
+                files.add(file);
+            }
+        }
         File[] fileArray = files.toArray(new File[0]);
         Arrays.sort(fileArray);
         return fileArray;

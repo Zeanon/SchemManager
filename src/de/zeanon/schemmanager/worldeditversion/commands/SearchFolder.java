@@ -215,7 +215,11 @@ public class SearchFolder {
 
     private static File[] getFileArray(File directory, boolean deepSearch, String regex) {
         ArrayList<File> files = new ArrayList<>();
-        Helper.getFolders(directory, deepSearch).iterator().forEachRemaining(file -> {if (file.getName().toLowerCase().contains(regex.toLowerCase())) files.add(file); });
+        for (File file : Helper.getFolders(directory, deepSearch)) {
+            if (file.getName().toLowerCase().contains(regex.toLowerCase())) {
+                files.add(file);
+            }
+        }
         File[] fileArray = files.toArray(new File[0]);
         Arrays.sort(fileArray);
         return fileArray;
