@@ -6,7 +6,6 @@ import java.util.Collection;
 
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
@@ -36,7 +35,7 @@ public class List {
                 File[] files = rawFiles.toArray(new File[0]);
                 Arrays.sort(files);
                 double count = files.length;
-                int side = getSide(listmax, count);
+                int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
                 if (spaceLists) {
                     p.sendMessage(" ");
@@ -74,7 +73,7 @@ public class List {
                     File[] files = rawFiles.toArray(new File[0]);
                     Arrays.sort(files);
                     double count = files.length;
-                    int side = getSide(listmax, count);
+                    int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
                     int side_number = Integer.parseInt(args[2]);
 
                     if (side_number > side) {
@@ -128,7 +127,7 @@ public class List {
                     File[] files = rawFiles.toArray(new File[0]);
                     Arrays.sort(files);
                     double count = files.length;
-                    int side = getSide(listmax, count);
+                    int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
                     if (spaceLists) {
                         p.sendMessage(" ");
@@ -166,7 +165,7 @@ public class List {
                 File[] files = rawFiles.toArray(new File[0]);
                 Arrays.sort(files);
                 double count = files.length;
-                int side = getSide(listmax, count);
+                int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
                 int side_number = Integer.parseInt(args[3]);
 
                 if (side_number > side) {
@@ -217,7 +216,7 @@ public class List {
     private static void sendListLine(Player p, String schemFolderPath, File file, int id, boolean deepSearch) {
         String name = file.getName();
         String path;
-        if (FilenameUtils.getExtension(name).equals("schem")) {
+        if (Helper.getExtension(name).equals("schem")) {
             name = Helper.removeExtension(name);
             path = Helper.removeExtension(file.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
         } else {
@@ -227,14 +226,6 @@ public class List {
             Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
         } else {
             Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name, ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
-        }
-    }
-
-    private static int getSide(int listmax, Double count) {
-        if (count / listmax % 1 != 0) {
-            return (int) (count / listmax) + 1;
-        } else {
-            return (int) (count / listmax);
         }
     }
 }

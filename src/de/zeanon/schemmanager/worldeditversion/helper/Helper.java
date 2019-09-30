@@ -374,6 +374,7 @@ public class Helper {
     }
 
 
+    @SuppressWarnings("WeakerAccess")
     public static String getString(String path) {
         if (WorldEditVersionMain.config.contains(path)) {
             return WorldEditVersionMain.config.getString(path);
@@ -436,17 +437,10 @@ public class Helper {
 
 
     public static ArrayList<File> getExistingFiles(String path) {
-        List<String> extensions = getStringList("File Extensions");
         ArrayList<File> files = new ArrayList<>();
-        for (String extension : extensions) {
-            files.add(new File(path + "." + extension));
-        }
+        getStringList("File Extensions").iterator().forEachRemaining(extension -> files.add(new File(path + "." + extension)));
         ArrayList<File> tempFiles = new ArrayList<>();
-        for (File file : files) {
-            if (file.exists() && !file.isDirectory()) {
-                tempFiles.add(file);
-            }
-        }
+        files.iterator().forEachRemaining(file -> {if (file.exists() && !file.isDirectory()) tempFiles.add(file); });
         return tempFiles;
     }
 
@@ -483,34 +477,13 @@ public class Helper {
 
     public static boolean updateConfig(boolean force) {
         if (force || (!WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") || !WorldEditVersionMain.config.contains("Listmax") || !WorldEditVersionMain.config.contains("Space Lists") || !WorldEditVersionMain.config.contains("Save Function Override") || !WorldEditVersionMain.config.contains("Automatic Reload") || !WorldEditVersionMain.config.contains("Plugin Version") || !WorldEditVersionMain.config.getString("Plugin Version").equals(plugin.getDescription().getVersion()))) {
-            String schemPath = "Default Schematic Path";
-            if (WorldEditVersionMain.config.contains("WorldEdit Schematic-Path")) {
-                schemPath = WorldEditVersionMain.config.getString("WorldEdit Schematic-Path");
-            }
-            List<String> fileExtensions = Arrays.asList("schematic", "schem");
-            if (WorldEditVersionMain.config.contains("File Extensions")) {
-                fileExtensions = WorldEditVersionMain.config.getStringList("File Extensions");
-            }
-            int listmax = 10;
-            if (WorldEditVersionMain.config.contains("Listmax")) {
-                listmax = WorldEditVersionMain.config.getInt("Listmax");
-            }
-            boolean spaceLists = true;
-            if (WorldEditVersionMain.config.contains("Space Lists")) {
-                spaceLists = WorldEditVersionMain.config.getBoolean("Space Lists");
-            }
-            boolean saveOverride = true;
-            if (WorldEditVersionMain.config.contains("Save Function Override")) {
-                saveOverride = WorldEditVersionMain.config.getBoolean("Save Function Override");
-            }
-            boolean stoplagOverride = true;
-            if (WorldEditVersionMain.config.contains("Stoplag Override")) {
-                stoplagOverride = WorldEditVersionMain.config.getBoolean("Stoplag Override");
-            }
-            boolean autoReload = true;
-            if (WorldEditVersionMain.config.contains("Automatic Reload")) {
-                autoReload = WorldEditVersionMain.config.getBoolean("Automatic Reload");
-            }
+            String schemPath = WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") ? WorldEditVersionMain.config.getString("WorldEdit Schematic-Path") : "Default Schematic Path";
+            List<String> fileExtensions = WorldEditVersionMain.config.contains("File Extensions") ? WorldEditVersionMain.config.getStringList("File Extensions") : Arrays.asList("schematic", "schem");
+            int listmax = WorldEditVersionMain.config.contains("Listmax") ? WorldEditVersionMain.config.getInt("Listmax") : 10;
+            boolean spaceLists = !WorldEditVersionMain.config.contains("Space Lists") || WorldEditVersionMain.config.getBoolean("Space Lists");
+            boolean saveOverride = !WorldEditVersionMain.config.contains("Save Function Override") || WorldEditVersionMain.config.getBoolean("Save Function Override");
+            boolean stoplagOverride = !WorldEditVersionMain.config.contains("Stoplag Override") || WorldEditVersionMain.config.getBoolean("Stoplag Override");
+            boolean autoReload = !WorldEditVersionMain.config.contains("Automatic Reload") || WorldEditVersionMain.config.getBoolean("Automatic Reload");
 
             File file = new File(plugin.getDataFolder(), "config.yml");
             if (writeToFile(file, "https://github.com/Zeanon/SchemManager/releases/latest/download/config.yml")) {
@@ -571,5 +544,15 @@ public class Helper {
 
     public static String removeExtension(String path) {
         return path.replaceFirst("[.][^.]+$", "");
+    }
+
+    public static String getExtension(String path) {
+        int index = path.lastIndexOf(".");
+        if (index == 0) {
+            return "";
+        }
+        else {
+            return path.substring(index + 1);
+        }
     }
 }

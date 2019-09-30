@@ -3,11 +3,9 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
@@ -35,7 +33,7 @@ public class Search {
             } else {
                 File[] files = getFileArray(directory, extensions, deepSearch, args[2]);
                 double count = files.length;
-                int side = getSide(listmax, count);
+                int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
                 if (spaceLists) {
                     p.sendMessage(" ");
@@ -71,7 +69,7 @@ public class Search {
                 } else {
                     File[] files = getFileArray(directory, extensions, deepSearch, args[2]);
                     double count = files.length;
-                    int side = getSide(listmax, count);
+                    int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
                     int side_number = Integer.parseInt(args[3]);
 
                     if (side_number > side) {
@@ -123,7 +121,7 @@ public class Search {
                 } else {
                     File[] files = getFileArray(directory, extensions, deepSearch, args[2]);
                     double count = files.length;
-                    int side = getSide(listmax, count);
+                    int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
                     if (spaceLists) {
                         p.sendMessage(" ");
@@ -159,7 +157,7 @@ public class Search {
             } else {
                 File[] files = getFileArray(directory, extensions, deepSearch, args[2]);
                 double count = files.length;
-                int side = getSide(listmax, count);
+                int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
                 int side_number = Integer.parseInt(args[4]);
 
                 if (side_number > side) {
@@ -210,7 +208,7 @@ public class Search {
     private static void sendListLine(Player p, String schemFolderPath, File file, int id, boolean deepSearch) {
         String name = file.getName();
         String path;
-        if (FilenameUtils.getExtension(name).equals("schem")) {
+        if (Helper.getExtension(name).equals("schem")) {
             name = Helper.removeExtension(name);
             path = Helper.removeExtension(file.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
         } else {
@@ -223,24 +221,11 @@ public class Search {
         }
     }
 
-    private static int getSide(int listmax, Double count) {
-        if (count / listmax % 1 != 0) {
-            return (int) (count / listmax) + 1;
-        } else {
-            return (int) (count / listmax);
-        }
-    }
-
     private static File[] getFileArray(File directory, String[] extensions, boolean deepSearch, String regex) {
-        Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
-        ArrayList<File> fileArray = new ArrayList<>();
-        for (File file : rawFiles) {
-            if (FilenameUtils.getBaseName(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
-                fileArray.add(file);
-            }
-        }
-        File[] files = fileArray.toArray(new File[0]);
-        Arrays.sort(files);
-        return files;
+        ArrayList<File> files = new ArrayList<>();
+        FileUtils.iterateFiles(directory, extensions, deepSearch).forEachRemaining(file -> {if (Helper.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) files.add(file); });
+        File[] fileArray = files.toArray(new File[0]);
+        Arrays.sort(fileArray);
+        return fileArray;
     }
 }

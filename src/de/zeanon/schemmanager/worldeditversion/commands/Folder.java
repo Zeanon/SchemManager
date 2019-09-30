@@ -33,7 +33,7 @@ public class Folder {
                 File[] files = rawFiles.toArray(new File[0]);
                 Arrays.sort(files);
                 double count = files.length;
-                int side = getSide(listmax, count);
+                int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
                 if (spaceLists) {
                     p.sendMessage(" ");
@@ -71,7 +71,7 @@ public class Folder {
                     File[] files = rawFiles.toArray(new File[0]);
                     Arrays.sort(files);
                     double count = files.length;
-                    int side = getSide(listmax, count);
+                    int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
                     int side_number = Integer.parseInt(args[2]);
 
                     if (side_number > side) {
@@ -125,7 +125,7 @@ public class Folder {
                     File[] files = rawFiles.toArray(new File[0]);
                     Arrays.sort(files);
                     double count = files.length;
-                    int side = getSide(listmax, count);
+                    int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
                     if (spaceLists) {
                         p.sendMessage(" ");
@@ -162,7 +162,7 @@ public class Folder {
                 File[] files = rawFiles.toArray(new File[0]);
                 Arrays.sort(files);
                 double count = files.length;
-                int side = getSide(listmax, count);
+                int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
                 int side_number = Integer.parseInt(args[3]);
 
                 if (side_number > side) {
@@ -217,14 +217,6 @@ public class Folder {
             Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
         } else {
             Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name, ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
-        }
-    }
-
-    private static int getSide(int listmax, Double count) {
-        if (count / listmax % 1 != 0) {
-            return (int) (count / listmax) + 1;
-        } else {
-            return (int) (count / listmax);
         }
     }
 }

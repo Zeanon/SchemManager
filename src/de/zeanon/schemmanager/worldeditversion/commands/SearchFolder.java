@@ -31,7 +31,7 @@ public class SearchFolder {
             } else {
                 File[] files = getFileArray(directory, deepSearch, args[2]);
                 double count = files.length;
-                int side = getSide(listmax, count);
+                int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
                 if (spaceLists) {
                     p.sendMessage(" ");
@@ -67,7 +67,7 @@ public class SearchFolder {
                 } else {
                     File[] files = getFileArray(directory, deepSearch, args[2]);
                     double count = files.length;
-                    int side = getSide(listmax, count);
+                    int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
                     int side_number = Integer.parseInt(args[3]);
 
                     if (side_number > side) {
@@ -119,7 +119,7 @@ public class SearchFolder {
                 } else {
                     File[] files = getFileArray(directory, deepSearch, args[2]);
                     double count = files.length;
-                    int side = getSide(listmax, count);
+                    int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
                     if (spaceLists) {
                         p.sendMessage(" ");
@@ -155,7 +155,7 @@ public class SearchFolder {
             } else {
                 File[] files = getFileArray(directory, deepSearch, args[2]);
                 double count = files.length;
-                int side = getSide(listmax, count);
+                int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
                 int side_number = Integer.parseInt(args[4]);
 
                 if (side_number > side) {
@@ -213,23 +213,11 @@ public class SearchFolder {
         }
     }
 
-    private static int getSide(int listmax, Double count) {
-        if (count / listmax % 1 != 0) {
-            return (int) (count / listmax) + 1;
-        } else {
-            return (int) (count / listmax);
-        }
-    }
-
     private static File[] getFileArray(File directory, boolean deepSearch, String regex) {
-        ArrayList<File> fileArray = new ArrayList<>();
-        for (File file : Helper.getFolders(directory, deepSearch)) {
-            if (file.getName().toLowerCase().contains(regex.toLowerCase())) {
-                fileArray.add(file);
-            }
-        }
-        File[] files = fileArray.toArray(new File[0]);
-        Arrays.sort(files);
-        return files;
+        ArrayList<File> files = new ArrayList<>();
+        Helper.getFolders(directory, deepSearch).iterator().forEachRemaining(file -> {if (file.getName().toLowerCase().contains(regex.toLowerCase())) files.add(file); });
+        File[] fileArray = files.toArray(new File[0]);
+        Arrays.sort(fileArray);
+        return fileArray;
     }
 }
