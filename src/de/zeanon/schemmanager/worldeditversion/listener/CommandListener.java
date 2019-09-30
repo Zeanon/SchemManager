@@ -58,7 +58,7 @@ public class CommandListener implements Listener {
 
             if (args.length == 1) {
                 event.setCancelled(true);
-                return Help.onHelp(p, slash);
+                return Help.onHelp(p, slash, schemAlias);
             }
 
             if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del") && p.hasPermission("worldedit.schematic.delete"))) {
@@ -315,7 +315,7 @@ public class CommandListener implements Listener {
             } else if (args[1].equalsIgnoreCase("help")) {
                 event.setCancelled(true);
                 if (args.length == 2) {
-                    return Help.onHelp(p, slash);
+                    return Help.onHelp(p, slash, schemAlias);
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
