@@ -124,15 +124,15 @@ public class Help {
             String[] formats = Helper.getStringList("File Extensions").toArray(new String[0]);
             StringBuilder pathBuilder = new StringBuilder(formats[0] + " | ");
             for (int i = 1; i < formats.length - 1; i++) {
-                pathBuilder.append(formats[i]).append(" | ");
+                pathBuilder.append(ChatColor.LIGHT_PURPLE).append(formats[i]).append(ChatColor.BLACK).append(" | ");
             }
             pathBuilder.append(formats[formats.length - 1]);
             p.sendMessage(ChatColor.RED + "Available formats:");
-            p.sendMessage(ChatColor.LIGHT_PURPLE + pathBuilder.toString());
+            p.sendMessage(pathBuilder.toString());
         }
         else {
             p.sendMessage(ChatColor.RED + "Available formats:");
-            p.sendMessage(ChatColor.LIGHT_PURPLE + "schematic | schem");
+            p.sendMessage(ChatColor.LIGHT_PURPLE + "schematic" + ChatColor.BLACK + " | " + ChatColor.LIGHT_PURPLE + "schem");
         }
         return true;
     }
