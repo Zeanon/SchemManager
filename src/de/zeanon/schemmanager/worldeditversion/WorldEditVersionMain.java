@@ -11,6 +11,7 @@ public class WorldEditVersionMain {
     public static Config config;
     public static Helper helper;
     public static Plugin plugin;
+
     public WorldEditVersionMain(Plugin plugin) {
         WorldEditVersionMain.plugin = plugin;
     }
