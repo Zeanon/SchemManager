@@ -6,8 +6,6 @@ import org.bukkit.entity.Player;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
-import java.util.List;
-
 public class Help {
 
     public static boolean onHelp(Player p, String slash) {
