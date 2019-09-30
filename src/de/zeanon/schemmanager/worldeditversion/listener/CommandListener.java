@@ -401,7 +401,7 @@ public class CommandListener implements Listener {
 						+ ChatColor.GOLD + "deletefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "list"
 						+ ChatColor.RED + ", " + ChatColor.GOLD + "folder" + ChatColor.RED + ", " + ChatColor.GOLD
 						+ "search" + ChatColor.RED + ", " + ChatColor.GOLD + "searchfolder");
-				Helper.sendInvalidSubCommand(p, slash);
+				Helper.sendInvalidSubCommand(p, slash, schemAlias);
 				return true;
 			}
 		} else if (message.toLowerCase().startsWith("/stoplag") && this.worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
