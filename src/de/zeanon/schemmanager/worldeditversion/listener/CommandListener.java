@@ -157,8 +157,17 @@ public class CommandListener implements Listener {
                 }
             } else if (args[1].equalsIgnoreCase("save") && p.hasPermission("worldedit.schematic.save")) {
                 if (!Helper.getBoolean("Save Function Override")) {
-                    //TODO
-                    return true;
+                    if (args.length < 3) {
+                        event.setCancelled(true);
+                        p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
+                                + "filename" + ChatColor.YELLOW + ">");
+                        return defaultSaveUsage(p, slash, schemAlias);
+                    } else if (args.length > 4 && !args[2].equals("-f")) {
+                        p.sendMessage(ChatColor.RED + "Too many arguments.");
+                        return defaultSaveUsage(p, slash, schemAlias);
+                    } else {
+                        return true;
+                    }
                 } else if (args.length > 2 && args.length < 5 && args[2].equals("-f")) {
                     if (args.length == 3) {
                         event.setCancelled(true);
@@ -178,7 +187,7 @@ public class CommandListener implements Listener {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return saveUsage(p, slash, schemAlias);
                     } else {
-                        if (!Helper.checkDeleteRequest(p, args[2]) && args.length == 4 && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
+                        if (args.length == 4 && !Helper.checkOverWriteRequest(p, args[2]) && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                             p.sendMessage(ChatColor.RED + "Too many arguments.");
                             return saveUsage(p, slash, schemAlias);
                         } else {
@@ -462,6 +471,18 @@ public class CommandListener implements Listener {
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save "
+                        + ChatColor.GOLD + "example",
+                slash + schemAlias + " save ", p);
+        return true;
+    }
+
+    private boolean defaultSaveUsage(Player p, String slash, String schemAlias) {
+        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+                ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save "
+                        + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-f" + ChatColor.YELLOW + "] <"
+                        + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
+                ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save "
+                        + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-f" + ChatColor.YELLOW + "]"
                         + ChatColor.GOLD + "example",
                 slash + schemAlias + " save ", p);
         return true;

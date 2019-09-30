@@ -24,9 +24,11 @@ public class Help {
                 slash + "schem help", p);
         Helper.sendSuggestMessage(ChatColor.RED + "Load a schematic: ",
                 ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load " + ChatColor.YELLOW + "<"
-                        + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
+                        + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> ["
+                        + ChatColor.DARK_PURPLE + "format" + ChatColor.YELLOW + "]",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load "
-                        + ChatColor.GOLD + "example",
+                        + ChatColor.GOLD + "example " + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "format" + ChatColor.YELLOW
+                        + "]",
                 slash + "schem load ", p);
         Helper.sendSuggestMessage(ChatColor.RED + "Show Available formats: ",
                 ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "formats", ChatColor.BLUE + ""
