@@ -323,7 +323,7 @@ public class CommandListener implements Listener {
                 }
             } else if (args[1].equalsIgnoreCase("formats")) {
                 event.setCancelled(true);
-                if (args.length == 2) {
+                if (args.length == 2 && Helper.getStringList("File Extensions").contains(args[1])) {
                     return Help.onFormats(p);
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
