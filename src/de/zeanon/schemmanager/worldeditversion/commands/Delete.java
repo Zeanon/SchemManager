@@ -11,12 +11,7 @@ import net.md_5.bungee.api.ChatColor;
 public class Delete {
 
     public static boolean onDelete(Player p, String[] args) {
-        String[] extensions = {"schematic", "schem"};
-        ArrayList<File> files = new ArrayList<>();
-        for (String extension : extensions) {
-            files.add(new File(Helper.getSchemPath() + args[2] + extension));
-        }
-        files = Helper.getExistingFiles(files);
+        ArrayList<File> files = Helper.getExistingFiles(Helper.getSchemPath() + args[2]);
         final boolean fileExists = files.size() > 0;
 
         if (args.length == 3) {

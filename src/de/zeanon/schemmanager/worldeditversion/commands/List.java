@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
@@ -18,7 +19,7 @@ public class List {
         int listmax = Helper.getInt("Listmax");
         String schemFolderPath = Helper.getSchemPath();
         boolean spaceLists = Helper.getBoolean("Space Lists");
-        String[] extensions = {"schematic", "schem"};
+        String[] extensions = Helper.getStringList("File Extensions").toArray(new String[0]);
 
         String deep = "";
         if (deepSearch) {
@@ -58,8 +59,12 @@ public class List {
 
                     for (int i = 0; i < listmax; i++) {
                         if (!files[i].isDirectory()) {
-                            String name = files[i].getName().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                            String path = files[i].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\.schematic", "").replaceAll("\\.schem", "").replaceAll("\\\\", "/");
+                            String name = files[i].getName();
+                            String path = FilenameUtils.getBaseName(files[i].getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+                            if (FilenameUtils.getExtension(name).equals("schem")) {
+                                path = path + " " + FilenameUtils.getExtension(name);
+                                name = FilenameUtils.getBaseName(name);
+                            }
                             if (deepSearch) {
                                 Helper.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                             } else {
@@ -115,8 +120,12 @@ public class List {
                             int id = (side_number - 1) * listmax;
                             for (int i = 0; i < listmax; i++) {
                                 if (!files[id].isDirectory()) {
-                                    String name = files[id].getName().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                                    String path = files[id].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\.schematic", "").replaceAll("\\.schem", "").replaceAll("\\\\", "/");
+                                    String name = files[id].getName();
+                                    String path = FilenameUtils.getBaseName(files[id].getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+                                    if (FilenameUtils.getExtension(name).equals("schem")) {
+                                        path = path + " " + FilenameUtils.getExtension(name);
+                                        name = FilenameUtils.getBaseName(name);
+                                    }
                                     if (deepSearch) {
                                         Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                                     } else {
@@ -129,8 +138,12 @@ public class List {
                             int id = (side_number - 1) * listmax;
                             for (int i = 0; i < count - ((side_number - 1) * listmax); i++) {
                                 if (!files[id].isDirectory()) {
-                                    String name = files[id].getName().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                                    String path = files[id].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\.schematic", "").replaceAll("\\.schem", "").replaceAll("\\\\", "/");
+                                    String name = files[id].getName();
+                                    String path = FilenameUtils.getBaseName(files[id].getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+                                    if (FilenameUtils.getExtension(name).equals("schem")) {
+                                        path = path + " " + FilenameUtils.getExtension(name);
+                                        name = FilenameUtils.getBaseName(name);
+                                    }
                                     if (deepSearch) {
                                         Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                                     } else {
@@ -193,8 +206,12 @@ public class List {
 
                         for (int i = 0; i < listmax; i++) {
                             if (!files[i].isDirectory()) {
-                                String name = files[i].getName().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                                String path = files[i].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\.schematic", "").replaceAll("\\.schem", "").replaceAll("\\\\", "/");
+                                String name = files[i].getName();
+                                String path = FilenameUtils.getBaseName(files[i].getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+                                if (FilenameUtils.getExtension(name).equals("schem")) {
+                                    path = path + " " + FilenameUtils.getExtension(name);
+                                    name = FilenameUtils.getBaseName(name);
+                                }
                                 if (deepSearch) {
                                     Helper.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                                 } else {
@@ -250,8 +267,12 @@ public class List {
                         int id = (side_number - 1) * listmax;
                         for (int i = 0; i < listmax; i++) {
                             if (!files[id].isDirectory()) {
-                                String name = files[id].getName().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                                String path = files[id].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\.schematic", "").replaceAll("\\.schem", "").replaceAll("\\\\", "/");
+                                String name = files[id].getName();
+                                String path = FilenameUtils.getBaseName(files[id].getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+                                if (FilenameUtils.getExtension(name).equals("schem")) {
+                                    path = path + " " + FilenameUtils.getExtension(name);
+                                    name = FilenameUtils.getBaseName(name);
+                                }
                                 if (deepSearch) {
                                     Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                                 } else {
@@ -264,8 +285,12 @@ public class List {
                         int id = (side_number - 1) * listmax;
                         for (int i = 0; i < count - ((side_number - 1) * listmax); i++) {
                             if (!files[id].isDirectory()) {
-                                String name = files[id].getName().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                                String path = files[id].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\.schematic", "").replaceAll("\\.schem", "").replaceAll("\\\\", "/");
+                                String name = files[i].getName();
+                                String path = FilenameUtils.getBaseName(files[i].getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+                                if (FilenameUtils.getExtension(name).equals("schem")) {
+                                    path = path + " " + FilenameUtils.getExtension(name);
+                                    name = FilenameUtils.getBaseName(name);
+                                }
                                 if (deepSearch) {
                                     Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                                 } else {

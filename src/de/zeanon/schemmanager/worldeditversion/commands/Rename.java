@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
@@ -13,15 +14,9 @@ import net.md_5.bungee.api.ChatColor;
 public class Rename {
 
     public static boolean onRename(Player p, String[] args) {
-        String[] extensions = {"schematic", "schem"};
-        ArrayList<File> oldFiles = new ArrayList<>();
-        ArrayList<File> newFiles = new ArrayList<>();
-        for (String extension : extensions) {
-            oldFiles.add(new File(Helper.getSchemPath() + args[2] + extension));
-            newFiles.add(new File(Helper.getSchemPath() + args[3] + extension));
-        }
-        oldFiles = Helper.getExistingFiles(oldFiles);
-        newFiles = Helper.getExistingFiles(newFiles);
+        String schemPath = Helper.getSchemPath();
+        ArrayList<File> oldFiles = Helper.getExistingFiles(schemPath + args[2]);
+        ArrayList<File> newFiles = Helper.getExistingFiles(schemPath + args[3]);
         final boolean oldFileExists = oldFiles.size() > 0;
         final boolean newFileExists = newFiles.size() > 0;
 
@@ -43,10 +38,9 @@ public class Rename {
             if (args[4].equals("confirm")) {
                 Helper.removeRenameRequest(p);
                 if (oldFileExists) {
-                    return deleteFile(p, args[2], oldFiles, newFiles);
+                    return deleteFile(p, args[2], oldFiles, newFiles, schemPath + args[3]);
                 } else {
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
-                    Helper.removeRenameRequest(p);
                     return false;
                 }
             } else if (args[4].equals("deny")) {
@@ -62,9 +56,8 @@ public class Rename {
     }
 
 
-    private static boolean deleteFile(Player p, String fileName, ArrayList<File> oldFiles, ArrayList<File> newFiles) {
+    private static boolean deleteFile(Player p, String fileName, ArrayList<File> oldFiles, ArrayList<File> newFiles, String destPath) {
         try {
-            File destDir = newFiles.get(0).getParentFile();
             for (File file : newFiles) {
                 if (!file.delete()) {
                     p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed.");
@@ -72,7 +65,7 @@ public class Rename {
                 }
             }
             for (File file : oldFiles) {
-                FileUtils.moveFileToDirectory(file, destDir, true);
+                FileUtils.moveFile(file, new File(destPath + "." + FilenameUtils.getExtension(file.getName())));
             }
             p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");
             return true;

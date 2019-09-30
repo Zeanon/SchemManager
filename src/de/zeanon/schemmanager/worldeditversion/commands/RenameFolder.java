@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
@@ -29,23 +30,17 @@ public class RenameFolder {
                     for (File newFile : FileUtils.listFiles(file_new, extension, true)) {
                         System.out.println(oldFile.getName());
                         System.out.println(newFile.getName());
-                        final String rawNewFileName = newFile.getName().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                        if (rawNewFileName
-                                .equals(oldFile.getName().replaceAll("\\.schematic", "").replaceAll("\\.schem", ""))
-                                && newFile.toPath().relativize(file_new.toPath())
-                                .equals(oldFile.toPath().relativize(file_old.toPath()))) {
+                        if (FilenameUtils.getBaseName(newFile.getName()).equals(FilenameUtils.getBaseName(oldFile.getName())) && newFile.toPath().relativize(file_new.toPath()).equals(oldFile.toPath().relativize(file_old.toPath()))) {
                             if (id == 0) {
-                                p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GOLD
-                                        + args[3] + ChatColor.RED + ", they will be overwritten.");
+                                p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GOLD + args[3] + ChatColor.RED + ", they will be overwritten.");
                             }
-                            String path = newFile.getAbsolutePath().replaceAll(schemFolderPath, "")
-                                    .replaceAll("\\.schematic", "").replaceAll("\\.schem", "").replaceAll("\\\\", "/");
-                            Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
-                                    ChatColor.GOLD + rawNewFileName + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path
-                                            + ChatColor.DARK_GRAY + "]",
-                                    ChatColor.RED + "Lade " + ChatColor.GOLD + rawNewFileName + ChatColor.RED
-                                            + " to your clipboard",
-                                    "//schem load " + path, p);
+                            String name = newFile.getName();
+                            String path = FilenameUtils.getBaseName(newFile.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+                            if (FilenameUtils.getExtension(name).equals("schem")) {
+                                path = path + " " + FilenameUtils.getExtension(name);
+                                name = FilenameUtils.getBaseName(name);
+                            }
+                            Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + FilenameUtils.getBaseName(newFile.getName()) + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                             id++;
                         }
                     }
@@ -54,44 +49,35 @@ public class RenameFolder {
                 int i = 0;
                 for (File oldFolder : Helper.getFolders(file_old, true)) {
                     for (File newFolder : Helper.getFolders(file_new, true)) {
-                        if (newFolder.getName().equals(oldFolder.getName())
-                                && newFolder.toPath().relativize(file_new.toPath())
-                                .equals(oldFolder.toPath().relativize(file_old.toPath()))) {
+                        if (newFolder.getName().equals(oldFolder.getName()) && newFolder.toPath().relativize(file_new.toPath()).equals(oldFolder.toPath().relativize(file_old.toPath()))) {
                             if (i == 0) {
-                                p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GOLD
-                                        + args[3] + ChatColor.RED + ", they will be merged.");
+                                p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GOLD + args[3] + ChatColor.RED + ", they will be merged.");
                             }
                             String name = newFolder.getName();
-                            String path = newFolder.getAbsolutePath().replaceAll(schemFolderPath, "")
-                                    .replaceAll("\\\\", "/");
-                            Helper.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ",
-                                    ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path
-                                            + ChatColor.DARK_GRAY + "]",
-                                    ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
+                            String path = newFolder.getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\\\", "/");
+                            Helper.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
                             i++;
                         }
                     }
                 }
-                if (id > 1 && i > 1) {
+                if (id > 0 && i > 0) {
                     p.sendMessage(ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + id + ChatColor.RED
                             + " schematics and " + ChatColor.DARK_PURPLE + i + ChatColor.RED
                             + " folders with the same name in " + ChatColor.GOLD + args[3] + ChatColor.RED + ".");
-                } else if (id > 1) {
+                } else if (id > 0) {
                     p.sendMessage(ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + id + ChatColor.RED
                             + " schematics with the same name in " + ChatColor.GOLD + args[3] + ChatColor.RED + ".");
-                } else if (i > 1) {
+                } else if (i > 0) {
                     p.sendMessage(ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + i + ChatColor.RED
                             + " folders with the same name in " + ChatColor.GOLD + args[3] + ChatColor.RED + ".");
                 }
             }
-            Helper.sendBooleanMessage(
-                    ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
-                    "//schem renamefolder " + args[2] + " " + args[3] + " confirm",
-                    "//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
+            Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem renamefolder " + args[2] + " " + args[3] + " confirm", "//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
             Helper.addRenameFolderRequest(p, args[2]);
             return true;
         } else {
             if (args[4].equals("confirm")) {
+                Helper.removeRenameFolderRequest(p);
                 if (!file_old.exists() || !file_old.isDirectory()) {
                     if (deepMerge(file_old, file_new)) {
                         try {
@@ -106,12 +92,10 @@ public class RenameFolder {
                         }
                     } else {
                         p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
-                        Helper.removeRenameFolderRequest(p);
                         return false;
                     }
                 } else {
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
-                    Helper.removeRenameFolderRequest(p);
                     return false;
                 }
             } else if (args[4].equals("deny")) {

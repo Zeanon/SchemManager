@@ -6,9 +6,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import org.bukkit.Bukkit;
@@ -377,7 +375,6 @@ public class Helper {
             return WorldEditVersionMain.config.getString(path);
         } else {
             updateConfig(true);
-            WorldEditVersionMain.config.update();
             return WorldEditVersionMain.config.getString(path);
         }
     }
@@ -387,7 +384,6 @@ public class Helper {
             return WorldEditVersionMain.config.getInt(path);
         } else {
             updateConfig(true);
-            WorldEditVersionMain.config.update();
             return WorldEditVersionMain.config.getInt(path);
         }
     }
@@ -397,13 +393,26 @@ public class Helper {
             return WorldEditVersionMain.config.getBoolean(path);
         } else {
             updateConfig(true);
-            WorldEditVersionMain.config.update();
             return WorldEditVersionMain.config.getBoolean(path);
         }
     }
 
+    public static List<String> getStringList(String path) {
+        if (WorldEditVersionMain.config.contains(path)) {
+            return WorldEditVersionMain.config.getStringList(path);
+        }
+        else {
+            updateConfig(true);
+            return WorldEditVersionMain.config.getStringList(path);
+        }
+    }
 
-    public static ArrayList<File> getExistingFiles(ArrayList<File> files) {
+    public static ArrayList<File> getExistingFiles(String path) {
+        List<String> extensions = getStringList("File Extensions");
+        ArrayList<File> files = new ArrayList<>();
+        for (String extension : extensions) {
+            files.add(new File(path + "." + extension));
+        }
         ArrayList<File> tempFiles = new ArrayList<>();
         for(File file : files) {
             if (file.exists() && !file.isDirectory()) {
@@ -450,6 +459,10 @@ public class Helper {
             if (WorldEditVersionMain.config.contains("WorldEdit Schematic-Path")) {
                 schemPath = WorldEditVersionMain.config.getString("WorldEdit Schematic-Path");
             }
+            List<String> fileExtensions = Arrays.asList("schematic", "schem");
+            if (WorldEditVersionMain.config.contains("File Extensions")) {
+                fileExtensions = WorldEditVersionMain.config.getStringList("File Extensions");
+            }
             int listmax = 10;
             if (WorldEditVersionMain.config.contains("Listmax")) {
                 listmax = WorldEditVersionMain.config.getInt("Listmax");
@@ -477,6 +490,7 @@ public class Helper {
 
                 WorldEditVersionMain.config.set("Plugin Version", plugin.getDescription().getVersion());
                 WorldEditVersionMain.config.set("WorldEdit Schematic-Path", schemPath);
+                WorldEditVersionMain.config.set("File Extensions", fileExtensions);
                 WorldEditVersionMain.config.set("Listmax", listmax);
                 WorldEditVersionMain.config.set("Space Lists", spaceLists);
                 WorldEditVersionMain.config.set("Save Function Override", saveOverride);
