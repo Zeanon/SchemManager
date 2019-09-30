@@ -1,6 +1,10 @@
 name: SchemManager
-version: 3.6.6
+version: 3.6.7
 api-version: 1.14
 authors: [Zeanon, JavaFactoryDev]
 main: de.zeanon.schemmanager.SchemManager
 softdepend: [WorldEdit, WorldGuard, FastAsyncWorldEdit]
+commands:
+  schemmanager:
+    description: schemmanager utility command
+    usage: /schemmanager
