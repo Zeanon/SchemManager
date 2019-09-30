@@ -37,9 +37,6 @@ public class Search {
                 double count = files.length;
                 int side = getSide(listmax, count);
 
-                if (count < listmax) {
-                    listmax = (int) count;
-                }
                 if (spaceLists) {
                     p.sendMessage(" ");
                 }
@@ -49,6 +46,9 @@ public class Search {
                 } else {
                     Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "global", p);
 
+                    if (count < listmax) {
+                        listmax = (int) count;
+                    }
                     for (int i = 0; i < listmax; i++) {
                         sendListLine(p, schemFolderPath, files[i], i, deepSearch);
                     }
@@ -74,9 +74,6 @@ public class Search {
                     int side = getSide(listmax, count);
                     int side_number = Integer.parseInt(args[3]);
 
-                    if (count < listmax * side_number) {
-                        listmax = (int) count - (listmax * (side_number - 1));
-                    }
                     if (side_number > side) {
                         Helper.sendHoverMessage("", ChatColor.RED + "There are only " + side + " schematics in this list", "", ChatColor.GRAY + "global", p);
                         return false;
@@ -91,6 +88,9 @@ public class Search {
                         Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Schematics | Page " + side_number + "/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "global", p);
 
                         int id = (side_number - 1) * listmax;
+                        if (count < listmax * side_number) {
+                            listmax = (int) count - (listmax * (side_number - 1));
+                        }
                         for (int i = 0; i < listmax; i++) {
                             sendListLine(p, schemFolderPath, files[id], id, deepSearch);
                             id++;
@@ -125,9 +125,6 @@ public class Search {
                     double count = files.length;
                     int side = getSide(listmax, count);
 
-                    if (count < listmax) {
-                        listmax = (int) count;
-                    }
                     if (spaceLists) {
                         p.sendMessage(" ");
                     }
@@ -137,6 +134,9 @@ public class Search {
                     } else {
                         Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + args[2], p);
 
+                        if (count < listmax) {
+                            listmax = (int) count;
+                        }
                         for (int i = 0; i < listmax; i++) {
                             sendListLine(p, schemFolderPath, files[i], i, deepSearch);
                         }
@@ -162,9 +162,6 @@ public class Search {
                 int side = getSide(listmax, count);
                 int side_number = Integer.parseInt(args[4]);
 
-                if (count < listmax * side_number) {
-                    listmax = (int) count - (listmax * (side_number - 1));
-                }
                 if (side_number > side) {
                     Helper.sendHoverMessage("", ChatColor.RED + "There are only " + side + " schematics in this list", "", ChatColor.GRAY + args[2], p);
                     return false;
@@ -179,6 +176,9 @@ public class Search {
                     Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Schematics | Page " + side_number + "/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + args[2], p);
 
                     int id = (side_number - 1) * listmax;
+                    if (count < listmax * side_number) {
+                        listmax = (int) count - (listmax * (side_number - 1));
+                    }
                     for (int i = 0; i < listmax; i++) {
                         sendListLine(p, schemFolderPath, files[id], id, deepSearch);
                         id++;

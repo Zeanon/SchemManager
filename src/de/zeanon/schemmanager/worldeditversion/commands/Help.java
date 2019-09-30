@@ -28,6 +28,10 @@ public class Help {
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "load "
                         + ChatColor.GOLD + "example",
                 slash + "schem load ", p);
+        Helper.sendSuggestMessage(ChatColor.RED + "Show Available formats: ",
+                ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "formats", ChatColor.BLUE + ""
+                        + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "There are different formats? :O",
+                slash + "schem formats", p);
         Helper.sendSuggestMessage(ChatColor.RED + "Save a schematic: ",
                 ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "save " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
@@ -126,7 +130,7 @@ public class Help {
         }
         else {
             p.sendMessage(ChatColor.RED + "Available formats:");
-            p.sendMessage(ChatColor.DARK_PURPLE + "schematic | schem");
+            p.sendMessage(ChatColor.LIGHT_PURPLE + "schematic | schem");
         }
         return true;
     }
