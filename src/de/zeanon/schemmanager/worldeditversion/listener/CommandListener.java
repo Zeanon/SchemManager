@@ -138,10 +138,14 @@ public class CommandListener implements Listener {
                     p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                             + "filename" + ChatColor.YELLOW + ">");
                     return loadUsage(p, slash, schemAlias);
-                } else if (args.length > 4 || (args.length > 3 && !Helper.getStringList("File Extensions").contains(args[3]))) {
+                } else if (args.length > 4) {
                     event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return loadUsage(p, slash, schemAlias);
+                } else if (args.length > 3 && !Helper.getStringList("File Extensions").contains(args[3])) {
+                    event.setCancelled(true);
+                    p.sendMessage(ChatColor.LIGHT_PURPLE + args[3] + ChatColor.RED + " is no valid file format.");
+                    return Help.onFormats(p, true);
                 } else {
                     return true;
                 }
@@ -323,7 +327,7 @@ public class CommandListener implements Listener {
             } else if (args[1].equalsIgnoreCase("formats")) {
                 event.setCancelled(true);
                 if (args.length == 2) {
-                    return Help.onFormats(p);
+                    return Help.onFormats(p, false);
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",

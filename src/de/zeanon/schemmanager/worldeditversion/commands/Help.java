@@ -112,8 +112,8 @@ public class Help {
         return true;
     }
 
-    public static boolean onFormats(Player p) {
-        if (Helper.getBoolean("Space Lists")) {
+    public static boolean onFormats(Player p, boolean suppressBlankLine) {
+        if (Helper.getBoolean("Space Lists") && !suppressBlankLine) {
             p.sendMessage(" ");
         }
         p.sendMessage(ChatColor.RED + "Available formats:");
