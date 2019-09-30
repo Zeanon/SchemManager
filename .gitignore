@@ -1,9 +1,11 @@
 /target/
 .classpath
 .project
-bin
 .settings
-.idea
 .travis.yml
 .build.yml
+.idea
+bin
+SchemManager.iml
+
 .gitignore
