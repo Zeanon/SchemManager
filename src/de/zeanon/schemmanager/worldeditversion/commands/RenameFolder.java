@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 
+@SuppressWarnings("Duplicates")
 public class RenameFolder {
 
     public static boolean onRenameFolder(Player p, String[] args) {

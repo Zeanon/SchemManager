@@ -6,9 +6,10 @@ import org.bukkit.entity.Player;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
+import java.util.List;
+
 public class Help {
 
-    @SuppressWarnings("Duplicates")
     public static boolean onHelp(Player p, String slash) {
         if (Helper.getBoolean("Space Lists")) {
             p.sendMessage(" ");
@@ -105,6 +106,28 @@ public class Help {
                 ChatColor.GRAY + slash + "schem " + ChatColor.AQUA + "disable", ChatColor.DARK_RED + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",
                 slash + "schem disable", p);
+        return true;
+    }
+
+    public static boolean onFormats(Player p) {
+        if (Helper.getStringList("File Extensions").size() > 0) {
+            if (Helper.getBoolean("Space Lists")) {
+                p.sendMessage(" ");
+            }
+
+            String[] formats = Helper.getStringList("File Extensions").toArray(new String[0]);
+            StringBuilder pathBuilder = new StringBuilder(formats[0] + " | ");
+            for (int i = 1; i < formats.length - 1; i++) {
+                pathBuilder.append(formats[i]).append(" | ");
+            }
+            pathBuilder.append(formats[formats.length - 1]);
+            p.sendMessage(ChatColor.RED + "Available formats:");
+            p.sendMessage(ChatColor.DARK_PURPLE + pathBuilder.toString());
+        }
+        else {
+            p.sendMessage(ChatColor.RED + "Available formats:");
+            p.sendMessage(ChatColor.DARK_PURPLE + "schematic | schem");
+        }
         return true;
     }
 }

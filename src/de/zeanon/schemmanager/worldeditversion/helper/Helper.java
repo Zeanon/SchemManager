@@ -47,8 +47,7 @@ public class Helper {
             slash = "\\\\";
         }
         String[] parts = plugin.getDataFolder().getAbsolutePath().split(slash);
-        String path = parts[0] + slash;
-        StringBuilder pathBuilder = new StringBuilder(path);
+        StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
         for (int i = 1; i < parts.length - 1; i++) {
             pathBuilder.append(parts[i]).append(slash);
         }
@@ -375,7 +374,7 @@ public class Helper {
             return WorldEditVersionMain.config.getString(path);
         } else {
             updateConfig(true);
-            return WorldEditVersionMain.config.getString(path);
+            return (String) getDefaultValue(path);
         }
     }
 
@@ -384,7 +383,7 @@ public class Helper {
             return WorldEditVersionMain.config.getInt(path);
         } else {
             updateConfig(true);
-            return WorldEditVersionMain.config.getInt(path);
+            return (int) getDefaultValue(path);
         }
     }
 
@@ -393,19 +392,43 @@ public class Helper {
             return WorldEditVersionMain.config.getBoolean(path);
         } else {
             updateConfig(true);
-            return WorldEditVersionMain.config.getBoolean(path);
+            return (boolean) getDefaultValue(path);
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static List<String> getStringList(String path) {
         if (WorldEditVersionMain.config.contains(path)) {
             return WorldEditVersionMain.config.getStringList(path);
-        }
-        else {
+        } else {
             updateConfig(true);
-            return WorldEditVersionMain.config.getStringList(path);
+            return (List<String>) getDefaultValue(path);
         }
     }
+
+    private static Object getDefaultValue(String path) {
+        switch (path) {
+            case "Space Lists":
+                return true;
+            case "Listmax":
+                return 10;
+            case "Save Function Override":
+                return true;
+            case "Stoplag Override":
+                return true;
+            case "Automatic Reload":
+                return true;
+            case "File Extensions":
+                return Arrays.asList("schematic", "schem");
+            case "WorldEdit Schematic-Path":
+                return "Default Schematic Path";
+            case "Plugin Version":
+                return plugin.getDescription().getVersion();
+            default:
+                return null;
+        }
+    }
+
 
     public static ArrayList<File> getExistingFiles(String path) {
         List<String> extensions = getStringList("File Extensions");
@@ -414,7 +437,7 @@ public class Helper {
             files.add(new File(path + "." + extension));
         }
         ArrayList<File> tempFiles = new ArrayList<>();
-        for(File file : files) {
+        for (File file : files) {
             if (file.exists() && !file.isDirectory()) {
                 tempFiles.add(file);
             }

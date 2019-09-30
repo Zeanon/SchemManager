@@ -10,9 +10,9 @@ import org.bukkit.entity.Player;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 
+@SuppressWarnings("Duplicates")
 public class SearchFolder {
 
-    @SuppressWarnings("Duplicates")
     public static boolean onSearchFolder(Player p, String[] args, Boolean deepSearch) {
         int listmax = Helper.getInt("Listmax");
         String schemFolderPath = Helper.getSchemPath();
@@ -24,29 +24,14 @@ public class SearchFolder {
         }
 
         if (args.length == 3) {
-            int side;
-
             File directory = new File(schemFolderPath);
             if (!directory.exists() || !directory.isDirectory()) {
                 p.sendMessage(ChatColor.RED + "There is no schematic folder.");
                 return false;
             } else {
-                ArrayList<File> fileArray = new ArrayList<>();
-                for (File file : Helper.getFolders(directory, deepSearch)) {
-                    if (file.getName().toLowerCase().contains(args[2].toLowerCase())) {
-                        fileArray.add(file);
-                    }
-                }
-                File[] files = fileArray.toArray(new File[0]);
-                Arrays.sort(files);
-
+                File[] files = getFileArray(directory, deepSearch, args[2]);
                 double count = files.length;
-                double side_count = count / listmax;
-                if (side_count % 1 != 0) {
-                    side = (int) side_count + 1;
-                } else {
-                    side = (int) side_count;
-                }
+                int side = getSide(listmax, count);
 
                 if (count < listmax) {
                     listmax = (int) count;
@@ -61,11 +46,7 @@ public class SearchFolder {
                     Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "global", p);
 
                     for (int i = 0; i < listmax; i++) {
-                        if (files[i].isDirectory()) {
-                            String name = files[i].getName();
-                            String path = files[i].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\\\", "/");
-                            Helper.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
-                        }
+                        sendListLine(p, schemFolderPath, files[i], i, deepSearch);
                     }
 
                     if (side > 1) {
@@ -79,31 +60,19 @@ public class SearchFolder {
             }
         } else if (args.length == 4) {
             if (StringUtils.isNumeric(args[3])) {
-                int side;
-                int side_number = Integer.parseInt(args[3]);
-
                 File directory = new File(schemFolderPath);
                 if (!directory.exists() || !directory.isDirectory()) {
                     p.sendMessage(ChatColor.RED + "There is no schematic folder.");
                     return false;
                 } else {
-                    ArrayList<File> fileArray = new ArrayList<>();
-                    for (File file : Helper.getFolders(directory, deepSearch)) {
-                        if (file.getName().toLowerCase().contains(args[2].toLowerCase())) {
-                            fileArray.add(file);
-                        }
-                    }
-                    File[] files = fileArray.toArray(new File[0]);
-                    Arrays.sort(files);
-
+                    File[] files = getFileArray(directory, deepSearch, args[2]);
                     double count = files.length;
-                    double side_count = count / listmax;
-                    if (side_count % 1 != 0) {
-                        side = (int) side_count + 1;
-                    } else {
-                        side = (int) side_count;
-                    }
+                    int side = getSide(listmax, count);
+                    int side_number = Integer.parseInt(args[3]);
 
+                    if (count < listmax * side_number) {
+                        listmax = (int) count - (listmax * (side_number - 1));
+                    }
                     if (side_number > side) {
                         Helper.sendHoverMessage("", ChatColor.RED + "There are only " + side + " pages of folders in this list", "", ChatColor.GRAY + "global", p);
                         return false;
@@ -117,26 +86,10 @@ public class SearchFolder {
                     } else {
                         Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Folder | Page " + side_number + "/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "global", p);
 
-                        if (count >= listmax * side_number) {
-                            int id = (side_number - 1) * listmax;
-                            for (int i = 0; i < listmax; i++) {
-                                if (files[id].isDirectory()) {
-                                    String name = files[id].getName();
-                                    String path = files[id].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\\\", "/");
-                                    Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
-                                }
-                                id++;
-                            }
-                        } else {
-                            int id = (side_number - 1) * listmax;
-                            for (int i = 0; i < count - ((side_number - 1) * listmax); i++) {
-                                if (files[id].isDirectory()) {
-                                    String name = files[id].getName();
-                                    String path = files[id].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\\\", "/");
-                                    Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
-                                }
-                                id++;
-                            }
+                        int id = (side_number - 1) * listmax;
+                        for (int i = 0; i < listmax; i++) {
+                            sendListLine(p, schemFolderPath, files[id], id, deepSearch);
+                            id++;
                         }
 
                         if (side > 1) {
@@ -159,29 +112,14 @@ public class SearchFolder {
                     }
                 }
             } else {
-                int side;
-
                 File directory = new File(schemFolderPath + args[2]);
                 if (!directory.exists() || !directory.isDirectory()) {
                     p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
                     return false;
                 } else {
-                    ArrayList<File> fileArray = new ArrayList<>();
-                    for (File file : Helper.getFolders(directory, deepSearch)) {
-                        if (file.getName().toLowerCase().contains(args[2].toLowerCase())) {
-                            fileArray.add(file);
-                        }
-                    }
-                    File[] files = fileArray.toArray(new File[0]);
-                    Arrays.sort(files);
-
+                    File[] files = getFileArray(directory, deepSearch, args[2]);
                     double count = files.length;
-                    double side_count = count / listmax;
-                    if (side_count % 1 != 0) {
-                        side = (int) side_count + 1;
-                    } else {
-                        side = (int) side_count;
-                    }
+                    int side = getSide(listmax, count);
 
                     if (count < listmax) {
                         listmax = (int) count;
@@ -196,11 +134,7 @@ public class SearchFolder {
                         Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + args[2], p);
 
                         for (int i = 0; i < listmax; i++) {
-                            if (files[i].isDirectory()) {
-                                String name = files[i].getName();
-                                String path = files[i].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\\\", "/");
-                                Helper.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
-                            }
+                            sendListLine(p, schemFolderPath, files[i], i, deepSearch);
                         }
 
                         if (side > 1) {
@@ -214,31 +148,19 @@ public class SearchFolder {
                 }
             }
         } else {
-            int side;
-            int side_number = Integer.parseInt(args[4]);
-
             File directory = new File(schemFolderPath + args[2]);
             if (!directory.exists() || !directory.isDirectory()) {
                 p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
                 return false;
             } else {
-                ArrayList<File> fileArray = new ArrayList<>();
-                for (File file : Helper.getFolders(directory, deepSearch)) {
-                    if (file.getName().toLowerCase().contains(args[2].toLowerCase())) {
-                        fileArray.add(file);
-                    }
-                }
-                File[] files = fileArray.toArray(new File[0]);
-                Arrays.sort(files);
-
+                File[] files = getFileArray(directory, deepSearch, args[2]);
                 double count = files.length;
-                double side_count = count / listmax;
-                if (side_count % 1 != 0) {
-                    side = (int) side_count + 1;
-                } else {
-                    side = (int) side_count;
-                }
+                int side = getSide(listmax, count);
+                int side_number = Integer.parseInt(args[4]);
 
+                if (count < listmax * side_number) {
+                    listmax = (int) count - (listmax * (side_number - 1));
+                }
                 if (side_number > side) {
                     Helper.sendHoverMessage("", ChatColor.RED + "There are only " + side + " pages of folders in this list", "", ChatColor.GRAY + args[2], p);
                     return false;
@@ -252,26 +174,10 @@ public class SearchFolder {
                 } else {
                     Helper.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Folder | Page " + side_number + "/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + args[2], p);
 
-                    if (count >= listmax * side_number) {
-                        int id = (side_number - 1) * listmax;
-                        for (int i = 0; i < listmax; i++) {
-                            if (files[id].isDirectory()) {
-                                String name = files[id].getName();
-                                String path = files[id].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\\\", "/");
-                                Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
-                            }
-                            id++;
-                        }
-                    } else {
-                        int id = (side_number - 1) * listmax;
-                        for (int i = 0; i < count - ((side_number - 1) * listmax); i++) {
-                            if (files[id].isDirectory()) {
-                                String name = files[id].getName();
-                                String path = files[id].getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\\\", "/");
-                                Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
-                            }
-                            id++;
-                        }
+                    int id = (side_number - 1) * listmax;
+                    for (int i = 0; i < listmax; i++) {
+                        sendListLine(p, schemFolderPath, files[id], id, deepSearch);
+                        id++;
                     }
 
                     if (side > 1) {
@@ -294,5 +200,36 @@ public class SearchFolder {
                 }
             }
         }
+    }
+
+
+    private static void sendListLine(Player p, String schemFolderPath, File file, int id, boolean deepSearch) {
+        String name = file.getName();
+        String path = file.getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\\\", "/");
+        if (deepSearch) {
+            Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
+        } else {
+            Helper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name, ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
+        }
+    }
+
+    private static int getSide(int listmax, Double count) {
+        if (count / listmax % 1 != 0) {
+            return (int) (count / listmax) + 1;
+        } else {
+            return (int) (count / listmax);
+        }
+    }
+
+    private static File[] getFileArray(File directory, boolean deepSearch, String regex) {
+        ArrayList<File> fileArray = new ArrayList<>();
+        for (File file : Helper.getFolders(directory, deepSearch)) {
+            if (file.getName().toLowerCase().contains(regex.toLowerCase())) {
+                fileArray.add(file);
+            }
+        }
+        File[] files = fileArray.toArray(new File[0]);
+        Arrays.sort(files);
+        return files;
     }
 }
