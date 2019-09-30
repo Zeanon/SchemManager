@@ -148,7 +148,7 @@ public class CommandListener implements Listener {
                     p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                             + "filename" + ChatColor.YELLOW + ">");
                     return loadUsage(p, slash, schemAlias);
-                } else if (args.length > 4 || !Helper.getStringList("File Extensions").contains(args[3])) {
+                } else if (args.length > 4 || (args.length > 3 && !Helper.getStringList("File Extensions").contains(args[3]))) {
                     event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return loadUsage(p, slash, schemAlias);

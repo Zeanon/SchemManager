@@ -568,4 +568,8 @@ public class Helper {
         }
         return true;
     }
+
+    public static String removeExtension(String path) {
+        return path.replaceFirst("[.][^.]+$", "");
+    }
 }
