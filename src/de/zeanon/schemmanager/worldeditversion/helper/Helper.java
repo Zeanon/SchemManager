@@ -403,6 +403,17 @@ public class Helper {
     }
 
 
+    public static ArrayList<File> getExistingFiles(ArrayList<File> files) {
+        ArrayList<File> tempFiles = new ArrayList<>();
+        for(File file : files) {
+            if (file.exists() && !file.isDirectory()) {
+                tempFiles.add(file);
+            }
+        }
+        return tempFiles;
+    }
+
+
     public static boolean update(Player p) {
         p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is updating...");
         String fileName;

@@ -33,8 +33,7 @@ public class SearchFolder {
             } else {
                 ArrayList<File> fileArray = new ArrayList<>();
                 for (File file : Helper.getFolders(directory, deepSearch)) {
-                    String name = file.getName().toLowerCase();
-                    if (name.contains(args[2].toLowerCase())) {
+                    if (file.getName().toLowerCase().contains(args[2].toLowerCase())) {
                         fileArray.add(file);
                     }
                 }
@@ -90,8 +89,7 @@ public class SearchFolder {
                 } else {
                     ArrayList<File> fileArray = new ArrayList<>();
                     for (File file : Helper.getFolders(directory, deepSearch)) {
-                        String name = file.getName().toLowerCase();
-                        if (name.contains(args[2].toLowerCase())) {
+                        if (file.getName().toLowerCase().contains(args[2].toLowerCase())) {
                             fileArray.add(file);
                         }
                     }
@@ -170,8 +168,7 @@ public class SearchFolder {
                 } else {
                     ArrayList<File> fileArray = new ArrayList<>();
                     for (File file : Helper.getFolders(directory, deepSearch)) {
-                        String name = file.getName().toLowerCase();
-                        if (name.contains(args[2].toLowerCase())) {
+                        if (file.getName().toLowerCase().contains(args[2].toLowerCase())) {
                             fileArray.add(file);
                         }
                     }
@@ -227,8 +224,7 @@ public class SearchFolder {
             } else {
                 ArrayList<File> fileArray = new ArrayList<>();
                 for (File file : Helper.getFolders(directory, deepSearch)) {
-                    String name = file.getName().toLowerCase();
-                    if (name.contains(args[2].toLowerCase())) {
+                    if (file.getName().toLowerCase().contains(args[2].toLowerCase())) {
                         fileArray.add(file);
                     }
                 }

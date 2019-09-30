@@ -19,7 +19,7 @@ public class Search {
         int listmax = Helper.getInt("Listmax");
         String schemFolderPath = Helper.getSchemPath();
         boolean spaceLists = Helper.getBoolean("Space Lists");
-        String[] extension = {"schematic", "schem"};
+        String[] extensions = {"schematic", "schem"};
 
         String deep = "";
         if (deepSearch) {
@@ -34,11 +34,10 @@ public class Search {
                 p.sendMessage(ChatColor.RED + "There is no schematic folder.");
                 return false;
             } else {
-                Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
+                Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
                 ArrayList<File> fileArray = new ArrayList<>();
                 for (File file : rawFiles) {
-                    String named = file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                    if (named.contains(args[2].toLowerCase()) && file.isFile()) {
+                    if (file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "").contains(args[2].toLowerCase())) {
                         fileArray.add(file);
                     }
                 }
@@ -92,11 +91,10 @@ public class Search {
                     p.sendMessage(ChatColor.RED + "There is no schematic folder.");
                     return false;
                 } else {
-                    Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
+                    Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
                     ArrayList<File> fileArray = new ArrayList<>();
                     for (File file : rawFiles) {
-                        String named = file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                        if (named.contains(args[2].toLowerCase()) && file.isFile()) {
+                        if (file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "").contains(args[2].toLowerCase())) {
                             fileArray.add(file);
                         }
                     }
@@ -173,12 +171,10 @@ public class Search {
                     p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
                     return false;
                 } else {
-                    Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
+                    Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
                     ArrayList<File> fileArray = new ArrayList<>();
                     for (File file : rawFiles) {
-                        String named = file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                        String name = file.getName().toLowerCase();
-                        if (named.contains(args[2].toLowerCase()) && (name.endsWith(".schematic") || name.endsWith(".schem")) && file.isFile()) {
+                        if (file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "").contains(args[2].toLowerCase())) {
                             fileArray.add(file);
                         }
                     }
@@ -231,12 +227,10 @@ public class Search {
                 p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
                 return false;
             } else {
-                Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
+                Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
                 ArrayList<File> fileArray = new ArrayList<>();
                 for (File file : rawFiles) {
-                    String named = file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "");
-                    String name = file.getName().toLowerCase();
-                    if (named.contains(args[2].toLowerCase()) && (name.endsWith(".schematic") || name.endsWith(".schem")) && file.isFile()) {
+                    if (file.getName().toLowerCase().replaceAll("\\.schematic", "").replaceAll("\\.schem", "").contains(args[2].toLowerCase())) {
                         fileArray.add(file);
                     }
                 }

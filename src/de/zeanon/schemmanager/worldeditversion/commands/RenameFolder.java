@@ -93,10 +93,6 @@ public class RenameFolder {
         } else {
             if (args[4].equals("confirm")) {
                 if (!file_old.exists() || !file_old.isDirectory()) {
-                    p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be renamed.");
-                    Helper.removeRenameFolderRequest(p);
-                    return false;
-                } else {
                     if (deepMerge(file_old, file_new)) {
                         try {
                             FileUtils.deleteDirectory(file_old);
@@ -113,11 +109,12 @@ public class RenameFolder {
                         Helper.removeRenameFolderRequest(p);
                         return false;
                     }
-                }
-            } else if (args[4].equals("deny")) {
-                if (!file_old.exists() || !file_old.isDirectory()) {
+                } else {
+                    p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
+                    Helper.removeRenameFolderRequest(p);
                     return false;
                 }
+            } else if (args[4].equals("deny")) {
                 Helper.removeRenameFolderRequest(p);
                 p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed");
                 return true;
@@ -128,29 +125,31 @@ public class RenameFolder {
     }
 
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     private static boolean deepMerge(File oldFile, File newFile) {
         if (Objects.requireNonNull(oldFile.listFiles()).length == 0) {
             return true;
         } else {
-            for (File tempFile : Objects.requireNonNull(oldFile.listFiles())) {
-                try {
+            try {
+                for (File tempFile : Objects.requireNonNull(oldFile.listFiles())) {
                     if (new File(newFile, tempFile.getName()).exists()) {
                         if (tempFile.isDirectory()) {
                             if (!deepMerge(tempFile, new File(newFile, tempFile.getName()))) {
                                 return false;
                             }
                         } else {
-                            new File(newFile, tempFile.getName()).delete();
-                            FileUtils.moveToDirectory(tempFile, newFile, true);
+                            if (new File(newFile, tempFile.getName()).delete()) {
+                                FileUtils.moveToDirectory(tempFile, newFile, true);
+                            } else {
+                                return false;
+                            }
                         }
                     } else {
                         FileUtils.moveToDirectory(tempFile, newFile, true);
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return false;
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
             }
             return true;
         }

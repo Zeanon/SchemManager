@@ -18,7 +18,7 @@ public class List {
         int listmax = Helper.getInt("Listmax");
         String schemFolderPath = Helper.getSchemPath();
         boolean spaceLists = Helper.getBoolean("Space Lists");
-        String[] extension = {"schematic", "schem"};
+        String[] extensions = {"schematic", "schem"};
 
         String deep = "";
         if (deepSearch) {
@@ -32,7 +32,7 @@ public class List {
                 p.sendMessage(ChatColor.RED + "There is no schematic folder.");
                 return false;
             } else {
-                Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
+                Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
                 File[] files = rawFiles.toArray(new File[0]);
                 Arrays.sort(files);
 
@@ -86,7 +86,7 @@ public class List {
                     p.sendMessage(ChatColor.RED + "There is no schematic folder.");
                     return false;
                 } else {
-                    Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
+                    Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
                     File[] files = rawFiles.toArray(new File[0]);
                     Arrays.sort(files);
 
@@ -167,7 +167,7 @@ public class List {
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " is no folder.");
                     return false;
                 } else {
-                    Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
+                    Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
                     File[] files = rawFiles.toArray(new File[0]);
                     Arrays.sort(files);
 
@@ -221,7 +221,7 @@ public class List {
                 p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " is no folder.");
                 return false;
             } else {
-                Collection<File> rawFiles = FileUtils.listFiles(directory, extension, deepSearch);
+                Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
                 File[] files = rawFiles.toArray(new File[0]);
                 Arrays.sort(files);
 

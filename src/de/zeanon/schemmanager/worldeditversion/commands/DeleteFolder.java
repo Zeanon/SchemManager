@@ -29,6 +29,7 @@ public class DeleteFolder {
             }
         } else if (args.length == 4 && Helper.checkDeleteFolderRequest(p, args[2])) {
             if (args[3].equals("confirm")) {
+                Helper.removeDeleteFolderRequest(p);
                 if (fileExists) {
                     try {
                         FileUtils.deleteDirectory(file);
@@ -40,8 +41,7 @@ public class DeleteFolder {
                         return false;
                     }
                 } else {
-                    p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
-                    Helper.removeDeleteFolderRequest(p);
+                    p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
                     return false;
                 }
             } else if (args[3].equals("deny")) {
