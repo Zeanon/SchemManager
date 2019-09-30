@@ -116,6 +116,7 @@ public class Help {
     }
 
     public static boolean onFormats(Player p) {
+        p.sendMessage(ChatColor.RED + "Available formats:");
         if (Helper.getStringList("File Extensions").size() > 0) {
             if (Helper.getBoolean("Space Lists")) {
                 p.sendMessage(" ");
@@ -127,11 +128,9 @@ public class Help {
                 pathBuilder.append(ChatColor.LIGHT_PURPLE).append(formats[i]).append(ChatColor.BLACK).append(" | ");
             }
             pathBuilder.append(formats[formats.length - 1]);
-            p.sendMessage(ChatColor.RED + "Available formats:");
             p.sendMessage(pathBuilder.toString());
         }
         else {
-            p.sendMessage(ChatColor.RED + "Available formats:");
             p.sendMessage(ChatColor.LIGHT_PURPLE + "schematic" + ChatColor.BLACK + " | " + ChatColor.LIGHT_PURPLE + "schem");
         }
         return true;
