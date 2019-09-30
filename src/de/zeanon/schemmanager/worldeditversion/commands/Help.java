@@ -128,7 +128,7 @@ public class Help {
             }
             pathBuilder.append(formats[formats.length - 1]);
             p.sendMessage(ChatColor.RED + "Available formats:");
-            p.sendMessage(ChatColor.DARK_PURPLE + pathBuilder.toString());
+            p.sendMessage(ChatColor.LIGHT_PURPLE + pathBuilder.toString());
         }
         else {
             p.sendMessage(ChatColor.RED + "Available formats:");
