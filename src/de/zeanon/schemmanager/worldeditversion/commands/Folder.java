@@ -1,14 +1,13 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
+import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
-import net.md_5.bungee.api.ChatColor;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @SuppressWarnings("Duplicates")
 public class Folder {

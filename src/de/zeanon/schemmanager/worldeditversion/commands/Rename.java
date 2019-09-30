@@ -1,15 +1,14 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
+import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
-import net.md_5.bungee.api.ChatColor;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Rename {
 

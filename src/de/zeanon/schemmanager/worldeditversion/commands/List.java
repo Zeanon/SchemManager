@@ -1,15 +1,14 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
+import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
-import net.md_5.bungee.api.ChatColor;
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
 
 @SuppressWarnings("Duplicates")
 public class List {

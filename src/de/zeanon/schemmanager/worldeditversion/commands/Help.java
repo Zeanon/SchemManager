@@ -1,10 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
-import org.bukkit.entity.Player;
-
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.entity.Player;
 
 public class Help {
 
@@ -126,8 +125,7 @@ public class Help {
             }
             pathBuilder.append("&d").append(formats[formats.length - 1]);
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', pathBuilder.toString()));
-        }
-        else {
+        } else {
             p.sendMessage(ChatColor.LIGHT_PURPLE + "schematic" + ChatColor.BLACK + " | " + ChatColor.LIGHT_PURPLE + "schem");
         }
         return true;

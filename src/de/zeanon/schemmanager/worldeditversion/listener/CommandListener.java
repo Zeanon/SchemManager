@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
-import de.zeanon.schemmanager.worldeditversion.commands.DeleteFolder;
-import de.zeanon.schemmanager.worldeditversion.commands.Folder;
-import de.zeanon.schemmanager.worldeditversion.commands.Rename;
-import de.zeanon.schemmanager.worldeditversion.commands.Save;
+import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
+import de.zeanon.schemmanager.worldeditversion.commands.*;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
+import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -16,16 +16,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
-
-import de.zeanon.schemmanager.worldeditversion.commands.Delete;
-import de.zeanon.schemmanager.worldeditversion.commands.Help;
-import de.zeanon.schemmanager.worldeditversion.commands.List;
-import de.zeanon.schemmanager.worldeditversion.commands.RenameFolder;
-import de.zeanon.schemmanager.worldeditversion.commands.Search;
-import de.zeanon.schemmanager.worldeditversion.commands.SearchFolder;
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
-import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
-import net.md_5.bungee.api.ChatColor;
 
 import java.util.Objects;
 
@@ -59,7 +49,7 @@ public class CommandListener implements Listener {
                 slash = "/";
             }
             String schemAlias;
-            if(!message.toLowerCase().startsWith("/schem") && !message.toLowerCase().startsWith("//schem")) {
+            if (!message.toLowerCase().startsWith("/schem") && !message.toLowerCase().startsWith("//schem")) {
                 schemAlias = "schematic";
             } else {
                 schemAlias = "schem";

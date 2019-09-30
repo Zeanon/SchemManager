@@ -1,25 +1,26 @@
 package de.zeanon.schemmanager.worldeditversion.helper;
 
-import java.io.*;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
-
-import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 
 public class Helper {
 
@@ -439,7 +440,9 @@ public class Helper {
     public static ArrayList<File> getExistingFiles(String path) {
         ArrayList<File> files = new ArrayList<>();
         getStringList("File Extensions").iterator().forEachRemaining(extension -> files.add(new File(path + "." + extension)));
-        files.iterator().forEachRemaining(file -> {if (!file.exists() || file.isDirectory()) files.remove(file); });
+        files.iterator().forEachRemaining(file -> {
+            if (!file.exists() || file.isDirectory()) files.remove(file);
+        });
         return files;
     }
 
