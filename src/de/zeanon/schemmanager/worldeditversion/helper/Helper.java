@@ -477,7 +477,7 @@ public class Helper {
             boolean autoReload = !WorldEditVersionMain.config.contains("Automatic Reload") || WorldEditVersionMain.config.getBoolean("Automatic Reload");
 
             File file = new File(plugin.getDataFolder(), "config.yml");
-            if (writeToFile(file, "https://github.com/Zeanon/SchemManager/releases/latest/download/config.yml")) {
+            if (writeToFile(file, new BufferedInputStream(Config.class.getClassLoader().getResourceAsStream("config.yml")))) {
                 WorldEditVersionMain.config.update();
 
                 WorldEditVersionMain.config.set("Plugin Version", plugin.getDescription().getVersion());
