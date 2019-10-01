@@ -452,8 +452,7 @@ public class Helper {
             return false;
         }
         try {
-            File file = new File(pluginFolderPath + fileName);
-            if (writeToFile(file, new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
+            if (writeToFile(new File(pluginFolderPath + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
                 p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
                 if (getBoolean("Automatic Reload")) {
                     Bukkit.getServer().reload();
@@ -482,8 +481,7 @@ public class Helper {
             boolean stoplagOverride = !WorldEditVersionMain.config.contains("Stoplag Override") || WorldEditVersionMain.config.getBoolean("Stoplag Override");
             boolean autoReload = !WorldEditVersionMain.config.contains("Automatic Reload") || WorldEditVersionMain.config.getBoolean("Automatic Reload");
 
-            File file = new File(plugin.getDataFolder(), "config.yml");
-            if (writeToFile(file, new BufferedInputStream(Objects.requireNonNull(Helper.class.getClassLoader().getResourceAsStream("config.yml"))))) {
+            if (writeToFile(new File(plugin.getDataFolder(), "config.yml"), new BufferedInputStream(Objects.requireNonNull(Helper.class.getClassLoader().getResourceAsStream("config.yml"))))) {
                 WorldEditVersionMain.config.update();
 
                 WorldEditVersionMain.config.set("Plugin Version", plugin.getDescription().getVersion());
