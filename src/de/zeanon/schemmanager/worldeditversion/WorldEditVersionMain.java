@@ -40,6 +40,7 @@ public class WorldEditVersionMain {
 		}
 
 		Helper.initiate(plugin);
+
 		Bukkit.getServer().getPluginManager().registerEvents(new CommandListener(plugin), plugin);
 
 		if (!Helper.updateConfig(false)) {
