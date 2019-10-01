@@ -451,15 +451,21 @@ public class Helper {
             p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
             return false;
         }
-
-        File file = new File(pluginFolderPath + fileName);
-        if (writeToFile(file, new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()) {
-            p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
-            if (getBoolean("Automatic Reload")) {
-                Bukkit.getServer().reload();
+        try {
+            File file = new File(pluginFolderPath + fileName);
+            if (writeToFile(file, new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
+                p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
+                if (getBoolean("Automatic Reload")) {
+                    Bukkit.getServer().reload();
+                }
+                return true;
+            } else {
+                p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
+                return false;
             }
-            return true;
-        } else {
+        }
+        catch (IOException e) {
+            e.printStackTrace();
             p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
             return false;
         }
@@ -477,7 +483,7 @@ public class Helper {
             boolean autoReload = !WorldEditVersionMain.config.contains("Automatic Reload") || WorldEditVersionMain.config.getBoolean("Automatic Reload");
 
             File file = new File(plugin.getDataFolder(), "config.yml");
-            if (writeToFile(file, new BufferedInputStream(Config.class.getClassLoader().getResourceAsStream("config.yml")))) {
+            if (writeToFile(file, new BufferedInputStream(Objects.requireNonNull(Helper.class.getClassLoader().getResourceAsStream("config.yml"))))) {
                 WorldEditVersionMain.config.update();
 
                 WorldEditVersionMain.config.set("Plugin Version", plugin.getDescription().getVersion());
