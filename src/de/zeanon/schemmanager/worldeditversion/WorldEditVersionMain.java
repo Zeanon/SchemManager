@@ -3,8 +3,11 @@ package de.zeanon.schemmanager.worldeditversion;
 import de.leonhard.storage.Config;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
+import de.zeanon.schemmanager.worldeditversion.listener.TabCompleter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+
+import java.util.Objects;
 
 public class WorldEditVersionMain {
 
@@ -41,6 +44,8 @@ public class WorldEditVersionMain {
 		Helper.initiate(plugin);
 
 		Bukkit.getServer().getPluginManager().registerEvents(new CommandListener(plugin), plugin);
+		Objects.requireNonNull(Bukkit.getPluginCommand("schem")).setTabCompleter(new TabCompleter());
+		Objects.requireNonNull(Bukkit.getPluginCommand("schematic")).setTabCompleter(new TabCompleter());
 
 		if (!Helper.updateConfig(false)) {
 			disable();
