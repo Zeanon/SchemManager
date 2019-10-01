@@ -27,7 +27,7 @@ public class Helper {
     public static WorldEditPlugin we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
     private static Plugin plugin;
     private static String pluginFolderPath;
-    private static String slash = "/";
+    private static String slash;
     private static String schemFolderPath;
     private static ArrayList<String> disableRequests = new ArrayList<>();
     private static ArrayList<String> updateRequests = new ArrayList<>();
