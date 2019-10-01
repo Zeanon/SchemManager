@@ -38,7 +38,7 @@ public class Helper {
     private static HashMap<String, String> overwriteRequests = new HashMap<>();
 
 
-    public Helper(Plugin plugin) {
+    public static void initiate(Plugin plugin) {
         Helper.plugin = plugin;
         if (plugin.getDataFolder().getAbsolutePath().contains("/")) {
             slash = "/";

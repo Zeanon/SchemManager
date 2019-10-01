@@ -9,7 +9,6 @@ import org.bukkit.plugin.Plugin;
 public class WorldEditVersionMain {
 
 	public static Config config;
-	public static Helper helper;
 	public static Plugin plugin;
 
 	public WorldEditVersionMain(Plugin plugin) {
@@ -39,7 +38,8 @@ public class WorldEditVersionMain {
 			System.out.println("[" + plugin.getName() + "] >> Config files are loaded sucessfully");
 		}
 
-		helper = new Helper(plugin);
+		Helper.initiate(plugin);
+
 		Bukkit.getServer().getPluginManager().registerEvents(new CommandListener(plugin), plugin);
 
 		if (!Helper.updateConfig(false)) {
