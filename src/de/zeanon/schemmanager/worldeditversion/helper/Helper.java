@@ -499,12 +499,10 @@ public class Helper {
         return true;
     }
 
-    private static boolean writeToFile(File file, String url) {
+    private static boolean writeToFile(File file, BufferedInputStream inputStream) {
         try {
-            BufferedInputStream inputStream = null;
             FileOutputStream outputStream = null;
             try {
-                inputStream = new BufferedInputStream(new URL(url).openStream());
                 if (!file.exists()) {
                     Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
                 } else {
