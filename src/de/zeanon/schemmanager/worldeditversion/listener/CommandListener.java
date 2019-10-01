@@ -401,7 +401,7 @@ public class CommandListener implements Listener {
 				return true;
 			}
 		} else if (args[0].equalsIgnoreCase("/stoplag") && this.worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
-			if (p.hasPermission("worldguard.halt-activity") && args.length == 1) {
+			if (p.hasPermission("worldguard.halt-activity") && (args.length == 1 || !args[1].equals("confirm"))) {
 				event.setCancelled(true);
 				p.performCommand("stoplag confirm");
 				return true;
