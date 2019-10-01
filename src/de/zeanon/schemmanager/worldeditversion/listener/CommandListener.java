@@ -35,9 +35,10 @@ public class CommandListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public boolean onCommand(PlayerCommandPreprocessEvent event) {
 		Player p = event.getPlayer();
-		String[] args = event.getMessage().replaceAll("worldedit:", "/").split(" ");
+		String[] args = event.getMessage().replaceAll("schemmanager:", "").replaceAll("worldedit:", "/").split(" ");
 
 		if (args[0].equalsIgnoreCase("/schemmanager")) {
+			event.setCancelled(true);
 			if (args.length == 1) {
 				p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
 						+ "argument" + ChatColor.YELLOW + ">");
@@ -51,7 +52,6 @@ public class CommandListener implements Listener {
 						"/schemmanager disable", p);
 				return true;
 			} else if (args[1].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {
-				event.setCancelled(true);
 				if (args.length == 2) {
 					Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to disable " + ChatColor.DARK_PURPLE
 									+ "SchemManager" + ChatColor.RED + "? ", "/schemmanager disable confirm", "/schemmanager disable deny",
@@ -80,7 +80,6 @@ public class CommandListener implements Listener {
 					return true;
 				}
 			} else if (args[1].equalsIgnoreCase("update") && p.hasPermission("schemmanager.update")) {
-				event.setCancelled(true);
 				if (args.length == 2) {
 					Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to update?", "/schemmanager update confirm",
 							"/schemmanager update deny", p);

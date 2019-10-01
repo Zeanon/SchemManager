@@ -6,5 +6,3 @@ main: de.zeanon.schemmanager.SchemManager
 softdepend: [WorldEdit, WorldGuard, FastAsyncWorldEdit]
 commands:
   schemmanager:
-    description: schemmanager utility command
-    usage: /schemmanager
