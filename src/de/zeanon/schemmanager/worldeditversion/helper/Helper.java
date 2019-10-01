@@ -453,7 +453,7 @@ public class Helper {
         }
 
         File file = new File(pluginFolderPath + fileName);
-        if (writeToFile(file, "https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar")) {
+        if (writeToFile(file, new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()) {
             p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
             if (getBoolean("Automatic Reload")) {
                 Bukkit.getServer().reload();
