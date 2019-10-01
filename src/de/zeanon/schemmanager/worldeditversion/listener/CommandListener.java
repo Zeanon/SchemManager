@@ -400,7 +400,7 @@ public class CommandListener implements Listener {
 				return true;
 			}
 		} else if (args[0].equalsIgnoreCase("/stoplag") && this.worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
-			if (p.hasPermission("worldguard.halt-activity") && (args.length == 1 || !args[1].equals("confirm"))) {
+			if (args.length == 1 || !args[1].equals("confirm")) {
 				event.setCancelled(true);
 				p.performCommand("stoplag confirm");
 				return true;
@@ -569,17 +569,9 @@ public class CommandListener implements Listener {
 	@EventHandler
 	public void onPluginDisable(PluginDisableEvent e) {
 		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
-			if (Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit") != null && Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit")).isEnabled()) {
-				WorldEditVersionMain.disable();
-				Bukkit.getPluginManager().enablePlugin(this.plugin);
-				return;
-			} else {
-				System.out.println("[" + this.plugin.getName() + "] >> disabling Plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
-				WorldEditVersionMain.disable();
-				return;
-			}
-		}
-		if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
+			WorldEditVersionMain.disable();
+			Bukkit.getPluginManager().enablePlugin(this.plugin);
+		} else if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
 			this.worldguardEnabled = false;
 		}
 	}

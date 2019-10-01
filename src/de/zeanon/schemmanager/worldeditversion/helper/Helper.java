@@ -40,12 +40,7 @@ public class Helper {
 
     public static void initiate(Plugin plugin) {
         Helper.plugin = plugin;
-        if (plugin.getDataFolder().getAbsolutePath().contains("/")) {
-            slash = "/";
-        }
-        if (plugin.getDataFolder().getAbsolutePath().contains("\\")) {
-            slash = "\\\\";
-        }
+        slash = plugin.getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
         String[] parts = plugin.getDataFolder().getAbsolutePath().split(slash);
         StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
         for (int i = 1; i < parts.length - 1; i++) {
@@ -528,11 +523,11 @@ public class Helper {
                     outputStream.close();
                 }
             }
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
-        return true;
     }
 
     public static String removeExtension(String path) {
