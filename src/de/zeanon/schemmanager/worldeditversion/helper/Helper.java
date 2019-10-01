@@ -52,7 +52,7 @@ public class Helper {
             pathBuilder.append(parts[i]).append(slash);
         }
         pluginFolderPath = pathBuilder.toString();
-        schemFolderPath = getInitialSchemPath();
+        schemFolderPath = initSchemPath();
     }
 
 
@@ -324,11 +324,11 @@ public class Helper {
         if (WorldEditVersionMain.config.hasNotChanged()) {
             return schemFolderPath;
         } else {
-            return getInitialSchemPath();
+            return initSchemPath();
         }
     }
 
-    private static String getInitialSchemPath() {
+    private static String initSchemPath() {
         if (getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
             schemFolderPath = pluginFolderPath + "WorldEdit" + slash + "schematics" + slash;
             return pluginFolderPath + "WorldEdit" + slash + "schematics" + slash;
@@ -415,7 +415,7 @@ public class Helper {
             case "Automatic Reload":
                 return true;
             case "File Extensions":
-                return Arrays.asList("schematic", "schem");
+                return Arrays.asList("schem", "schematic");
             case "WorldEdit Schematic-Path":
                 return "Default Schematic Path";
             case "Plugin Version":
@@ -469,7 +469,7 @@ public class Helper {
     public static boolean updateConfig(boolean force) {
         if (force || (!WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") || !WorldEditVersionMain.config.contains("Listmax") || !WorldEditVersionMain.config.contains("Space Lists") || !WorldEditVersionMain.config.contains("Save Function Override") || !WorldEditVersionMain.config.contains("Automatic Reload") || !WorldEditVersionMain.config.contains("Plugin Version") || !WorldEditVersionMain.config.getString("Plugin Version").equals(plugin.getDescription().getVersion()))) {
             String schemPath = WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") ? WorldEditVersionMain.config.getString("WorldEdit Schematic-Path") : "Default Schematic Path";
-            List<String> fileExtensions = WorldEditVersionMain.config.contains("File Extensions") ? WorldEditVersionMain.config.getStringList("File Extensions") : Arrays.asList("schematic", "schem");
+            List<String> fileExtensions = WorldEditVersionMain.config.contains("File Extensions") ? WorldEditVersionMain.config.getStringList("File Extensions") : Arrays.asList("schem", "schematic");
             int listmax = WorldEditVersionMain.config.contains("Listmax") ? WorldEditVersionMain.config.getInt("Listmax") : 10;
             boolean spaceLists = !WorldEditVersionMain.config.contains("Space Lists") || WorldEditVersionMain.config.getBoolean("Space Lists");
             boolean saveOverride = !WorldEditVersionMain.config.contains("Save Function Override") || WorldEditVersionMain.config.getBoolean("Save Function Override");
