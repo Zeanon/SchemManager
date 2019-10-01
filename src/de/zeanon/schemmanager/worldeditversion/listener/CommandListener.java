@@ -34,12 +34,10 @@ public class CommandListener implements Listener {
 	@SuppressWarnings("Duplicates")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public boolean onCommand(PlayerCommandPreprocessEvent event) {
-		String message = event.getMessage().replaceAll("worldedit:", "/");
+		Player p = event.getPlayer();
+		String[] args = event.getMessage().replaceAll("worldedit:", "/").split(" ");
 
-		if (message.toLowerCase().startsWith("/schemmanager")) {
-			Player p = event.getPlayer();
-			String[] args = event.getMessage().split(" ");
-
+		if (args[0].equalsIgnoreCase("/schemmanager")) {
 			if (args.length == 1) {
 				p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
 						+ "argument" + ChatColor.YELLOW + ">");
@@ -119,18 +117,16 @@ public class CommandListener implements Listener {
 						"/schemmanager disable", p);
 				return true;
 			}
-		} else if (message.toLowerCase().startsWith("/schem") || message.toLowerCase().startsWith("/schematic")
-				|| message.toLowerCase().startsWith("//schem") || message.toLowerCase().startsWith("//schematic")) {
-			Player p = event.getPlayer();
-			String[] args = event.getMessage().split(" ");
+		} else if (args[0].equalsIgnoreCase("/schem") || args[0].equalsIgnoreCase("/schematic")
+				|| args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
 			String slash;
-			if (message.toLowerCase().startsWith("//schem") || message.toLowerCase().startsWith("//schematic")) {
+			if (args[0].toLowerCase().startsWith("//schem") || args[0].toLowerCase().startsWith("//schematic")) {
 				slash = "//";
 			} else {
 				slash = "/";
 			}
 			String schemAlias;
-			if (message.toLowerCase().startsWith("/schematic") || message.toLowerCase().startsWith("//schematic")) {
+			if (args[0].toLowerCase().startsWith("/schematic") || args[0].toLowerCase().startsWith("//schematic")) {
 				schemAlias = "schematic";
 			} else {
 				schemAlias = "schem";
@@ -404,9 +400,7 @@ public class CommandListener implements Listener {
 				Helper.sendInvalidSubCommand(p, slash, schemAlias);
 				return true;
 			}
-		} else if (message.toLowerCase().startsWith("/stoplag") && this.worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
-			Player p = event.getPlayer();
-			String[] args = event.getMessage().split(" ");
+		} else if (args[0].equalsIgnoreCase("/stoplag") && this.worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
 			if (p.hasPermission("worldguard.halt-activity") && args.length == 1) {
 				event.setCancelled(true);
 				p.performCommand("stoplag confirm");
