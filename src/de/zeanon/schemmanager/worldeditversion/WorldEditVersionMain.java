@@ -1,14 +1,14 @@
 package de.zeanon.schemmanager.worldeditversion;
 
 import de.leonhard.storage.Config;
-import de.zeanon.schemmanager.helper.Helper;
+import de.zeanon.schemmanager.globalutils.DefaultHelper;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 public class WorldEditVersionMain {
 
-    public static Config config;
     public static Plugin plugin;
 
 
@@ -17,31 +17,10 @@ public class WorldEditVersionMain {
     }
 
     public void onEnable() {
-        boolean failedToLoad = false;
-        System.out.println("[" + plugin.getName() + "] >> Loading WorldEdit Version of " + plugin.getName());
-        System.out.println("[" + plugin.getName() + "] >> Loading Configs");
-        try {
-            config = new Config("config", plugin.getDataFolder().getAbsolutePath(), "config");
-            System.out.println("[" + plugin.getName() + "] >> [Configs] >> " + config.getFile().getName() + " loaded");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("[" + plugin.getName() + "] >> [Configs] >> " + config.getFile().getName() + " could not be loaded");
-            failedToLoad = true;
-        }
-        if (failedToLoad) {
-            System.out.println("[" + plugin.getName() + "] >> Could not load config files... unloading Plugin...");
-            Helper.disable(plugin);
-            return;
-        } else {
-            System.out.println("[" + plugin.getName() + "] >> Config files are loaded sucessfully");
-        }
-
-        Helper.initiate(plugin);
-
         Bukkit.getPluginManager().registerEvents(new CommandListener(plugin), plugin);
 
-        if (!Helper.updateConfig(false)) {
-            Helper.disable(plugin);
+        if (!DefaultHelper.updateConfig(false)) {
+            DefaultHelper.disable();
         } else {
             System.out.println("[" + plugin.getName() + "] >> " + plugin.getName() + " v" + plugin.getDescription().getVersion() + " successfully launched...");
         }

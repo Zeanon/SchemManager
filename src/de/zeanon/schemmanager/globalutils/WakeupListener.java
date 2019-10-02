@@ -1,6 +1,6 @@
-package de.zeanon.schemmanager.globallistener;
+package de.zeanon.schemmanager.globalutils;
 
-import de.zeanon.schemmanager.helper.Helper;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +18,7 @@ public class WakeupListener implements Listener {
     @EventHandler
     public void onPluginEnable(PluginEnableEvent e) {
         if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit") || e.getPlugin() == Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit")) {
-            Helper.disable(this.plugin);
+            DefaultHelper.disable();
             Bukkit.getPluginManager().enablePlugin(this.plugin);
         }
     }

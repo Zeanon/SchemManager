@@ -2,7 +2,8 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 
 import com.sk89q.worldedit.EmptyClipboardException;
 import com.sk89q.worldedit.LocalSession;
-import de.zeanon.schemmanager.helper.Helper;
+import de.zeanon.schemmanager.globalutils.DefaultHelper;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -21,7 +22,7 @@ public class Save {
 				Helper.addOverwriteRequest(p, args[2]);
 				if (fileExists) {
 					p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
-					Helper.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem save " + args[2] + " confirm", "//schem save " + args[2] + " deny", p);
+					DefaultHelper.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem save " + args[2] + " confirm", "//schem save " + args[2] + " deny", p);
 					return true;
 				} else {
 					p.performCommand("/schem save -f " + args[2]);

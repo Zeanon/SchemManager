@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import de.zeanon.schemmanager.helper.Helper;
+import de.zeanon.schemmanager.globalutils.DefaultHelper;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -14,8 +15,8 @@ public class Rename {
 
 	public static boolean onRename(Player p, String[] args) {
 		String schemPath = Helper.getSchemPath();
-		ArrayList<File> oldFiles = Helper.getExistingFiles(schemPath + args[2]);
-		ArrayList<File> newFiles = Helper.getExistingFiles(schemPath + args[3]);
+		ArrayList<File> oldFiles = DefaultHelper.getExistingFiles(schemPath + args[2]);
+		ArrayList<File> newFiles = DefaultHelper.getExistingFiles(schemPath + args[3]);
 		final boolean oldFileExists = oldFiles.size() > 0;
 		final boolean newFileExists = newFiles.size() > 0;
 
@@ -25,7 +26,7 @@ public class Rename {
 					p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
 				}
 
-				Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
+				DefaultHelper.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
 				Helper.addRenameRequest(p, args[2]);
 				return true;
 

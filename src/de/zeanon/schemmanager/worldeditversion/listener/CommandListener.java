@@ -1,7 +1,8 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
-import de.zeanon.schemmanager.helper.Helper;
+import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.commands.*;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -137,7 +138,7 @@ public class CommandListener implements Listener {
                     event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return loadUsage(p, slash, schemAlias);
-                } else if (args.length > 3 && !Helper.getStringList("File Extensions").contains(args[3])) {
+                } else if (args.length > 3 && !DefaultHelper.getStringList("File Extensions").contains(args[3])) {
                     event.setCancelled(true);
                     p.sendMessage(ChatColor.LIGHT_PURPLE + args[3] + ChatColor.RED + " is no valid file format.");
                     return Help.onFormats(p, true);
@@ -145,7 +146,7 @@ public class CommandListener implements Listener {
                     return true;
                 }
             } else if (args[1].equalsIgnoreCase("save") && p.hasPermission("worldedit.schematic.save")) {
-                if (!Helper.getBoolean("Save Function Override")) {
+                if (!DefaultHelper.getBoolean("Save Function Override")) {
                     if (args.length < 3) {
                         event.setCancelled(true);
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
@@ -287,7 +288,7 @@ public class CommandListener implements Listener {
                     return Help.onHelp(p, slash, schemAlias);
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+                    DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                             ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " help", ChatColor.LIGHT_PURPLE + ""
                                     + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS HELP ME",
                             slash + schemAlias + " help", p);
@@ -299,7 +300,7 @@ public class CommandListener implements Listener {
                     return Help.onFormats(p, false);
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+                    DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                             ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " formats", ChatColor.DARK_BLUE + ""
                                     + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "There are different formats? :O",
                             slash + schemAlias + " formats", p);
@@ -318,7 +319,7 @@ public class CommandListener implements Listener {
                 Helper.sendInvalidSubCommand(p, slash, schemAlias);
                 return true;
             }
-        } else if (args[0].equalsIgnoreCase("/stoplag") && this.worldguardEnabled && Helper.getBoolean("Stoplag Override")) {
+        } else if (args[0].equalsIgnoreCase("/stoplag") && this.worldguardEnabled && DefaultHelper.getBoolean("Stoplag Override")) {
             if (args.length == 1 || !args[1].equals("confirm")) {
                 event.setCancelled(true);
                 p.performCommand("stoplag confirm");
@@ -331,9 +332,8 @@ public class CommandListener implements Listener {
         }
     }
 
-    @SuppressWarnings("Duplicates")
     private boolean searchFolderUsage(Player p, String slash, String schemAlias) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " searchfolder " + ChatColor.YELLOW
                         + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
                         + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] <" + ChatColor.GOLD
@@ -348,9 +348,8 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    @SuppressWarnings("Duplicates")
     private boolean searchUsage(Player p, String slash, String schemAlias) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " search " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
                         + "folder" + ChatColor.YELLOW + "] <" + ChatColor.GOLD + "filename"
@@ -365,10 +364,9 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    @SuppressWarnings("Duplicates")
     private boolean folderUsage(Player p, String slash, String schemAlias) {
         p.sendMessage(ChatColor.RED + "Too many arguments.");
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " folder " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
                         + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page"
@@ -381,10 +379,9 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    @SuppressWarnings("Duplicates")
     private boolean listUsage(Player p, String slash, String schemAlias) {
         p.sendMessage(ChatColor.RED + "Too many arguments.");
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " list " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
                         + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page"
@@ -398,7 +395,7 @@ public class CommandListener implements Listener {
     }
 
     private boolean saveUsage(Player p, String slash, String schemAlias) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save "
@@ -408,7 +405,7 @@ public class CommandListener implements Listener {
     }
 
     private boolean defaultSaveUsage(Player p, String slash, String schemAlias) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save "
                         + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-f" + ChatColor.YELLOW + "] <"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
@@ -420,7 +417,7 @@ public class CommandListener implements Listener {
     }
 
     private boolean loadUsage(Player p, String slash, String schemAlias) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " load " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> ["
                         + ChatColor.DARK_PURPLE + "format" + ChatColor.YELLOW + "]",
@@ -432,7 +429,7 @@ public class CommandListener implements Listener {
     }
 
     private boolean renameFolderUsage(Player p, String slash, String schemAlias) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " renamefolder " + ChatColor.YELLOW
                         + "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GREEN + "newname" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA
@@ -442,7 +439,7 @@ public class CommandListener implements Listener {
     }
 
     private boolean renameUsage(Player p, String slash, String schemAlias) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " rename " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GOLD + "newname" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " rename "
@@ -452,7 +449,7 @@ public class CommandListener implements Listener {
     }
 
     private boolean deleteFolderUsage(Player p, String slash, String schemAlias) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " deletefolder " + ChatColor.YELLOW
                         + "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA
@@ -462,7 +459,7 @@ public class CommandListener implements Listener {
     }
 
     private boolean deleteUsage(Player p, String slash, String schemAlias) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " delete " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " delete "
@@ -475,8 +472,8 @@ public class CommandListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player p = event.getPlayer();
-        Helper.removeDisableRequest(p);
-        Helper.removeUpdateRequest(p);
+        DefaultHelper.removeDisableRequest(p);
+        DefaultHelper.removeUpdateRequest(p);
         Helper.removeDeleteRequest(p);
         Helper.removeDeleteFolderRequest(p);
         Helper.removeRenameRequest(p);
@@ -488,7 +485,7 @@ public class CommandListener implements Listener {
     @EventHandler
     public void onPluginDisable(PluginDisableEvent e) {
         if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
-            Helper.disable(this.plugin);
+            DefaultHelper.disable();
             Bukkit.getPluginManager().enablePlugin(this.plugin);
         } else if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
             this.worldguardEnabled = false;

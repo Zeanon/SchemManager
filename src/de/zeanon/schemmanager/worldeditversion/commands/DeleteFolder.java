@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import de.zeanon.schemmanager.helper.Helper;
+import de.zeanon.schemmanager.globalutils.DefaultHelper;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
@@ -19,7 +20,7 @@ public class DeleteFolder {
 				if (file.listFiles().length > 0) {
 					p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " still contains files.");
 				}
-				Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem delfolder " + args[2] + " confirm", "//schem delfolder " + args[2] + " deny", p);
+				DefaultHelper.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem delfolder " + args[2] + " confirm", "//schem delfolder " + args[2] + " deny", p);
 				Helper.addDeleteFolderRequest(p, args[2]);
 				return true;
 			} else {

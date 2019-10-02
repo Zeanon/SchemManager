@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import de.zeanon.schemmanager.helper.Helper;
+import de.zeanon.schemmanager.globalutils.DefaultHelper;
+import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -10,12 +11,12 @@ import java.util.ArrayList;
 public class Delete {
 
 	public static boolean onDelete(Player p, String[] args) {
-		ArrayList<File> files = Helper.getExistingFiles(Helper.getSchemPath() + args[2]);
+		ArrayList<File> files = DefaultHelper.getExistingFiles(Helper.getSchemPath() + args[2]);
 		final boolean fileExists = files.size() > 0;
 
 		if (args.length == 3) {
 			if (fileExists) {
-				Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem del " + args[2] + " confirm", "//schem del " + args[2] + " deny", p);
+				DefaultHelper.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem del " + args[2] + " confirm", "//schem del " + args[2] + " deny", p);
 				Helper.addDeleteRequest(p, args[2]);
 				return true;
 			} else {

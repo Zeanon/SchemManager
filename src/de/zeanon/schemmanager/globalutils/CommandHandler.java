@@ -1,6 +1,5 @@
-package de.zeanon.schemmanager.globallistener;
+package de.zeanon.schemmanager.globalutils;
 
-import de.zeanon.schemmanager.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,7 +11,7 @@ public class CommandHandler implements CommandExecutor {
 
     private Plugin plugin;
 
-    public CommandHandler (Plugin plugin) {
+    public CommandHandler(Plugin plugin) {
         this.plugin = plugin;
     }
 
@@ -28,18 +27,18 @@ public class CommandHandler implements CommandExecutor {
                     return sendUsage(p);
                 } else if (args[0].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {
                     if (args.length == 1) {
-                        Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to disable " + ChatColor.DARK_PURPLE
+                        DefaultHelper.sendBooleanMessage(ChatColor.RED + "Do you really want to disable " + ChatColor.DARK_PURPLE
                                         + "SchemManager" + ChatColor.RED + "? ", "/schemmanager disable confirm", "/schemmanager disable deny",
                                 p);
-                        Helper.addDisableRequest(p);
+                        DefaultHelper.addDisableRequest(p);
                         return true;
                     } else if (args.length == 2 && (args[1].equalsIgnoreCase("confirm") || args[1].equalsIgnoreCase("deny"))) {
-                        if (args[1].equalsIgnoreCase("confirm") && Helper.checkDisableRequest(p)) {
+                        if (args[1].equalsIgnoreCase("confirm") && DefaultHelper.checkDisableRequest(p)) {
                             p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is being disabled.");
-                            Helper.disable(this.plugin);
+                            DefaultHelper.disable();
                             return true;
-                        } else if (args[1].equalsIgnoreCase("deny") && Helper.checkDisableRequest(p)) {
-                            Helper.removeDisableRequest(p);
+                        } else if (args[1].equalsIgnoreCase("deny") && DefaultHelper.checkDisableRequest(p)) {
+                            DefaultHelper.removeDisableRequest(p);
                             p.sendMessage(
                                     ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " will not be disabled.");
                             return true;
@@ -52,16 +51,16 @@ public class CommandHandler implements CommandExecutor {
                     }
                 } else if (args[0].equalsIgnoreCase("update") && p.hasPermission("schemmanager.update")) {
                     if (args.length == 1) {
-                        Helper.sendBooleanMessage(ChatColor.RED + "Do you really want to update?", "/schemmanager update confirm",
+                        DefaultHelper.sendBooleanMessage(ChatColor.RED + "Do you really want to update?", "/schemmanager update confirm",
                                 "/schemmanager update deny", p);
-                        Helper.addUpdateRequest(p);
+                        DefaultHelper.addUpdateRequest(p);
                         return true;
                     } else if (args.length == 2 && (args[1].equalsIgnoreCase("confirm") || args[1].equalsIgnoreCase("deny"))) {
-                        if (args[1].equalsIgnoreCase("confirm") && Helper.checkUpdateRequest(p)) {
-                            Helper.removeUpdateRequest(p);
-                            return Helper.update(p);
-                        } else if (args[1].equalsIgnoreCase("deny") && Helper.checkUpdateRequest(p)) {
-                            Helper.removeUpdateRequest(p);
+                        if (args[1].equalsIgnoreCase("confirm") && DefaultHelper.checkUpdateRequest(p)) {
+                            DefaultHelper.removeUpdateRequest(p);
+                            return DefaultHelper.update(p);
+                        } else if (args[1].equalsIgnoreCase("deny") && DefaultHelper.checkUpdateRequest(p)) {
+                            DefaultHelper.removeUpdateRequest(p);
                             p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " will not be updated.");
                             return true;
                         } else {
@@ -69,7 +68,7 @@ public class CommandHandler implements CommandExecutor {
                         }
                     } else {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+                        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                                 ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""
                                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
                                 "/schemmanager update", p);
@@ -81,22 +80,21 @@ public class CommandHandler implements CommandExecutor {
                 }
             } else {
                 if (args[0].equalsIgnoreCase("disable")) {
-                    Helper.disable(this.plugin);
+                    DefaultHelper.disable();
                     return true;
                 } else if (args[0].equalsIgnoreCase("update")) {
-                    return Helper.update();
+                    return DefaultHelper.update();
                 } else {
                     return false;
                 }
             }
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     private boolean sendUsage(Player p) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
                 "/schemmanager update", p);
@@ -104,7 +102,7 @@ public class CommandHandler implements CommandExecutor {
     }
 
     private boolean sendDisableUsage(Player p) {
-        Helper.sendSuggestMessage(ChatColor.RED + "Usage: ",
+        DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " disable", ChatColor.DARK_RED + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",
                 "/schemmanager disable", p);
