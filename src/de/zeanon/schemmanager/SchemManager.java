@@ -2,7 +2,6 @@ package de.zeanon.schemmanager;
 
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -10,7 +9,7 @@ public class SchemManager extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		getServer().getScheduler().runTask(this, () -> {
+		getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
 			PluginManager pm = Bukkit.getPluginManager();
 			/*if (pm.getPlugin("FastAsyncWorldEdit") != null && pm.isPluginEnabled("FastAsyncWorldEdit"))) {
 			//TODO
