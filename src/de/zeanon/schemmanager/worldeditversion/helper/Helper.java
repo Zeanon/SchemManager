@@ -27,6 +27,7 @@ public class Helper {
     public static WorldEditPlugin we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
     private static Plugin plugin;
     private static String pluginFolderPath;
+    private static String slash;
     private static String schemFolderPath;
     private static ArrayList<String> disableRequests = new ArrayList<>();
     private static ArrayList<String> updateRequests = new ArrayList<>();
@@ -39,7 +40,7 @@ public class Helper {
 
     public static void initiate(Plugin plugin) {
         Helper.plugin = plugin;
-        String slash = plugin.getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
+        slash = plugin.getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
         String[] parts = plugin.getDataFolder().getAbsolutePath().split(slash);
         StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
         for (int i = 1; i < parts.length - 1; i++) {
