@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager;
+package de.zeanon.schemmanager.globallistener;
 
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import org.bukkit.Bukkit;
@@ -11,7 +11,7 @@ public class WakeupListener implements Listener {
 
     private Plugin plugin;
 
-    WakeupListener(Plugin plugin) {
+    public WakeupListener(Plugin plugin) {
         this.plugin = plugin;
     }
 

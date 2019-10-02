@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
+import org.bukkit.event.server.TabCompleteEvent;
 import org.bukkit.plugin.Plugin;
 
 public class CommandListener implements Listener {
@@ -579,5 +580,10 @@ public class CommandListener implements Listener {
         if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
             this.worldguardEnabled = true;
         }
+    }
+
+    @EventHandler (priority = EventPriority.HIGHEST)
+    public void onTab(TabCompleteEvent e) {
+        //TODO
     }
 }
