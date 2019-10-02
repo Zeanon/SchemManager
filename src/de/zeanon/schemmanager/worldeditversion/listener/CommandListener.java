@@ -1,7 +1,6 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
 import de.zeanon.schemmanager.helper.Helper;
-import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import de.zeanon.schemmanager.worldeditversion.commands.*;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.ArrayUtils;
