@@ -466,6 +466,41 @@ public class Helper {
     }
 
 
+    public static boolean update() {
+        System.out.println("SchemManager is updating...");
+        String fileName;
+        try {
+            fileName = new File(WorldEditVersionMain.class.getProtectionDomain()
+                    .getCodeSource()
+                    .getLocation()
+                    .toURI()
+                    .getPath())
+                    .getName();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            System.out.println("SchemManager could not be updated.");
+            return false;
+        }
+        try {
+            if (writeToFile(new File(pluginFolderPath + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
+                System.out.println("SchemManager was updated successfully.");
+                if (getBoolean("Automatic Reload")) {
+                    Bukkit.getServer().reload();
+                }
+                return true;
+            } else {
+                System.out.println("SchemManager could not be updated.");
+                return false;
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("SchemManager could not be updated.");
+            return false;
+        }
+    }
+
+
     public static boolean updateConfig(boolean force) {
         if (force || (!WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") || !WorldEditVersionMain.config.contains("Listmax") || !WorldEditVersionMain.config.contains("Space Lists") || !WorldEditVersionMain.config.contains("Save Function Override") || !WorldEditVersionMain.config.contains("Automatic Reload") || !WorldEditVersionMain.config.contains("Plugin Version") || !WorldEditVersionMain.config.getString("Plugin Version").equals(plugin.getDescription().getVersion()))) {
             String schemPath = WorldEditVersionMain.config.contains("WorldEdit Schematic-Path") ? WorldEditVersionMain.config.getString("WorldEdit Schematic-Path") : "Default Schematic Path";
