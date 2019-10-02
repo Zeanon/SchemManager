@@ -500,6 +500,10 @@ public class CommandListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onTab(TabCompleteEvent event) {
+        String message = event.getBuffer();
+        while (message.contains("  ")) {
+            message = message.replaceAll(" {2}", " ");
+        }
         String[] args = event.getBuffer().replaceAll("worldedit:", "/").split(" ");
         if (args[0].toLowerCase().startsWith("//schem")) {
             boolean deep = false;
