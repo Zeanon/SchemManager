@@ -6,15 +6,7 @@ import org.bukkit.command.CommandSender;
 import java.util.Arrays;
 import java.util.List;
 
-public class TabCompleter implements org.bukkit.command.TabCompleter {
+public class TabCompleter {
 
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length == 1) {
-            return Arrays.asList("disable", "update");
-        } else {
-            return null;
-        }
-    }
 }
