@@ -28,7 +28,7 @@ public class SchemManager extends JavaPlugin {
 		else */
         if (pm.getPlugin("WorldEdit") != null && pm.isPluginEnabled("WorldEdit")) {
             boolean failedToLoad = false;
-            System.out.println("[" + this.getName() + "] >> Loading WorldEdit Version of " + this.getName());
+            System.out.println("[" + this.getName() + "] >> Launching WorldEdit Version of " + this.getName());
             System.out.println("[" + this.getName() + "] >> Loading Configs");
             try {
                 config = new Config("config", this.getDataFolder().getAbsolutePath(), "config");
