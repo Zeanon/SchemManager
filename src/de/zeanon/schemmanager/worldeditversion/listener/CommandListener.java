@@ -503,6 +503,12 @@ public class CommandListener implements Listener {
     public void onTab(TabCompleteEvent event) {
         String[] args = event.getBuffer().replaceAll("worldedit:", "/").split(" ");
         if (args[0].toLowerCase().startsWith("//schem")) {
+            if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
+                args = (String[]) ArrayUtils.removeElement(args, "-deep");
+            }
+            if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
+                args = (String[]) ArrayUtils.removeElement(args, "-d");
+            }
             event.setCompletions(TabCompleter.onTab(args, event.getBuffer()));
         }
     }
