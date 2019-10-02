@@ -25,6 +25,7 @@ public class CommandHandler implements CommandExecutor {
                 if (args.length == 0) {
                     p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                             + "argument" + ChatColor.YELLOW + ">");
+
                     return sendUsage(p);
                 } else if (args[0].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {
                     if (args.length == 1) {

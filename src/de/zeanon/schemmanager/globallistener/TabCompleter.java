@@ -14,6 +14,7 @@ public class TabCompleter implements org.bukkit.command.TabCompleter {
         if (args.length == 1) {
             return Arrays.asList("disable", "update");
         } else {
+
             return null;
         }
     }
