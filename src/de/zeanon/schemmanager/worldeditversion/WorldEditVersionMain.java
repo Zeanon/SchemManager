@@ -1,27 +1,20 @@
 package de.zeanon.schemmanager.worldeditversion;
 
+import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 
 public class WorldEditVersionMain {
 
-    public static Plugin plugin;
-
-
-    public WorldEditVersionMain(Plugin plugin) {
-        WorldEditVersionMain.plugin = plugin;
-    }
-
     public void onEnable() {
         Helper.initSchemPath();
-        Bukkit.getPluginManager().registerEvents(new CommandListener(plugin), plugin);
+        Bukkit.getPluginManager().registerEvents(new CommandListener(), SchemManager.getInstance());
         if (!DefaultHelper.updateConfig(false)) {
             DefaultHelper.disable();
         } else {
-            System.out.println("[" + plugin.getName() + "] >> " + plugin.getName() + " v" + plugin.getDescription().getVersion() + " successfully launched...");
+            System.out.println("[" + SchemManager.getInstance() + "] >> " + SchemManager.getInstance() + " v" + SchemManager.getInstance().getDescription().getVersion() + " successfully launched...");
         }
     }
 }

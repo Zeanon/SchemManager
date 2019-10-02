@@ -21,7 +21,7 @@ public class SchemManager extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
-		DefaultHelper.initiate(this);
+		DefaultHelper.initiate();
 		PluginManager pm = Bukkit.getPluginManager();
 		Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler());
 		Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new DefaultTabCompleter());
@@ -48,12 +48,12 @@ public class SchemManager extends JavaPlugin {
 			} else {
 				System.out.println("[" + getName() + "] >> Config files are loaded sucessfully");
 			}
-			new WorldEditVersionMain(this).onEnable();
+			new WorldEditVersionMain().onEnable();
 		} else {
 			System.out.println("[" + getName() + "] >> could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
 			System.out.println("[" + getName() + "] >> It will automatically activate when one of the above gets enabled.");
 			System.out.println("[" + getName() + "] >> rudimentary function like updating and disabling will still work.");
-			pm.registerEvents(new WakeupListener(this), this);
+			pm.registerEvents(new WakeupListener(), this);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
+import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
@@ -13,7 +14,7 @@ public class Help {
         }
 
         p.sendMessage(ChatColor.AQUA + "=== SchemManager | Version "
-                + WorldEditVersionMain.plugin.getDescription().getVersion()
+                + SchemManager.getInstance().getDescription().getVersion()
                 + " ===");
         DefaultHelper.sendSuggestMessage(ChatColor.RED + "Get some help: ",
                 ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "help", ChatColor.LIGHT_PURPLE + ""

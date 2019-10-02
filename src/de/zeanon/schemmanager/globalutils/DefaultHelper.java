@@ -10,7 +10,6 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -30,14 +29,12 @@ public class DefaultHelper {
 
 	public static String pluginFolderPath;
 	public static String slash;
-	private static Plugin plugin;
 	private static final ArrayList<String> disableRequests = new ArrayList<>();
 	private static final ArrayList<String> updateRequests = new ArrayList<>();
 
-	public static void initiate(Plugin plugin) {
-		DefaultHelper.plugin = plugin;
-		slash = plugin.getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
-		String[] parts = plugin.getDataFolder().getAbsolutePath().split(slash);
+	public static void initiate () {
+		slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
+		String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
 		StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
 		for (int i = 1; i < parts.length - 1; i++) {
 			pathBuilder.append(parts[i]).append(slash);
@@ -208,7 +205,7 @@ public class DefaultHelper {
 			case "WorldEdit Schematic-Path":
 				return "Default Schematic Path";
 			case "Plugin Version":
-				return plugin.getDescription().getVersion();
+				return SchemManager.getInstance().getDescription().getVersion();
 			default:
 				return null;
 		}
@@ -296,7 +293,7 @@ public class DefaultHelper {
 
 
 	public static boolean updateConfig(boolean force) {
-		if (force || (!SchemManager.config.contains("WorldEdit Schematic-Path") || !SchemManager.config.contains("Listmax") || !SchemManager.config.contains("Space Lists") || !SchemManager.config.contains("Save Function Override") || !SchemManager.config.contains("Automatic Reload") || !SchemManager.config.contains("Plugin Version") || !SchemManager.config.getString("Plugin Version").equals(plugin.getDescription().getVersion()))) {
+		if (force || (!SchemManager.config.contains("WorldEdit Schematic-Path") || !SchemManager.config.contains("Listmax") || !SchemManager.config.contains("Space Lists") || !SchemManager.config.contains("Save Function Override") || !SchemManager.config.contains("Automatic Reload") || !SchemManager.config.contains("Plugin Version") || !SchemManager.config.getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion()))) {
 			String schemPath = SchemManager.config.contains("WorldEdit Schematic-Path") ? SchemManager.config.getString("WorldEdit Schematic-Path") : "Default Schematic Path";
 			List<String> fileExtensions = SchemManager.config.contains("File Extensions") ? SchemManager.config.getStringList("File Extensions") : Arrays.asList("schem", "schematic");
 			int listmax = SchemManager.config.contains("Listmax") ? SchemManager.config.getInt("Listmax") : 10;
@@ -305,10 +302,10 @@ public class DefaultHelper {
 			boolean stoplagOverride = !SchemManager.config.contains("Stoplag Override") || SchemManager.config.getBoolean("Stoplag Override");
 			boolean autoReload = !SchemManager.config.contains("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
 
-			if (writeToFile(new File(plugin.getDataFolder(), "config.yml"), new BufferedInputStream(Objects.requireNonNull(Helper.class.getClassLoader().getResourceAsStream("config.yml"))))) {
+			if (writeToFile(new File(SchemManager.getInstance().getDataFolder(), "config.yml"), new BufferedInputStream(Objects.requireNonNull(Helper.class.getClassLoader().getResourceAsStream("config.yml"))))) {
 				SchemManager.config.update();
 
-				SchemManager.config.set("Plugin Version", plugin.getDescription().getVersion());
+				SchemManager.config.set("Plugin Version", SchemManager.getInstance().getDescription().getVersion());
 				SchemManager.config.set("WorldEdit Schematic-Path", schemPath);
 				SchemManager.config.set("File Extensions", fileExtensions);
 				SchemManager.config.set("Listmax", listmax);
@@ -317,10 +314,10 @@ public class DefaultHelper {
 				SchemManager.config.set("Stoplag Override", stoplagOverride);
 				SchemManager.config.set("Automatic Reload", autoReload);
 
-				System.out.println("[" + plugin.getName() + "] >> [Configs] >> " + SchemManager.config.getFile().getName() + " updated");
+				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + SchemManager.config.getFile().getName() + " updated");
 				return true;
 			} else {
-				System.out.println("[" + plugin.getName() + "] >> [Configs] >> " + SchemManager.config.getFile().getName() + " could not be updated");
+				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + SchemManager.config.getFile().getName() + " could not be updated");
 				return false;
 			}
 		}
@@ -360,7 +357,7 @@ public class DefaultHelper {
 	}
 
 	public static void disable() {
-		Bukkit.getPluginManager().disablePlugin(plugin);
+		Bukkit.getPluginManager().disablePlugin(SchemManager.getInstance());
 	}
 
 	public static String removeExtension(String path) {

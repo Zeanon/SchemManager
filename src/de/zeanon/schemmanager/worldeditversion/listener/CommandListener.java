@@ -1,5 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
+import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.schemmanager.globalutils.Common;
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.commands.*;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
@@ -16,15 +18,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.event.server.TabCompleteEvent;
-import org.bukkit.plugin.Plugin;
 
 public class CommandListener implements Listener {
 
     private boolean worldguardEnabled = false;
-    private Plugin plugin;
 
-    public CommandListener(Plugin plugin) {
-        this.plugin = plugin;
+    public CommandListener() {
         if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null && Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
             this.worldguardEnabled = true;
         }
@@ -486,7 +485,7 @@ public class CommandListener implements Listener {
     public void onPluginDisable(PluginDisableEvent event) {
         if (event.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
             DefaultHelper.disable();
-            Bukkit.getPluginManager().enablePlugin(this.plugin);
+            Bukkit.getPluginManager().enablePlugin(SchemManager.getInstance());
         } else if (event.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
             this.worldguardEnabled = false;
         }
