@@ -1,14 +1,21 @@
 package de.zeanon.schemmanager.globallistener;
 
+import de.zeanon.schemmanager.helper.Helper;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 public class CommandHandler implements CommandExecutor {
+
+    private Plugin plugin;
+
+    public CommandHandler (Plugin plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -29,7 +36,7 @@ public class CommandHandler implements CommandExecutor {
                     } else if (args.length == 2 && (args[1].equalsIgnoreCase("confirm") || args[1].equalsIgnoreCase("deny"))) {
                         if (args[1].equalsIgnoreCase("confirm") && Helper.checkDisableRequest(p)) {
                             p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is being disabled.");
-                            WorldEditVersionMain.disable();
+                            Helper.disable(this.plugin);
                             return true;
                         } else if (args[1].equalsIgnoreCase("deny") && Helper.checkDisableRequest(p)) {
                             Helper.removeDisableRequest(p);
@@ -74,7 +81,7 @@ public class CommandHandler implements CommandExecutor {
                 }
             } else {
                 if (args[0].equalsIgnoreCase("disable")) {
-                    WorldEditVersionMain.disable();
+                    Helper.disable(this.plugin);
                     return true;
                 } else if (args[0].equalsIgnoreCase("update")) {
                     return Helper.update();

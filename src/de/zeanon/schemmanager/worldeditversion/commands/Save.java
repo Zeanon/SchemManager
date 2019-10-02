@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 
 import com.sk89q.worldedit.EmptyClipboardException;
 import com.sk89q.worldedit.LocalSession;
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
+import de.zeanon.schemmanager.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 

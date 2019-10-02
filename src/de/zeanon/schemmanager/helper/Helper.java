@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.worldeditversion.helper;
+package de.zeanon.schemmanager.helper;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
@@ -563,6 +563,10 @@ public class Helper {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static void disable(Plugin plugin) {
+        Bukkit.getPluginManager().disablePlugin(plugin);
     }
 
     public static String removeExtension(String path) {

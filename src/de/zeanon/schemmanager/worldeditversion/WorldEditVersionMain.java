@@ -1,11 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion;
 
 import de.leonhard.storage.Config;
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
+import de.zeanon.schemmanager.helper.Helper;
 import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
 import org.bukkit.Bukkit;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.Plugin;
 
 public class WorldEditVersionMain {
@@ -16,10 +14,6 @@ public class WorldEditVersionMain {
 
     public WorldEditVersionMain(Plugin plugin) {
         WorldEditVersionMain.plugin = plugin;
-    }
-
-    public static void disable() {
-        Bukkit.getPluginManager().disablePlugin(plugin);
     }
 
     public void onEnable() {
@@ -36,7 +30,7 @@ public class WorldEditVersionMain {
         }
         if (failedToLoad) {
             System.out.println("[" + plugin.getName() + "] >> Could not load config files... unloading Plugin...");
-            disable();
+            Helper.disable(plugin);
             return;
         } else {
             System.out.println("[" + plugin.getName() + "] >> Config files are loaded sucessfully");
@@ -47,7 +41,7 @@ public class WorldEditVersionMain {
         Bukkit.getPluginManager().registerEvents(new CommandListener(plugin), plugin);
 
         if (!Helper.updateConfig(false)) {
-            disable();
+            Helper.disable(plugin);
         } else {
             System.out.println("[" + plugin.getName() + "] >> " + plugin.getName() + " v" + plugin.getDescription().getVersion() + " successfully launched...");
         }

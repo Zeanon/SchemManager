@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
+import de.zeanon.schemmanager.helper.Helper;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import de.zeanon.schemmanager.worldeditversion.commands.*;
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -489,7 +489,7 @@ public class CommandListener implements Listener {
     @EventHandler
     public void onPluginDisable(PluginDisableEvent e) {
         if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
-            WorldEditVersionMain.disable();
+            Helper.disable(this.plugin);
             Bukkit.getPluginManager().enablePlugin(this.plugin);
         } else if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
             this.worldguardEnabled = false;
