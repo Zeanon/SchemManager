@@ -72,9 +72,16 @@ class TabCompleter {
             if (args[1].equalsIgnoreCase("help") || args[1].equalsIgnoreCase("formats")) {
                 return new ArrayList<>();
             } else if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
-                if (args[2].endsWith("/")) {
-                    args[2] += " ";
+                boolean filePath = false;
+                /*for (String extension : DefaultHelper.getStringList("File Extensions").toArray(new String[0])) {
+                    if (args[2].endsWith(extension) && !args[2].endsWith("/")) {
+                        filePath = true;
+                    }
+                }*/
+                if (filePath) {
+                    return new ArrayList<>();
                 }
+                args[2] = args[2] += " ";
                 String[] pathArgs = args[2].split("/");
                 ArrayList<String> completions = new ArrayList<>();
                 StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath());
@@ -82,12 +89,11 @@ class TabCompleter {
                     pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
                 }
                 String schemFolderPath = pathBuilder.toString();
-                System.out.println(schemFolderPath);
                 for (File file : getFileArray(schemFolderPath)) {
-                    getFiles(pathArgs, completions, schemFolderPath, file);
+                    addFileToCompletions(pathArgs, completions, file);
                 }
                 for (File file : DefaultHelper.getFolders(new File(schemFolderPath), false)) {
-                    getFiles(pathArgs, completions, schemFolderPath, file);
+                    addFileToCompletions(pathArgs, completions, file);
                 }
                 return completions;
 
@@ -96,10 +102,9 @@ class TabCompleter {
         return new ArrayList<>();
     }
 
-    private static void getFiles(String[] pathArgs, ArrayList<String> completions, String schemFolderPath, File file) {
-        System.out.println(file.getName());
+    private static void addFileToCompletions(String[] pathArgs, ArrayList<String> completions, File file) {
         if ((" " + file.getName().toLowerCase()).startsWith(pathArgs[pathArgs.length - 1].toLowerCase())) {
-            String path = file.getAbsolutePath().replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+            String path = file.getAbsolutePath().replaceFirst(Helper.getSchemPath(), "").replaceAll("\\\\", "/");
             completions.add(path);
         }
     }
