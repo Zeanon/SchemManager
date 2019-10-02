@@ -29,17 +29,17 @@ public class RenameFolder {
                 String[] extension = {"schematic", "schem"};
                 for (File oldFile : FileUtils.listFiles(file_old, extension, true)) {
                     for (File newFile : FileUtils.listFiles(file_new, extension, true)) {
-                        System.out.println(oldFile.getName());
-                        System.out.println(newFile.getName());
-                        if (FilenameUtils.getBaseName(newFile.getName()).equals(FilenameUtils.getBaseName(oldFile.getName())) && newFile.toPath().relativize(file_new.toPath()).equals(oldFile.toPath().relativize(file_old.toPath()))) {
+                        if (DefaultHelper.removeExtension(newFile.getName()).equals(DefaultHelper.removeExtension(oldFile.getName())) && newFile.toPath().relativize(file_new.toPath()).equals(oldFile.toPath().relativize(file_old.toPath()))) {
                             if (id == 0) {
                                 p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GOLD + args[3] + ChatColor.RED + ", they will be overwritten.");
                             }
                             String name = newFile.getName();
-                            String path = FilenameUtils.getBaseName(newFile.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
-                            if (FilenameUtils.getExtension(name).equals("schem")) {
-                                path = path + " " + FilenameUtils.getExtension(name);
-                                name = FilenameUtils.getBaseName(name);
+                            String path;
+                            if (DefaultHelper.getExtension(name).equals("schem")) {
+                                name = DefaultHelper.removeExtension(name);
+                                path = DefaultHelper.removeExtension(newFile.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+                            } else {
+                                path = newFile.getAbsolutePath().replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
                             }
                             DefaultHelper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + FilenameUtils.getBaseName(newFile.getName()) + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                             id++;
@@ -55,7 +55,7 @@ public class RenameFolder {
                                 p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GOLD + args[3] + ChatColor.RED + ", they will be merged.");
                             }
                             String name = newFolder.getName();
-                            String path = newFolder.getAbsolutePath().replaceAll(schemFolderPath, "").replaceAll("\\\\", "/");
+                            String path = newFolder.getAbsolutePath().replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
                             DefaultHelper.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
                             i++;
                         }

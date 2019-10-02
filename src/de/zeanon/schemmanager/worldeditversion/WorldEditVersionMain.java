@@ -1,8 +1,6 @@
 package de.zeanon.schemmanager.worldeditversion;
 
-import de.leonhard.storage.Config;
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;

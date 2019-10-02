@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.globalutils;
 
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
