@@ -3,6 +3,6 @@ version: 3.6.8
 api-version: 1.14
 authors: [Zeanon, JavaFactoryDev]
 main: de.zeanon.schemmanager.SchemManager
-softdepend: [WorldEdit, WorldGuard, FastAsyncWorldEdit]
+loadbefore: [FastAsyncWorldEdit, WorldEdit, WorldGuard]
 commands:
   schemmanager:

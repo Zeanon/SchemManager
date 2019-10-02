@@ -24,6 +24,7 @@ public class WorldEditVersionMain {
 
     public void onEnable() {
         boolean failedToLoad = false;
+        System.out.println("[" + plugin.getName() + "] >> Loading WorldEdit Version of " + plugin.getName());
         System.out.println("[" + plugin.getName() + "] >> Loading Configs");
         try {
             config = new Config("config", plugin.getDataFolder().getAbsolutePath(), "config");
