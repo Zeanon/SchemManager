@@ -189,7 +189,7 @@ public class Helper {
         }
     }
 
-    private static void initSchemPath() {
+    public static void initSchemPath() {
         if (DefaultHelper.getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
             schemFolderPath = DefaultHelper.pluginFolderPath + "WorldEdit" + DefaultHelper.slash + "schematics" + DefaultHelper.slash;
         } else {
