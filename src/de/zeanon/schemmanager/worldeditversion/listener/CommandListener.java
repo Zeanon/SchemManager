@@ -62,7 +62,7 @@ public class CommandListener implements Listener {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
                         return deleteUsage(p, slash, schemAlias);
-                    } else if (!Helper.checkDeleteRequest(p, args[2])
+                    } else if (args.length == 4 && !Helper.checkDeleteFolderRequest(p, args[2])
                             && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return deleteUsage(p, slash, schemAlias);
