@@ -51,6 +51,59 @@
                     </relocations>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>E:\Servers\Server 1.14\plugins</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>target/SchemManager.jar</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>moveFiles</id>
+                        <phase>install</phase>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${basedir}/_XCore-TestServer/plugins" flatten="true" overwrite="true"
+                                      verbose="true" failonerror="true">
+                                    <fileset dir="${basedir}/target"
+                                             includes="XCore-1.0-SNAPSHOT.jar"/>
+                                </copy>
+
+                                <copy todir="${basedir}/BungeeCord/plugins" flatten="true" overwrite="true"
+                                      verbose="true" failonerror="true">
+                                    <fileset dir="${basedir}/target"
+                                             includes="XCore-1.0-SNAPSHOT.jar"/>
+                                </copy>
+
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <repositories>
