@@ -18,11 +18,11 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.event.server.TabCompleteEvent;
 
-public class CommandListener implements Listener {
+public class EventListener implements Listener {
 
     private boolean worldguardEnabled = false;
 
-    public CommandListener() {
+    public EventListener() {
         if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null && Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
             this.worldguardEnabled = true;
         }

@@ -22,6 +22,8 @@ public class SchemManager extends JavaPlugin {
         instance = this;
         DefaultHelper.initiate();
         PluginManager pm = Bukkit.getPluginManager();
+        Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler());
+        Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new DefaultTabCompleter());
 		/*if (pm.getPlugin("FastAsyncWorldEdit") != null && pm.isPluginEnabled("FastAsyncWorldEdit"))) {
 		//TODO
 		}
@@ -45,8 +47,6 @@ public class SchemManager extends JavaPlugin {
             } else {
                 System.out.println("[" + getName() + "] >> Config files are loaded sucessfully");
             }
-            Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler());
-            Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new DefaultTabCompleter());
             new WorldEditVersionMain().onEnable();
         } else {
             System.out.println("[" + getName() + "] >> could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
