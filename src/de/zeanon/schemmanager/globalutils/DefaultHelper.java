@@ -209,10 +209,10 @@ public class DefaultHelper {
     }
 
 
-    public static List<File> getExistingFiles(String path) {
+    public static ArrayList<File> getExistingFiles(String path) {
         ArrayList<File> tempFiles = new ArrayList<>();
         if (getStringList("File Extensions").stream().anyMatch(getExtension(path)::equalsIgnoreCase)) {
-            return Collections.singletonList(new File(path));
+            return new ArrayList<>(Collections.singletonList(new File(path)));
         }
         getStringList("File Extensions").iterator().forEachRemaining(extension -> tempFiles.add(new File(path + "." + extension)));
         ArrayList<File> files = new ArrayList<>();
