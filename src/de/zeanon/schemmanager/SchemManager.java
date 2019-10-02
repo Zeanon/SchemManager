@@ -6,11 +6,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Objects;
-
 public class SchemManager extends JavaPlugin {
-
-	private Plugin plugin = this;
 
 	@Override
 	public void onEnable() {
@@ -21,9 +17,9 @@ public class SchemManager extends JavaPlugin {
 			}
 			else */
 			if (pm.getPlugin("WorldEdit") != null && pm.isPluginEnabled("WorldEdit")) {
-				new WorldEditVersionMain(plugin).onEnable();
+				new WorldEditVersionMain(this).onEnable();
 			} else {
-				System.out.println("[" + plugin.getName() + "] >> could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
+				System.out.println("[" + this.getName() + "] >> could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
 				pm.registerEvents(new WakeupListener(this), this);
 			}
 		});
