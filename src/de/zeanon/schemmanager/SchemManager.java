@@ -15,7 +15,7 @@ public class SchemManager extends JavaPlugin {
     @Override
     public void onEnable() {
         PluginManager pm = Bukkit.getPluginManager();
-        Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler());
+        Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler(this));
         Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new TabCompleter());
 		/*if (pm.getPlugin("FastAsyncWorldEdit") != null && pm.isPluginEnabled("FastAsyncWorldEdit"))) {
 		//TODO
