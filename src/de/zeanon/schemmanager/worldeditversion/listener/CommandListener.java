@@ -1,7 +1,6 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.Common;
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.commands.*;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
@@ -504,7 +503,7 @@ public class CommandListener implements Listener {
         while (message.contains("  ")) {
             message = message.replaceAll(" {2}", " ");
         }
-        String[] args = event.getBuffer().replaceAll("worldedit:", "/").split(" ");
+        String[] args = message.replaceAll("worldedit:", "/").split(" ");
         if (args[0].toLowerCase().startsWith("//schem")) {
             boolean deep = false;
             if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
@@ -515,7 +514,7 @@ public class CommandListener implements Listener {
                 args = (String[]) ArrayUtils.removeElement(args, "-d");
                 deep = true;
             }
-            event.setCompletions(TabCompleter.onTab(args, event.getBuffer(), deep));
+            event.setCompletions(TabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" ")));
         }
     }
 }

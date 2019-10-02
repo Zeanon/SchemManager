@@ -13,18 +13,16 @@ import java.util.List;
 class TabCompleter {
 
     @SuppressWarnings("Duplicates")
-    static List<String> onTab(String[] args, String buffer, boolean alreadyDeep) {
+    static List<String> onTab(String[] args, String buffer, boolean alreadyDeep, boolean argumentEnded) {
         ArrayList<String> completions = new ArrayList<>();
         if (args.length == 1) {
-            return Arrays.asList("help", "load", "formats", "save", "rename", "renamfolder","del", "delete", "delfolder", "deletefolder", "list", "folder", "search", "searchfolder");
+            return Arrays.asList("help", "load", "formats", "save", "rename", "renamfolder", "del", "delete", "delfolder", "deletefolder", "list", "folder", "search", "searchfolder");
         } else if (args.length == 2) {
             if (!alreadyDeep && buffer.endsWith(" ") && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
                 completions.add("-d");
                 completions.add("-deep");
             }
-            if (args[1].equalsIgnoreCase("help") || args[1].equalsIgnoreCase("formats")) {
-                return completions;
-            } else if (buffer.endsWith(" ") && (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename"))) {
+            if (buffer.endsWith(" ") && (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename"))) {
                 File pathFile = new File(Helper.getSchemPath());
                 for (File file : getFileArray(pathFile)) {
                     completions.add(file.getName());
@@ -32,7 +30,6 @@ class TabCompleter {
                 for (File file : DefaultHelper.getFolders(pathFile, false)) {
                     completions.add(file.getName());
                 }
-                return completions;
             } else if (buffer.endsWith(" ") && (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
                 File pathFile = new File(Helper.getSchemPath());
                 if (pathFile.exists() && pathFile.isDirectory()) {
@@ -40,7 +37,6 @@ class TabCompleter {
                         completions.add(file.getName());
                     }
                 }
-                return completions;
             } else {
                 if (!alreadyDeep) {
                     if ("help".startsWith(args[1].toLowerCase())) {
@@ -86,9 +82,8 @@ class TabCompleter {
                         completions.add("searchfolder");
                     }
                 }
-                return completions;
             }
-        } else if (args.length == 3) {
+        } else if (args.length == 3 && !argumentEnded) {
             if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("seachrfolder"))) {
                 if ("-d".startsWith(args[2])) {
                     completions.add("-d");
@@ -97,9 +92,7 @@ class TabCompleter {
                     completions.add("-deep");
                 }
             }
-            if (args[1].equalsIgnoreCase("help") || args[1].equalsIgnoreCase("formats")) {
-                return completions;
-            } else if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
+            if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
                 String[] pathArgs = args[2].split("/");
                 StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath());
                 for (int i = 0; i < pathArgs.length - 1; i++) {
@@ -119,7 +112,6 @@ class TabCompleter {
                         addFileToCompletions(pathArgs, completions, file);
                     }
                 }
-                return completions;
             } else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
                 String[] pathArgs = args[2].split("/");
                 StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath());
@@ -137,10 +129,69 @@ class TabCompleter {
                         addFileToCompletions(pathArgs, completions, file);
                     }
                 }
-                return completions;
+            }
+        } else if ((args.length == 4 && !argumentEnded) || (argumentEnded && args.length == 3)) {
+            if (args[1].equalsIgnoreCase("load")) {
+                completions.addAll(DefaultHelper.getStringList("File Extensions"));
+            } else if (args[1].equalsIgnoreCase("rename")) {
+                if (args.length == 3) {
+                    File pathFile = new File(Helper.getSchemPath());
+                    for (File file : getFileArray(pathFile)) {
+                        completions.add(file.getName());
+                    }
+                    for (File file : DefaultHelper.getFolders(pathFile, false)) {
+                        completions.add(file.getName());
+                    }
+                } else {
+                    String[] pathArgs = args[2].split("/");
+                    StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath());
+                    for (int i = 0; i < pathArgs.length - 1; i++) {
+                        pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
+                    }
+                    if (args[2].endsWith("/")) {
+                        pathBuilder.append(pathArgs[pathArgs.length - 1]).append(DefaultHelper.slash);
+                        pathArgs[pathArgs.length - 1] = "";
+                    }
+
+                    File pathFile = new File(pathBuilder.toString());
+                    if (pathFile.exists() && pathFile.isDirectory()) {
+                        for (File file : getFileArray(pathFile)) {
+                            addFileToCompletions(pathArgs, completions, file);
+                        }
+                        for (File file : DefaultHelper.getFolders(pathFile, false)) {
+                            addFileToCompletions(pathArgs, completions, file);
+                        }
+                    }
+                }
+            } else if (args[1].equalsIgnoreCase("renamefolder")) {
+                if (args.length == 3) {
+                    File pathFile = new File(Helper.getSchemPath());
+                    if (pathFile.exists() && pathFile.isDirectory()) {
+                        for (File file : DefaultHelper.getFolders(pathFile, false)) {
+                            completions.add(file.getName());
+                        }
+                    }
+                } else {
+                    String[] pathArgs = args[3].split("/");
+                    StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath());
+                    for (int i = 0; i < pathArgs.length - 1; i++) {
+                        pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
+                    }
+                    if (args[2].endsWith("/")) {
+                        pathBuilder.append(pathArgs[pathArgs.length - 1]).append(DefaultHelper.slash);
+                        pathArgs[pathArgs.length - 1] = "";
+                    }
+
+                    File pathFile = new File(pathBuilder.toString());
+                    if (pathFile.exists() && pathFile.isDirectory()) {
+                        for (File file : DefaultHelper.getFolders(pathFile, false)) {
+                            addFileToCompletions(pathArgs, completions, file);
+                        }
+                    }
+                }
             }
         }
-        return new ArrayList<>();
+        return completions;
     }
 
     private static void addFileToCompletions(String[] pathArgs, ArrayList<String> completions, File file) {
