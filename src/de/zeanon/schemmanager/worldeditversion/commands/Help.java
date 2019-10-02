@@ -108,7 +108,7 @@ public class Help {
         DefaultHelper.sendSuggestMessage(ChatColor.RED + "Disable the plugin: ",
                 ChatColor.GRAY + "/schemmanager " + ChatColor.AQUA + "disable", ChatColor.DARK_RED + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",
-				"/schemmanager disable", p);
+                "/schemmanager disable", p);
         return true;
     }
 
@@ -126,7 +126,7 @@ public class Help {
             pathBuilder.append("&d").append(formats[formats.length - 1]);
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', pathBuilder.toString()));
         } else {
-            p.sendMessage(ChatColor.LIGHT_PURPLE + "schem" + ChatColor.AQUA+ ", " + ChatColor.LIGHT_PURPLE + "schematic");
+            p.sendMessage(ChatColor.LIGHT_PURPLE + "schem" + ChatColor.AQUA + ", " + ChatColor.LIGHT_PURPLE + "schematic");
         }
         return true;
     }

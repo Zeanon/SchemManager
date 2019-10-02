@@ -28,9 +28,9 @@ import java.util.Objects;
 
 public class DefaultHelper {
 
-    private static Plugin plugin;
     public static String pluginFolderPath;
     public static String slash;
+    private static Plugin plugin;
     private static ArrayList<String> disableRequests = new ArrayList<>();
     private static ArrayList<String> updateRequests = new ArrayList<>();
 
@@ -251,8 +251,7 @@ public class DefaultHelper {
                 p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
                 return false;
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
             return false;
@@ -286,8 +285,7 @@ public class DefaultHelper {
                 System.out.println("SchemManager could not be updated.");
                 return false;
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("SchemManager could not be updated.");
             return false;

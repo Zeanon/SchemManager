@@ -4,7 +4,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DefaultTabCompleter implements org.bukkit.command.TabCompleter {

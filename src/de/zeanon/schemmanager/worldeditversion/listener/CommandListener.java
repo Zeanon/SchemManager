@@ -483,24 +483,27 @@ public class CommandListener implements Listener {
 
 
     @EventHandler
-    public void onPluginDisable(PluginDisableEvent e) {
-        if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
+    public void onPluginDisable(PluginDisableEvent event) {
+        if (event.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
             DefaultHelper.disable();
             Bukkit.getPluginManager().enablePlugin(this.plugin);
-        } else if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
+        } else if (event.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
             this.worldguardEnabled = false;
         }
     }
 
     @EventHandler
-    public void onPluginEnable(PluginEnableEvent e) {
-        if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
+    public void onPluginEnable(PluginEnableEvent event) {
+        if (event.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
             this.worldguardEnabled = true;
         }
     }
 
-    @EventHandler (priority = EventPriority.HIGHEST)
-    public void onTab(TabCompleteEvent e) {
-        //TODO
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onTab(TabCompleteEvent event) {
+        String[] args = event.getBuffer().replaceAll("worldedit:", "/").split(" ");
+        if (args[0].startsWith("//schem")) {
+            System.out.println("hi");
+        }
     }
 }
