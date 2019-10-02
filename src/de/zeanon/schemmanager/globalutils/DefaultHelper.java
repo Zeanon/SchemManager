@@ -31,8 +31,10 @@ public class DefaultHelper {
     private static Plugin plugin;
     public static String pluginFolderPath;
     public static String slash;
+    private static ArrayList<String> disableRequests = new ArrayList<>();
+    private static ArrayList<String> updateRequests = new ArrayList<>();
 
-    public DefaultHelper(Plugin plugin) {
+    public static void initiate(Plugin plugin) {
         DefaultHelper.plugin = plugin;
         slash = plugin.getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
         String[] parts = plugin.getDataFolder().getAbsolutePath().split(slash);
@@ -42,8 +44,6 @@ public class DefaultHelper {
         }
         pluginFolderPath = pathBuilder.toString();
     }
-    private static ArrayList<String> disableRequests = new ArrayList<>();
-    private static ArrayList<String> updateRequests = new ArrayList<>();
 
 
     public static void sendCommandMessage(String message, String commandMessage, String hoverMessage, String command, Player target) {

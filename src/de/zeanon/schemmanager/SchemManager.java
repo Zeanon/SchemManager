@@ -18,6 +18,7 @@ public class SchemManager extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        DefaultHelper.initiate(this);
         PluginManager pm = Bukkit.getPluginManager();
         Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler(this));
         Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new DefaultTabCompleter());
