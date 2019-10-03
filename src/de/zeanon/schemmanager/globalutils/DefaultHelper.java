@@ -1,5 +1,6 @@
 package de.zeanon.schemmanager.globalutils;
 
+import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
@@ -243,10 +244,7 @@ public class DefaultHelper {
         try {
             if (writeToFile(new File(pluginFolderPath + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
                 p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
-                if (getBoolean("Automatic Reload")) {
-                    Bukkit.getServer().reload();
-                }
-                return true;
+                return updateReload();
             } else {
                 p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
                 return false;
@@ -277,10 +275,7 @@ public class DefaultHelper {
         try {
             if (writeToFile(new File(pluginFolderPath + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
                 System.out.println("SchemManager was updated successfully.");
-                if (getBoolean("Automatic Reload")) {
-                    Bukkit.getServer().reload();
-                }
-                return true;
+                return updateReload();
             } else {
                 System.out.println("SchemManager could not be updated.");
                 return false;
@@ -290,6 +285,18 @@ public class DefaultHelper {
             System.out.println("SchemManager could not be updated.");
             return false;
         }
+    }
+
+
+    private static boolean updateReload() {
+        if (getBoolean("Automatic Reload")) {
+            if (Bukkit.getPluginManager().getPlugin("PlugMan") != null && Bukkit.getPluginManager().isPluginEnabled(Bukkit.getPluginManager().getPlugin("PlugMan"))) {
+                PluginUtil.reload(SchemManager.getInstance());
+            } else {
+                Bukkit.getServer().reload();
+            }
+        }
+        return true;
     }
 
 
