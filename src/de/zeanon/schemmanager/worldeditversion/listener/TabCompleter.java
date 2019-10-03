@@ -160,12 +160,12 @@ class TabCompleter {
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("rename")) {
-                    String[] pathArgs = args[2].split("/");
+                    String[] pathArgs = args[3].split("/");
                     StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath());
                     for (int i = 0; i < pathArgs.length - 1; i++) {
                         pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
                     }
-                    if (args[2].endsWith("/")) {
+                    if (args[3].endsWith("/")) {
                         pathBuilder.append(pathArgs[pathArgs.length - 1]).append(DefaultHelper.slash);
                         pathArgs[pathArgs.length - 1] = "";
                     }
@@ -180,12 +180,12 @@ class TabCompleter {
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("renamefolder")) {
-                    String[] pathArgs = args[2].split("/");
+                    String[] pathArgs = args[3].split("/");
                     StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath());
                     for (int i = 0; i < pathArgs.length - 1; i++) {
                         pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
                     }
-                    if (args[2].endsWith("/")) {
+                    if (args[3].endsWith("/")) {
                         pathBuilder.append(pathArgs[pathArgs.length - 1]).append(DefaultHelper.slash);
                         pathArgs[pathArgs.length - 1] = "";
                     }
