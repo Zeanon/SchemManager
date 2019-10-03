@@ -91,7 +91,6 @@ public class CommandHandler implements CommandExecutor {
     }
 
     /**
-     *
      * @param p Player to send to
      * @return usage
      */
