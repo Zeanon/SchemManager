@@ -213,7 +213,7 @@ public class DefaultHelper {
 
     public static ArrayList<File> getExistingFiles(String path) {
         ArrayList<File> tempFiles = new ArrayList<>();
-        if (getStringList("File Extensions").stream().anyMatch(getExtension(path)::equalsIgnoreCase)) {
+        if (getStringList("File Extensions").stream().anyMatch(Objects.requireNonNull(getExtension(path))::equalsIgnoreCase)) {
             File file = new File(path);
             if (file.exists() && !file.isDirectory()) {
                 return new ArrayList<>(Collections.singletonList(file));
@@ -224,10 +224,8 @@ public class DefaultHelper {
         for (File file : tempFiles) {
             if (file.exists() && !file.isDirectory()) {
                 files.add(file);
-                System.out.println(file.getName());
             }
         }
-        System.out.println(files.size());
         return files;
     }
 
@@ -380,6 +378,6 @@ public class DefaultHelper {
     }
 
     public static String getExtension(String path) {
-        return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : "";
+        return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : null;
     }
 }

@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Rename {
 
@@ -64,10 +65,7 @@ public class Rename {
                 }
             }
             for (File file : oldFiles) {
-                if (DefaultHelper.getExtension(destPath).isEmpty()) {
-                    System.out.println("Hi");
-                }
-                if (DefaultHelper.getExtension(destPath).equals("")) {
+                if (DefaultHelper.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultHelper.getExtension(destPath))::equalsIgnoreCase)) {
                     FileUtils.moveFile(file, new File(destPath + "." + DefaultHelper.getExtension(file.getName())));
                 } else {
                     FileUtils.moveFile(file, new File(destPath));
