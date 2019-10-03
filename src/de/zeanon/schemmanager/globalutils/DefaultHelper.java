@@ -11,6 +11,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -290,7 +291,8 @@ public class DefaultHelper {
 
     private static boolean updateReload() {
         if (getBoolean("Automatic Reload")) {
-            if (Bukkit.getPluginManager().getPlugin("PlugMan") != null && Bukkit.getPluginManager().isPluginEnabled(Bukkit.getPluginManager().getPlugin("PlugMan"))) {
+            PluginManager pm = Bukkit.getPluginManager();
+            if (pm.getPlugin("PlugMan") != null && pm.isPluginEnabled(pm.getPlugin("PlugMan"))) {
                 PluginUtil.reload(SchemManager.getInstance());
             } else {
                 Bukkit.getServer().reload();
