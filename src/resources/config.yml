@@ -19,6 +19,8 @@
 # Save Funtion Override: Should the basic save function be overridden by the plugin?                          #
 # Stoplag Override: Should the new stoplag activation method be reverted to it's old style?                   #
 # Automatic Reload: Should the plugin automatically reload the Server after it got updated?                   #
+# If you have PlugMan installed, it will only reload itself, not the whole server.                            #
+# Plugman: https://dev.bukkit.org/projects/plugman                                                            #
 ###############################################################################################################
 #																											  #
 ###############################################################################################################
