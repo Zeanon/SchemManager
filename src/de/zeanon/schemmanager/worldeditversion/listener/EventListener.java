@@ -318,7 +318,7 @@ public class EventListener implements Listener {
                 return true;
             }
         } else if (args[0].equalsIgnoreCase("/stoplag") && this.worldguardEnabled && DefaultHelper.getBoolean("Stoplag Override")) {
-            if (args.length == 1 || !args[1].equals("confirm")) {
+            if (args.length == 1 || (!args[1].equals("confirm") && !args[1].equalsIgnoreCase("-c"))) {
                 event.setCancelled(true);
                 p.performCommand("stoplag confirm");
                 return true;
