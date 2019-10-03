@@ -34,9 +34,8 @@ public class EventListener implements Listener {
         Player p = event.getPlayer();
         String[] args = event.getMessage().replaceAll("worldedit:", "/").split(" ");
 
-        if ((args[0].equalsIgnoreCase("/schem") || args[0].equalsIgnoreCase("/schematic")
-                || args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic"))
-                && !(args.length >= 3 && args[2].contains("./")) || (args.length >= 4 && args[3].contains("./"))) {
+        if (args[0].equalsIgnoreCase("/schem") || args[0].equalsIgnoreCase("/schematic")
+                || args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
             String slash;
             if (args[0].toLowerCase().startsWith("//schem") || args[0].toLowerCase().startsWith("//schematic")) {
                 slash = "//";
@@ -63,6 +62,9 @@ public class EventListener implements Listener {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
                         return deleteUsage(p, slash, schemAlias);
+                    } else if (args[2].contains("./")) {
+                        p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
+                        return deleteUsage(p, slash, schemAlias);
                     } else if (args.length == 4 && !Helper.checkDeleteFolderRequest(p, args[2])
                             && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -80,6 +82,9 @@ public class EventListener implements Listener {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GREEN
                                 + "filename" + ChatColor.YELLOW + ">");
+                        return deleteFolderUsage(p, slash, schemAlias);
+                    } else if (args[2].contains("./")) {
+                        p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return deleteFolderUsage(p, slash, schemAlias);
                     } else if (args.length == 4 && !Helper.checkDeleteFolderRequest(p, args[2])
                             && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
@@ -99,6 +104,10 @@ public class EventListener implements Listener {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
                         return renameUsage(p, slash, schemAlias);
+                    } else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
+                        String name = args[2].contains("./") ? args[2] : args[3];
+                        p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
+                        return renameUsage(p, slash, schemAlias);
                     } else if (args.length == 5 && !Helper.checkRenameRequest(p, args[2])
                             && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -117,6 +126,10 @@ public class EventListener implements Listener {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GREEN
                                 + "filename" + ChatColor.YELLOW + ">");
                         return renameFolderUsage(p, slash, schemAlias);
+                    } else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
+                        String name = args[2].contains("./") ? args[2] : args[3];
+                        p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
+                        return renameFolderUsage(p, slash, schemAlias);
                     } else if (args.length == 5 && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny") && !Helper.checkRenameFolderRequest(p, args[2])) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return renameFolderUsage(p, slash, schemAlias);
@@ -132,6 +145,9 @@ public class EventListener implements Listener {
                     event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                             + "filename" + ChatColor.YELLOW + ">");
+                    return loadUsage(p, slash, schemAlias);
+                } else if (args[2].contains("./")) {
+                    p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                     return loadUsage(p, slash, schemAlias);
                 } else if (args.length > 4) {
                     event.setCancelled(true);
@@ -150,6 +166,9 @@ public class EventListener implements Listener {
                         event.setCancelled(true);
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
+                        return defaultSaveUsage(p, slash, schemAlias);
+                    } else if (args[2].contains("./")) {
+                        p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return defaultSaveUsage(p, slash, schemAlias);
                     } else if (args.length > 4 && !args[2].equals("-f")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -171,6 +190,9 @@ public class EventListener implements Listener {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
+                        return saveUsage(p, slash, schemAlias);
+                    } else if (args[2].contains("./")) {
+                        p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return saveUsage(p, slash, schemAlias);
                     } else if (args.length > 4) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -198,11 +220,16 @@ public class EventListener implements Listener {
 
                 if (args.length <= 4) {
                     if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[3]))) {
+                        p.sendMessage(ChatColor.RED + "Too many arguments.");
+                        return listUsage(p, slash, schemAlias);
+                    } else if (args.length >= 3 && args[2].contains("./")) {
+                        p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return listUsage(p, slash, schemAlias);
                     } else {
                         return List.onList(p, args, deep);
                     }
                 } else {
+                    p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return listUsage(p, slash, schemAlias);
                 }
             } else if (args[1].equalsIgnoreCase("folder") && p.hasPermission("worldedit.schematic.list")) {
@@ -220,11 +247,16 @@ public class EventListener implements Listener {
 
                 if (args.length <= 4) {
                     if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[3]))) {
+                        p.sendMessage(ChatColor.RED + "Too many arguments.");
+                        return folderUsage(p, slash, schemAlias);
+                    } else if (args.length >= 3 && args[2].contains("./")) {
+                        p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return folderUsage(p, slash, schemAlias);
                     } else {
                         return Folder.onFolder(p, args, deep);
                     }
                 } else {
+                    p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return folderUsage(p, slash, schemAlias);
                 }
             } else if (args[1].equalsIgnoreCase("search") && p.hasPermission("worldedit.schematic.list")) {
@@ -243,6 +275,9 @@ public class EventListener implements Listener {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
+                        return searchUsage(p, slash, schemAlias);
+                    } else if (args[2].contains("./")) {
+                        p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return searchUsage(p, slash, schemAlias);
                     } else if (args.length == 5 && (StringUtils.isNumeric(args[2]) || StringUtils.isNumeric(args[3]) || !StringUtils.isNumeric(args[4]))) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -271,6 +306,9 @@ public class EventListener implements Listener {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
                         return searchFolderUsage(p, slash, schemAlias);
+                    } else if (args[2].contains("./")) {
+                        p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
+                        return searchUsage(p, slash, schemAlias);
                     } else if (args.length == 5 && (StringUtils.isNumeric(args[2]) || StringUtils.isNumeric(args[3]) || !StringUtils.isNumeric(args[4]))) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return searchFolderUsage(p, slash, schemAlias);
@@ -364,7 +402,6 @@ public class EventListener implements Listener {
     }
 
     private boolean folderUsage(Player p, String slash, String schemAlias) {
-        p.sendMessage(ChatColor.RED + "Too many arguments.");
         DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " folder " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
@@ -379,7 +416,6 @@ public class EventListener implements Listener {
     }
 
     private boolean listUsage(Player p, String slash, String schemAlias) {
-        p.sendMessage(ChatColor.RED + "Too many arguments.");
         DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " list " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
