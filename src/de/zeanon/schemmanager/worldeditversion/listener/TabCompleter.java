@@ -138,14 +138,11 @@ class TabCompleter {
                     completions.addAll(DefaultHelper.getStringList("File Extensions"));
                 } else if (args[1].equalsIgnoreCase("rename")) {
                     File pathFile = new File(Helper.getSchemPath());
-                    if (pathFile.exists() && pathFile.isDirectory()) {
-                        for (File file : getFileArray(pathFile)) {
-                            completions.add(file.getName());
-                        }
-                        for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                            completions.add(file.getName());
-                        }
-
+                    for (File file : getFileArray(pathFile)) {
+                        completions.add(file.getName());
+                    }
+                    for (File file : DefaultHelper.getFolders(pathFile, false)) {
+                        completions.add(file.getName());
                     }
                 } else if (args[1].equalsIgnoreCase("renamefolder")) {
                     File pathFile = new File(Helper.getSchemPath());
@@ -153,7 +150,6 @@ class TabCompleter {
                         for (File file : DefaultHelper.getFolders(pathFile, false)) {
                             completions.add(file.getName());
                         }
-
                     }
                 }
             } else {
@@ -164,7 +160,7 @@ class TabCompleter {
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("rename")) {
-                    String[] pathArgs = args[3].split("/");
+                    String[] pathArgs = args[2].split("/");
                     StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath());
                     for (int i = 0; i < pathArgs.length - 1; i++) {
                         pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
@@ -184,7 +180,7 @@ class TabCompleter {
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("renamefolder")) {
-                    String[] pathArgs = args[3].split("/");
+                    String[] pathArgs = args[2].split("/");
                     StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath());
                     for (int i = 0; i < pathArgs.length - 1; i++) {
                         pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
