@@ -68,7 +68,7 @@ class TabCompleter {
                     completions.add("-d");
                     completions.add("-deep");
                 }
-                if (buffer.endsWith(" ") && (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename"))) {
+                if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
                     File pathFile = new File(Helper.getSchemPath());
                     for (File file : getFileArray(pathFile)) {
                         completions.add(file.getName());
@@ -76,7 +76,7 @@ class TabCompleter {
                     for (File file : DefaultHelper.getFolders(pathFile, false)) {
                         completions.add(file.getName());
                     }
-                } else if (buffer.endsWith(" ") && (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
+                } else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
                     File pathFile = new File(Helper.getSchemPath());
                     if (pathFile.exists() && pathFile.isDirectory()) {
                         for (File file : DefaultHelper.getFolders(pathFile, false)) {
@@ -138,11 +138,14 @@ class TabCompleter {
                     completions.addAll(DefaultHelper.getStringList("File Extensions"));
                 } else if (args[1].equalsIgnoreCase("rename")) {
                     File pathFile = new File(Helper.getSchemPath());
-                    for (File file : getFileArray(pathFile)) {
-                        completions.add(file.getName());
-                    }
-                    for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                        completions.add(file.getName());
+                    if (pathFile.exists() && pathFile.isDirectory()) {
+                        for (File file : getFileArray(pathFile)) {
+                            completions.add(file.getName());
+                        }
+                        for (File file : DefaultHelper.getFolders(pathFile, false)) {
+                            completions.add(file.getName());
+                        }
+
                     }
                 } else if (args[1].equalsIgnoreCase("renamefolder")) {
                     File pathFile = new File(Helper.getSchemPath());
@@ -161,7 +164,7 @@ class TabCompleter {
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("rename")) {
-                    String[] pathArgs = args[2].split("/");
+                    String[] pathArgs = args[3].split("/");
                     StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath());
                     for (int i = 0; i < pathArgs.length - 1; i++) {
                         pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
