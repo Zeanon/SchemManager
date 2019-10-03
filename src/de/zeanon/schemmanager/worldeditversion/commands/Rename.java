@@ -64,6 +64,9 @@ public class Rename {
                 }
             }
             for (File file : oldFiles) {
+                if (DefaultHelper.getExtension(destPath).isEmpty()) {
+                    System.out.println("Hi");
+                }
                 if (DefaultHelper.getExtension(destPath).equals("")) {
                     FileUtils.moveFile(file, new File(destPath + "." + DefaultHelper.getExtension(file.getName())));
                 } else {
