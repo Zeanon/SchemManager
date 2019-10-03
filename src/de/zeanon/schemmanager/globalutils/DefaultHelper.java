@@ -25,10 +25,10 @@ import java.util.*;
 
 public class DefaultHelper {
 
-    public static String pluginFolderPath;
-    public static String slash;
     private static final ArrayList<String> disableRequests = new ArrayList<>();
     private static final ArrayList<String> updateRequests = new ArrayList<>();
+    public static String pluginFolderPath;
+    public static String slash;
 
     public static void initiate() {
         slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";

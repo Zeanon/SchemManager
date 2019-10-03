@@ -17,6 +17,13 @@ public class SchemManager extends JavaPlugin {
     public static Config config;
     private static volatile SchemManager instance;
 
+    public static SchemManager getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("Couldn't get null");
+        }
+        return instance;
+    }
+
     @Override
     public void onEnable() {
         instance = this;
@@ -59,12 +66,5 @@ public class SchemManager extends JavaPlugin {
     @Override
     public void onDisable() {
         System.out.println("[" + getName() + "] >> unloaded");
-    }
-
-    public static SchemManager getInstance() {
-        if (instance == null) {
-            throw new IllegalStateException("Couldn't get null");
-        }
-        return instance;
     }
 }
