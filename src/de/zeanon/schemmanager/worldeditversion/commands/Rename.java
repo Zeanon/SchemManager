@@ -4,7 +4,6 @@ import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -38,7 +37,7 @@ public class Rename {
             if (args[4].equals("confirm")) {
                 Helper.removeRenameRequest(p);
                 if (oldFileExists) {
-                    return deleteFile(p, args[2], oldFiles, newFiles, schemPath + args[3]);
+                    return moveFile(p, args[2], oldFiles, newFiles, schemPath + args[3]);
                 } else {
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
                     return false;
@@ -56,7 +55,7 @@ public class Rename {
     }
 
 
-    private static boolean deleteFile(Player p, String fileName, ArrayList<File> oldFiles, ArrayList<File> newFiles, String destPath) {
+    private static boolean moveFile(Player p, String fileName, ArrayList<File> oldFiles, ArrayList<File> newFiles, String destPath) {
         try {
             for (File file : newFiles) {
                 if (!file.delete()) {
@@ -65,7 +64,11 @@ public class Rename {
                 }
             }
             for (File file : oldFiles) {
-                FileUtils.moveFile(file, new File(destPath + "." + FilenameUtils.getExtension(file.getName())));
+                if (DefaultHelper.getExtension(destPath).equals("")) {
+                    FileUtils.moveFile(file, new File(destPath + "." + DefaultHelper.getExtension(file.getName())));
+                } else {
+                    FileUtils.moveFile(file, new File(destPath));
+                }
             }
             p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");
             return true;

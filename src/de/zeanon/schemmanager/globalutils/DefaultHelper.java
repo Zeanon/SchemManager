@@ -214,15 +214,20 @@ public class DefaultHelper {
     public static ArrayList<File> getExistingFiles(String path) {
         ArrayList<File> tempFiles = new ArrayList<>();
         if (getStringList("File Extensions").stream().anyMatch(getExtension(path)::equalsIgnoreCase)) {
-            return new ArrayList<>(Collections.singletonList(new File(path)));
+            File file = new File(path);
+            if (file.exists() && !file.isDirectory()) {
+                return new ArrayList<>(Collections.singletonList(file));
+            }
         }
         getStringList("File Extensions").iterator().forEachRemaining(extension -> tempFiles.add(new File(path + "." + extension)));
         ArrayList<File> files = new ArrayList<>();
         for (File file : tempFiles) {
             if (file.exists() && !file.isDirectory()) {
                 files.add(file);
+                System.out.println(file.getName());
             }
         }
+        System.out.println(files.size());
         return files;
     }
 
