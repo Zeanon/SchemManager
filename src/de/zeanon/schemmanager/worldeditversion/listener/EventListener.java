@@ -34,8 +34,9 @@ public class EventListener implements Listener {
         Player p = event.getPlayer();
         String[] args = event.getMessage().replaceAll("worldedit:", "/").split(" ");
 
-        if (args[0].equalsIgnoreCase("/schem") || args[0].equalsIgnoreCase("/schematic")
-                || args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
+        if ((args[0].equalsIgnoreCase("/schem") || args[0].equalsIgnoreCase("/schematic")
+                || args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic"))
+                && !(args.length >= 3 && args[2].contains("./")) || (args.length >= 4 && args[3].contains("./"))) {
             String slash;
             if (args[0].toLowerCase().startsWith("//schem") || args[0].toLowerCase().startsWith("//schematic")) {
                 slash = "//";
