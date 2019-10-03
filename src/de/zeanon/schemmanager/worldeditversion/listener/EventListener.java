@@ -506,16 +506,20 @@ public class EventListener implements Listener {
         }
         String[] args = message.replaceAll("worldedit:", "/").split(" ");
         if (args[0].toLowerCase().startsWith("//schem")) {
-            boolean deep = false;
-            if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
-                args = (String[]) ArrayUtils.removeElement(args, "-deep");
-                deep = true;
+            if (message.contains("./")) {
+                event.setCancelled(true);
+            } else {
+                boolean deep = false;
+                if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
+                    args = (String[]) ArrayUtils.removeElement(args, "-deep");
+                    deep = true;
+                }
+                if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
+                    args = (String[]) ArrayUtils.removeElement(args, "-d");
+                    deep = true;
+                }
+                event.setCompletions(TabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" ")));
             }
-            if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
-                args = (String[]) ArrayUtils.removeElement(args, "-d");
-                deep = true;
-            }
-            event.setCompletions(TabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" ")));
         }
     }
 }
