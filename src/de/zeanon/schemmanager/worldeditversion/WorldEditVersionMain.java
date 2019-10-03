@@ -14,7 +14,7 @@ public class WorldEditVersionMain {
         if (!DefaultHelper.updateConfig(false)) {
             DefaultHelper.disable();
         } else {
-            System.out.println("[" + SchemManager.getInstance() + "] >> " + SchemManager.getInstance() + " v" + SchemManager.getInstance().getDescription().getVersion() + " successfully launched...");
+            System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " successfully launched...");
         }
     }
 }
