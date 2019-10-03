@@ -1,7 +1,8 @@
 name: SchemManager
-version: 4.0.0
+version: 4.0.1
 api-version: 1.14
 authors: [Zeanon, JavaFactoryDev]
+website: https://github.com/Zeanon/SchemManager
 main: de.zeanon.schemmanager.SchemManager
 softdepend: [WorldEdit, FastAsyncWorldEdit, WorldGuard, PlugMan]
 commands:
