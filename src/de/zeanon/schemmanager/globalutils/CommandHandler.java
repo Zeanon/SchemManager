@@ -8,6 +8,10 @@ import org.bukkit.entity.Player;
 
 public class CommandHandler implements CommandExecutor {
 
+    /**
+     * Gets the user commands and processes them("/schemmanager")
+     */
+    @SuppressWarnings("NullableProblems")
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("schemmanager")) {
@@ -86,6 +90,11 @@ public class CommandHandler implements CommandExecutor {
         }
     }
 
+    /**
+     *
+     * @param p Player to send to
+     * @return usage
+     */
     private boolean sendUsage(Player p) {
         DefaultHelper.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""

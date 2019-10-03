@@ -24,6 +24,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
+/**
+ * a Global Helper Class
+ */
 public class DefaultHelper {
 
     private static final ArrayList<String> disableRequests = new ArrayList<>();
@@ -31,6 +34,9 @@ public class DefaultHelper {
     public static String pluginFolderPath;
     public static String slash;
 
+    /**
+     * initiates the class
+     */
     public static void initiate() {
         slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
         String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
@@ -42,6 +48,14 @@ public class DefaultHelper {
     }
 
 
+    /**
+     * Sends a clickable message performing a command
+     * @param message the non clickable part of the message
+     * @param commandMessage the clickable part of the message
+     * @param hoverMessage the message to be shown when hovering over commandMessage.
+     * @param command the command to be executed when clicked
+     * @param target the player the message is sent to
+     */
     public static void sendCommandMessage(String message, String commandMessage, String hoverMessage, String command, Player target) {
         new TextComponent();
         TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
@@ -52,7 +66,13 @@ public class DefaultHelper {
         target.spigot().sendMessage(localMessage);
     }
 
-
+    /**
+     * Sends a boolean type message to the player
+     * @param message the message to be sent
+     * @param commandYes the command to be executed when clicked on yes
+     * @param commandNo the command to be executed when clicked on no
+     * @param target the player the message is sent to
+     */
     public static void sendBooleanMessage(String message, String commandYes, String commandNo, Player target) {
         new TextComponent();
         TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
@@ -70,7 +90,15 @@ public class DefaultHelper {
         target.spigot().sendMessage(localMessage);
     }
 
-
+    /**
+     * Sends the player a message with scroll buttons
+     * @param commandForward the command to be executed when clicking on forward
+     * @param commandBackward the command to be executed when clicking on backwards
+     * @param messageForward the message to be shown when hovering over the forward button
+     * @param messageBackward the message to be shown when hovering over the backwards button
+     * @param target the player the message is sent to
+     * @param buttonColor the color of the buttons
+     */
     public static void sendScrollMessage(String commandForward, String commandBackward, String messageForward, String messageBackward, Player target, ChatColor buttonColor) {
         TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
         TextComponent commandPartBackward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[<<<]"));
@@ -86,7 +114,14 @@ public class DefaultHelper {
         target.spigot().sendMessage(localMessage);
     }
 
-
+    /**
+     * sends the player a message with suggestCommand capabilities
+     * @param message the non clickable part of the message
+     * @param suggestMessage the clickable part of the message
+     * @param hoverMessage the message to sho when hovering over suggestMessage.
+     * @param command the command to be suggested when clicked
+     * @param target the player the message is sent to
+     */
     @SuppressWarnings("Duplicates")
     public static void sendSuggestMessage(String message, String suggestMessage, String hoverMessage, String command, Player target) {
         TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
@@ -97,7 +132,14 @@ public class DefaultHelper {
         target.spigot().sendMessage(localMessage);
     }
 
-
+    /**
+     *
+     * @param message1 the first part of the message (no hovermessage)
+     * @param message2 the second part of the message (hovermessage)
+     * @param message3 the third part of the message (no hovermessage)
+     * @param hoverMessage the message to be shown when hovering over message2
+     * @param target the player the message is sent to
+     */
     @SuppressWarnings("Duplicates")
     public static void sendHoverMessage(String message1, String message2, String message3, String hoverMessage, Player target) {
         TextComponent localMessage1 = new TextComponent(TextComponent.fromLegacyText(message1));
@@ -135,7 +177,11 @@ public class DefaultHelper {
         return updateRequests.contains(p.getUniqueId().toString());
     }
 
-
+    /**
+     * @param folder thefolder to look into
+     * @param deep deepSearch
+     * @return the files of the folder that are directorys
+     */
     public static ArrayList<File> getFolders(File folder, Boolean deep) {
         ArrayList<File> files = new ArrayList<>();
         for (File file : Objects.requireNonNull(folder.listFiles())) {
@@ -149,7 +195,11 @@ public class DefaultHelper {
         return files;
     }
 
-
+    /**
+     * get a String from the config
+     * @param path the yaml path
+     * @return value
+     */
     public static String getString(String path) {
         if (SchemManager.config.contains(path)) {
             return SchemManager.config.getString(path);
@@ -159,6 +209,11 @@ public class DefaultHelper {
         }
     }
 
+    /**
+     * get an int from the config
+     * @param path the yaml path
+     * @return value
+     */
     public static int getInt(String path) {
         if (SchemManager.config.contains(path)) {
             return SchemManager.config.getInt(path);
@@ -168,6 +223,11 @@ public class DefaultHelper {
         }
     }
 
+    /**
+     * get a boolean from the config
+     * @param path the yaml path
+     * @return value
+     */
     public static boolean getBoolean(String path) {
         if (SchemManager.config.contains(path)) {
             return SchemManager.config.getBoolean(path);
@@ -177,6 +237,11 @@ public class DefaultHelper {
         }
     }
 
+    /**
+     * get a StringList from the config
+     * @param path the yaml path
+     * @return value
+     */
     @SuppressWarnings("unchecked")
     public static List<String> getStringList(String path) {
         if (SchemManager.config.contains(path)) {
