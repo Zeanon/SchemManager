@@ -228,7 +228,7 @@ public class Helper {
         if (DefaultHelper.slash.equals("\\\\")) {
             if (WorldEditVersionMain.weConfig.getString("saving.dir").substring(1).startsWith(":\\")) {
                 File schemFolder = new File(WorldEditVersionMain.weConfig.getString("saving.dir"));
-                schemFolderPath = schemFolder.getAbsolutePath();
+                schemFolderPath = schemFolder.getAbsolutePath().replaceAll("\\\\", "\\\\");
                 if (!schemFolder.exists()) {
                     schemFolder.mkdirs();
                 }
