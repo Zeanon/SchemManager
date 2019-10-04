@@ -58,10 +58,17 @@ public class Rename {
 
     private static boolean moveFile(Player p, String fileName, ArrayList<File> oldFiles, ArrayList<File> newFiles, String destPath) {
         try {
+            String parentName = null;
             for (File file : newFiles) {
                 if (!file.delete()) {
                     p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed.");
                     return false;
+                } else {
+                    if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(new File(Helper.getSchemPath()))) {
+                        if (file.getParentFile().delete()) {
+                            parentName = file.getParentFile().getName();
+                        }
+                    }
                 }
             }
             for (File file : oldFiles) {
@@ -72,6 +79,9 @@ public class Rename {
                 }
             }
             p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");
+            if (parentName != null) {
+                p.sendMessage(ChatColor.GOLD + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
+            }
             return true;
         } catch (IOException e) {
             e.printStackTrace();
