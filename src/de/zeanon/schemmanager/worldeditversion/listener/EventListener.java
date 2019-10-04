@@ -545,7 +545,6 @@ public class EventListener implements Listener {
         String[] args = message.replaceAll("worldedit:", "/").split(" ");
         if (args[0].toLowerCase().startsWith("//schem")) {
             if (message.contains("./")) {
-
                 event.setCompletions(new ArrayList<>());
             } else {
                 boolean deep = false;
@@ -557,7 +556,6 @@ public class EventListener implements Listener {
                     args = (String[]) ArrayUtils.removeElement(args, "-d");
                     deep = true;
                 }
-
                 event.setCompletions(TabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" ")));
             }
         }
