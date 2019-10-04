@@ -68,6 +68,25 @@ public class DefaultHelper {
     }
 
     /**
+     * Sends a clickable message performing a command
+     *
+     * @param message        the non clickable part of the message
+     * @param commandMessage the clickable part of the message
+     * @param hoverMessage   the message to be shown when hovering over commandMessage.
+     * @param command        the command to be executed when clicked
+     * @param target         the player the message is sent to
+     */
+    public static void sendInvertedCommandMessage(String message, String commandMessage, String hoverMessage, String command, Player target) {
+        new TextComponent();
+        TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
+        TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
+        commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
+        commandPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverMessage).create()));
+        commandPart.addExtra(localMessage);
+        target.spigot().sendMessage(commandPart);
+    }
+
+    /**
      * Sends a boolean type message to the player
      *
      * @param message    the message to be sent
