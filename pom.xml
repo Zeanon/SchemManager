@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.zeanon</groupId>
     <artifactId>SchemManager</artifactId>
-    <version>4.0.2</version>
+    <version>4.0.3</version>
     <build>
         <defaultGoal>clean install -U</defaultGoal>
         <finalName>${project.name}</finalName>
