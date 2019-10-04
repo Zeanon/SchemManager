@@ -76,15 +76,13 @@ public class Rename {
                 } else {
                     FileUtils.moveFile(file, new File(destPath));
                     if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(new File(Helper.getSchemPath()))) {
-                        if (file.getParentFile().delete()) {
-                            parentName = file.getParentFile().getName();
-                        }
+                        parentName = DefaultHelper.deleteParent(file);
                     }
                 }
             }
             p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");
             if (parentName != null) {
-                p.sendMessage(ChatColor.GOLD + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
+                p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
             }
             return true;
         } catch (IOException e) {

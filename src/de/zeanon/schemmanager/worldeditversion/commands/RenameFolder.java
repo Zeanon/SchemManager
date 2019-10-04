@@ -82,6 +82,10 @@ public class RenameFolder {
                     if (deepMerge(file_old, file_new)) {
                         try {
                             FileUtils.deleteDirectory(file_old);
+                            String parentName = DefaultHelper.deleteParent(file_old);
+                            if (parentName != null) {
+                                p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
+                            }
                             p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was renamed successfully.");
                             return true;
                         } catch (IOException e) {

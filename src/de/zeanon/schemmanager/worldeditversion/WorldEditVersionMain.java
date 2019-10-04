@@ -13,12 +13,14 @@ import java.util.Objects;
 public class WorldEditVersionMain {
 
     public static Config weConfig;
+    public static String weFolderPath;
 
     public void onEnable() {
         Helper.initSchemPath();
         Bukkit.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
         try {
             weConfig = new Config(new File(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEditr")).getDataFolder(), "config.yml"), "config");
+            weFolderPath = Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEditr")).getDataFolder().getAbsolutePath();
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> Loading WorldEdit Config");
         } catch (Exception e) {
             e.printStackTrace();

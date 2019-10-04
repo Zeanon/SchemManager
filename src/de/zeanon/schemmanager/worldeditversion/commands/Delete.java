@@ -34,15 +34,13 @@ public class Delete {
                             return false;
                         } else {
                             if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(new File(Helper.getSchemPath()))) {
-                                if (file.getParentFile().delete()) {
-                                    parentName = file.getParentFile().getName();
-                                }
+                                parentName = DefaultHelper.deleteParent(file);
                             }
                         }
                     }
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was deleted successfully.");
                     if (parentName != null) {
-                        p.sendMessage(ChatColor.GOLD + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
+                        p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
                     }
                     return true;
                 } else {

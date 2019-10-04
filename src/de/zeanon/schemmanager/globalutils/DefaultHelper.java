@@ -31,7 +31,7 @@ public class DefaultHelper {
 
     private static final ArrayList<String> disableRequests = new ArrayList<>();
     private static final ArrayList<String> updateRequests = new ArrayList<>();
-    public static String pluginFolderPath;
+    private static String pluginFolderPath;
     public static String slash;
 
     /**
@@ -474,5 +474,12 @@ public class DefaultHelper {
 
     public static String getExtension(String path) {
         return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : null;
+    }
+
+    public static String deleteParent(File file) {
+        if (file.getParentFile().delete()) {
+            return deleteParent(file.getParentFile());
+        }
+        return null;
     }
 }
