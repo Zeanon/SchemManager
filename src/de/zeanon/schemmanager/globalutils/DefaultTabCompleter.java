@@ -8,6 +8,7 @@ import java.util.List;
 
 public class DefaultTabCompleter implements org.bukkit.command.TabCompleter {
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {

@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 
 @SuppressWarnings("Duplicates")
 public class List {
@@ -216,7 +217,7 @@ public class List {
     private static void sendListLine(Player p, String schemFolderPath, File file, int id, boolean deepSearch) {
         String name = file.getName();
         String path;
-        if (DefaultHelper.getExtension(name).equals("schem")) {
+        if (Objects.requireNonNull(DefaultHelper.getExtension(name)).equals("schem")) {
             name = DefaultHelper.removeExtension(name);
             path = DefaultHelper.removeExtension(file.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
         } else {
