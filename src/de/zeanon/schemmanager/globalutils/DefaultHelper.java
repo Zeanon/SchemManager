@@ -282,6 +282,8 @@ public class DefaultHelper {
         switch (path) {
             case "Space Lists":
                 return true;
+            case "Delete empty Folders":
+                return true;
             case "Listmax":
                 return 10;
             case "Save Function Override":
@@ -405,6 +407,7 @@ public class DefaultHelper {
             boolean saveOverride = !SchemManager.config.contains("Save Function Override") || SchemManager.config.getBoolean("Save Function Override");
             boolean stoplagOverride = !SchemManager.config.contains("Stoplag Override") || SchemManager.config.getBoolean("Stoplag Override");
             boolean autoReload = !SchemManager.config.contains("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
+            boolean deleteEmptyFolders = !SchemManager.config.contains("Delete empty Folders") || SchemManager.config.getBoolean("Delete empty Folders");
 
             if (writeToFile(new File(SchemManager.getInstance().getDataFolder(), "config.yml"), new BufferedInputStream(Objects.requireNonNull(Helper.class.getClassLoader().getResourceAsStream("config.yml"))))) {
                 SchemManager.config.update();
@@ -414,6 +417,7 @@ public class DefaultHelper {
                 SchemManager.config.set("File Extensions", fileExtensions);
                 SchemManager.config.set("Listmax", listmax);
                 SchemManager.config.set("Space Lists", spaceLists);
+                SchemManager.config.set("Delete empty Folders", deleteEmptyFolders);
                 SchemManager.config.set("Save Function Override", saveOverride);
                 SchemManager.config.set("Stoplag Override", stoplagOverride);
                 SchemManager.config.set("Automatic Reload", autoReload);

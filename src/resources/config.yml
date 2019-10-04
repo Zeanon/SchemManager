@@ -16,6 +16,7 @@
 # File Extensions: here you can specify the file-types the plugin recognizes as schematics.                   #
 # Listmax: The maximum amount of schematics per page to be shown.                                             #
 # Space Lists: Should there be a blank line before each schem or folder page?                                 #
+# Delete empty Folders: deletes a folder when it is empty after deleting a schematic in it                     #
 # Save Funtion Override: Should the basic save function be overridden by the plugin?                          #
 # Stoplag Override: Should the new stoplag activation method be reverted to it's old style?                   #
 # Automatic Reload: Should the plugin automatically reload the Server after it got updated?                   #
@@ -40,6 +41,8 @@ File Extensions: [schem, schematic]
 Listmax: 10
 
 Space Lists: true
+
+Delete empty Folders: true
 
 Save Function Override: true
 

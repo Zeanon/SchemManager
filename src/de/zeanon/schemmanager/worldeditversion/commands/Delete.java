@@ -32,6 +32,9 @@ public class Delete {
                             p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
                             Helper.removeDeleteRequest(p);
                             return false;
+                        } else {
+                            //noinspection ResultOfMethodCallIgnored
+                            file.getParentFile().delete();
                         }
                     }
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was deleted successfully.");

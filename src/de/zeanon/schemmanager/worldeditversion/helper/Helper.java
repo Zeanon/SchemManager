@@ -11,6 +11,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.util.HashMap;
 
 public class Helper {
@@ -192,27 +193,42 @@ public class Helper {
     public static void initSchemPath() {
         if (DefaultHelper.getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
             schemFolderPath = DefaultHelper.pluginFolderPath + "WorldEdit" + DefaultHelper.slash + "schematics" + DefaultHelper.slash;
+            createFolder(schemFolderPath);
         } else {
             if (DefaultHelper.slash.equals("\\\\")) {
                 if (DefaultHelper.getString("WorldEdit Schematic-Path").endsWith(DefaultHelper.slash)) {
                     schemFolderPath = DefaultHelper.getString("WorldEdit Schematic-Path");
+                    createFolder(schemFolderPath);
                 } else {
                     schemFolderPath = DefaultHelper.getString("WorldEdit Schematic-Path") + DefaultHelper.slash;
+                    createFolder(schemFolderPath);
                 }
             } else {
                 if (DefaultHelper.getString("WorldEdit Schematic-Path").endsWith(DefaultHelper.slash)) {
                     if (DefaultHelper.getString("WorldEdit Schematic-Path").startsWith(DefaultHelper.slash)) {
                         schemFolderPath = DefaultHelper.getString("WorldEdit Schematic-Path");
+                        createFolder(schemFolderPath);
                     } else {
                         schemFolderPath = DefaultHelper.slash + DefaultHelper.getString("WorldEdit Schematic-Path");
+                        createFolder(schemFolderPath);
                     }
                 } else {
                     if (DefaultHelper.getString("WorldEdit Schematic-Path").startsWith(DefaultHelper.slash)) {
                         schemFolderPath = DefaultHelper.getString("WorldEdit Schematic-Path") + DefaultHelper.slash;
+                        createFolder(schemFolderPath);
                     } else {
                         schemFolderPath = DefaultHelper.slash + DefaultHelper.getString("WorldEdit Schematic-Path") + DefaultHelper.slash;
+                        createFolder(schemFolderPath);
                     }
                 }
+            }
+        }
+    }
+
+    private static void createFolder(String path) {
+        if (!new File(path).exists()) {
+            if (!new File(path).mkdirs()) {
+                throw new NullPointerException();
             }
         }
     }
