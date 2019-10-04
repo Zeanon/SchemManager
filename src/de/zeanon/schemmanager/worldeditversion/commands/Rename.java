@@ -63,19 +63,23 @@ public class Rename {
                 if (!file.delete()) {
                     p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed.");
                     return false;
-                } else {
-                    if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(new File(Helper.getSchemPath()))) {
-                        if (file.getParentFile().delete()) {
-                            parentName = file.getParentFile().getName();
-                        }
-                    }
                 }
             }
             for (File file : oldFiles) {
                 if (DefaultHelper.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultHelper.getExtension(destPath))::equalsIgnoreCase)) {
                     FileUtils.moveFile(file, new File(destPath + "." + DefaultHelper.getExtension(file.getName())));
+                    if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(new File(Helper.getSchemPath()))) {
+                        if (file.getParentFile().delete()) {
+                            parentName = file.getParentFile().getName();
+                        }
+                    }
                 } else {
                     FileUtils.moveFile(file, new File(destPath));
+                    if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(new File(Helper.getSchemPath()))) {
+                        if (file.getParentFile().delete()) {
+                            parentName = file.getParentFile().getName();
+                        }
+                    }
                 }
             }
             p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");
