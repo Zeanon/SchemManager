@@ -34,7 +34,7 @@ public class RenameFolder {
                             }
                             String name = newFile.getName();
                             String path;
-                            if (Objects.requireNonNull(DefaultHelper.getExtension(name)).equals("schem")) {
+                            if (Objects.equals(DefaultHelper.getExtension(name), "schem")) {
                                 name = DefaultHelper.removeExtension(name);
                                 path = DefaultHelper.removeExtension(newFile.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
                             } else {
