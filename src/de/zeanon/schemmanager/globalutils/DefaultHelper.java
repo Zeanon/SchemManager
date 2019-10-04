@@ -294,8 +294,6 @@ public class DefaultHelper {
                 return true;
             case "File Extensions":
                 return Arrays.asList("schem", "schematic");
-            case "WorldEdit Schematic-Path":
-                return "Default Schematic Path";
             case "Plugin Version":
                 return SchemManager.getInstance().getDescription().getVersion();
             default:
@@ -400,7 +398,6 @@ public class DefaultHelper {
 
     public static boolean updateConfig(boolean force) {
         if (force || (!SchemManager.config.contains("WorldEdit Schematic-Path") || !SchemManager.config.contains("Listmax") || !SchemManager.config.contains("Space Lists") || !SchemManager.config.contains("Save Function Override") || !SchemManager.config.contains("Automatic Reload") || !SchemManager.config.contains("Plugin Version") || !SchemManager.config.getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion()))) {
-            String schemPath = SchemManager.config.contains("WorldEdit Schematic-Path") ? SchemManager.config.getString("WorldEdit Schematic-Path") : "Default Schematic Path";
             List<String> fileExtensions = SchemManager.config.contains("File Extensions") ? SchemManager.config.getStringList("File Extensions") : Arrays.asList("schem", "schematic");
             int listmax = SchemManager.config.contains("Listmax") ? SchemManager.config.getInt("Listmax") : 10;
             boolean spaceLists = !SchemManager.config.contains("Space Lists") || SchemManager.config.getBoolean("Space Lists");
@@ -413,7 +410,6 @@ public class DefaultHelper {
                 SchemManager.config.update();
 
                 SchemManager.config.set("Plugin Version", SchemManager.getInstance().getDescription().getVersion());
-                SchemManager.config.set("WorldEdit Schematic-Path", schemPath);
                 SchemManager.config.set("File Extensions", fileExtensions);
                 SchemManager.config.set("Listmax", listmax);
                 SchemManager.config.set("Space Lists", spaceLists);
