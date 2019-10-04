@@ -18,6 +18,7 @@ public class List {
     public static boolean onList(Player p, String[] args, boolean deepSearch) {
         int listmax = DefaultHelper.getInt("Listmax");
         String schemFolderPath = Helper.getSchemPath();
+        System.out.println(schemFolderPath);
         boolean spaceLists = DefaultHelper.getBoolean("Space Lists");
         String[] extensions = DefaultHelper.getStringList("File Extensions").toArray(new String[0]);
 
