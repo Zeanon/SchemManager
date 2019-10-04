@@ -38,7 +38,7 @@ public class SchemManager extends JavaPlugin {
         if (pm.getPlugin("WorldEdit") != null && pm.isPluginEnabled("WorldEdit")) {
             boolean failedToLoad = false;
             System.out.println("[" + getName() + "] >> Launching WorldEdit Version of " + getName());
-            System.out.println("[" + getName() + "] >> Loading Configs");
+            System.out.println("[" + getName() + "] >> Loading Configs.");
             try {
                 config = new Config("config", getDataFolder().getAbsolutePath(), "config");
                 System.out.println("[" + getName() + "] >> [Configs] >> " + config.getFile().getName() + " loaded");
@@ -57,8 +57,8 @@ public class SchemManager extends JavaPlugin {
             new WorldEditVersionMain().onEnable();
         } else {
             System.out.println("[" + getName() + "] >> could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
-            System.out.println("[" + getName() + "] >> It will automatically activate when one of the above gets enabled.");
-            System.out.println("[" + getName() + "] >> rudimentary function like updating and disabling will still work.");
+            System.out.println("[" + getName() + "] >> It will automatically activate when one of the above gets enabled");
+            System.out.println("[" + getName() + "] >> rudimentary function like updating and disabling will still work");
             pm.registerEvents(new WakeupListener(), this);
         }
     }

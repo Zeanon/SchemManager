@@ -2,7 +2,6 @@ package de.zeanon.schemmanager.worldeditversion.helper;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -11,7 +10,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.io.File;
 import java.util.HashMap;
 
 public class Helper {
@@ -191,7 +189,7 @@ public class Helper {
     }
 
     public static void initSchemPath() {
-        if (DefaultHelper.getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
+        /*if (DefaultHelper.getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
             schemFolderPath = DefaultHelper.pluginFolderPath + "WorldEdit" + DefaultHelper.slash + "schematics" + DefaultHelper.slash;
             createFolder(schemFolderPath);
         } else {
@@ -222,14 +220,7 @@ public class Helper {
                     }
                 }
             }
-        }
-    }
+        }*/
 
-    private static void createFolder(String path) {
-        if (!new File(path).exists()) {
-            if (!new File(path).mkdirs()) {
-                throw new NullPointerException();
-            }
-        }
     }
 }
