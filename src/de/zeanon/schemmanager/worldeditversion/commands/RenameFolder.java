@@ -4,6 +4,7 @@ import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -36,9 +37,9 @@ public class RenameFolder {
                             String path;
                             if (Objects.equals(DefaultHelper.getExtension(name), "schem")) {
                                 name = DefaultHelper.removeExtension(name);
-                                path = DefaultHelper.removeExtension(newFile.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/").substring(1);
+                                path = DefaultHelper.removeExtension(FilenameUtils.separatorsToUnix(newFile.getAbsolutePath()).replaceFirst(schemFolderPath, ""));
                             } else {
-                                path = newFile.getAbsolutePath().replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/").substring(1);
+                                path = FilenameUtils.separatorsToUnix(newFile.getAbsolutePath()).replaceFirst(schemFolderPath, "");
                             }
                             DefaultHelper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + DefaultHelper.removeExtension(newFile.getName()) + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                             id++;

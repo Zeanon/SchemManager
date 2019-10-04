@@ -2,13 +2,13 @@ package de.zeanon.schemmanager.worldeditversion.helper;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.apache.commons.io.FilenameUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -193,33 +193,21 @@ public class Helper {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void initSchemPath() {
-        if (DefaultHelper.slash.equals("\\\\")) {
-            if (WorldEditVersionMain.weConfig.getString("saving.dir").substring(1).startsWith(":\\")) {
-                File schemFolder = new File(WorldEditVersionMain.weConfig.getString("saving.dir"));
-                schemFolderPath = schemFolder.getAbsolutePath().replace("\\", "\\\\");
-                if (!schemFolder.exists()) {
-                    schemFolder.mkdirs();
-                }
-            } else {
-                createSchemFolder();
+        if (WorldEditVersionMain.weConfig.getString("saving.dir").substring(1).startsWith(":\\") || WorldEditVersionMain.weConfig.getString("saving.dir").startsWith("/")) {
+            File schemFolder = new File(WorldEditVersionMain.weConfig.getString("saving.dir"));
+            schemFolderPath = FilenameUtils.separatorsToUnix(schemFolder.getAbsolutePath());
+            if (!schemFolder.exists()) {
+                schemFolder.mkdirs();
             }
         } else {
-            if (WorldEditVersionMain.weConfig.getString("saving.dir").startsWith("/") || WorldEditVersionMain.weConfig.getString("saving.dir").startsWith(".")) {
-                File schemFolder = new File(WorldEditVersionMain.weConfig.getString("saving.dir"));
-                schemFolderPath = schemFolder.getAbsolutePath();
-                if (!schemFolder.exists()) {
-                    schemFolder.mkdirs();
-                }
-            } else {
-                createSchemFolder();
-            }
+            createSchemFolder();
         }
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private static void createSchemFolder() {
         File schemFolder = new File(WorldEditVersionMain.weFolderPath, WorldEditVersionMain.weConfig.getString("saving.dir"));
-        schemFolderPath = schemFolder.getAbsolutePath().replace("\\", "\\\\");
+        schemFolderPath = FilenameUtils.separatorsToUnix(schemFolder.getAbsolutePath());
         if (!schemFolder.exists()) {
             schemFolder.mkdirs();
         }
