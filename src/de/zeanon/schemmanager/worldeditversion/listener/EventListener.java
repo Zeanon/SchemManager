@@ -55,9 +55,7 @@ public class EventListener implements Listener {
             if (args.length == 1) {
                 event.setCancelled(true);
                 return Help.onHelp(p, slash, schemAlias);
-            }
-
-            if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del") && p.hasPermission("worldedit.schematic.delete"))) {
+            } else if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del") && p.hasPermission("worldedit.schematic.delete"))) {
                 event.setCancelled(true);
                 if (args.length <= 4) {
                     if (args.length < 3) {
