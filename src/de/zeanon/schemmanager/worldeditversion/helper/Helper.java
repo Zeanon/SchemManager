@@ -2,6 +2,7 @@ package de.zeanon.schemmanager.worldeditversion.helper;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -192,49 +193,17 @@ public class Helper {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void initSchemPath() {
-        /*if (DefaultHelper.getString("WorldEdit Schematic-Path").equals("Default Schematic Path")) {
-            schemFolderPath = DefaultHelper.pluginFolderPath + "WorldEdit" + DefaultHelper.slash + "schematics" + DefaultHelper.slash;
-            createFolder(schemFolderPath);
-        } else {
-            if (DefaultHelper.slash.equals("\\\\")) {
-                if (DefaultHelper.getString("WorldEdit Schematic-Path").endsWith(DefaultHelper.slash)) {
-                    schemFolderPath = DefaultHelper.getString("WorldEdit Schematic-Path");
-                    createFolder(schemFolderPath);
-                } else {
-                    schemFolderPath = DefaultHelper.getString("WorldEdit Schematic-Path") + DefaultHelper.slash;
-                    createFolder(schemFolderPath);
+        if (DefaultHelper.slash.equals("\\\\")) {
+            if (WorldEditVersionMain.weConfig.getString("saving.dir").substring(1).startsWith(":\\")) {
+                File schemFolder = new File(WorldEditVersionMain.weConfig.getString("saving.dir"));
+                schemFolderPath = schemFolder.getAbsolutePath().replace("\\", "\\\\");
+                if (!schemFolder.exists()) {
+                    schemFolder.mkdirs();
                 }
             } else {
-                if (DefaultHelper.getString("WorldEdit Schematic-Path").endsWith(DefaultHelper.slash)) {
-                    if (DefaultHelper.getString("WorldEdit Schematic-Path").startsWith(DefaultHelper.slash)) {
-                        schemFolderPath = DefaultHelper.getString("WorldEdit Schematic-Path");
-                        createFolder(schemFolderPath);
-                    } else {
-                        schemFolderPath = DefaultHelper.slash + DefaultHelper.getString("WorldEdit Schematic-Path");
-                        createFolder(schemFolderPath);
-                    }
-                } else {
-                    if (DefaultHelper.getString("WorldEdit Schematic-Path").startsWith(DefaultHelper.slash)) {
-                        schemFolderPath = DefaultHelper.getString("WorldEdit Schematic-Path") + DefaultHelper.slash;
-                        createFolder(schemFolderPath);
-                    } else {
-                        schemFolderPath = DefaultHelper.slash + DefaultHelper.getString("WorldEdit Schematic-Path") + DefaultHelper.slash;
-                        createFolder(schemFolderPath);
-                    }
-                }
-            }
-        }*/
-        //if (DefaultHelper.slash.equals("\\\\\\\\")) {
-        if (WorldEditVersionMain.weConfig.getString("saving.dir").substring(1).startsWith(":\\")) {
-            File schemFolder = new File(WorldEditVersionMain.weConfig.getString("saving.dir"));
-            schemFolderPath = schemFolder.getAbsolutePath().replace("\\", "\\\\");
-            if (!schemFolder.exists()) {
-                schemFolder.mkdirs();
+                createSchemFolder();
             }
         } else {
-            createSchemFolder();
-        }
-        /*} else {
             if (WorldEditVersionMain.weConfig.getString("saving.dir").startsWith("/") || WorldEditVersionMain.weConfig.getString("saving.dir").startsWith(".")) {
                 File schemFolder = new File(WorldEditVersionMain.weConfig.getString("saving.dir"));
                 schemFolderPath = schemFolder.getAbsolutePath();
@@ -244,7 +213,7 @@ public class Helper {
             } else {
                 createSchemFolder();
             }
-        }*/
+        }
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

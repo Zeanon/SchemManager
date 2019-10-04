@@ -36,9 +36,9 @@ public class RenameFolder {
                             String path;
                             if (Objects.equals(DefaultHelper.getExtension(name), "schem")) {
                                 name = DefaultHelper.removeExtension(name);
-                                path = DefaultHelper.removeExtension(newFile.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+                                path = DefaultHelper.removeExtension(newFile.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/").substring(1);
                             } else {
-                                path = newFile.getAbsolutePath().replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+                                path = newFile.getAbsolutePath().replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/").substring(1);
                             }
                             DefaultHelper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + DefaultHelper.removeExtension(newFile.getName()) + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                             id++;

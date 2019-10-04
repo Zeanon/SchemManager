@@ -211,9 +211,9 @@ public class Search {
         String path;
         if (Objects.equals(DefaultHelper.getExtension(name), "schem")) {
             name = DefaultHelper.removeExtension(name);
-            path = DefaultHelper.removeExtension(file.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+            path = DefaultHelper.removeExtension(file.getAbsolutePath()).replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/").substring(1);
         } else {
-            path = file.getAbsolutePath().replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+            path = file.getAbsolutePath().replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/").substring(1);
         }
         if (deepSearch) {
             DefaultHelper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard", "//schem load " + path, p);

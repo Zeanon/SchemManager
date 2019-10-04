@@ -143,20 +143,21 @@ public class EventListener implements Listener {
                     return renameFolderUsage(p, slash, schemAlias);
                 }
             } else if (args[1].equalsIgnoreCase("load") && p.hasPermission("worldedit.schematic.load")) {
-                event.setCancelled(true);
                 if (args.length < 3) {
+                    event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                             + "filename" + ChatColor.YELLOW + ">");
                     return loadUsage(p, slash, schemAlias);
                 } else if (args[2].contains("./")) {
+                    event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                     return loadUsage(p, slash, schemAlias);
                 } else if (args.length > 4) {
-
+                    event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return loadUsage(p, slash, schemAlias);
                 } else if (args.length > 3 && !DefaultHelper.getStringList("File Extensions").contains(args[3])) {
-
+                    event.setCancelled(true);
                     p.sendMessage(ChatColor.LIGHT_PURPLE + args[3] + ChatColor.RED + " is no valid file format.");
                     return Help.onFormats(p, true);
                 } else {
