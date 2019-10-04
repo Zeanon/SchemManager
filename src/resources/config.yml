@@ -32,6 +32,7 @@
 # disable uses schemmanager.disable                                                                           #
 ###############################################################################################################
 
+
 Plugin Version: "4.0.4"
 
 File Extensions: [schem, schematic]
