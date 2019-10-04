@@ -428,6 +428,7 @@ public class DefaultHelper {
         return true;
     }
 
+
     private static boolean writeToFile(File file, BufferedInputStream inputStream) {
         try {
             FileOutputStream outputStream = null;
