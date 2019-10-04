@@ -21,7 +21,7 @@ public class DefaultTabCompleter implements org.bukkit.command.TabCompleter {
             }
             return completions;
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 }
