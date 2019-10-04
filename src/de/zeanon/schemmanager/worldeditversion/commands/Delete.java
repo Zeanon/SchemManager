@@ -27,17 +27,23 @@ public class Delete {
             if (args[3].equals("confirm")) {
                 Helper.removeDeleteRequest(p);
                 if (fileExists) {
+                    String parentName = null;
                     for (File file : files) {
                         if (!file.delete()) {
                             p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
-                            Helper.removeDeleteRequest(p);
                             return false;
                         } else {
-                            //noinspection ResultOfMethodCallIgnored
-                            file.getParentFile().delete();
+                            if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(new File(Helper.getSchemPath()))) {
+                                if (file.getParentFile().delete()) {
+                                    parentName = file.getParentFile().getName();
+                                }
+                            }
                         }
                     }
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was deleted successfully.");
+                    if (parentName != null) {
+                        p.sendMessage(ChatColor.GOLD + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
+                    }
                     return true;
                 } else {
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
