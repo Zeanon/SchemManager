@@ -16,19 +16,20 @@ public class WorldEditVersionMain {
     public static String weFolderPath;
 
     public void onEnable() {
-        Helper.initSchemPath();
-        Bukkit.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
         try {
-            weConfig = new Config(new File(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEditr")).getDataFolder(), "config.yml"), "config");
-            weFolderPath = Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEditr")).getDataFolder().getAbsolutePath();
-            System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> Loading WorldEdit Config");
+            System.out.println(new File(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config.yml").getAbsolutePath());
+            weConfig = new Config(new File(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config.yml"), "config");
+            weFolderPath = Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEdit")).getDataFolder().getAbsolutePath();
+            System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded sucessfully");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> Could not load WorldEdit Config file");
+            System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file");
         }
         if (!DefaultHelper.updateConfig(false)) {
             DefaultHelper.disable();
         } else {
+            Helper.initSchemPath();
+            Bukkit.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " launched successfully...");
         }
     }
