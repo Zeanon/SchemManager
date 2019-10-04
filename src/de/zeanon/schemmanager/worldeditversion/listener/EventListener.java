@@ -29,7 +29,7 @@ public class EventListener implements Listener {
     }
 
     @SuppressWarnings("Duplicates")
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGH)
     public boolean onCommand(PlayerCommandPreprocessEvent event) {
         Player p = event.getPlayer();
         String[] args = event.getMessage().replaceAll("worldedit:", "/").split(" ");
@@ -534,7 +534,7 @@ public class EventListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onTab(TabCompleteEvent event) {
         String message = event.getBuffer();
         while (message.contains("  ")) {
