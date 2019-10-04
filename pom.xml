@@ -77,12 +77,7 @@
     </build>
     <repositories>
         <repository>
-            <id>LightningStorage</id>
-            <url>http://thewarking.de:8081/repository/Storage/</url>
-        </repository>
-
-        <repository>
-            <id>PlugMan</id>
+            <id>Local Add-on Repo</id>
             <url>http://thewarking.de:8081/repository/PluginUtils/</url>
         </repository>
 
