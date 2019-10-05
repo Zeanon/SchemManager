@@ -218,21 +218,6 @@ public class DefaultHelper {
     }
 
     /**
-     * get a String from the config
-     *
-     * @param path the yaml path
-     * @return value
-     */
-    public static String getString(String path) {
-        if (SchemManager.config.contains(path)) {
-            return SchemManager.config.getString(path);
-        } else {
-            updateConfig(true);
-            return (String) getDefaultValue(path);
-        }
-    }
-
-    /**
      * get an int from the config
      *
      * @param path the yaml path
