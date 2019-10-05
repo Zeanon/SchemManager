@@ -56,7 +56,7 @@ public class SchemManager extends JavaPlugin {
             }
             new WorldEditVersionMain().onEnable();
         } else {
-            System.out.println("[" + getName() + "] >> could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
+            System.out.println("[" + getName() + "] >> could not load plugin, it needs WorldEdit or FastAsyncWorldEdit to work");
             System.out.println("[" + getName() + "] >> It will automatically activate when one of the above gets enabled");
             System.out.println("[" + getName() + "] >> rudimentary function like updating and disabling will still work");
             pm.registerEvents(new WakeupListener(), this);
