@@ -46,7 +46,7 @@
                     <relocations>
                         <relocation>
                             <pattern>de.leonhard</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.storage</shadedPattern>
+                            <shadedPattern>de.zeanon.schemmanager</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
