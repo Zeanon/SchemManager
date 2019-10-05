@@ -1,7 +1,6 @@
 package de.zeanon.schemmanager.worldeditversion.helper;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -183,7 +182,7 @@ public class Helper {
 
 
     public static String getSchemPath() {
-        if (SchemManager.config.hasNotChanged()) {
+        if (WorldEditVersionMain.weConfig.hasNotChanged()) {
             return schemFolderPath;
         } else {
             initSchemPath();
