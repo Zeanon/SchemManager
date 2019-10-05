@@ -41,10 +41,10 @@ public class SchemManager extends JavaPlugin {
             System.out.println("[" + getName() + "] >> Loading Configs.");
             try {
                 config = new Config("config", getDataFolder().getAbsolutePath(), "config");
-                System.out.println("[" + getName() + "] >> [Configs] >> " + config.getFile().getName() + " loaded");
+                System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded");
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("[" + getName() + "] >> [Configs] >> " + config.getFile().getName() + " could not be loaded");
+                System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " could not be loaded");
                 failedToLoad = true;
             }
             if (failedToLoad) {
