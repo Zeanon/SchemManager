@@ -191,23 +191,24 @@ public class Helper {
         }
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void initSchemPath() {
         if (WorldEditVersionMain.weConfig.getString("saving.dir").substring(1).startsWith(":\\") || WorldEditVersionMain.weConfig.getString("saving.dir").startsWith("/")) {
             File schemFolder = new File(WorldEditVersionMain.weConfig.getString("saving.dir"));
-            schemFolderPath = FilenameUtils.separatorsToUnix(schemFolder.getAbsolutePath());
-            if (!schemFolder.exists()) {
-                schemFolder.mkdirs();
-            }
+            getPath(schemFolder);
         } else {
-            createSchemFolder();
+            File schemFolder = new File(WorldEditVersionMain.weFolderPath, WorldEditVersionMain.weConfig.getString("saving.dir"));
+            getPath(schemFolder);
         }
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private static void createSchemFolder() {
-        File schemFolder = new File(WorldEditVersionMain.weFolderPath, WorldEditVersionMain.weConfig.getString("saving.dir"));
-        schemFolderPath = FilenameUtils.separatorsToUnix(schemFolder.getAbsolutePath());
+    private static void getPath(File schemFolder) {
+        String tempPath = FilenameUtils.separatorsToUnix(schemFolder.getAbsolutePath());
+        if (tempPath.endsWith("/")) {
+            schemFolderPath = tempPath;
+        } else {
+            schemFolderPath = tempPath + "/";
+        }
         if (!schemFolder.exists()) {
             schemFolder.mkdirs();
         }

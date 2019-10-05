@@ -544,10 +544,8 @@ public class EventListener implements Listener {
         String[] args = message.replaceAll("worldedit:", "/").split(" ");
         if (args[0].toLowerCase().startsWith("//schem")) {
             if (message.contains("./")) {
-                event.setCancelled(true);
                 event.setCompletions(new ArrayList<>());
             } else {
-                event.setCancelled(true);
                 boolean deep = false;
                 if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
                     args = (String[]) ArrayUtils.removeElement(args, "-deep");
