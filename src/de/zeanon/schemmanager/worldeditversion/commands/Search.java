@@ -118,7 +118,7 @@ public class Search {
             } else {
                 File directory = new File(schemFolderPath + args[2]);
                 if (!directory.exists() || !directory.isDirectory()) {
-                    p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
+                    p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                     return false;
                 } else {
                     File[] files = getFileArray(directory, extensions, deepSearch, args[2]);
@@ -154,7 +154,7 @@ public class Search {
         } else {
             File directory = new File(schemFolderPath + args[2]);
             if (!directory.exists() || !directory.isDirectory()) {
-                p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
+                p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                 return false;
             } else {
                 File[] files = getFileArray(directory, extensions, deepSearch, args[2]);

@@ -3,6 +3,7 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
@@ -114,7 +115,7 @@ public class SearchFolder {
             } else {
                 File directory = new File(schemFolderPath + args[2]);
                 if (!directory.exists() || !directory.isDirectory()) {
-                    p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
+                    p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                     return false;
                 } else {
                     File[] files = getFileArray(directory, deepSearch, args[2]);
@@ -150,7 +151,7 @@ public class SearchFolder {
         } else {
             File directory = new File(schemFolderPath + args[2]);
             if (!directory.exists() || !directory.isDirectory()) {
-                p.sendMessage(ChatColor.RED + args[2] + " is no folder.");
+                p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                 return false;
             } else {
                 File[] files = getFileArray(directory, deepSearch, args[2]);
@@ -205,7 +206,7 @@ public class SearchFolder {
 
     private static void sendListLine(Player p, String schemFolderPath, File file, int id, boolean deepSearch) {
         String name = file.getName();
-        String path = file.getAbsolutePath().replaceFirst(schemFolderPath, "").replaceAll("\\\\", "/");
+        String path = FilenameUtils.separatorsToUnix(file.getAbsolutePath()).replaceFirst(schemFolderPath, "");
         if (deepSearch) {
             DefaultHelper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
         } else {

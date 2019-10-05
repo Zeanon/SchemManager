@@ -122,7 +122,7 @@ public class List {
             } else {
                 File directory = new File(schemFolderPath + args[2]);
                 if (!directory.exists() || !directory.isDirectory()) {
-                    p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " is no folder.");
+                    p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                     return false;
                 } else {
                     Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
@@ -160,7 +160,7 @@ public class List {
         } else {
             File directory = new File(schemFolderPath + args[2]);
             if (!directory.exists() || !directory.isDirectory()) {
-                p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " is no folder.");
+                p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                 return false;
             } else {
                 Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
