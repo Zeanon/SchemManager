@@ -8,17 +8,16 @@ import de.zeanon.schemmanager.worldeditversion.listener.EventListener;
 import org.bukkit.Bukkit;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 public class WorldEditVersionMain {
 
     public static Config weConfig;
-    public static String weFolderPath;
 
     public void onEnable() {
         try {
             weConfig = new Config(new File(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config.yml"), "config");
-            weFolderPath = Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEdit")).getDataFolder().getAbsolutePath();
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded sucessfully");
         } catch (Exception e) {
             e.printStackTrace();
@@ -27,7 +26,11 @@ public class WorldEditVersionMain {
         if (!DefaultHelper.updateConfig(false)) {
             DefaultHelper.disable();
         } else {
-            Helper.initSchemPath();
+            try {
+                Helper.initSchemPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Bukkit.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " launched successfully...");
         }

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
@@ -287,10 +288,10 @@ public class DefaultHelper {
     }
 
 
-    public static ArrayList<File> getExistingFiles(String path) {
+    public static ArrayList<File> getExistingFiles(Path path) {
         ArrayList<File> tempFiles = new ArrayList<>();
-        if (getStringList("File Extensions").stream().anyMatch(Objects.requireNonNull(getExtension(path))::equalsIgnoreCase)) {
-            File file = new File(path);
+        if (getStringList("File Extensions").stream().anyMatch(Objects.requireNonNull(getExtension(path.toString()))::equalsIgnoreCase)) {
+            File file = path.toFile();
             if (file.exists() && !file.isDirectory()) {
                 return new ArrayList<>(Collections.singletonList(file));
             }
@@ -458,9 +459,9 @@ public class DefaultHelper {
         return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : null;
     }
 
-    public static String deleteParent(File file) {
+    public static String deleteEmptyParent(File file) {
         if (file.getParentFile().delete()) {
-            return deleteParent(file.getParentFile());
+            return deleteEmptyParent(file.getParentFile());
         }
         return null;
     }
