@@ -3,7 +3,7 @@ package de.zeanon.schemmanager.worldeditversion.listener;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.commands.*;
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -55,9 +55,7 @@ public class EventListener implements Listener {
             if (args.length == 1) {
                 event.setCancelled(true);
                 return Help.onHelp(p, slash, schemAlias);
-            }
-
-            if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del") && p.hasPermission("worldedit.schematic.delete"))) {
+            } else if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del") && p.hasPermission("worldedit.schematic.delete"))) {
                 event.setCancelled(true);
                 if (args.length <= 4) {
                     if (args.length < 3) {
@@ -546,10 +544,8 @@ public class EventListener implements Listener {
         String[] args = message.replaceAll("worldedit:", "/").split(" ");
         if (args[0].toLowerCase().startsWith("//schem")) {
             if (message.contains("./")) {
-                event.setCancelled(true);
                 event.setCompletions(new ArrayList<>());
             } else {
-                event.setCancelled(true);
                 boolean deep = false;
                 if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
                     args = (String[]) ArrayUtils.removeElement(args, "-deep");

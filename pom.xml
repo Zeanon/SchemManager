@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.zeanon</groupId>
     <artifactId>SchemManager</artifactId>
-    <version>4.0.3</version>
+    <version>4.1.4</version>
     <build>
         <defaultGoal>clean install -U</defaultGoal>
         <finalName>${project.name}</finalName>
@@ -46,7 +46,7 @@
                     <relocations>
                         <relocation>
                             <pattern>de.leonhard</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.storage</shadedPattern>
+                            <shadedPattern>de.zeanon.schemmanager</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -77,12 +77,7 @@
     </build>
     <repositories>
         <repository>
-            <id>LightningStorage</id>
-            <url>http://thewarking.de:8081/repository/Storage/</url>
-        </repository>
-
-        <repository>
-            <id>PlugMan</id>
+            <id>Local Add-on Repo</id>
             <url>http://thewarking.de:8081/repository/PluginUtils/</url>
         </repository>
 

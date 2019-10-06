@@ -3,7 +3,7 @@ package de.zeanon.schemmanager.globalutils;
 import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.Helper;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
@@ -32,13 +33,12 @@ public class DefaultHelper {
     private static final ArrayList<String> disableRequests = new ArrayList<>();
     private static final ArrayList<String> updateRequests = new ArrayList<>();
     private static String pluginFolderPath;
-    public static String slash;
 
     /**
      * initiates the class
      */
     public static void initiate() {
-        slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
+        String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
         String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
         StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
         for (int i = 1; i < parts.length - 1; i++) {
@@ -218,21 +218,6 @@ public class DefaultHelper {
     }
 
     /**
-     * get a String from the config
-     *
-     * @param path the yaml path
-     * @return value
-     */
-    public static String getString(String path) {
-        if (SchemManager.config.contains(path)) {
-            return SchemManager.config.getString(path);
-        } else {
-            updateConfig(true);
-            return (String) getDefaultValue(path);
-        }
-    }
-
-    /**
      * get an int from the config
      *
      * @param path the yaml path
@@ -302,10 +287,10 @@ public class DefaultHelper {
     }
 
 
-    public static ArrayList<File> getExistingFiles(String path) {
+    public static ArrayList<File> getExistingFiles(Path path) {
         ArrayList<File> tempFiles = new ArrayList<>();
-        if (getStringList("File Extensions").stream().anyMatch(Objects.requireNonNull(getExtension(path))::equalsIgnoreCase)) {
-            File file = new File(path);
+        if (getStringList("File Extensions").stream().anyMatch(Objects.requireNonNull(getExtension(path.toString()))::equalsIgnoreCase)) {
+            File file = path.toFile();
             if (file.exists() && !file.isDirectory()) {
                 return new ArrayList<>(Collections.singletonList(file));
             }
@@ -473,9 +458,9 @@ public class DefaultHelper {
         return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : null;
     }
 
-    public static String deleteParent(File file) {
+    public static String deleteEmptyParent(File file) {
         if (file.getParentFile().delete()) {
-            return deleteParent(file.getParentFile());
+            return deleteEmptyParent(file.getParentFile());
         }
         return null;
     }
