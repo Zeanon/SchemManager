@@ -459,9 +459,10 @@ public class DefaultHelper {
     }
 
     public static String deleteEmptyParent(File file) {
+        String name = null;
         if (file.getParentFile().delete()) {
-            return deleteEmptyParent(file.getParentFile());
+            name = deleteEmptyParent(file.getParentFile());
         }
-        return null;
+        return name;
     }
 }
