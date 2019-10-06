@@ -551,7 +551,7 @@ public class EventListener implements Listener {
             if (args.length <= 2 && !message.endsWith(" ")) {
                 event.setCompletions(Collections.singletonList("-c"));
             } else {
-                event.setCancelled(true);
+                event.setCompletions(new ArrayList<>());
             }
         }
     }
