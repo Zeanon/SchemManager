@@ -76,12 +76,12 @@ public class Rename {
                 if (DefaultHelper.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultHelper.getExtension(destPath.toString()))::equalsIgnoreCase)) {
                     FileUtils.moveFile(file, destPath.resolve(DefaultHelper.getExtension(file.getName())).toFile());
                     if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? DefaultHelper.deleteEmptyParent(file) : null;
+                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(file);
                     }
                 } else {
                     FileUtils.moveFile(file, destPath.toFile());
                     if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? DefaultHelper.deleteEmptyParent(file) : null;
+                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(file);
                     }
                 }
             }

@@ -37,7 +37,7 @@ public class Delete {
                                 return false;
                             } else {
                                 if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                                    parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? DefaultHelper.deleteEmptyParent(file) : null;
+                                    parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(file);
                                 }
                             }
                         }

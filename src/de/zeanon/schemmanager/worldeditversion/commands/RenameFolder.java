@@ -90,7 +90,7 @@ public class RenameFolder {
                         if (deepMerge(directory_old, directory_new)) {
                             try {
                                 FileUtils.deleteDirectory(directory_old);
-                                String parentName = Objects.requireNonNull(directory_old.getParentFile().listFiles()).length > 0 ? DefaultHelper.deleteEmptyParent(directory_old) : null;
+                                String parentName = Objects.requireNonNull(directory_old.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(directory_old);
                                 if (parentName != null) {
                                     p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
                                 }
