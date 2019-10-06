@@ -21,7 +21,6 @@ public class Helper {
 
     public static WorldEditPlugin we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
     private static File schemFolder;
-
     private static Path schemFolderPath;
     private static HashMap<String, String> deleteRequests = new HashMap<>();
     private static HashMap<String, String> deleteFolderRequests = new HashMap<>();
