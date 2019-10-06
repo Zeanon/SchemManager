@@ -200,13 +200,6 @@ public class Helper {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void initSchemPath() throws IOException {
-        /*if (WorldEditVersionMain.weConfig.getString("saving.dir").substring(1).startsWith(":\\") || WorldEditVersionMain.weConfig.getString("saving.dir").startsWith("/")) {
-            File schemFolder = new File(WorldEditVersionMain.weConfig.getString("saving.dir"));
-            getPath(schemFolder);
-        } else {
-            File schemFolder = new File(WorldEditVersionMain.weFolderPath, WorldEditVersionMain.weConfig.getString("saving.dir"));
-            getPath(schemFolder);
-        }*/
         Path tempPath = Paths.get(WorldEditVersionMain.weConfig.getString("saving.dir"));
         if (tempPath.isAbsolute()) {
             schemFolderPath = tempPath;
@@ -222,16 +215,4 @@ public class Helper {
             }
         }
     }
-
-    /*private static void getPath(File schemFolder) {
-        String tempPath = FilenameUtils.separatorsToUnix(schemFolder.getAbsolutePath());
-        if (tempPath.endsWith("/")) {
-            schemFolderPath = tempPath;
-        } else {
-            schemFolderPath = tempPath + "/";
-        }
-        if (!schemFolder.exists()) {
-            schemFolder.mkdirs();
-        }
-    }*/
 }

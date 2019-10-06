@@ -206,7 +206,7 @@ public class SearchFolder {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            p.sendMessage(ChatColor.RED + "Can not find Schematic folder.");
+            p.sendMessage(ChatColor.RED + "Could not find Schematic folder.");
             return false;
         }
     }

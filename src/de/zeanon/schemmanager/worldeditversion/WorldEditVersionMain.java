@@ -19,6 +19,7 @@ public class WorldEditVersionMain {
         try {
             weConfig = new Config(new File(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config.yml"), "config");
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded sucessfully");
+            Helper.initSchemPath();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file");
@@ -30,6 +31,7 @@ public class WorldEditVersionMain {
                 Helper.initSchemPath();
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder");
             }
             Bukkit.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " launched successfully...");
