@@ -3,6 +3,7 @@ package de.zeanon.schemmanager.worldeditversion.listener;
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,35 +100,49 @@ class TabCompleter {
                     if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
                         Path tempDirectory = Helper.getSchemPath();
                         String[] pathArgs = args[2].split("/");
-                        for (int i = 0; i < pathArgs.length - 1; i++) {
-                            tempDirectory = tempDirectory.resolve(pathArgs[i]);
+                        if (!args[2].endsWith("/")) {
+                            for (int i = 0; i < pathArgs.length - 1; i++) {
+                                System.out.println(pathArgs[i]);
+                                tempDirectory = tempDirectory.resolve(pathArgs[i]);
+                            }
+                        } else {
+                            for (String pathArg : pathArgs) {
+                                System.out.println(pathArg);
+                                tempDirectory = tempDirectory.resolve(pathArg);
+                            }
+                        }
+
+                        System.out.println(tempDirectory.toString());
+                        File pathFile = tempDirectory.toFile();
+                        if (pathFile.exists() && pathFile.isDirectory()) {
+                            for (File file : getFileArray(pathFile)) {
+                                System.out.println(file.getName());
+                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
+                            }
+                            for (File file : DefaultHelper.getFolders(pathFile, false)) {
+                                System.out.println(file.getName());
+                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
+                            }
+                        }
+                    } else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
+                        Path tempDirectory = Helper.getSchemPath();
+                        String[] pathArgs = args[2].split("/");
+                        if (!args[2].endsWith("/")) {
+                            for (int i = 0; i < pathArgs.length - 1; i++) {
+                                System.out.println(pathArgs[i]);
+                                tempDirectory = tempDirectory.resolve(pathArgs[i]);
+                            }
+                        } else {
+                            for (String pathArg : pathArgs) {
+                                System.out.println(pathArg);
+                                tempDirectory = tempDirectory.resolve(pathArg);
+                            }
                         }
 
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
-                            for (File file : getFileArray(pathFile)) {
-                                addFileToCompletions(pathArgs[pathArgs.length - 1], completions, file);
-                            }
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                                addFileToCompletions(pathArgs[pathArgs.length - 1], completions, file);
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
-                        String[] pathArgs = args[2].split("/");
-                        StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath().toString());
-                        for (int i = 0; i < pathArgs.length - 1; i++) {
-                            pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
-                        }
-                        if (args[2].endsWith("/")) {
-                            pathBuilder.append(pathArgs[pathArgs.length - 1]).append(DefaultHelper.slash);
-                            pathArgs[pathArgs.length - 1] = "";
-                        }
-                        System.out.println(pathBuilder.toString());
-
-                        File pathFile = new File(pathBuilder.toString());
-                        if (pathFile.exists() && pathFile.isDirectory()) {
-                            for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                                addFileToCompletions(pathArgs[pathArgs.length - 1], completions, file);
+                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
                             }
                         }
                     }
@@ -160,40 +175,51 @@ class TabCompleter {
                             }
                         }
                     } else if (args[1].equalsIgnoreCase("rename")) {
-                        String[] pathArgs = args[3].split("/");
-                        StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath().toString());
-                        for (int i = 0; i < pathArgs.length - 1; i++) {
-                            pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
-                        }
-                        if (args[3].endsWith("/")) {
-                            pathBuilder.append(pathArgs[pathArgs.length - 1]).append(DefaultHelper.slash);
-                            pathArgs[pathArgs.length - 1] = "";
+                        Path tempDirectory = Helper.getSchemPath();
+                        String[] pathArgs = args[2].split("/");
+                        if (!args[2].endsWith("/")) {
+                            for (int i = 0; i < pathArgs.length - 1; i++) {
+                                System.out.println(pathArgs[i]);
+                                tempDirectory = tempDirectory.resolve(pathArgs[i]);
+                            }
+                        } else {
+                            for (String pathArg : pathArgs) {
+                                System.out.println(pathArg);
+                                tempDirectory = tempDirectory.resolve(pathArg);
+                            }
                         }
 
-                        File pathFile = new File(pathBuilder.toString());
+                        System.out.println(tempDirectory.toString());
+                        File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
                             for (File file : getFileArray(pathFile)) {
-                                addFileToCompletions(pathArgs[pathArgs.length - 1], completions, file);
+                                System.out.println(file.getName());
+                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
                             }
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                                addFileToCompletions(pathArgs[pathArgs.length - 1], completions, file);
+                                System.out.println(file.getName());
+                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
                             }
                         }
                     } else if (args[1].equalsIgnoreCase("renamefolder")) {
-                        String[] pathArgs = args[3].split("/");
-                        StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath().toString());
-                        for (int i = 0; i < pathArgs.length - 1; i++) {
-                            pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
-                        }
-                        if (args[3].endsWith("/")) {
-                            pathBuilder.append(pathArgs[pathArgs.length - 1]).append(DefaultHelper.slash);
-                            pathArgs[pathArgs.length - 1] = "";
+                        Path tempDirectory = Helper.getSchemPath();
+                        String[] pathArgs = args[2].split("/");
+                        if (!args[2].endsWith("/")) {
+                            for (int i = 0; i < pathArgs.length - 1; i++) {
+                                System.out.println(pathArgs[i]);
+                                tempDirectory = tempDirectory.resolve(pathArgs[i]);
+                            }
+                        } else {
+                            for (String pathArg : pathArgs) {
+                                System.out.println(pathArg);
+                                tempDirectory = tempDirectory.resolve(pathArg);
+                            }
                         }
 
-                        File pathFile = new File(pathBuilder.toString());
+                        File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                                addFileToCompletions(pathArgs[pathArgs.length - 1], completions, file);
+                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
                             }
                         }
                     }
@@ -209,7 +235,7 @@ class TabCompleter {
     private static void addFileToCompletions(String regex, ArrayList<String> completions, File file) {
         try {
             if (((file.getName() + " ").toLowerCase()).startsWith(regex.toLowerCase())) {
-                String path = DefaultHelper.removeExtension(Helper.getSchemPath().relativize(file.toPath().toRealPath()).toString());
+                String path = FilenameUtils.separatorsToUnix(DefaultHelper.removeExtension(Helper.getSchemPath().relativize(file.toPath().toRealPath()).toString()));
                 completions.add(path);
             }
         } catch (IOException e) {
