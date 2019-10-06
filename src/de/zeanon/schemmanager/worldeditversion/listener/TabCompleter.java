@@ -89,7 +89,7 @@ class TabCompleter {
                         }
                     }
                 } else {
-                    if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("seachrfolder"))) {
+                    if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
                         if ("-d".startsWith(args[2])) {
                             completions.add("-d");
                         }
