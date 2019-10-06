@@ -198,13 +198,11 @@ public class EventListener implements Listener {
                     } else if (args.length > 4) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return saveUsage(p, slash, schemAlias);
+                    } else if (args.length == 4 && !Helper.checkOverWriteRequest(p, args[2]) && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
+                        p.sendMessage(ChatColor.RED + "Too many arguments.");
+                        return saveUsage(p, slash, schemAlias);
                     } else {
-                        if (args.length == 4 && !Helper.checkOverWriteRequest(p, args[2]) && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
-                            p.sendMessage(ChatColor.RED + "Too many arguments.");
-                            return saveUsage(p, slash, schemAlias);
-                        } else {
-                            return Save.onSave(p, args);
-                        }
+                        return Save.onSave(p, args);
                     }
                 }
             } else if (args[1].equalsIgnoreCase("list") && p.hasPermission("worldedit.schematic.list")) {
