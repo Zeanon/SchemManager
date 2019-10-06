@@ -548,7 +548,7 @@ public class EventListener implements Listener {
                 event.setCompletions(TabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" ")));
             }
         } else if (args[0].equals("/stoplag")) {
-            if (args.length <= 2 && !message.endsWith(" ")) {
+            if (args.length == 1 || (args.length == 2 && !message.endsWith(" "))) {
                 event.setCompletions(Collections.singletonList("-c"));
             } else {
                 event.setCompletions(new ArrayList<>());
