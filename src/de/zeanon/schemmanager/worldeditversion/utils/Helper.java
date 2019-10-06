@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.worldeditversion.helper;
+package de.zeanon.schemmanager.worldeditversion.utils;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;

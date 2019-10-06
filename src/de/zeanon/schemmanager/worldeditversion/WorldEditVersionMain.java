@@ -3,8 +3,8 @@ package de.zeanon.schemmanager.worldeditversion;
 import de.leonhard.storage.Config;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import de.zeanon.schemmanager.worldeditversion.listener.EventListener;
+import de.zeanon.schemmanager.worldeditversion.utils.Helper;
 import org.bukkit.Bukkit;
 
 import java.io.File;

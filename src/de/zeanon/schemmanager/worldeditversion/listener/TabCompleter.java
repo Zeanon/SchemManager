@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
-import de.zeanon.schemmanager.worldeditversion.helper.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.Helper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
