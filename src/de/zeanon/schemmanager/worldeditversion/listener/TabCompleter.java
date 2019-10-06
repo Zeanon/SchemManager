@@ -102,26 +102,21 @@ class TabCompleter {
                         String[] pathArgs = args[2].split("/");
                         if (!args[2].endsWith("/")) {
                             for (int i = 0; i < pathArgs.length - 1; i++) {
-                                System.out.println(pathArgs[i]);
                                 tempDirectory = tempDirectory.resolve(pathArgs[i]);
                             }
                         } else {
                             for (String pathArg : pathArgs) {
-                                System.out.println(pathArg);
                                 tempDirectory = tempDirectory.resolve(pathArg);
                             }
                         }
 
-                        System.out.println(tempDirectory.toString());
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
                             String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
                             for (File file : getFileArray(pathFile)) {
-                                System.out.println(file.getName());
                                 addFileToCompletions(regex, completions, file);
                             }
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                                System.out.println(file.getName());
                                 addFileToCompletions(regex, completions, file);
                             }
                         }
@@ -130,12 +125,10 @@ class TabCompleter {
                         String[] pathArgs = args[2].split("/");
                         if (!args[2].endsWith("/")) {
                             for (int i = 0; i < pathArgs.length - 1; i++) {
-                                System.out.println(pathArgs[i]);
                                 tempDirectory = tempDirectory.resolve(pathArgs[i]);
                             }
                         } else {
                             for (String pathArg : pathArgs) {
-                                System.out.println(pathArg);
                                 tempDirectory = tempDirectory.resolve(pathArg);
                             }
                         }
@@ -181,26 +174,21 @@ class TabCompleter {
                         String[] pathArgs = args[2].split("/");
                         if (!args[2].endsWith("/")) {
                             for (int i = 0; i < pathArgs.length - 1; i++) {
-                                System.out.println(pathArgs[i]);
                                 tempDirectory = tempDirectory.resolve(pathArgs[i]);
                             }
                         } else {
                             for (String pathArg : pathArgs) {
-                                System.out.println(pathArg);
                                 tempDirectory = tempDirectory.resolve(pathArg);
                             }
                         }
 
-                        System.out.println(tempDirectory.toString());
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
                             String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
                             for (File file : getFileArray(pathFile)) {
-                                System.out.println(file.getName());
                                 addFileToCompletions(regex, completions, file);
                             }
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                                System.out.println(file.getName());
                                 addFileToCompletions(regex, completions, file);
                             }
                         }
@@ -209,12 +197,10 @@ class TabCompleter {
                         String[] pathArgs = args[2].split("/");
                         if (!args[2].endsWith("/")) {
                             for (int i = 0; i < pathArgs.length - 1; i++) {
-                                System.out.println(pathArgs[i]);
                                 tempDirectory = tempDirectory.resolve(pathArgs[i]);
                             }
                         } else {
                             for (String pathArg : pathArgs) {
-                                System.out.println(pathArg);
                                 tempDirectory = tempDirectory.resolve(pathArg);
                             }
                         }
