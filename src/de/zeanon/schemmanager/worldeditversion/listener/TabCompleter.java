@@ -6,6 +6,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -96,17 +97,13 @@ class TabCompleter {
                         }
                     }
                     if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
+                        Path tempDirectory = Helper.getSchemPath();
                         String[] pathArgs = args[2].split("/");
-                        StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath().toString() + "/");
                         for (int i = 0; i < pathArgs.length - 1; i++) {
-                            pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
-                        }
-                        if (args[2].endsWith("/")) {
-                            pathBuilder.append(pathArgs[pathArgs.length - 1]).append(DefaultHelper.slash);
-                            pathArgs[pathArgs.length - 1] = "";
+                            tempDirectory = tempDirectory.resolve(pathArgs[i]);
                         }
 
-                        File pathFile = new File(pathBuilder.toString());
+                        File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
                             for (File file : getFileArray(pathFile)) {
                                 addFileToCompletions(pathArgs[pathArgs.length - 1], completions, file);
@@ -125,6 +122,7 @@ class TabCompleter {
                             pathBuilder.append(pathArgs[pathArgs.length - 1]).append(DefaultHelper.slash);
                             pathArgs[pathArgs.length - 1] = "";
                         }
+                        System.out.println(pathBuilder.toString());
 
                         File pathFile = new File(pathBuilder.toString());
                         if (pathFile.exists() && pathFile.isDirectory()) {
