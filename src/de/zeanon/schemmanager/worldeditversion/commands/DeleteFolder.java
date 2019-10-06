@@ -37,7 +37,7 @@ public class DeleteFolder {
                             String parentName = null;
                             FileUtils.deleteDirectory(file);
                             if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                                parentName = DefaultHelper.deleteEmptyParent(file);
+                                parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(file);
                             }
                             p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was deleted successfully.");
                             if (parentName != null) {

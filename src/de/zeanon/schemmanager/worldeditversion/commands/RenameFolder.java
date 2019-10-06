@@ -18,8 +18,8 @@ public class RenameFolder {
     public static boolean onRenameFolder(Player p, String[] args) {
         try {
             Path schemFolderPath = Helper.getSchemPath();
-            File directory_old = new File(schemFolderPath + args[2]);
-            File directory_new = new File(schemFolderPath + args[3]);
+            File directory_old = schemFolderPath.resolve(args[2]).toFile();
+            File directory_new = schemFolderPath.resolve(args[3]).toFile();
 
             if (args.length == 4) {
                 if (!directory_old.exists() || !directory_old.isDirectory()) {
@@ -83,14 +83,14 @@ public class RenameFolder {
                 DefaultHelper.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem renamefolder " + args[2] + " " + args[3] + " confirm", "//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
                 Helper.addRenameFolderRequest(p, args[2]);
                 return true;
-            } else {
+            } else if (args.length == 5 && Helper.checkRenameFolderRequest(p, args[2])) {
                 if (args[4].equals("confirm")) {
                     Helper.removeRenameFolderRequest(p);
-                    if (!directory_old.exists() || !directory_old.isDirectory()) {
+                    if (directory_old.exists() && directory_old.isDirectory()) {
                         if (deepMerge(directory_old, directory_new)) {
                             try {
                                 FileUtils.deleteDirectory(directory_old);
-                                String parentName = DefaultHelper.deleteEmptyParent(directory_old);
+                                String parentName = Objects.requireNonNull(directory_old.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(directory_old);
                                 if (parentName != null) {
                                     p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
                                 }
@@ -117,6 +117,8 @@ public class RenameFolder {
                 } else {
                     return false;
                 }
+            } else {
+                return false;
             }
         } catch (IOException e) {
             e.printStackTrace();

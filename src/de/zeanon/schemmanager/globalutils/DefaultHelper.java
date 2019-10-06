@@ -462,6 +462,6 @@ public class DefaultHelper {
         if (file.getParentFile().delete()) {
             return deleteEmptyParent(file.getParentFile());
         }
-        return null;
+        return file.getName();
     }
 }
