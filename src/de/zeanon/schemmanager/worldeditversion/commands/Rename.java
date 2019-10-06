@@ -73,7 +73,7 @@ public class Rename {
                 }
             }
             for (File file : oldFiles) {
-                if (DefaultHelper.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultHelper.getExtension(destPath.toString()))::equalsIgnoreCase)) {
+                if (DefaultHelper.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultHelper.getExtension(destPath.toString()))::equals)) {
                     FileUtils.moveFile(file, destPath.resolve(DefaultHelper.getExtension(file.getName())).toFile());
                     if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
                         parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(file);
