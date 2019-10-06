@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Delete {
 
@@ -36,7 +37,7 @@ public class Delete {
                                 return false;
                             } else {
                                 if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                                    parentName = DefaultHelper.deleteEmptyParent(file);
+                                    parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? DefaultHelper.deleteEmptyParent(file) : null;
                                 }
                             }
                         }

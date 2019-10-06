@@ -74,14 +74,14 @@ public class Rename {
             }
             for (File file : oldFiles) {
                 if (DefaultHelper.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultHelper.getExtension(destPath.toString()))::equalsIgnoreCase)) {
-                    FileUtils.moveFile(file, new File(destPath + "." + DefaultHelper.getExtension(file.getName())));
+                    FileUtils.moveFile(file, destPath.resolve(DefaultHelper.getExtension(file.getName())).toFile());
                     if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                        parentName = DefaultHelper.deleteEmptyParent(file);
+                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? DefaultHelper.deleteEmptyParent(file) : null;
                     }
                 } else {
                     FileUtils.moveFile(file, destPath.toFile());
                     if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                        parentName = DefaultHelper.deleteEmptyParent(file);
+                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? DefaultHelper.deleteEmptyParent(file) : null;
                     }
                 }
             }
