@@ -83,7 +83,7 @@ public class RenameFolder {
                 DefaultHelper.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem renamefolder " + args[2] + " " + args[3] + " confirm", "//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
                 Helper.addRenameFolderRequest(p, args[2]);
                 return true;
-            } else {
+            } else if (args.length == 5 && Helper.checkRenameFolderRequest(p, args[2])) {
                 if (args[4].equals("confirm")) {
                     Helper.removeRenameFolderRequest(p);
                     if (directory_old.exists() && directory_old.isDirectory()) {
@@ -117,6 +117,8 @@ public class RenameFolder {
                 } else {
                     return false;
                 }
+            } else {
+                return false;
             }
         } catch (IOException e) {
             e.printStackTrace();

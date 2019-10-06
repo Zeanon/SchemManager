@@ -130,7 +130,7 @@ public class EventListener implements Listener {
                         String name = args[2].contains("./") ? args[2] : args[3];
                         p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
                         return renameFolderUsage(p, slash, schemAlias);
-                    } else if (args.length == 5 && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny") && !Helper.checkRenameFolderRequest(p, args[2])) {
+                    } else if (args.length == 5 && !args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny") && !Helper.checkRenameFolderRequest(p, args[2])) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return renameFolderUsage(p, slash, schemAlias);
                     } else {
