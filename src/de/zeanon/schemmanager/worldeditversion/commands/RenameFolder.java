@@ -4,6 +4,7 @@ import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -39,10 +40,10 @@ public class RenameFolder {
                                     String path;
                                     if (Objects.equals(DefaultHelper.getExtension(newFile.getName()), "schem")) {
                                         name = DefaultHelper.removeExtension(newFile.getName());
-                                        path = DefaultHelper.removeExtension(schemFolderPath.relativize(newFile.toPath().toRealPath()).toString());
+                                        path = FilenameUtils.separatorsToUnix(DefaultHelper.removeExtension(schemFolderPath.relativize(newFile.toPath().toRealPath()).toString()));
                                     } else {
                                         name = newFile.getName();
-                                        path = schemFolderPath.relativize(newFile.toPath().toRealPath()).toString();
+                                        path = FilenameUtils.separatorsToUnix(schemFolderPath.relativize(newFile.toPath().toRealPath()).toString());
                                     }
                                     DefaultHelper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + DefaultHelper.removeExtension(newFile.getName()) + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                                     id++;
@@ -61,7 +62,7 @@ public class RenameFolder {
                                     p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
                                 }
                                 String name = newFolder.getName();
-                                String path = schemFolderPath.relativize(newFolder.toPath().toRealPath()).toString();
+                                String path = FilenameUtils.separatorsToUnix(schemFolderPath.relativize(newFolder.toPath().toRealPath()).toString());
                                 DefaultHelper.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
                                 i++;
                             }

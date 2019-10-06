@@ -3,6 +3,7 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
@@ -221,7 +222,7 @@ public class Folder {
     private static void sendListLine(Player p, Path schemFolderPath, File file, int id, boolean deepSearch) {
         try {
             String name = file.getName();
-            String path = schemFolderPath.relativize(file.toPath().toRealPath()).toString();
+            String path = FilenameUtils.separatorsToUnix(schemFolderPath.relativize(file.toPath().toRealPath()).toString());
             if (deepSearch) {
                 DefaultHelper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
             } else {

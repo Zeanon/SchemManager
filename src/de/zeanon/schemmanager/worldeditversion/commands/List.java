@@ -4,6 +4,7 @@ import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.worldeditversion.helper.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
@@ -228,10 +229,10 @@ public class List {
             String path;
             if (Objects.equals(DefaultHelper.getExtension(file.getName()), "schem")) {
                 name = DefaultHelper.removeExtension(file.getName());
-                path = DefaultHelper.removeExtension(schemFolderPath.relativize(file.toPath().toRealPath()).toString());
+                path = FilenameUtils.separatorsToUnix(DefaultHelper.removeExtension(schemFolderPath.relativize(file.toPath().toRealPath()).toString()));
             } else {
                 name = file.getName();
-                path = schemFolderPath.relativize(file.toPath().toRealPath()).toString();
+                path = FilenameUtils.separatorsToUnix(schemFolderPath.relativize(file.toPath().toRealPath()).toString());
             }
             if (deepSearch) {
                 DefaultHelper.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
