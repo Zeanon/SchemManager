@@ -33,13 +33,12 @@ public class DefaultHelper {
     private static final ArrayList<String> disableRequests = new ArrayList<>();
     private static final ArrayList<String> updateRequests = new ArrayList<>();
     private static String pluginFolderPath;
-    public static String slash;
 
     /**
      * initiates the class
      */
     public static void initiate() {
-        slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
+        String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
         String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
         StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
         for (int i = 1; i < parts.length - 1; i++) {
