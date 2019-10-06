@@ -40,7 +40,7 @@ public class Rename {
                 if (args[4].equals("confirm")) {
                     Helper.removeRenameRequest(p);
                     if (oldFileExists) {
-                        return moveFile(p, args[2], oldFiles, newFiles, schemPath + args[3]);
+                        return moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
                     } else {
                         p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
                         return false;
@@ -63,7 +63,7 @@ public class Rename {
     }
 
 
-    private static boolean moveFile(Player p, String fileName, ArrayList<File> oldFiles, ArrayList<File> newFiles, String destPath) {
+    private static boolean moveFile(Player p, String fileName, ArrayList<File> oldFiles, ArrayList<File> newFiles, Path destPath) {
         try {
             String parentName = null;
             for (File file : newFiles) {
@@ -73,13 +73,13 @@ public class Rename {
                 }
             }
             for (File file : oldFiles) {
-                if (DefaultHelper.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultHelper.getExtension(destPath))::equalsIgnoreCase)) {
+                if (DefaultHelper.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultHelper.getExtension(destPath.toString()))::equalsIgnoreCase)) {
                     FileUtils.moveFile(file, new File(destPath + "." + DefaultHelper.getExtension(file.getName())));
                     if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
                         parentName = DefaultHelper.deleteEmptyParent(file);
                     }
                 } else {
-                    FileUtils.moveFile(file, new File(destPath));
+                    FileUtils.moveFile(file, destPath.toFile());
                     if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
                         parentName = DefaultHelper.deleteEmptyParent(file);
                     }
