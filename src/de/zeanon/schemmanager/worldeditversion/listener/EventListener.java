@@ -57,7 +57,7 @@ public class EventListener implements Listener {
                 return Help.onHelp(p, slash, schemAlias);
             } else if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del") && p.hasPermission("worldedit.schematic.delete"))) {
                 event.setCancelled(true);
-                if (args.length <= 4) {
+                if (args.length <= 5) {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
@@ -78,7 +78,7 @@ public class EventListener implements Listener {
                 }
             } else if ((args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("delfolder")) && p.hasPermission("worldedit.schematic.delete")) {
                 event.setCancelled(true);
-                if (args.length <= 4) {
+                if (args.length <= 5) {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GREEN
                                 + "filename" + ChatColor.YELLOW + ">");
