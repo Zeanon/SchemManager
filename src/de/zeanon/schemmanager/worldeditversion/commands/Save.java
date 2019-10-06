@@ -14,10 +14,10 @@ public class Save {
 
     public static boolean onSave(Player p, String[] args) {
         try {
-            File file = args[2].endsWith(".schem") ? Helper.getSchemPath().resolve(args[2]).toFile() : Helper.getSchemPath().resolve(args[2]).resolve(".schem").toFile();
+            File file = args[2].endsWith(".schem") ? Helper.getSchemPath().resolve(args[2]).toFile() : Helper.getSchemPath().resolve(args[2] + ".schem").toFile();
             final boolean fileExists = file.exists() && !file.isDirectory();
-
             LocalSession session = Helper.we.getSession(p);
+
             if (args.length == 3) {
                 try {
                     session.getClipboard();
