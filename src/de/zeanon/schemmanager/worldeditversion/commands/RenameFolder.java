@@ -18,8 +18,8 @@ public class RenameFolder {
     public static boolean onRenameFolder(Player p, String[] args) {
         try {
             Path schemFolderPath = Helper.getSchemPath();
-            File directory_old = new File(schemFolderPath + args[2]);
-            File directory_new = new File(schemFolderPath + args[3]);
+            File directory_old = schemFolderPath.resolve(args[2]).toFile();
+            File directory_new = schemFolderPath.resolve(args[3]).toFile();
 
             if (args.length == 4) {
                 if (!directory_old.exists() || !directory_old.isDirectory()) {

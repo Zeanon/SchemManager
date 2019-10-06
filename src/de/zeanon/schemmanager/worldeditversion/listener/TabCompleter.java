@@ -171,8 +171,8 @@ class TabCompleter {
                         }
                     } else if (args[1].equalsIgnoreCase("rename")) {
                         Path tempDirectory = Helper.getSchemPath();
-                        String[] pathArgs = args[2].split("/");
-                        if (!args[2].endsWith("/")) {
+                        String[] pathArgs = args[3].split("/");
+                        if (!args[3].endsWith("/")) {
                             for (int i = 0; i < pathArgs.length - 1; i++) {
                                 tempDirectory = tempDirectory.resolve(pathArgs[i]);
                             }
@@ -184,7 +184,7 @@ class TabCompleter {
 
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
-                            String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
+                            String regex = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
                             for (File file : getFileArray(pathFile)) {
                                 addFileToCompletions(regex, completions, file);
                             }
@@ -194,8 +194,8 @@ class TabCompleter {
                         }
                     } else if (args[1].equalsIgnoreCase("renamefolder")) {
                         Path tempDirectory = Helper.getSchemPath();
-                        String[] pathArgs = args[2].split("/");
-                        if (!args[2].endsWith("/")) {
+                        String[] pathArgs = args[3].split("/");
+                        if (!args[3].endsWith("/")) {
                             for (int i = 0; i < pathArgs.length - 1; i++) {
                                 tempDirectory = tempDirectory.resolve(pathArgs[i]);
                             }
@@ -208,7 +208,7 @@ class TabCompleter {
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                                String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
+                                String regex = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
                                 addFileToCompletions(regex, completions, file);
                             }
                         }
