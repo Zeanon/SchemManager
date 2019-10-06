@@ -115,13 +115,14 @@ class TabCompleter {
                         System.out.println(tempDirectory.toString());
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
+                            String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
                             for (File file : getFileArray(pathFile)) {
                                 System.out.println(file.getName());
-                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
+                                addFileToCompletions(regex, completions, file);
                             }
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
                                 System.out.println(file.getName());
-                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
+                                addFileToCompletions(regex, completions, file);
                             }
                         }
                     } else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
@@ -142,7 +143,8 @@ class TabCompleter {
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
+                                String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
+                                addFileToCompletions(regex, completions, file);
                             }
                         }
                     }
@@ -192,13 +194,14 @@ class TabCompleter {
                         System.out.println(tempDirectory.toString());
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
+                            String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
                             for (File file : getFileArray(pathFile)) {
                                 System.out.println(file.getName());
-                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
+                                addFileToCompletions(regex, completions, file);
                             }
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
                                 System.out.println(file.getName());
-                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
+                                addFileToCompletions(regex, completions, file);
                             }
                         }
                     } else if (args[1].equalsIgnoreCase("renamefolder")) {
@@ -219,7 +222,8 @@ class TabCompleter {
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
-                                addFileToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, file);
+                                String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
+                                addFileToCompletions(regex, completions, file);
                             }
                         }
                     }
