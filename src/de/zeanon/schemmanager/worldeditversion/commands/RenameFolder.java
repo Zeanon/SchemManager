@@ -86,7 +86,7 @@ public class RenameFolder {
             } else {
                 if (args[4].equals("confirm")) {
                     Helper.removeRenameFolderRequest(p);
-                    if (!directory_old.exists() || !directory_old.isDirectory()) {
+                    if (directory_old.exists() && directory_old.isDirectory()) {
                         if (deepMerge(directory_old, directory_new)) {
                             try {
                                 FileUtils.deleteDirectory(directory_old);
