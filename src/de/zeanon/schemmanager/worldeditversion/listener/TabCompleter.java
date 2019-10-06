@@ -97,7 +97,7 @@ class TabCompleter {
                     }
                     if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
                         String[] pathArgs = args[2].split("/");
-                        StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath().toString());
+                        StringBuilder pathBuilder = new StringBuilder(Helper.getSchemPath().toString() + "/");
                         for (int i = 0; i < pathArgs.length - 1; i++) {
                             pathBuilder.append(pathArgs[i]).append(DefaultHelper.slash);
                         }
