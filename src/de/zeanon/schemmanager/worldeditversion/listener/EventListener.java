@@ -39,18 +39,9 @@ public class EventListener implements Listener {
 
         if (args[0].equals("/schem") || args[0].equals("/schematic")
                 || args[0].equals("//schem") || args[0].equals("//schematic")) {
-            String slash;
-            if (args[0].equals("//schem") || args[0].equals("//schematic")) {
-                slash = "//";
-            } else {
-                slash = "/";
-            }
-            String schemAlias;
-            if (args[0].startsWith("/schematic") || args[0].startsWith("//schematic")) {
-                schemAlias = "schematic";
-            } else {
-                schemAlias = "schem";
-            }
+
+            String slash = args[0].equals("//schem") || args[0].equals("//schematic") ? "//" : "/";
+            String schemAlias = args[0].equals("/schematic") || args[0].equals("//schematic") ? "schematic" : "schem";
 
 
             if (args.length == 1) {
