@@ -47,15 +47,14 @@ public class SchemManager extends JavaPlugin {
             if (failedToLoad) {
                 System.out.println("[" + getName() + "] >> Could not load config files... unloading Plugin...");
                 RequestUtils.disable();
-                return;
             } else {
                 if (!Update.updateConfig(false)) {
                     RequestUtils.disable();
                 } else {
                     System.out.println("[" + getName() + "] >> Config files are loaded sucessfully");
+                    new WorldEditVersionMain().onEnable();
                 }
             }
-            new WorldEditVersionMain().onEnable();
         } else {
             System.out.println("[" + getName() + "] >> could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
             System.out.println("[" + getName() + "] >> it will automatically activate when one of the above gets enabled");
