@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
 import de.zeanon.schemmanager.globalutils.ConfigUtils;
-import de.zeanon.schemmanager.globalutils.ZeanonFileUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.globalutils.InternalFileUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.SchemUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -73,21 +73,21 @@ class WorldEditVersionTabCompleter {
                     completions.add("-deep");
                 }
                 if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
-                    Path schemPath = Helper.getSchemPath();
+                    Path schemPath = SchemUtils.getSchemPath();
                     File pathFile = schemPath != null ? schemPath.toFile() : null;
                     if (pathFile != null) {
                         for (File file : getFileArray(pathFile)) {
                             completions.add(file.getName());
                         }
-                        for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
+                        for (File file : InternalFileUtils.getFolders(pathFile, false)) {
                             completions.add(file.getName());
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
-                    Path schemPath = Helper.getSchemPath();
+                    Path schemPath = SchemUtils.getSchemPath();
                     File pathFile = schemPath != null ? schemPath.toFile() : null;
                     if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-                        for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
+                        for (File file : InternalFileUtils.getFolders(pathFile, false)) {
                             completions.add(file.getName());
                         }
                     }
@@ -102,7 +102,7 @@ class WorldEditVersionTabCompleter {
                     }
                 }
                 if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
-                    Path tempDirectory = Helper.getSchemPath();
+                    Path tempDirectory = SchemUtils.getSchemPath();
                     String[] pathArgs = args[2].split("/");
                     if (tempDirectory != null) {
                         if (!args[2].endsWith("/")) {
@@ -121,13 +121,13 @@ class WorldEditVersionTabCompleter {
                             for (File file : getFileArray(pathFile)) {
                                 addFileToCompletions(regex, completions, file);
                             }
-                            for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
+                            for (File file : InternalFileUtils.getFolders(pathFile, false)) {
                                 addFileToCompletions(regex, completions, file);
                             }
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
-                    Path tempDirectory = Helper.getSchemPath();
+                    Path tempDirectory = SchemUtils.getSchemPath();
                     String[] pathArgs = args[2].split("/");
                     if (tempDirectory != null) {
                         if (!args[2].endsWith("/")) {
@@ -142,7 +142,7 @@ class WorldEditVersionTabCompleter {
 
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
-                            for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
+                            for (File file : InternalFileUtils.getFolders(pathFile, false)) {
                                 String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
                                 addFileToCompletions(regex, completions, file);
                             }
@@ -157,23 +157,23 @@ class WorldEditVersionTabCompleter {
                         completions.addAll(ConfigUtils.getStringList("File Extensions"));
                         break;
                     case "rename": {
-                        Path schemPath = Helper.getSchemPath();
+                        Path schemPath = SchemUtils.getSchemPath();
                         File pathFile = schemPath != null ? schemPath.toFile() : null;
                         if (pathFile != null) {
                             for (File file : getFileArray(pathFile)) {
                                 completions.add(file.getName());
                             }
-                            for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
+                            for (File file : InternalFileUtils.getFolders(pathFile, false)) {
                                 completions.add(file.getName());
                             }
                         }
                         break;
                     }
                     case "renamefolder": {
-                        Path schemPath = Helper.getSchemPath();
+                        Path schemPath = SchemUtils.getSchemPath();
                         File pathFile = schemPath != null ? schemPath.toFile() : null;
                         if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-                            for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
+                            for (File file : InternalFileUtils.getFolders(pathFile, false)) {
                                 completions.add(file.getName());
                             }
                         }
@@ -190,7 +190,7 @@ class WorldEditVersionTabCompleter {
                         }
                         break;
                     case "rename": {
-                        Path tempDirectory = Helper.getSchemPath();
+                        Path tempDirectory = SchemUtils.getSchemPath();
                         if (tempDirectory != null) {
                             String[] pathArgs = args[3].split("/");
                             if (!args[3].endsWith("/")) {
@@ -209,7 +209,7 @@ class WorldEditVersionTabCompleter {
                                 for (File file : getFileArray(pathFile)) {
                                     addFileToCompletions(regex, completions, file);
                                 }
-                                for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
+                                for (File file : InternalFileUtils.getFolders(pathFile, false)) {
                                     addFileToCompletions(regex, completions, file);
                                 }
                             }
@@ -217,7 +217,7 @@ class WorldEditVersionTabCompleter {
                         break;
                     }
                     case "renamefolder": {
-                        Path tempDirectory = Helper.getSchemPath();
+                        Path tempDirectory = SchemUtils.getSchemPath();
                         if (tempDirectory != null) {
                             String[] pathArgs = args[3].split("/");
                             if (!args[3].endsWith("/")) {
@@ -232,7 +232,7 @@ class WorldEditVersionTabCompleter {
 
                             File pathFile = tempDirectory.toFile();
                             if (pathFile.exists() && pathFile.isDirectory()) {
-                                for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
+                                for (File file : InternalFileUtils.getFolders(pathFile, false)) {
                                     String regex = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
                                     addFileToCompletions(regex, completions, file);
                                 }
@@ -249,7 +249,7 @@ class WorldEditVersionTabCompleter {
     private static void addFileToCompletions(String regex, ArrayList<String> completions, File file) {
         try {
             if (((file.getName() + " ").toLowerCase()).startsWith(regex.toLowerCase())) {
-                Path schemPath = Helper.getSchemPath();
+                Path schemPath = SchemUtils.getSchemPath();
                 if (schemPath != null) {
                     String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
                     completions.add(path);

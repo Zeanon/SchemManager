@@ -1,8 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
+import de.zeanon.schemmanager.globalutils.InternalFileUtils;
 import de.zeanon.schemmanager.globalutils.MessageUtils;
-import de.zeanon.schemmanager.globalutils.ZeanonFileUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.SchemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -18,7 +19,7 @@ public class RenameFolder {
 
     public static boolean onRenameFolder(Player p, String[] args) {
         try {
-            Path schemPath = Helper.getSchemPath();
+            Path schemPath = SchemUtils.getSchemPath();
             File directory_old = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
             File directory_new = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
 
@@ -32,28 +33,28 @@ public class RenameFolder {
                     String[] extension = {"schematic", "schem"};
                     for (File oldFile : FileUtils.listFiles(directory_old, extension, true)) {
                         for (File newFile : FileUtils.listFiles(directory_new, extension, true)) {
-                            if (ZeanonFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(ZeanonFileUtils.removeExtension(oldFile.getName())) && newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
+                            if (InternalFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(InternalFileUtils.removeExtension(oldFile.getName())) && newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
                                 if (id == 0) {
                                     p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
                                 }
                                 String name;
                                 String path;
-                                if (ZeanonFileUtils.getExtension(newFile.getName()).equals("schem")) {
-                                    name = ZeanonFileUtils.removeExtension(newFile.getName());
-                                    path = FilenameUtils.separatorsToUnix(ZeanonFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
+                                if (InternalFileUtils.getExtension(newFile.getName()).equals("schem")) {
+                                    name = InternalFileUtils.removeExtension(newFile.getName());
+                                    path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
                                 } else {
                                     name = newFile.getName();
                                     path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());
                                 }
-                                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + ZeanonFileUtils.removeExtension(newFile.getName()) + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
+                                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + InternalFileUtils.removeExtension(newFile.getName()) + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                                 id++;
                             }
                         }
                     }
 
                     int i = 0;
-                    for (File oldFolder : ZeanonFileUtils.getFolders(directory_old, true)) {
-                        for (File newFolder : ZeanonFileUtils.getFolders(directory_new, true)) {
+                    for (File oldFolder : InternalFileUtils.getFolders(directory_old, true)) {
+                        for (File newFolder : InternalFileUtils.getFolders(directory_new, true)) {
                             if (newFolder.getName().equalsIgnoreCase(oldFolder.getName()) && newFolder.toPath().relativize(directory_new.toPath()).equals(oldFolder.toPath().relativize(directory_old.toPath()))) {
                                 if (i == 0) {
                                     p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
@@ -87,7 +88,7 @@ public class RenameFolder {
                         if (deepMerge(directory_old, directory_new)) {
                             try {
                                 FileUtils.deleteDirectory(directory_old);
-                                String parentName = Objects.requireNonNull(directory_old.getParentFile().listFiles()).length > 0 ? null : ZeanonFileUtils.deleteEmptyParent(directory_old);
+                                String parentName = Objects.requireNonNull(directory_old.getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(directory_old);
                                 if (parentName != null) {
                                     p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
                                 }

@@ -1,9 +1,10 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.globalutils.ConfigUtils;
+import de.zeanon.schemmanager.globalutils.InternalFileUtils;
 import de.zeanon.schemmanager.globalutils.MessageUtils;
-import de.zeanon.schemmanager.globalutils.ZeanonFileUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.SchemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
@@ -17,9 +18,9 @@ import java.util.Objects;
 public class Rename {
 
     public static boolean onRename(Player p, String[] args) {
-        Path schemPath = Helper.getSchemPath();
-        ArrayList<File> oldFiles = schemPath != null ? ZeanonFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
-        ArrayList<File> newFiles = schemPath != null ? ZeanonFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
+        Path schemPath = SchemUtils.getSchemPath();
+        ArrayList<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
+        ArrayList<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
         final boolean oldFileExists = oldFiles != null && oldFiles.size() > 0;
         final boolean newFileExists = newFiles != null && newFiles.size() > 0;
 
@@ -71,8 +72,8 @@ public class Rename {
             }
             String parentName = null;
             for (File file : oldFiles) {
-                if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(ZeanonFileUtils.getExtension(destPath.toString())::equals)) {
-                    FileUtils.moveFile(file, new File(destPath.toString() + ZeanonFileUtils.getExtension(file.getName())));
+                if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(InternalFileUtils.getExtension(destPath.toString())::equals)) {
+                    FileUtils.moveFile(file, new File(destPath.toString() + InternalFileUtils.getExtension(file.getName())));
                     parentName = getParentName(parentName, file);
                 } else {
                     FileUtils.moveFile(file, destPath.toFile());
@@ -92,8 +93,8 @@ public class Rename {
     }
 
     static String getParentName(String parentName, File file) {
-        if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-            parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : ZeanonFileUtils.deleteEmptyParent(file);
+        if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(SchemUtils.getSchemFolder())) {
+            parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
         }
         return parentName;
     }

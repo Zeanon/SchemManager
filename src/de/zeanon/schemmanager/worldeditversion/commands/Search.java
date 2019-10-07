@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.globalutils.ConfigUtils;
+import de.zeanon.schemmanager.globalutils.InternalFileUtils;
 import de.zeanon.schemmanager.globalutils.MessageUtils;
-import de.zeanon.schemmanager.globalutils.ZeanonFileUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.SchemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -21,7 +21,7 @@ public class Search {
 
     public static boolean onSearch(Player p, String[] args, Boolean deepSearch) {
         int listmax = ConfigUtils.getInt("Listmax");
-        Path schemPath = Helper.getSchemPath();
+        Path schemPath = SchemUtils.getSchemPath();
         boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
         String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
 
@@ -214,9 +214,9 @@ public class Search {
         try {
             String name;
             String path;
-            if (ZeanonFileUtils.getExtension(file.getName()).equals("schem")) {
-                name = ZeanonFileUtils.removeExtension(file.getName());
-                path = FilenameUtils.separatorsToUnix(ZeanonFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+            if (InternalFileUtils.getExtension(file.getName()).equals("schem")) {
+                name = InternalFileUtils.removeExtension(file.getName());
+                path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
             } else {
                 name = file.getName();
                 path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
@@ -234,7 +234,7 @@ public class Search {
     private static File[] getFileArray(File directory, String[] extensions, boolean deepSearch, String regex) {
         ArrayList<File> files = new ArrayList<>();
         for (File file : FileUtils.listFiles(directory, extensions, deepSearch)) {
-            if (ZeanonFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
+            if (InternalFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
                 files.add(file);
             }
         }

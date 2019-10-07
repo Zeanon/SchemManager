@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.globalutils.ConfigUtils;
+import de.zeanon.schemmanager.globalutils.InternalFileUtils;
 import de.zeanon.schemmanager.globalutils.MessageUtils;
-import de.zeanon.schemmanager.globalutils.ZeanonFileUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.SchemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
@@ -20,7 +20,7 @@ public class SearchFolder {
 
     public static boolean onSearchFolder(Player p, String[] args, Boolean deepSearch) {
         int listmax = ConfigUtils.getInt("Listmax");
-        Path schemPath = Helper.getSchemPath();
+        Path schemPath = SchemUtils.getSchemPath();
         boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
 
         String deep = "";
@@ -224,7 +224,7 @@ public class SearchFolder {
 
     private static File[] getFileArray(File directory, boolean deepSearch, String regex) {
         ArrayList<File> files = new ArrayList<>();
-        for (File file : ZeanonFileUtils.getFolders(directory, deepSearch)) {
+        for (File file : InternalFileUtils.getFolders(directory, deepSearch)) {
             if (file.getName().toLowerCase().contains(regex.toLowerCase())) {
                 files.add(file);
             }

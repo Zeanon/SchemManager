@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class ZeanonFileUtils {
+public class InternalFileUtils {
 
     private static String pluginFolderPath;
 

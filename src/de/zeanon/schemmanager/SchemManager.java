@@ -24,7 +24,7 @@ public class SchemManager extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        ZeanonFileUtils.initiate();
+        InternalFileUtils.initiate();
         PluginManager pm = Bukkit.getPluginManager();
         Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler());
         Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new TabCompleter());

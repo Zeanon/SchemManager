@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.globalutils.ConfigUtils;
+import de.zeanon.schemmanager.globalutils.InternalFileUtils;
 import de.zeanon.schemmanager.globalutils.MessageUtils;
-import de.zeanon.schemmanager.globalutils.ZeanonFileUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.SchemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
@@ -20,7 +20,7 @@ public class Folder {
 
     public static boolean onFolder(Player p, String[] args, boolean deepSearch) {
         int listmax = ConfigUtils.getInt("Listmax");
-        Path schemPath = Helper.getSchemPath();
+        Path schemPath = SchemUtils.getSchemPath();
         boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
 
         String deep = "";
@@ -34,7 +34,7 @@ public class Folder {
                 p.sendMessage(ChatColor.RED + "There is no schematic folder.");
                 return false;
             } else {
-                ArrayList<File> rawFiles = ZeanonFileUtils.getFolders(directory, deepSearch);
+                ArrayList<File> rawFiles = InternalFileUtils.getFolders(directory, deepSearch);
                 File[] files = rawFiles.toArray(new File[0]);
                 Arrays.sort(files);
                 double count = files.length;
@@ -72,7 +72,7 @@ public class Folder {
                     p.sendMessage(ChatColor.RED + "There is no schematic folder.");
                     return false;
                 } else {
-                    ArrayList<File> rawFiles = ZeanonFileUtils.getFolders(directory, deepSearch);
+                    ArrayList<File> rawFiles = InternalFileUtils.getFolders(directory, deepSearch);
                     File[] files = rawFiles.toArray(new File[0]);
                     Arrays.sort(files);
                     double count = files.length;
@@ -126,7 +126,7 @@ public class Folder {
                     p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                     return false;
                 } else {
-                    ArrayList<File> rawFiles = ZeanonFileUtils.getFolders(directory, deepSearch);
+                    ArrayList<File> rawFiles = InternalFileUtils.getFolders(directory, deepSearch);
                     File[] files = rawFiles.toArray(new File[0]);
                     Arrays.sort(files);
                     double count = files.length;
@@ -163,7 +163,7 @@ public class Folder {
                 p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                 return false;
             } else {
-                ArrayList<File> rawFiles = ZeanonFileUtils.getFolders(directory, deepSearch);
+                ArrayList<File> rawFiles = InternalFileUtils.getFolders(directory, deepSearch);
                 File[] files = rawFiles.toArray(new File[0]);
                 Arrays.sort(files);
                 double count = files.length;
