@@ -37,7 +37,7 @@ public class RenameFolder {
                                 }
                                 String name;
                                 String path;
-                                if (Objects.equals(DefaultUtils.getExtension(newFile.getName()), "schem")) {
+                                if (DefaultUtils.getExtension(newFile.getName()).equals("schem")) {
                                     name = DefaultUtils.removeExtension(newFile.getName());
                                     path = FilenameUtils.separatorsToUnix(DefaultUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
                                 } else {

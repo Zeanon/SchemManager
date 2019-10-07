@@ -288,7 +288,7 @@ public class DefaultUtils {
 
     public static ArrayList<File> getExistingFiles(Path path) {
         ArrayList<File> tempFiles = new ArrayList<>();
-        if (getStringList("File Extensions").stream().anyMatch(Objects.requireNonNull(getExtension(path.toString()))::equalsIgnoreCase)) {
+        if (getStringList("File Extensions").stream().anyMatch(getExtension(path.toString())::equalsIgnoreCase)) {
             File file = path.toFile();
             if (file.exists() && !file.isDirectory()) {
                 return new ArrayList<>(Collections.singletonList(file));

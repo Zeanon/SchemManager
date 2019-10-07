@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Objects;
 
 @SuppressWarnings("Duplicates")
 public class List {
@@ -221,7 +220,7 @@ public class List {
         try {
             String name;
             String path;
-            if (Objects.equals(DefaultUtils.getExtension(file.getName()), "schem")) {
+            if (DefaultUtils.getExtension(file.getName()).equals("schem")) {
                 name = DefaultUtils.removeExtension(file.getName());
                 path = FilenameUtils.separatorsToUnix(DefaultUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
             } else {

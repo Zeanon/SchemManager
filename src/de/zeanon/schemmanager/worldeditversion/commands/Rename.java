@@ -69,8 +69,8 @@ public class Rename {
             }
             String parentName = null;
             for (File file : oldFiles) {
-                if (DefaultUtils.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultUtils.getExtension(destPath.toString()))::equals)) {
-                    FileUtils.moveFile(file, destPath.resolve(DefaultUtils.getExtension(file.getName())).toFile());
+                if (DefaultUtils.getStringList("File Extensions").stream().noneMatch(DefaultUtils.getExtension(destPath.toString())::equals)) {
+                    FileUtils.moveFile(file, new File(destPath.toString() + DefaultUtils.getExtension(file.getName())));
                     if (DefaultUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
                         parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultUtils.deleteEmptyParent(file);
                     }
