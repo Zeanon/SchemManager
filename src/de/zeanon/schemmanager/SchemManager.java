@@ -49,7 +49,11 @@ public class SchemManager extends JavaPlugin {
                 RequestUtils.disable();
                 return;
             } else {
-                System.out.println("[" + getName() + "] >> Config files are loaded sucessfully");
+                if (!Update.updateConfig(false)) {
+                    RequestUtils.disable();
+                } else {
+                    System.out.println("[" + getName() + "] >> Config files are loaded sucessfully");
+                }
             }
             new WorldEditVersionMain().onEnable();
         } else {
