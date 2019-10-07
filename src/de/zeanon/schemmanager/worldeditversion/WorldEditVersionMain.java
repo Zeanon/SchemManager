@@ -2,13 +2,12 @@ package de.zeanon.schemmanager.worldeditversion;
 
 import de.leonhard.storage.Config;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.DefaultHelper;
+import de.zeanon.schemmanager.globalutils.DefaultUtils;
 import de.zeanon.schemmanager.worldeditversion.listener.EventListener;
 import de.zeanon.schemmanager.worldeditversion.utils.Helper;
 import org.bukkit.Bukkit;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 public class WorldEditVersionMain {
@@ -24,15 +23,9 @@ public class WorldEditVersionMain {
             e.printStackTrace();
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file");
         }
-        if (!DefaultHelper.updateConfig(false)) {
-            DefaultHelper.disable();
+        if (!DefaultUtils.updateConfig(false)) {
+            DefaultUtils.disable();
         } else {
-            try {
-                Helper.initSchemPath();
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder");
-            }
             Bukkit.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " launched successfully...");
         }

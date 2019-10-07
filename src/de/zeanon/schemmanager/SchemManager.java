@@ -2,8 +2,8 @@ package de.zeanon.schemmanager;
 
 import de.leonhard.storage.Config;
 import de.zeanon.schemmanager.globalutils.CommandHandler;
-import de.zeanon.schemmanager.globalutils.DefaultHelper;
 import de.zeanon.schemmanager.globalutils.DefaultTabCompleter;
+import de.zeanon.schemmanager.globalutils.DefaultUtils;
 import de.zeanon.schemmanager.globalutils.WakeupListener;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import org.bukkit.Bukkit;
@@ -27,7 +27,7 @@ public class SchemManager extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        DefaultHelper.initiate();
+        DefaultUtils.initiate();
         PluginManager pm = Bukkit.getPluginManager();
         Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler());
         Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new DefaultTabCompleter());
@@ -49,7 +49,7 @@ public class SchemManager extends JavaPlugin {
             }
             if (failedToLoad) {
                 System.out.println("[" + getName() + "] >> Could not load config files... unloading Plugin...");
-                DefaultHelper.disable();
+                DefaultUtils.disable();
                 return;
             } else {
                 System.out.println("[" + getName() + "] >> Config files are loaded sucessfully");

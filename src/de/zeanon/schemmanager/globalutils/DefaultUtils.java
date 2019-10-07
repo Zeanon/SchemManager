@@ -28,7 +28,7 @@ import java.util.*;
 /**
  * a Global Helper Class
  */
-public class DefaultHelper {
+public class DefaultUtils {
 
     private static final ArrayList<String> disableRequests = new ArrayList<>();
     private static final ArrayList<String> updateRequests = new ArrayList<>();
@@ -287,10 +287,10 @@ public class DefaultHelper {
     }
 
 
-    public static ArrayList<File> getExistingFiles(Path path) {
+    public static ArrayList<File> getExistingFiles(Path path) throws IOException {
         ArrayList<File> tempFiles = new ArrayList<>();
         if (getStringList("File Extensions").stream().anyMatch(Objects.requireNonNull(getExtension(path.toString()))::equalsIgnoreCase)) {
-            File file = path.toFile();
+            File file = path.toFile().getCanonicalFile();
             if (file.exists() && !file.isDirectory()) {
                 return new ArrayList<>(Collections.singletonList(file));
             }
@@ -299,7 +299,7 @@ public class DefaultHelper {
         ArrayList<File> files = new ArrayList<>();
         for (File file : tempFiles) {
             if (file.exists() && !file.isDirectory()) {
-                files.add(file);
+                files.add(file.getCanonicalFile());
             }
         }
         return files;

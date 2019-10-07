@@ -11,7 +11,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -185,7 +184,7 @@ public class Helper {
     }
 
 
-    public static Path getSchemPath() throws IOException {
+    public static Path getSchemPath() {
         if (WorldEditVersionMain.weConfig.hasNotChanged()) {
             return schemFolderPath;
         } else {
@@ -199,16 +198,16 @@ public class Helper {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static void initSchemPath() throws IOException {
+    public static void initSchemPath() {
         Path tempPath = Paths.get(WorldEditVersionMain.weConfig.getString("saving.dir"));
         if (tempPath.isAbsolute()) {
-            schemFolderPath = tempPath.toRealPath();
+            schemFolderPath = tempPath.normalize();
             schemFolder = schemFolderPath.toFile();
             if (!schemFolder.exists()) {
                 schemFolder.mkdirs();
             }
         } else {
-            schemFolderPath = Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEdit")).getDataFolder().toPath().resolve(tempPath).toRealPath();
+            schemFolderPath = Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEdit")).getDataFolder().toPath().resolve(tempPath).normalize();
             schemFolder = schemFolderPath.toFile();
             if (!schemFolder.exists()) {
                 schemFolder.mkdirs();

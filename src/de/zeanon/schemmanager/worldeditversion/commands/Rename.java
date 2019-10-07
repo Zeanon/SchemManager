@@ -1,6 +1,6 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import de.zeanon.schemmanager.globalutils.DefaultHelper;
+import de.zeanon.schemmanager.globalutils.DefaultUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
@@ -17,8 +17,8 @@ public class Rename {
     public static boolean onRename(Player p, String[] args) {
         try {
             Path schemPath = Helper.getSchemPath();
-            ArrayList<File> oldFiles = DefaultHelper.getExistingFiles(schemPath.resolve(args[2]));
-            ArrayList<File> newFiles = DefaultHelper.getExistingFiles(schemPath.resolve(args[3]));
+            ArrayList<File> oldFiles = DefaultUtils.getExistingFiles(schemPath.resolve(args[2]));
+            ArrayList<File> newFiles = DefaultUtils.getExistingFiles(schemPath.resolve(args[3]));
             final boolean oldFileExists = oldFiles.size() > 0;
             final boolean newFileExists = newFiles.size() > 0;
 
@@ -28,7 +28,7 @@ public class Rename {
                         p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
                     }
 
-                    DefaultHelper.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
+                    DefaultUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
                     Helper.addRenameRequest(p, args[2]);
                     return true;
 
@@ -73,15 +73,15 @@ public class Rename {
                 }
             }
             for (File file : oldFiles) {
-                if (DefaultHelper.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultHelper.getExtension(destPath.toString()))::equals)) {
-                    FileUtils.moveFile(file, destPath.resolve(DefaultHelper.getExtension(file.getName())).toFile());
-                    if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(file);
+                if (DefaultUtils.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultUtils.getExtension(destPath.toString()))::equals)) {
+                    FileUtils.moveFile(file, destPath.resolve(DefaultUtils.getExtension(file.getName())).toFile());
+                    if (DefaultUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
+                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultUtils.deleteEmptyParent(file);
                     }
                 } else {
                     FileUtils.moveFile(file, destPath.toFile());
-                    if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(file);
+                    if (DefaultUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
+                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultUtils.deleteEmptyParent(file);
                     }
                 }
             }
