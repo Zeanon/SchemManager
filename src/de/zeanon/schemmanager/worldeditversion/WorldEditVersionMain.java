@@ -2,8 +2,6 @@ package de.zeanon.schemmanager.worldeditversion;
 
 import de.leonhard.storage.Config;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.RequestUtils;
-import de.zeanon.schemmanager.globalutils.Update;
 import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
 import de.zeanon.schemmanager.worldeditversion.listener.EventListener;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
@@ -25,19 +23,15 @@ public class WorldEditVersionMain {
             e.printStackTrace();
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file");
         }
-        if (!Update.updateConfig(false)) {
-            RequestUtils.disable();
-        } else {
-            try {
-                WorldEditVersionSchemUtils.initWorldEditPlugin();
-                WorldEditVersionSchemUtils.initSchemPath();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder");
-            }
-            Bukkit.getPluginManager().registerEvents(new CommandListener(), SchemManager.getInstance());
-            Bukkit.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
-            System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " launched successfully...");
+        try {
+            WorldEditVersionSchemUtils.initWorldEditPlugin();
+            WorldEditVersionSchemUtils.initSchemPath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder");
         }
+        Bukkit.getPluginManager().registerEvents(new CommandListener(), SchemManager.getInstance());
+        Bukkit.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
+        System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " launched successfully...");
     }
 }
