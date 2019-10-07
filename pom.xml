@@ -4,6 +4,28 @@
     <groupId>de.zeanon</groupId>
     <artifactId>SchemManager</artifactId>
     <version>4.1.6</version>
+    <name>SchemManager</name>
+    <description>Manager your schematics properly</description>
+    <url>https://github.com/Zeanon/SchemManager</url>
+
+    <licenses>
+        <license>
+            <name>MIT License with non-profit condition</name>
+            <url>https://github.com/Zeanon/SchemManager/blob/v4.1.5/LICENSE</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Zeanon</name>
+            <email>thezeanon@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Leonhard Solbach</name>
+            <email>JavaFactoryDev@gmail.com</email>
+        </developer>
+    </developers>
+
     <build>
         <defaultGoal>clean install -U</defaultGoal>
         <finalName>${project.name}</finalName>
