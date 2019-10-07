@@ -455,7 +455,7 @@ public class DefaultHelper {
     }
 
     public static String getExtension(String path) {
-        return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : null;
+        return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : "";
     }
 
     public static String deleteEmptyParent(File file) {
