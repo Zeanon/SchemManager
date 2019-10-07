@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 /**
- * a Global Helper Class
+ * a Global WorldEditVersionRequestUtils Class
  */
 public class RequestUtils {
 

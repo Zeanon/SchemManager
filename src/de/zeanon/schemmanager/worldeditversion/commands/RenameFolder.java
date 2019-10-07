@@ -2,8 +2,8 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.globalutils.InternalFileUtils;
 import de.zeanon.schemmanager.globalutils.MessageUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
-import de.zeanon.schemmanager.worldeditversion.utils.SchemUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -19,7 +19,7 @@ public class RenameFolder {
 
     public static boolean onRenameFolder(Player p, String[] args) {
         try {
-            Path schemPath = SchemUtils.getSchemPath();
+            Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
             File directory_old = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
             File directory_new = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
 
@@ -79,11 +79,11 @@ public class RenameFolder {
                     }
                 }
                 MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem renamefolder " + args[2] + " " + args[3] + " confirm", "//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
-                Helper.addRenameFolderRequest(p, args[2]);
+                WorldEditVersionRequestUtils.addRenameFolderRequest(p, args[2]);
                 return true;
-            } else if (args.length == 5 && Helper.checkRenameFolderRequest(p, args[2])) {
+            } else if (args.length == 5 && WorldEditVersionRequestUtils.checkRenameFolderRequest(p, args[2])) {
                 if (args[4].equalsIgnoreCase("confirm")) {
-                    Helper.removeRenameFolderRequest(p);
+                    WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
                     if (directory_old != null && directory_old.exists() && directory_old.isDirectory()) {
                         if (deepMerge(directory_old, directory_new)) {
                             try {
@@ -97,7 +97,7 @@ public class RenameFolder {
                             } catch (IOException e) {
                                 e.printStackTrace();
                                 p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " could not be renamed.");
-                                Helper.removeRenameFolderRequest(p);
+                                WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
                                 return false;
                             }
                         } else {
@@ -109,7 +109,7 @@ public class RenameFolder {
                         return false;
                     }
                 } else if (args[4].equalsIgnoreCase("deny")) {
-                    Helper.removeRenameFolderRequest(p);
+                    WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
                     p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not renamed");
                     return true;
                 } else {

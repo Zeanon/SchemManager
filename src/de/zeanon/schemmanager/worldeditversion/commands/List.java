@@ -3,7 +3,7 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 import de.zeanon.schemmanager.globalutils.ConfigUtils;
 import de.zeanon.schemmanager.globalutils.InternalFileUtils;
 import de.zeanon.schemmanager.globalutils.MessageUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.SchemUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -21,7 +21,7 @@ public class List {
 
     public static boolean onList(Player p, String[] args, boolean deepSearch) {
         int listmax = ConfigUtils.getInt("Listmax");
-        Path schemPath = SchemUtils.getSchemPath();
+        Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
         String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
 

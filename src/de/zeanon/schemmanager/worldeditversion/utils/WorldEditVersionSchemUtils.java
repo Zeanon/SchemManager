@@ -10,11 +10,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-public class SchemUtils {
+public class WorldEditVersionSchemUtils {
 
-    public final static WorldEditPlugin we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
+    private static WorldEditPlugin we;
     private static File schemFolder;
     private static Path schemFolderPath;
+
+    public static void initWorldEditPlugin() {
+        we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
+    }
+
+    public static WorldEditPlugin getWorldEditPlugin() {
+        return we;
+    }
 
     public static Path getSchemPath() {
         if (WorldEditVersionMain.weConfig.hasNotChanged()) {

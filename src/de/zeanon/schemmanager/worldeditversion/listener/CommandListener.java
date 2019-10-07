@@ -3,7 +3,8 @@ package de.zeanon.schemmanager.worldeditversion.listener;
 import de.zeanon.schemmanager.globalutils.ConfigUtils;
 import de.zeanon.schemmanager.globalutils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.commands.*;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldeditVersionMessageUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -41,7 +42,7 @@ public class CommandListener implements Listener {
                     } else if (args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return deleteUsage(p, slash, schemAlias);
-                    } else if (args.length == 4 && !Helper.checkDeleteFolderRequest(p, args[2])
+                    } else if (args.length == 4 && !WorldEditVersionRequestUtils.checkDeleteFolderRequest(p, args[2])
                             && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return deleteUsage(p, slash, schemAlias);
@@ -62,7 +63,7 @@ public class CommandListener implements Listener {
                     } else if (args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return deleteFolderUsage(p, slash, schemAlias);
-                    } else if (args.length == 4 && !Helper.checkDeleteFolderRequest(p, args[2])
+                    } else if (args.length == 4 && !WorldEditVersionRequestUtils.checkDeleteFolderRequest(p, args[2])
                             && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return deleteFolderUsage(p, slash, schemAlias);
@@ -84,7 +85,7 @@ public class CommandListener implements Listener {
                         String name = args[2].contains("./") ? args[2] : args[3];
                         p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
                         return renameUsage(p, slash, schemAlias);
-                    } else if (args.length == 5 && !Helper.checkRenameRequest(p, args[2])
+                    } else if (args.length == 5 && !WorldEditVersionRequestUtils.checkRenameRequest(p, args[2])
                             && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return renameUsage(p, slash, schemAlias);
@@ -106,7 +107,7 @@ public class CommandListener implements Listener {
                         String name = args[2].contains("./") ? args[2] : args[3];
                         p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
                         return renameFolderUsage(p, slash, schemAlias);
-                    } else if (args.length == 5 && !args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny") && !Helper.checkRenameFolderRequest(p, args[2])) {
+                    } else if (args.length == 5 && !args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny") && !WorldEditVersionRequestUtils.checkRenameFolderRequest(p, args[2])) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return renameFolderUsage(p, slash, schemAlias);
                     } else {
@@ -174,7 +175,7 @@ public class CommandListener implements Listener {
                     } else if (args.length > 4) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return saveUsage(p, slash, schemAlias);
-                    } else if (args.length == 4 && !Helper.checkOverWriteRequest(p, args[2]) && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
+                    } else if (args.length == 4 && !WorldEditVersionRequestUtils.checkOverWriteRequest(p, args[2]) && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return saveUsage(p, slash, schemAlias);
                     } else {
@@ -328,7 +329,7 @@ public class CommandListener implements Listener {
                         + ChatColor.GOLD + "deletefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "list"
                         + ChatColor.RED + ", " + ChatColor.GOLD + "folder" + ChatColor.RED + ", " + ChatColor.GOLD
                         + "search" + ChatColor.RED + ", " + ChatColor.GOLD + "searchfolder");
-                Helper.sendInvalidSubCommand(p, slash, schemAlias);
+                WorldeditVersionMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
                 return true;
             }
         } else if (args[0].equalsIgnoreCase("/stoplag") && EventListener.worldguardEnabled && ConfigUtils.getBoolean("Stoplag Override")) {

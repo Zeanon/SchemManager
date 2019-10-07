@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.worldeditversion.listener;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.globalutils.RequestUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -33,11 +33,11 @@ public class EventListener implements Listener {
         Player p = event.getPlayer();
         RequestUtils.removeDisableRequest(p);
         RequestUtils.removeUpdateRequest(p);
-        Helper.removeDeleteRequest(p);
-        Helper.removeDeleteFolderRequest(p);
-        Helper.removeRenameRequest(p);
-        Helper.removeRenameFolderRequest(p);
-        Helper.removeOverWriteRequest(p);
+        WorldEditVersionRequestUtils.removeDeleteRequest(p);
+        WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
+        WorldEditVersionRequestUtils.removeRenameRequest(p);
+        WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
+        WorldEditVersionRequestUtils.removeOverWriteRequest(p);
     }
 
 

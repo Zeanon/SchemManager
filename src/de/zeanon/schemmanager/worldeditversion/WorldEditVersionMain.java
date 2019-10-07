@@ -6,7 +6,7 @@ import de.zeanon.schemmanager.globalutils.RequestUtils;
 import de.zeanon.schemmanager.globalutils.Update;
 import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
 import de.zeanon.schemmanager.worldeditversion.listener.EventListener;
-import de.zeanon.schemmanager.worldeditversion.utils.SchemUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import org.bukkit.Bukkit;
 
 import java.io.File;
@@ -29,7 +29,8 @@ public class WorldEditVersionMain {
             RequestUtils.disable();
         } else {
             try {
-                SchemUtils.initSchemPath();
+                WorldEditVersionSchemUtils.initWorldEditPlugin();
+                WorldEditVersionSchemUtils.initSchemPath();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder");

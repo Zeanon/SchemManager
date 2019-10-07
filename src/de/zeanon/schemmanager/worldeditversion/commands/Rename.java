@@ -3,8 +3,8 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 import de.zeanon.schemmanager.globalutils.ConfigUtils;
 import de.zeanon.schemmanager.globalutils.InternalFileUtils;
 import de.zeanon.schemmanager.globalutils.MessageUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
-import de.zeanon.schemmanager.worldeditversion.utils.SchemUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
@@ -18,7 +18,7 @@ import java.util.Objects;
 public class Rename {
 
     public static boolean onRename(Player p, String[] args) {
-        Path schemPath = SchemUtils.getSchemPath();
+        Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         ArrayList<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
         ArrayList<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
         final boolean oldFileExists = oldFiles != null && oldFiles.size() > 0;
@@ -31,16 +31,16 @@ public class Rename {
                 }
 
                 MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
-                Helper.addRenameRequest(p, args[2]);
+                WorldEditVersionRequestUtils.addRenameRequest(p, args[2]);
                 return true;
 
             } else {
                 p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
                 return false;
             }
-        } else if (args.length == 5 && Helper.checkRenameRequest(p, args[2])) {
+        } else if (args.length == 5 && WorldEditVersionRequestUtils.checkRenameRequest(p, args[2])) {
             if (args[4].equalsIgnoreCase("confirm")) {
-                Helper.removeRenameRequest(p);
+                WorldEditVersionRequestUtils.removeRenameRequest(p);
                 if (oldFileExists) {
                     return moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
                 } else {
@@ -48,7 +48,7 @@ public class Rename {
                     return false;
                 }
             } else if (args[4].equalsIgnoreCase("deny")) {
-                Helper.removeRenameRequest(p);
+                WorldEditVersionRequestUtils.removeRenameRequest(p);
                 p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed.");
                 return true;
             } else {
@@ -93,7 +93,7 @@ public class Rename {
     }
 
     static String getParentName(String parentName, File file) {
-        if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(SchemUtils.getSchemFolder())) {
+        if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
             parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
         }
         return parentName;

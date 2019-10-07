@@ -1,7 +1,8 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.globalutils.MessageUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ import java.util.Objects;
 public class DeleteFolder {
 
     public static boolean onDeleteFolder(Player p, String[] args) {
-        Path schemPath = Helper.getSchemPath();
+        Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         File file = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
         final boolean fileExists = file != null && file.exists() && file.isDirectory();
 
@@ -24,15 +25,15 @@ public class DeleteFolder {
                     MessageUtils.sendInvertedCommandMessage(ChatColor.RED + " still contains files.", ChatColor.GREEN + args[2], ChatColor.RED + "Open " + ChatColor.GREEN + args[2], "//schem list " + args[2], p);
                 }
                 MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem delfolder " + args[2] + " confirm", "//schem delfolder " + args[2] + " deny", p);
-                Helper.addDeleteFolderRequest(p, args[2]);
+                WorldEditVersionRequestUtils.addDeleteFolderRequest(p, args[2]);
                 return true;
             } else {
                 p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
                 return false;
             }
-        } else if (args.length == 4 && Helper.checkDeleteFolderRequest(p, args[2])) {
+        } else if (args.length == 4 && WorldEditVersionRequestUtils.checkDeleteFolderRequest(p, args[2])) {
             if (args[3].equalsIgnoreCase("confirm")) {
-                Helper.removeDeleteFolderRequest(p);
+                WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
                 if (fileExists) {
                     try {
                         String parentName = null;
@@ -53,7 +54,7 @@ public class DeleteFolder {
                     return false;
                 }
             } else if (args[3].equalsIgnoreCase("deny")) {
-                Helper.removeDeleteFolderRequest(p);
+                WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
                 p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not deleted.");
                 return true;
             } else {

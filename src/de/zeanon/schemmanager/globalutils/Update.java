@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.globalutils;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -106,7 +106,7 @@ public class Update {
             boolean autoReload = !SchemManager.config.contains("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
             boolean deleteEmptyFolders = !SchemManager.config.contains("Delete empty Folders") || SchemManager.config.getBoolean("Delete empty Folders");
 
-            if (writeToFile(new File(SchemManager.getInstance().getDataFolder(), "config.yml"), new BufferedInputStream(Objects.requireNonNull(Helper.class.getClassLoader().getResourceAsStream("config.yml"))))) {
+            if (writeToFile(new File(SchemManager.getInstance().getDataFolder(), "config.yml"), new BufferedInputStream(Objects.requireNonNull(WorldEditVersionRequestUtils.class.getClassLoader().getResourceAsStream("config.yml"))))) {
                 SchemManager.config.update();
 
                 SchemManager.config.set("Plugin Version", SchemManager.getInstance().getDescription().getVersion());
