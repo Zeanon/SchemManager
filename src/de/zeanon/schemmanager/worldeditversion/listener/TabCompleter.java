@@ -250,7 +250,7 @@ class TabCompleter {
             if (((file.getName() + " ").toLowerCase()).startsWith(regex.toLowerCase())) {
                 Path schemPath = Helper.getSchemPath();
                 if (schemPath != null) {
-                    String path = FilenameUtils.separatorsToUnix(DefaultUtils.removeExtension(schemPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+                    String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
                     completions.add(path);
                 }
             }
