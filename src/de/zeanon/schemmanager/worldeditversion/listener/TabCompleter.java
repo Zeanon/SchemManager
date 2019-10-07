@@ -236,7 +236,7 @@ class TabCompleter {
 
     private static void addFileToCompletions(String regex, ArrayList<String> completions, File file) {
         try {
-            if (((file.getName() + " ").toLowerCase()).startsWith(regex)) {
+            if (((file.getName() + " ").toLowerCase()).startsWith(regex.toLowerCase())) {
                 String path = FilenameUtils.separatorsToUnix(DefaultHelper.removeExtension(Helper.getSchemPath().relativize(file.toPath().toRealPath()).toString()));
                 completions.add(path);
             }
