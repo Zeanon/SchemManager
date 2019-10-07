@@ -124,7 +124,7 @@ public class List {
                 }
             } else {
                 File directory = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
-                if (directory == null || directory.exists() || !directory.isDirectory()) {
+                if (directory == null || !directory.exists() || !directory.isDirectory()) {
                     p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                     return false;
                 } else {
