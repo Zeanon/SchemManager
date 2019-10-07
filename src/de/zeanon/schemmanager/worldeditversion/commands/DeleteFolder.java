@@ -8,13 +8,15 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Objects;
 
 public class DeleteFolder {
 
     public static boolean onDeleteFolder(Player p, String[] args) {
-        File file = Helper.getSchemPath().resolve(args[2]).toFile();
-        final boolean fileExists = file.exists() && file.isDirectory();
+        Path schemPath = Helper.getSchemPath();
+        File file = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+        final boolean fileExists = file != null && file.exists() && file.isDirectory();
 
         if (args.length == 3) {
             if (fileExists) {

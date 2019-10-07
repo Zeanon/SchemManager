@@ -8,12 +8,14 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public class Save {
 
     public static boolean onSave(Player p, String[] args) {
-        File file = args[2].endsWith(".schem") ? Helper.getSchemPath().resolve(args[2]).toFile() : Helper.getSchemPath().resolve(args[2] + ".schem").toFile();
-        final boolean fileExists = file.exists() && !file.isDirectory();
+        Path schemPath = Helper.getSchemPath();
+        File file = schemPath != null ? (args[2].endsWith(".schem") ? Helper.getSchemPath().resolve(args[2]).toFile() : Helper.getSchemPath().resolve(args[2] + ".schem").toFile()) : null;
+        final boolean fileExists = file != null && file.exists() && !file.isDirectory();
         LocalSession session = Helper.we.getSession(p);
 
         if (args.length == 3) {

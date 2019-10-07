@@ -15,49 +15,43 @@ import java.util.Objects;
 public class Rename {
 
     public static boolean onRename(Player p, String[] args) {
-        try {
-            Path schemPath = Helper.getSchemPath();
-            ArrayList<File> oldFiles = DefaultUtils.getExistingFiles(schemPath.resolve(args[2]));
-            ArrayList<File> newFiles = DefaultUtils.getExistingFiles(schemPath.resolve(args[3]));
-            final boolean oldFileExists = oldFiles.size() > 0;
-            final boolean newFileExists = newFiles.size() > 0;
+        Path schemPath = Helper.getSchemPath();
+        ArrayList<File> oldFiles = schemPath != null ? DefaultUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
+        ArrayList<File> newFiles = schemPath != null ? DefaultUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
+        final boolean oldFileExists = oldFiles != null && oldFiles.size() > 0;
+        final boolean newFileExists = newFiles != null && newFiles.size() > 0;
 
-            if (args.length == 4) {
+        if (args.length == 4) {
+            if (oldFileExists) {
+                if (newFileExists) {
+                    p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
+                }
+
+                DefaultUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
+                Helper.addRenameRequest(p, args[2]);
+                return true;
+
+            } else {
+                p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
+                return false;
+            }
+        } else if (args.length == 5 && Helper.checkRenameRequest(p, args[2])) {
+            if (args[4].equalsIgnoreCase("confirm")) {
+                Helper.removeRenameRequest(p);
                 if (oldFileExists) {
-                    if (newFileExists) {
-                        p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
-                    }
-
-                    DefaultUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
-                    Helper.addRenameRequest(p, args[2]);
-                    return true;
-
+                    return moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
                 } else {
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
                     return false;
                 }
-            } else if (args.length == 5 && Helper.checkRenameRequest(p, args[2])) {
-                if (args[4].equalsIgnoreCase("confirm")) {
-                    Helper.removeRenameRequest(p);
-                    if (oldFileExists) {
-                        return moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
-                    } else {
-                        p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
-                        return false;
-                    }
-                } else if (args[4].equalsIgnoreCase("deny")) {
-                    Helper.removeRenameRequest(p);
-                    p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed.");
-                    return true;
-                } else {
-                    return false;
-                }
+            } else if (args[4].equalsIgnoreCase("deny")) {
+                Helper.removeRenameRequest(p);
+                p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed.");
+                return true;
             } else {
                 return false;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            p.sendMessage(ChatColor.RED + "Could not find Schematic folder.");
+        } else {
             return false;
         }
     }
@@ -65,13 +59,15 @@ public class Rename {
 
     private static boolean moveFile(Player p, String fileName, ArrayList<File> oldFiles, ArrayList<File> newFiles, Path destPath) {
         try {
-            String parentName = null;
-            for (File file : newFiles) {
-                if (!file.delete()) {
-                    p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed.");
-                    return false;
+            if (newFiles != null) {
+                for (File file : newFiles) {
+                    if (!file.delete()) {
+                        p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed.");
+                        return false;
+                    }
                 }
             }
+            String parentName = null;
             for (File file : oldFiles) {
                 if (DefaultUtils.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultUtils.getExtension(destPath.toString()))::equals)) {
                     FileUtils.moveFile(file, destPath.resolve(DefaultUtils.getExtension(file.getName())).toFile());

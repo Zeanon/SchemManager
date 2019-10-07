@@ -287,10 +287,10 @@ public class DefaultUtils {
     }
 
 
-    public static ArrayList<File> getExistingFiles(Path path) throws IOException {
+    public static ArrayList<File> getExistingFiles(Path path) {
         ArrayList<File> tempFiles = new ArrayList<>();
         if (getStringList("File Extensions").stream().anyMatch(Objects.requireNonNull(getExtension(path.toString()))::equalsIgnoreCase)) {
-            File file = path.toFile().getCanonicalFile();
+            File file = path.toFile();
             if (file.exists() && !file.isDirectory()) {
                 return new ArrayList<>(Collections.singletonList(file));
             }
@@ -299,7 +299,7 @@ public class DefaultUtils {
         ArrayList<File> files = new ArrayList<>();
         for (File file : tempFiles) {
             if (file.exists() && !file.isDirectory()) {
-                files.add(file.getCanonicalFile());
+                files.add(file);
             }
         }
         return files;

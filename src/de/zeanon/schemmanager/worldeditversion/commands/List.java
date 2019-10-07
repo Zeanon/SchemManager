@@ -20,7 +20,7 @@ public class List {
 
     public static boolean onList(Player p, String[] args, boolean deepSearch) {
         int listmax = DefaultUtils.getInt("Listmax");
-        Path schemFolderPath = Helper.getSchemPath();
+        Path schemPath = Helper.getSchemPath();
         boolean spaceLists = DefaultUtils.getBoolean("Space Lists");
         String[] extensions = DefaultUtils.getStringList("File Extensions").toArray(new String[0]);
 
@@ -30,8 +30,8 @@ public class List {
         }
 
         if (args.length == 2) {
-            File directory = schemFolderPath.toFile();
-            if (!directory.exists() || !directory.isDirectory()) {
+            File directory = schemPath != null ? schemPath.toFile() : null;
+            if (directory == null || !directory.exists() || !directory.isDirectory()) {
                 p.sendMessage(ChatColor.RED + "There is no schematic folder.");
                 return false;
             } else {
@@ -54,7 +54,7 @@ public class List {
                         listmax = (int) count;
                     }
                     for (int i = 0; i < listmax; i++) {
-                        sendListLine(p, schemFolderPath, files[i], i, deepSearch);
+                        sendListLine(p, schemPath, files[i], i, deepSearch);
                     }
 
                     if (side > 1) {
@@ -68,8 +68,8 @@ public class List {
             }
         } else if (args.length == 3) {
             if (StringUtils.isNumeric(args[2])) {
-                File directory = schemFolderPath.toFile();
-                if (!directory.exists() || !directory.isDirectory()) {
+                File directory = schemPath != null ? schemPath.toFile() : null;
+                if (directory == null || !directory.exists() || !directory.isDirectory()) {
                     p.sendMessage(ChatColor.RED + "There is no schematic folder.");
                     return false;
                 } else {
@@ -98,7 +98,7 @@ public class List {
                             listmax = (int) count - (listmax * (side_number - 1));
                         }
                         for (int i = 0; i < listmax; i++) {
-                            sendListLine(p, schemFolderPath, files[id], id, deepSearch);
+                            sendListLine(p, schemPath, files[id], id, deepSearch);
                             id++;
                         }
 
@@ -122,8 +122,8 @@ public class List {
                     }
                 }
             } else {
-                File directory = schemFolderPath.resolve(args[2]).toFile();
-                if (!directory.exists() || !directory.isDirectory()) {
+                File directory = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+                if (directory == null || directory.exists() || !directory.isDirectory()) {
                     p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                     return false;
                 } else {
@@ -146,7 +146,7 @@ public class List {
                             listmax = (int) count;
                         }
                         for (int i = 0; i < listmax; i++) {
-                            sendListLine(p, schemFolderPath, files[i], i, deepSearch);
+                            sendListLine(p, schemPath, files[i], i, deepSearch);
                         }
 
                         if (side > 1) {
@@ -160,8 +160,8 @@ public class List {
                 }
             }
         } else {
-            File directory = schemFolderPath.resolve(args[2]).toFile();
-            if (!directory.exists() || !directory.isDirectory()) {
+            File directory = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+            if (directory == null || !directory.exists() || !directory.isDirectory()) {
                 p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                 return false;
             } else {
@@ -190,7 +190,7 @@ public class List {
                         listmax = (int) count - (listmax * (side_number - 1));
                     }
                     for (int i = 0; i < listmax; i++) {
-                        sendListLine(p, schemFolderPath, files[id], id, deepSearch);
+                        sendListLine(p, schemPath, files[id], id, deepSearch);
                         id++;
                     }
 
@@ -223,10 +223,10 @@ public class List {
             String path;
             if (Objects.equals(DefaultUtils.getExtension(file.getName()), "schem")) {
                 name = DefaultUtils.removeExtension(file.getName());
-                path = FilenameUtils.separatorsToUnix(DefaultUtils.removeExtension(schemFolderPath.relativize(file.toPath().toRealPath()).toString()));
+                path = FilenameUtils.separatorsToUnix(DefaultUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
             } else {
                 name = file.getName();
-                path = FilenameUtils.separatorsToUnix(schemFolderPath.relativize(file.toPath().toRealPath()).toString());
+                path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
             }
             if (deepSearch) {
                 DefaultUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);

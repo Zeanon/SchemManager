@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -188,8 +189,13 @@ public class Helper {
         if (WorldEditVersionMain.weConfig.hasNotChanged()) {
             return schemFolderPath;
         } else {
-            initSchemPath();
-            return schemFolderPath;
+            try {
+                initSchemPath();
+                return schemFolderPath;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 
@@ -197,20 +203,23 @@ public class Helper {
         return schemFolder;
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static void initSchemPath() {
+    public static void initSchemPath() throws FileNotFoundException {
         Path tempPath = Paths.get(WorldEditVersionMain.weConfig.getString("saving.dir"));
         if (tempPath.isAbsolute()) {
             schemFolderPath = tempPath.normalize();
             schemFolder = schemFolderPath.toFile();
             if (!schemFolder.exists()) {
-                schemFolder.mkdirs();
+                if (!schemFolder.mkdirs()) {
+                    throw new FileNotFoundException();
+                }
             }
         } else {
             schemFolderPath = Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEdit")).getDataFolder().toPath().resolve(tempPath).normalize();
             schemFolder = schemFolderPath.toFile();
             if (!schemFolder.exists()) {
-                schemFolder.mkdirs();
+                if (!schemFolder.mkdirs()) {
+                    throw new FileNotFoundException();
+                }
             }
         }
     }
