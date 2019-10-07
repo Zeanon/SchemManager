@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
-import de.zeanon.schemmanager.globalutils.DefaultUtils;
+import de.zeanon.schemmanager.globalutils.ConfigUtils;
+import de.zeanon.schemmanager.globalutils.ZeanonFileUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.Helper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -13,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-class TabCompleter {
+class WorldEditVersionTabCompleter {
 
     @SuppressWarnings("Duplicates")
     static List<String> onTab(String[] args, String buffer, boolean alreadyDeep, boolean argumentEnded) {
@@ -78,7 +79,7 @@ class TabCompleter {
                         for (File file : getFileArray(pathFile)) {
                             completions.add(file.getName());
                         }
-                        for (File file : DefaultUtils.getFolders(pathFile, false)) {
+                        for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
                             completions.add(file.getName());
                         }
                     }
@@ -86,7 +87,7 @@ class TabCompleter {
                     Path schemPath = Helper.getSchemPath();
                     File pathFile = schemPath != null ? schemPath.toFile() : null;
                     if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-                        for (File file : DefaultUtils.getFolders(pathFile, false)) {
+                        for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
                             completions.add(file.getName());
                         }
                     }
@@ -120,7 +121,7 @@ class TabCompleter {
                             for (File file : getFileArray(pathFile)) {
                                 addFileToCompletions(regex, completions, file);
                             }
-                            for (File file : DefaultUtils.getFolders(pathFile, false)) {
+                            for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
                                 addFileToCompletions(regex, completions, file);
                             }
                         }
@@ -141,7 +142,7 @@ class TabCompleter {
 
                         File pathFile = tempDirectory.toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
-                            for (File file : DefaultUtils.getFolders(pathFile, false)) {
+                            for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
                                 String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
                                 addFileToCompletions(regex, completions, file);
                             }
@@ -153,7 +154,7 @@ class TabCompleter {
             if (argumentEnded) {
                 switch (args[1]) {
                     case "load":
-                        completions.addAll(DefaultUtils.getStringList("File Extensions"));
+                        completions.addAll(ConfigUtils.getStringList("File Extensions"));
                         break;
                     case "rename": {
                         Path schemPath = Helper.getSchemPath();
@@ -162,7 +163,7 @@ class TabCompleter {
                             for (File file : getFileArray(pathFile)) {
                                 completions.add(file.getName());
                             }
-                            for (File file : DefaultUtils.getFolders(pathFile, false)) {
+                            for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
                                 completions.add(file.getName());
                             }
                         }
@@ -172,7 +173,7 @@ class TabCompleter {
                         Path schemPath = Helper.getSchemPath();
                         File pathFile = schemPath != null ? schemPath.toFile() : null;
                         if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-                            for (File file : DefaultUtils.getFolders(pathFile, false)) {
+                            for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
                                 completions.add(file.getName());
                             }
                         }
@@ -182,7 +183,7 @@ class TabCompleter {
             } else {
                 switch (args[1]) {
                     case "load":
-                        for (String extension : DefaultUtils.getStringList("File Extensions")) {
+                        for (String extension : ConfigUtils.getStringList("File Extensions")) {
                             if ((extension + " ").toLowerCase().startsWith(args[3])) {
                                 completions.add(extension);
                             }
@@ -208,7 +209,7 @@ class TabCompleter {
                                 for (File file : getFileArray(pathFile)) {
                                     addFileToCompletions(regex, completions, file);
                                 }
-                                for (File file : DefaultUtils.getFolders(pathFile, false)) {
+                                for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
                                     addFileToCompletions(regex, completions, file);
                                 }
                             }
@@ -231,7 +232,7 @@ class TabCompleter {
 
                             File pathFile = tempDirectory.toFile();
                             if (pathFile.exists() && pathFile.isDirectory()) {
-                                for (File file : DefaultUtils.getFolders(pathFile, false)) {
+                                for (File file : ZeanonFileUtils.getFolders(pathFile, false)) {
                                     String regex = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
                                     addFileToCompletions(regex, completions, file);
                                 }
@@ -260,7 +261,7 @@ class TabCompleter {
     }
 
     private static File[] getFileArray(File directory) {
-        String[] extensions = DefaultUtils.getStringList("File Extensions").toArray(new String[0]);
+        String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
         Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, false);
         return rawFiles.toArray(new File[0]);
     }

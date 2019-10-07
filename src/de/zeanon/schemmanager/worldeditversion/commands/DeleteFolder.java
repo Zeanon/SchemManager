@@ -1,6 +1,6 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import de.zeanon.schemmanager.globalutils.DefaultUtils;
+import de.zeanon.schemmanager.globalutils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
@@ -21,9 +21,9 @@ public class DeleteFolder {
         if (args.length == 3) {
             if (fileExists) {
                 if (Objects.requireNonNull(file.listFiles()).length > 0) {
-                    DefaultUtils.sendInvertedCommandMessage(ChatColor.RED + " still contains files.", ChatColor.GREEN + args[2], ChatColor.RED + "Open " + ChatColor.GREEN + args[2], "//schem list " + args[2], p);
+                    MessageUtils.sendInvertedCommandMessage(ChatColor.RED + " still contains files.", ChatColor.GREEN + args[2], ChatColor.RED + "Open " + ChatColor.GREEN + args[2], "//schem list " + args[2], p);
                 }
-                DefaultUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem delfolder " + args[2] + " confirm", "//schem delfolder " + args[2] + " deny", p);
+                MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem delfolder " + args[2] + " confirm", "//schem delfolder " + args[2] + " deny", p);
                 Helper.addDeleteFolderRequest(p, args[2]);
                 return true;
             } else {
@@ -37,9 +37,7 @@ public class DeleteFolder {
                     try {
                         String parentName = null;
                         FileUtils.deleteDirectory(file);
-                        if (DefaultUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                            parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultUtils.deleteEmptyParent(file);
-                        }
+                        parentName = Rename.getParentName(parentName, file);
                         p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was deleted successfully.");
                         if (parentName != null) {
                             p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");

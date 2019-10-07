@@ -1,6 +1,8 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import de.zeanon.schemmanager.globalutils.DefaultUtils;
+import de.zeanon.schemmanager.globalutils.ConfigUtils;
+import de.zeanon.schemmanager.globalutils.MessageUtils;
+import de.zeanon.schemmanager.globalutils.ZeanonFileUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.Helper;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
@@ -16,8 +18,8 @@ public class Rename {
 
     public static boolean onRename(Player p, String[] args) {
         Path schemPath = Helper.getSchemPath();
-        ArrayList<File> oldFiles = schemPath != null ? DefaultUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
-        ArrayList<File> newFiles = schemPath != null ? DefaultUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
+        ArrayList<File> oldFiles = schemPath != null ? ZeanonFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
+        ArrayList<File> newFiles = schemPath != null ? ZeanonFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
         final boolean oldFileExists = oldFiles != null && oldFiles.size() > 0;
         final boolean newFileExists = newFiles != null && newFiles.size() > 0;
 
@@ -27,7 +29,7 @@ public class Rename {
                     p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
                 }
 
-                DefaultUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
+                MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
                 Helper.addRenameRequest(p, args[2]);
                 return true;
 
@@ -69,16 +71,12 @@ public class Rename {
             }
             String parentName = null;
             for (File file : oldFiles) {
-                if (DefaultUtils.getStringList("File Extensions").stream().noneMatch(DefaultUtils.getExtension(destPath.toString())::equals)) {
-                    FileUtils.moveFile(file, new File(destPath.toString() + DefaultUtils.getExtension(file.getName())));
-                    if (DefaultUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultUtils.deleteEmptyParent(file);
-                    }
+                if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(ZeanonFileUtils.getExtension(destPath.toString())::equals)) {
+                    FileUtils.moveFile(file, new File(destPath.toString() + ZeanonFileUtils.getExtension(file.getName())));
+                    parentName = getParentName(parentName, file);
                 } else {
                     FileUtils.moveFile(file, destPath.toFile());
-                    if (DefaultUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultUtils.deleteEmptyParent(file);
-                    }
+                    parentName = getParentName(parentName, file);
                 }
             }
             p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");
@@ -91,5 +89,12 @@ public class Rename {
             p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed.");
             return false;
         }
+    }
+
+    static String getParentName(String parentName, File file) {
+        if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
+            parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : ZeanonFileUtils.deleteEmptyParent(file);
+        }
+        return parentName;
     }
 }
