@@ -21,7 +21,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
@@ -419,9 +418,9 @@ public class DefaultUtils {
             FileOutputStream outputStream = null;
             try {
                 if (!file.exists()) {
-                    Files.copy(inputStream, Paths.get(file.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 } else {
-                    outputStream = new FileOutputStream(file.getAbsolutePath());
+                    outputStream = new FileOutputStream(file);
                     final byte[] data = new byte[1024];
                     int count;
                     while ((count = inputStream.read(data, 0, 1024)) != -1) {

@@ -187,6 +187,7 @@ public class Helper {
 
     public static Path getSchemPath() {
         if (WorldEditVersionMain.weConfig.hasNotChanged()) {
+            System.out.println("test");
             return schemFolderPath;
         } else {
             try {
