@@ -30,7 +30,7 @@ public class DeleteFolder {
                     return false;
                 }
             } else if (args.length == 4 && Helper.checkDeleteFolderRequest(p, args[2])) {
-                if (args[3].equals("confirm")) {
+                if (args[3].equalsIgnoreCase("confirm")) {
                     Helper.removeDeleteFolderRequest(p);
                     if (fileExists) {
                         try {
@@ -53,7 +53,7 @@ public class DeleteFolder {
                         p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
                         return false;
                     }
-                } else if (args[3].equals("deny")) {
+                } else if (args[3].equalsIgnoreCase("deny")) {
                     Helper.removeDeleteFolderRequest(p);
                     p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not deleted.");
                     return true;

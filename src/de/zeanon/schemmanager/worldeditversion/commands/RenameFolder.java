@@ -31,7 +31,7 @@ public class RenameFolder {
                     String[] extension = {"schematic", "schem"};
                     for (File oldFile : FileUtils.listFiles(directory_old, extension, true)) {
                         for (File newFile : FileUtils.listFiles(directory_new, extension, true)) {
-                            if (DefaultHelper.removeExtension(newFile.getName()).equals(DefaultHelper.removeExtension(oldFile.getName())) && newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
+                            if (DefaultHelper.removeExtension(newFile.getName()).equalsIgnoreCase(DefaultHelper.removeExtension(oldFile.getName())) && newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
                                 if (id == 0) {
                                     p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
                                 }
@@ -57,7 +57,7 @@ public class RenameFolder {
                     int i = 0;
                     for (File oldFolder : DefaultHelper.getFolders(directory_old, true)) {
                         for (File newFolder : DefaultHelper.getFolders(directory_new, true)) {
-                            if (newFolder.getName().equals(oldFolder.getName()) && newFolder.toPath().relativize(directory_new.toPath()).equals(oldFolder.toPath().relativize(directory_old.toPath()))) {
+                            if (newFolder.getName().equalsIgnoreCase(oldFolder.getName()) && newFolder.toPath().relativize(directory_new.toPath()).equals(oldFolder.toPath().relativize(directory_old.toPath()))) {
                                 if (i == 0) {
                                     p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
                                 }
@@ -84,7 +84,7 @@ public class RenameFolder {
                 Helper.addRenameFolderRequest(p, args[2]);
                 return true;
             } else if (args.length == 5 && Helper.checkRenameFolderRequest(p, args[2])) {
-                if (args[4].equals("confirm")) {
+                if (args[4].equalsIgnoreCase("confirm")) {
                     Helper.removeRenameFolderRequest(p);
                     if (directory_old.exists() && directory_old.isDirectory()) {
                         if (deepMerge(directory_old, directory_new)) {
@@ -110,7 +110,7 @@ public class RenameFolder {
                         p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
                         return false;
                     }
-                } else if (args[4].equals("deny")) {
+                } else if (args[4].equalsIgnoreCase("deny")) {
                     Helper.removeRenameFolderRequest(p);
                     p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not renamed");
                     return true;

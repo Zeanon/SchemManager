@@ -27,7 +27,7 @@ public class Delete {
                     return false;
                 }
             } else if (args.length == 4 && Helper.checkDeleteRequest(p, args[2])) {
-                if (args[3].equals("confirm")) {
+                if (args[3].equalsIgnoreCase("confirm")) {
                     Helper.removeDeleteRequest(p);
                     if (fileExists) {
                         String parentName = null;
@@ -51,7 +51,7 @@ public class Delete {
                         return false;
                     }
 
-                } else if (args[3].equals("deny")) {
+                } else if (args[3].equalsIgnoreCase("deny")) {
                     Helper.removeDeleteRequest(p);
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not deleted.");
                     return true;

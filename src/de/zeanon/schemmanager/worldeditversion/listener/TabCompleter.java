@@ -23,56 +23,56 @@ class TabCompleter {
                 if (argumentEnded) {
                     return Arrays.asList("help", "load", "formats", "save", "rename", "renamfolder", "del", "delete", "delfolder", "deletefolder", "list", "folder", "search", "searchfolder");
                 } else {
-                    if ("help".startsWith(args[1].toLowerCase())) {
+                    if ("help".startsWith(args[1])) {
                         completions.add("help");
                     }
-                    if ("load".startsWith(args[1].toLowerCase())) {
+                    if ("load".startsWith(args[1])) {
                         completions.add("load");
                     }
-                    if ("formats".startsWith(args[1].toLowerCase())) {
+                    if ("formats".startsWith(args[1])) {
                         completions.add("formats");
                     }
-                    if ("save".startsWith(args[1].toLowerCase())) {
+                    if ("save".startsWith(args[1])) {
                         completions.add("save");
                     }
-                    if ("rename".startsWith(args[1].toLowerCase())) {
+                    if ("rename".startsWith(args[1])) {
                         completions.add("rename");
                     }
-                    if ("renamefolder".startsWith(args[1].toLowerCase())) {
+                    if ("renamefolder".startsWith(args[1])) {
                         completions.add("renamefolder");
                     }
-                    if ("del".startsWith(args[1].toLowerCase())) {
+                    if ("del".startsWith(args[1])) {
                         completions.add("del");
                     }
-                    if ("delete".startsWith(args[1].toLowerCase())) {
+                    if ("delete".startsWith(args[1])) {
                         completions.add("delete");
                     }
-                    if ("delfolder".startsWith(args[1].toLowerCase())) {
+                    if ("delfolder".startsWith(args[1])) {
                         completions.add("delfolder");
                     }
-                    if ("deletefolder".startsWith(args[1].toLowerCase())) {
+                    if ("deletefolder".startsWith(args[1])) {
                         completions.add("deletefolder");
                     }
-                    if ("list".startsWith(args[1].toLowerCase())) {
+                    if ("list".startsWith(args[1])) {
                         completions.add("list");
                     }
-                    if ("folder".startsWith(args[1].toLowerCase())) {
+                    if ("folder".startsWith(args[1])) {
                         completions.add("folder");
                     }
-                    if ("search".startsWith(args[1].toLowerCase())) {
+                    if ("search".startsWith(args[1])) {
                         completions.add("search");
                     }
-                    if ("searchfolder".startsWith(args[1].toLowerCase())) {
+                    if ("searchfolder".startsWith(args[1])) {
                         completions.add("searchfolder");
                     }
                 }
             } else if ((args.length == 3 && !argumentEnded) || args.length == 2) {
                 if (argumentEnded) {
-                    if (!alreadyDeep && buffer.endsWith(" ") && (args[1].equals("list") || args[1].equals("folder") || args[1].equals("search") || args[1].equals("searchfolder"))) {
+                    if (!alreadyDeep && buffer.endsWith(" ") && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
                         completions.add("-d");
                         completions.add("-deep");
                     }
-                    if (args[1].equals("load") || args[1].equals("save") || args[1].equals("del") || args[1].equals("delete") || args[1].equals("rename")) {
+                    if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
                         File pathFile = Helper.getSchemPath().toFile();
                         for (File file : getFileArray(pathFile)) {
                             completions.add(file.getName());
@@ -80,7 +80,7 @@ class TabCompleter {
                         for (File file : DefaultHelper.getFolders(pathFile, false)) {
                             completions.add(file.getName());
                         }
-                    } else if (args[1].equals("renamefolder") || args[1].equals("delfolder") || args[1].equals("deletefolder") || args[1].equals("list") || args[1].equals("folder") || args[1].equals("search") || args[1].equals("searchfolder")) {
+                    } else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
                         File pathFile = Helper.getSchemPath().toFile();
                         if (pathFile.exists() && pathFile.isDirectory()) {
                             for (File file : DefaultHelper.getFolders(pathFile, false)) {
@@ -89,7 +89,7 @@ class TabCompleter {
                         }
                     }
                 } else {
-                    if (!alreadyDeep && (args[1].equals("list") || args[1].equals("folder") || args[1].equals("search") || args[1].equals("searchfolder"))) {
+                    if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
                         if ("-d".startsWith(args[2])) {
                             completions.add("-d");
                         }
@@ -97,7 +97,7 @@ class TabCompleter {
                             completions.add("-deep");
                         }
                     }
-                    if (args[1].equals("load") || args[1].equals("save") || args[1].equals("del") || args[1].equals("delete") || args[1].equals("rename")) {
+                    if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
                         Path tempDirectory = Helper.getSchemPath();
                         String[] pathArgs = args[2].split("/");
                         if (!args[2].endsWith("/")) {
@@ -120,7 +120,7 @@ class TabCompleter {
                                 addFileToCompletions(regex, completions, file);
                             }
                         }
-                    } else if (args[1].equals("renamefolder") || args[1].equals("delfolder") || args[1].equals("deletefolder") || args[1].equals("list") || args[1].equals("folder") || args[1].equals("search") || args[1].equals("searchfolder")) {
+                    } else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
                         Path tempDirectory = Helper.getSchemPath();
                         String[] pathArgs = args[2].split("/");
                         if (!args[2].endsWith("/")) {
@@ -172,7 +172,7 @@ class TabCompleter {
                     switch (args[1]) {
                         case "load":
                             for (String extension : DefaultHelper.getStringList("File Extensions")) {
-                                if ((extension + " ").toLowerCase().startsWith(args[3].toLowerCase())) {
+                                if ((extension + " ").toLowerCase().startsWith(args[3])) {
                                     completions.add(extension);
                                 }
                             }
@@ -236,7 +236,7 @@ class TabCompleter {
 
     private static void addFileToCompletions(String regex, ArrayList<String> completions, File file) {
         try {
-            if (((file.getName() + " ").toLowerCase()).startsWith(regex.toLowerCase())) {
+            if (((file.getName() + " ").toLowerCase()).startsWith(regex)) {
                 String path = FilenameUtils.separatorsToUnix(DefaultHelper.removeExtension(Helper.getSchemPath().relativize(file.toPath().toRealPath()).toString()));
                 completions.add(path);
             }

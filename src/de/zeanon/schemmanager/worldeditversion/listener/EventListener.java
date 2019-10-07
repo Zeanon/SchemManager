@@ -35,19 +35,19 @@ public class EventListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public boolean onCommand(PlayerCommandPreprocessEvent event) {
         Player p = event.getPlayer();
-        String[] args = event.getMessage().toLowerCase().replaceAll("worldedit:", "/").split(" ");
+        String[] args = event.getMessage().replaceAll("worldedit:", "/").split(" ");
 
-        if (args[0].equals("/schem") || args[0].equals("/schematic")
-                || args[0].equals("//schem") || args[0].equals("//schematic")) {
+        if (args[0].equalsIgnoreCase("/schem") || args[0].equalsIgnoreCase("/schematic")
+                || args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
 
-            String slash = args[0].equals("//schem") || args[0].equals("//schematic") ? "//" : "/";
-            String schemAlias = args[0].equals("/schematic") || args[0].equals("//schematic") ? "schematic" : "schem";
+            String slash = args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic") ? "//" : "/";
+            String schemAlias = args[0].equalsIgnoreCase("/schematic") || args[0].equalsIgnoreCase("//schematic") ? "schematic" : "schem";
 
 
             if (args.length == 1) {
                 event.setCancelled(true);
                 return Help.onHelp(p, slash, schemAlias);
-            } else if ((args[1].equals("delete") || args[1].equals("del") && p.hasPermission("worldedit.schematic.delete"))) {
+            } else if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del") && p.hasPermission("worldedit.schematic.delete"))) {
                 event.setCancelled(true);
                 if (args.length <= 5) {
                     if (args.length < 3) {
@@ -58,7 +58,7 @@ public class EventListener implements Listener {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return deleteUsage(p, slash, schemAlias);
                     } else if (args.length == 4 && !Helper.checkDeleteFolderRequest(p, args[2])
-                            && !args[3].equals("confirm") && !args[3].equals("deny")) {
+                            && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return deleteUsage(p, slash, schemAlias);
                     } else {
@@ -68,7 +68,7 @@ public class EventListener implements Listener {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return deleteUsage(p, slash, schemAlias);
                 }
-            } else if ((args[1].equals("deletefolder") || args[1].equals("delfolder")) && p.hasPermission("worldedit.schematic.delete")) {
+            } else if ((args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("delfolder")) && p.hasPermission("worldedit.schematic.delete")) {
                 event.setCancelled(true);
                 if (args.length <= 5) {
                     if (args.length < 3) {
@@ -79,7 +79,7 @@ public class EventListener implements Listener {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return deleteFolderUsage(p, slash, schemAlias);
                     } else if (args.length == 4 && !Helper.checkDeleteFolderRequest(p, args[2])
-                            && !args[3].equals("confirm") && !args[3].equals("deny")) {
+                            && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return deleteFolderUsage(p, slash, schemAlias);
                     } else {
@@ -89,7 +89,7 @@ public class EventListener implements Listener {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return deleteFolderUsage(p, slash, schemAlias);
                 }
-            } else if (args[1].equals("rename") && p.hasPermission("worldedit.schematic.save")) {
+            } else if (args[1].equalsIgnoreCase("rename") && p.hasPermission("worldedit.schematic.save")) {
                 event.setCancelled(true);
                 if (args.length <= 5) {
                     if (args.length < 3) {
@@ -101,7 +101,7 @@ public class EventListener implements Listener {
                         p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
                         return renameUsage(p, slash, schemAlias);
                     } else if (args.length == 5 && !Helper.checkRenameRequest(p, args[2])
-                            && !args[3].equals("confirm") && !args[3].equals("deny")) {
+                            && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return renameUsage(p, slash, schemAlias);
                     } else {
@@ -111,7 +111,7 @@ public class EventListener implements Listener {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return renameUsage(p, slash, schemAlias);
                 }
-            } else if (args[1].equals("renamefolder") && p.hasPermission("worldedit.schematic.save")) {
+            } else if (args[1].equalsIgnoreCase("renamefolder") && p.hasPermission("worldedit.schematic.save")) {
                 event.setCancelled(true);
                 if (args.length <= 5) {
                     if (args.length < 3) {
@@ -122,7 +122,7 @@ public class EventListener implements Listener {
                         String name = args[2].contains("./") ? args[2] : args[3];
                         p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
                         return renameFolderUsage(p, slash, schemAlias);
-                    } else if (args.length == 5 && !args[4].equals("confirm") && !args[4].equals("deny") && !Helper.checkRenameFolderRequest(p, args[2])) {
+                    } else if (args.length == 5 && !args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny") && !Helper.checkRenameFolderRequest(p, args[2])) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return renameFolderUsage(p, slash, schemAlias);
                     } else {
@@ -132,7 +132,7 @@ public class EventListener implements Listener {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return renameFolderUsage(p, slash, schemAlias);
                 }
-            } else if (args[1].equals("load") && p.hasPermission("worldedit.schematic.load")) {
+            } else if (args[1].equalsIgnoreCase("load") && p.hasPermission("worldedit.schematic.load")) {
                 if (args.length < 3) {
                     event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
@@ -153,7 +153,7 @@ public class EventListener implements Listener {
                 } else {
                     return true;
                 }
-            } else if (args[1].equals("save") && p.hasPermission("worldedit.schematic.save")) {
+            } else if (args[1].equalsIgnoreCase("save") && p.hasPermission("worldedit.schematic.save")) {
                 if (!DefaultHelper.getBoolean("Save Function Override")) {
                     event.setCancelled(true);
                     if (args.length < 3) {
@@ -163,13 +163,13 @@ public class EventListener implements Listener {
                     } else if (args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
                         return defaultSaveUsage(p, slash, schemAlias);
-                    } else if (args.length > 4 && !args[2].equals("-f")) {
+                    } else if (args.length > 4 && !args[2].equalsIgnoreCase("-f")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return defaultSaveUsage(p, slash, schemAlias);
                     } else {
                         return true;
                     }
-                } else if (args.length > 2 && args.length < 5 && args[2].equals("-f")) {
+                } else if (args.length > 2 && args.length < 5 && args[2].equalsIgnoreCase("-f")) {
                     if (args.length == 3) {
                         event.setCancelled(true);
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
@@ -190,21 +190,21 @@ public class EventListener implements Listener {
                     } else if (args.length > 4) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return saveUsage(p, slash, schemAlias);
-                    } else if (args.length == 4 && !Helper.checkOverWriteRequest(p, args[2]) && !args[3].equals("confirm") && !args[3].equals("deny")) {
+                    } else if (args.length == 4 && !Helper.checkOverWriteRequest(p, args[2]) && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return saveUsage(p, slash, schemAlias);
                     } else {
                         return Save.onSave(p, args);
                     }
                 }
-            } else if (args[1].equals("list") && p.hasPermission("worldedit.schematic.list")) {
+            } else if (args[1].equalsIgnoreCase("list") && p.hasPermission("worldedit.schematic.list")) {
                 event.setCancelled(true);
                 boolean deep = false;
-                if (args.length > 2 && args[2].equals("-deep")) {
+                if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
                     deep = true;
                     args = (String[]) ArrayUtils.removeElement(args, "-deep");
                 }
-                if (args.length > 2 && args[2].equals("-d")) {
+                if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
                     deep = true;
                     args = (String[]) ArrayUtils.removeElement(args, "-d");
                 }
@@ -223,15 +223,15 @@ public class EventListener implements Listener {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return listUsage(p, slash, schemAlias);
                 }
-            } else if (args[1].equals("folder") && p.hasPermission("worldedit.schematic.list")) {
+            } else if (args[1].equalsIgnoreCase("folder") && p.hasPermission("worldedit.schematic.list")) {
                 event.setCancelled(true);
                 boolean deep = false;
 
-                if (args.length > 2 && args[2].equals("-deep")) {
+                if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
                     deep = true;
                     args = (String[]) ArrayUtils.removeElement(args, "-deep");
                 }
-                if (args.length > 2 && args[2].equals("-d")) {
+                if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
                     deep = true;
                     args = (String[]) ArrayUtils.removeElement(args, "-d");
                 }
@@ -250,14 +250,14 @@ public class EventListener implements Listener {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return folderUsage(p, slash, schemAlias);
                 }
-            } else if (args[1].equals("search") && p.hasPermission("worldedit.schematic.list")) {
+            } else if (args[1].equalsIgnoreCase("search") && p.hasPermission("worldedit.schematic.list")) {
                 event.setCancelled(true);
                 boolean deep = false;
-                if (args.length > 2 && args[2].equals("-deep")) {
+                if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
                     deep = true;
                     args = (String[]) ArrayUtils.removeElement(args, "-deep");
                 }
-                if (args.length > 2 && args[2].equals("-d")) {
+                if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
                     deep = true;
                     args = (String[]) ArrayUtils.removeElement(args, "-d");
                 }
@@ -280,14 +280,14 @@ public class EventListener implements Listener {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return searchUsage(p, slash, schemAlias);
                 }
-            } else if (args[1].equals("searchfolder") && p.hasPermission("worldedit.schematic.list")) {
+            } else if (args[1].equalsIgnoreCase("searchfolder") && p.hasPermission("worldedit.schematic.list")) {
                 event.setCancelled(true);
                 boolean deep = false;
-                if (args.length > 2 && args[2].equals("-deep")) {
+                if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
                     deep = true;
                     args = (String[]) ArrayUtils.removeElement(args, "-deep");
                 }
-                if (args.length > 2 && args[2].equals("-d")) {
+                if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
                     deep = true;
                     args = (String[]) ArrayUtils.removeElement(args, "-d");
                 }
@@ -310,7 +310,7 @@ public class EventListener implements Listener {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     return searchFolderUsage(p, slash, schemAlias);
                 }
-            } else if (args[1].equals("help")) {
+            } else if (args[1].equalsIgnoreCase("help")) {
                 event.setCancelled(true);
                 if (args.length == 2) {
                     return Help.onHelp(p, slash, schemAlias);
@@ -322,7 +322,7 @@ public class EventListener implements Listener {
                             slash + schemAlias + " help", p);
                     return true;
                 }
-            } else if (args[1].equals("formats")) {
+            } else if (args[1].equalsIgnoreCase("formats")) {
                 event.setCancelled(true);
                 if (args.length == 2) {
                     return Help.onFormats(p, false);
@@ -347,8 +347,8 @@ public class EventListener implements Listener {
                 Helper.sendInvalidSubCommand(p, slash, schemAlias);
                 return true;
             }
-        } else if (args[0].equals("/stoplag") && this.worldguardEnabled && DefaultHelper.getBoolean("Stoplag Override")) {
-            if (args.length == 1 || (!args[1].equals("confirm") && !args[1].equals("-c"))) {
+        } else if (args[0].equalsIgnoreCase("/stoplag") && this.worldguardEnabled && DefaultHelper.getBoolean("Stoplag Override")) {
+            if (args.length == 1 || (!args[1].equalsIgnoreCase("confirm") && !args[1].equalsIgnoreCase("-c"))) {
                 event.setCancelled(true);
                 p.performCommand("stoplag confirm");
                 return true;
@@ -531,23 +531,23 @@ public class EventListener implements Listener {
         while (message.contains("  ")) {
             message = message.replaceAll(" {2}", " ");
         }
-        String[] args = message.toLowerCase().replaceAll("worldedit:", "/").split(" ");
-        if (args[0].equals("//schem") || args[0].equals("//schematic")) {
+        String[] args = message.replaceAll("worldedit:", "/").split(" ");
+        if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
             if (message.contains("./")) {
                 event.setCompletions(new ArrayList<>());
             } else {
                 boolean deep = false;
-                if (args.length > 2 && args[2].equals("-deep")) {
+                if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
                     args = (String[]) ArrayUtils.removeElement(args, "-deep");
                     deep = true;
                 }
-                if (args.length > 2 && args[2].equals("-d")) {
+                if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
                     args = (String[]) ArrayUtils.removeElement(args, "-d");
                     deep = true;
                 }
                 event.setCompletions(TabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" ")));
             }
-        } else if (args[0].equals("/stoplag")) {
+        } else if (args[0].equalsIgnoreCase("/stoplag")) {
             if (args.length == 1 || (args.length == 2 && !message.endsWith(" "))) {
                 event.setCompletions(Collections.singletonList("-c"));
             } else {

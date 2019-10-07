@@ -37,7 +37,7 @@ public class Rename {
                     return false;
                 }
             } else if (args.length == 5 && Helper.checkRenameRequest(p, args[2])) {
-                if (args[4].equals("confirm")) {
+                if (args[4].equalsIgnoreCase("confirm")) {
                     Helper.removeRenameRequest(p);
                     if (oldFileExists) {
                         return moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
@@ -45,7 +45,7 @@ public class Rename {
                         p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
                         return false;
                     }
-                } else if (args[4].equals("deny")) {
+                } else if (args[4].equalsIgnoreCase("deny")) {
                     Helper.removeRenameRequest(p);
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed.");
                     return true;
