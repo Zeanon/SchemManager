@@ -11,7 +11,7 @@ public class WakeupListener implements Listener {
     @EventHandler
     public void onPluginEnable(PluginEnableEvent e) {
         if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit") || e.getPlugin() == Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit")) {
-            DefaultHelper.disable();
+            RequestUtils.disable();
             Bukkit.getPluginManager().enablePlugin(SchemManager.getInstance());
         }
     }

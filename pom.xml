@@ -3,7 +3,29 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.zeanon</groupId>
     <artifactId>SchemManager</artifactId>
-    <version>4.1.5</version>
+    <version>4.1.7</version>
+    <name>SchemManager</name>
+    <description>Manager your schematics properly</description>
+    <url>https://github.com/Zeanon/SchemManager</url>
+
+    <licenses>
+        <license>
+            <name>MIT License with non-profit condition</name>
+            <url>https://github.com/Zeanon/SchemManager/blob/v4.1.5/LICENSE</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Zeanon</name>
+            <email>thezeanon@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Leonhard Solbach</name>
+            <email>JavaFactoryDev@gmail.com</email>
+        </developer>
+    </developers>
+
     <build>
         <defaultGoal>clean install -U</defaultGoal>
         <finalName>${project.name}</finalName>
@@ -77,7 +99,7 @@
     </build>
     <repositories>
         <repository>
-            <id>Local Add-on Repo</id>
+            <id>javafactorydev-maven</id>
             <url>http://thewarking.de:8081/repository/PluginUtils/</url>
         </repository>
 
@@ -112,20 +134,22 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.6</version>
+            <version>LATEST</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- LightningStorage by JavaFactoryDev -->
         <dependency>
             <groupId>de.leonhard</groupId>
             <artifactId>LightningStorage</artifactId>
-            <version>2.5.3</version>
+            <version>LATEST</version>
         </dependency>
 
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
             <version>7.0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

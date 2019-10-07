@@ -1,7 +1,10 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import de.zeanon.schemmanager.globalutils.DefaultHelper;
-import de.zeanon.schemmanager.worldeditversion.utils.Helper;
+import de.zeanon.schemmanager.globalutils.ConfigUtils;
+import de.zeanon.schemmanager.globalutils.InternalFileUtils;
+import de.zeanon.schemmanager.globalutils.MessageUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
+import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
@@ -15,49 +18,43 @@ import java.util.Objects;
 public class Rename {
 
     public static boolean onRename(Player p, String[] args) {
-        try {
-            Path schemPath = Helper.getSchemPath();
-            ArrayList<File> oldFiles = DefaultHelper.getExistingFiles(schemPath.resolve(args[2]));
-            ArrayList<File> newFiles = DefaultHelper.getExistingFiles(schemPath.resolve(args[3]));
-            final boolean oldFileExists = oldFiles.size() > 0;
-            final boolean newFileExists = newFiles.size() > 0;
+        Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
+        ArrayList<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
+        ArrayList<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
+        final boolean oldFileExists = oldFiles != null && oldFiles.size() > 0;
+        final boolean newFileExists = newFiles != null && newFiles.size() > 0;
 
-            if (args.length == 4) {
+        if (args.length == 4) {
+            if (oldFileExists) {
+                if (newFileExists) {
+                    p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
+                }
+
+                MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
+                WorldEditVersionRequestUtils.addRenameRequest(p, args[2]);
+                return true;
+
+            } else {
+                p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
+                return false;
+            }
+        } else if (args.length == 5 && WorldEditVersionRequestUtils.checkRenameRequest(p, args[2])) {
+            if (args[4].equalsIgnoreCase("confirm")) {
+                WorldEditVersionRequestUtils.removeRenameRequest(p);
                 if (oldFileExists) {
-                    if (newFileExists) {
-                        p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
-                    }
-
-                    DefaultHelper.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
-                    Helper.addRenameRequest(p, args[2]);
-                    return true;
-
+                    return moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
                 } else {
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
                     return false;
                 }
-            } else if (args.length == 5 && Helper.checkRenameRequest(p, args[2])) {
-                if (args[4].equals("confirm")) {
-                    Helper.removeRenameRequest(p);
-                    if (oldFileExists) {
-                        return moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
-                    } else {
-                        p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
-                        return false;
-                    }
-                } else if (args[4].equals("deny")) {
-                    Helper.removeRenameRequest(p);
-                    p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed.");
-                    return true;
-                } else {
-                    return false;
-                }
+            } else if (args[4].equalsIgnoreCase("deny")) {
+                WorldEditVersionRequestUtils.removeRenameRequest(p);
+                p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed.");
+                return true;
             } else {
                 return false;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            p.sendMessage(ChatColor.RED + "Could not find Schematic folder.");
+        } else {
             return false;
         }
     }
@@ -65,24 +62,22 @@ public class Rename {
 
     private static boolean moveFile(Player p, String fileName, ArrayList<File> oldFiles, ArrayList<File> newFiles, Path destPath) {
         try {
-            String parentName = null;
-            for (File file : newFiles) {
-                if (!file.delete()) {
-                    p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed.");
-                    return false;
+            if (newFiles != null) {
+                for (File file : newFiles) {
+                    if (!file.delete()) {
+                        p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed.");
+                        return false;
+                    }
                 }
             }
+            String parentName = null;
             for (File file : oldFiles) {
-                if (DefaultHelper.getStringList("File Extensions").stream().noneMatch(Objects.requireNonNull(DefaultHelper.getExtension(destPath.toString()))::equalsIgnoreCase)) {
-                    FileUtils.moveFile(file, destPath.resolve(DefaultHelper.getExtension(file.getName())).toFile());
-                    if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(file);
-                    }
+                if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(InternalFileUtils.getExtension(destPath.toString())::equals)) {
+                    FileUtils.moveFile(file, new File(destPath.toString() + InternalFileUtils.getExtension(file.getName())));
+                    parentName = getParentName(parentName, file);
                 } else {
                     FileUtils.moveFile(file, destPath.toFile());
-                    if (DefaultHelper.getBoolean("Delete empty Folders") && !file.getParentFile().equals(Helper.getSchemFolder())) {
-                        parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : DefaultHelper.deleteEmptyParent(file);
-                    }
+                    parentName = getParentName(parentName, file);
                 }
             }
             p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");
@@ -95,5 +90,12 @@ public class Rename {
             p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed.");
             return false;
         }
+    }
+
+    static String getParentName(String parentName, File file) {
+        if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
+            parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
+        }
+        return parentName;
     }
 }

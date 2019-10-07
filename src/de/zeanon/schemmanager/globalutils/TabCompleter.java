@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultTabCompleter implements org.bukkit.command.TabCompleter {
+public class TabCompleter implements org.bukkit.command.TabCompleter {
 
     @SuppressWarnings("NullableProblems")
     @Override
