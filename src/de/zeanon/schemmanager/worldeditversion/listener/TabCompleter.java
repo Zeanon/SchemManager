@@ -248,8 +248,6 @@ class TabCompleter {
     private static File[] getFileArray(File directory) {
         String[] extensions = DefaultHelper.getStringList("File Extensions").toArray(new String[0]);
         Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, false);
-        File[] files = rawFiles.toArray(new File[0]);
-        Arrays.sort(files);
-        return files;
+        return rawFiles.toArray(new File[0]);
     }
 }
