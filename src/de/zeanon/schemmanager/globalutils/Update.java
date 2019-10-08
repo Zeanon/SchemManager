@@ -1,5 +1,6 @@
 package de.zeanon.schemmanager.globalutils;
 
+import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
@@ -87,7 +88,7 @@ public class Update {
         if (ConfigUtils.getBoolean("Automatic Reload")) {
             PluginManager pm = Bukkit.getPluginManager();
             if (pm.getPlugin("PlugMan") != null && pm.isPluginEnabled(pm.getPlugin("PlugMan"))) {
-                PlugManUtils.plugmanReload();
+                PluginUtil.reload(SchemManager.getInstance());
             } else {
                 Bukkit.getServer().reload();
             }
