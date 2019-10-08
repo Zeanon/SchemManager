@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.zeanon</groupId>
     <artifactId>SchemManager</artifactId>
-    <version>4.1.9</version>
+    <version>4.1.10</version>
     <name>SchemManager</name>
     <description>Manager your schematics properly</description>
     <url>https://github.com/Zeanon/SchemManager</url>
@@ -144,6 +144,7 @@
             <groupId>de.leonhard</groupId>
             <artifactId>LightningStorage</artifactId>
             <version>LATEST</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- WorldEdit API -->
@@ -159,7 +160,7 @@
             <groupId>com.rylinaux</groupId>
             <artifactId>PlugMan</artifactId>
             <version>2.1.6</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
