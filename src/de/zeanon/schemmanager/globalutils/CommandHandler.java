@@ -66,7 +66,7 @@ public class CommandHandler implements CommandExecutor {
                     } else {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-                                ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " updatePlugin", ChatColor.DARK_GREEN + ""
+                                ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""
                                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
                                 "/schemmanager updatePlugin", p);
                         return true;
