@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class Update {
 
-    public static boolean update(Player p) {
+    static boolean updatePlugin(Player p) {
         p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is updating...");
         String fileName;
         try {
@@ -53,7 +53,7 @@ public class Update {
     }
 
 
-    public static boolean update() {
+    static boolean updatePlugin() {
         System.out.println("SchemManager is updating...");
         String fileName;
         try {
