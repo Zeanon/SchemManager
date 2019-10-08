@@ -46,10 +46,10 @@ public class CommandHandler implements CommandExecutor {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return sendDisableUsage(p);
                     }
-                } else if (args[0].equalsIgnoreCase("updatePlugin") && p.hasPermission("schemmanager.updatePlugin")) {
+                } else if (args[0].equalsIgnoreCase("update") && p.hasPermission("schemmanager.update")) {
                     if (args.length == 1) {
-                        MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to updatePlugin?", "/schemmanager updatePlugin confirm",
-                                "/schemmanager updatePlugin deny", p);
+                        MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to update?", "/schemmanager update confirm",
+                                "/schemmanager update deny", p);
                         RequestUtils.addUpdateRequest(p);
                         return true;
                     } else if (args.length == 2 && (args[1].equalsIgnoreCase("confirm") || args[1].equalsIgnoreCase("deny"))) {
@@ -79,7 +79,7 @@ public class CommandHandler implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("disable")) {
                     RequestUtils.disable();
                     return true;
-                } else if (args[0].equalsIgnoreCase("updatePlugin")) {
+                } else if (args[0].equalsIgnoreCase("update")) {
                     return Update.updatePlugin();
                 } else {
                     return false;
