@@ -13,8 +13,8 @@ public class TabCompleter implements org.bukkit.command.TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
             ArrayList<String> completions = new ArrayList<>();
-            if ("updatePlugin".startsWith(args[0].toLowerCase())) {
-                completions.add("updatePlugin");
+            if ("update".startsWith(args[0].toLowerCase())) {
+                completions.add("update");
             }
             if ("disable".startsWith(args[0].toLowerCase())) {
                 completions.add("disable");
