@@ -1,9 +1,12 @@
 name: SchemManager
 version: 4.1.8
 api-version: 1.14
+description: Manager your schematics properly
 authors: [Zeanon, JavaFactoryDev]
 website: https://github.com/Zeanon/SchemManager
 main: de.zeanon.schemmanager.SchemManager
 softdepend: [WorldEdit, FastAsyncWorldEdit, WorldGuard, PlugMan]
 commands:
   schemmanager:
+    description: The basic command for SchemManager
+    aliases: sm

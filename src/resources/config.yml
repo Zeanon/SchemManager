@@ -27,7 +27,7 @@
 # SchemManager mostly uses the standard WorldEdit and FAWE permissions                                        #
 # rename and renamefolder use the save permission                                                             #
 # search and searchfolder use the list permission                                                             #
-# update uses schemmanager.update                                                                             #
+# updatePlugin uses schemmanager.updatePlugin                                                                             #
 # disable uses schemmanager.disable                                                                           #
 ###############################################################################################################
 

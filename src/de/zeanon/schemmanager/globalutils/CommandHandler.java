@@ -46,16 +46,16 @@ public class CommandHandler implements CommandExecutor {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         return sendDisableUsage(p);
                     }
-                } else if (args[0].equalsIgnoreCase("update") && p.hasPermission("schemmanager.update")) {
+                } else if (args[0].equalsIgnoreCase("updatePlugin") && p.hasPermission("schemmanager.updatePlugin")) {
                     if (args.length == 1) {
-                        MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to update?", "/schemmanager update confirm",
-                                "/schemmanager update deny", p);
+                        MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to updatePlugin?", "/schemmanager updatePlugin confirm",
+                                "/schemmanager updatePlugin deny", p);
                         RequestUtils.addUpdateRequest(p);
                         return true;
                     } else if (args.length == 2 && (args[1].equalsIgnoreCase("confirm") || args[1].equalsIgnoreCase("deny"))) {
                         if (args[1].equalsIgnoreCase("confirm") && RequestUtils.checkUpdateRequest(p)) {
                             RequestUtils.removeUpdateRequest(p);
-                            return Update.update(p);
+                            return Update.updatePlugin(p);
                         } else if (args[1].equalsIgnoreCase("deny") && RequestUtils.checkUpdateRequest(p)) {
                             RequestUtils.removeUpdateRequest(p);
                             p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " will not be updated.");
@@ -66,9 +66,9 @@ public class CommandHandler implements CommandExecutor {
                     } else {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-                                ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""
+                                ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " updatePlugin", ChatColor.DARK_GREEN + ""
                                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
-                                "/schemmanager update", p);
+                                "/schemmanager updatePlugin", p);
                         return true;
                     }
                 } else {
@@ -79,8 +79,8 @@ public class CommandHandler implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("disable")) {
                     RequestUtils.disable();
                     return true;
-                } else if (args[0].equalsIgnoreCase("update")) {
-                    return Update.update();
+                } else if (args[0].equalsIgnoreCase("updatePlugin")) {
+                    return Update.updatePlugin();
                 } else {
                     return false;
                 }
@@ -96,9 +96,9 @@ public class CommandHandler implements CommandExecutor {
      */
     private boolean sendUsage(Player p) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-                ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""
+                ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " updatePlugin", ChatColor.DARK_GREEN + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
-                "/schemmanager update", p);
+                "/schemmanager updatePlugin", p);
         return sendDisableUsage(p);
     }
 
