@@ -100,7 +100,7 @@
     <repositories>
         <!-- Private Repo -->
         <repository>
-            <id>javafactorydev-maven</id>
+            <id>TheWarKing-Public</id>
             <url>http://thewarking.de:8081/repository/PluginUtils/</url>
         </repository>
 
