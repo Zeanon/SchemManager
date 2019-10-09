@@ -39,17 +39,17 @@ public class RenameFolder {
                                 }
                                 String name;
                                 String path;
-                                String listPath;
+                                String shortenedRelativePath;
                                 if (InternalFileUtils.getExtension(newFile.getName()).equals("schem")) {
                                     name = InternalFileUtils.removeExtension(newFile.getName());
                                     path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
-                                    listPath = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
+                                    shortenedRelativePath = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
                                 } else {
                                     name = newFile.getName();
                                     path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());
-                                    listPath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString());
+                                    shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString());
                                 }
-                                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + listPath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
+                                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
                                 id++;
                             }
                         }
@@ -64,8 +64,8 @@ public class RenameFolder {
                                 }
                                 String name = newFolder.getName();
                                 String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
-                                String listPath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
-                                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + listPath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + path, "//schem list " + path, p);
+                                String shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
+                                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path, "//schem list " + path, p);
                                 i++;
                             }
                         }
@@ -124,6 +124,7 @@ public class RenameFolder {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            p.sendMessage(ChatColor.RED + "An Error occured while getting the filepaths for the schematics and folders, please see console for further information.");
             return false;
         }
     }

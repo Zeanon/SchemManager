@@ -130,6 +130,7 @@ public class Update {
     }
 
 
+    @SuppressWarnings("Duplicates")
     private static boolean writeToFile(File file, BufferedInputStream inputStream) {
         try {
             FileOutputStream outputStream = null;
