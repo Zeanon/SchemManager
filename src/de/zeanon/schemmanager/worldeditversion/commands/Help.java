@@ -102,6 +102,14 @@ public class Help {
                         + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] " + ChatColor.GOLD + "example"
                         + ChatColor.YELLOW + " [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
                 slash + schemAlias + " searchfolder ", p);
+        MessageUtils.sendSuggestMessage(ChatColor.RED + "Update the plugin: ",
+                ChatColor.GRAY + "/schemmanager " + ChatColor.AQUA + "updatePlugin", ChatColor.DARK_GREEN + ""
+                        + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
+                "/schemmanager updatePlugin", p);
+        MessageUtils.sendSuggestMessage(ChatColor.RED + "Disable the plugin: ",
+                ChatColor.GRAY + "/schemmanager " + ChatColor.AQUA + "disable", ChatColor.DARK_RED + ""
+                        + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",
+                "/schemmanager disable", p);
         return true;
     }
 
