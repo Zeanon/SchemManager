@@ -51,7 +51,7 @@ public class SearchFolder {
                         listmax = (int) count;
                     }
                     for (int i = 0; i < listmax; i++) {
-                        sendListLine(p, schemPath, files[i], i, deepSearch);
+                        sendListLine(p, schemPath, deepSearch ? "" : null, files[i], i, deepSearch);
                     }
 
                     if (side > 1) {
@@ -93,7 +93,7 @@ public class SearchFolder {
                             listmax = (int) count - (listmax * (side_number - 1));
                         }
                         for (int i = 0; i < listmax; i++) {
-                            sendListLine(p, schemPath, files[id], id, deepSearch);
+                            sendListLine(p, schemPath, deepSearch ? "" : null, files[id], id, deepSearch);
                             id++;
                         }
 
@@ -139,7 +139,7 @@ public class SearchFolder {
                             listmax = (int) count;
                         }
                         for (int i = 0; i < listmax; i++) {
-                            sendListLine(p, schemPath, files[i], i, deepSearch);
+                            sendListLine(p, schemPath, deepSearch ? args[2] : null, files[i], i, deepSearch);
                         }
 
                         if (side > 1) {
@@ -181,7 +181,7 @@ public class SearchFolder {
                         listmax = (int) count - (listmax * (side_number - 1));
                     }
                     for (int i = 0; i < listmax; i++) {
-                        sendListLine(p, schemPath, files[id], id, deepSearch);
+                        sendListLine(p, schemPath, deepSearch ? args[2] : null, files[id], id, deepSearch);
                         id++;
                     }
 
@@ -208,12 +208,13 @@ public class SearchFolder {
     }
 
 
-    private static void sendListLine(Player p, Path schemFolderPath, File file, int id, boolean deepSearch) {
+    private static void sendListLine(Player p, Path schemFolderPath, String listedPath, File file, int id, boolean deepSearch) {
         try {
             String name = file.getName();
             String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
+            String listPath = deepSearch ? FilenameUtils.separatorsToUnix(schemFolderPath.resolve(listedPath).toRealPath().relativize(file.toPath().toRealPath()).toString()) : null;
             if (deepSearch) {
-                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
+                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + listPath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + path, "//schem list " + path, p);
             } else {
                 MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name, ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
             }
