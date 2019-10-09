@@ -124,6 +124,7 @@ public class RenameFolder {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            p.sendMessage(ChatColor.RED + "An Error occured while getting the filepaths for the schematics and folders, please see console for further information.");
             return false;
         }
     }

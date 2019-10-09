@@ -174,7 +174,7 @@ public class Search {
                         }
                     }
                 } catch (IOException e) {
-                    p.sendMessage(ChatColor.RED + "There is no schematic folder.");
+                    p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                     return false;
                 }
             }
@@ -235,7 +235,7 @@ public class Search {
                     }
                 }
             } catch (IOException e) {
-                p.sendMessage(ChatColor.RED + "There is no schematic folder.");
+                p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
                 return false;
             }
         }
@@ -269,7 +269,7 @@ public class Search {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            p.sendMessage(ChatColor.RED + "An Error occured while getting the paths for the files, please see the console for a full stacktrace");
+            p.sendMessage(ChatColor.RED + "An Error occured while getting the filepaths for the schematics, please see console for further information.");
             return false;
         }
     }

@@ -275,7 +275,7 @@ public class Folder {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            p.sendMessage(ChatColor.RED + "An Error occured while getting the paths for the files, please see the console for a full stacktrace");
+            p.sendMessage(ChatColor.RED + "An Error occured while getting the filepaths for the folders, please see console for further information.");
             return false;
         }
     }
