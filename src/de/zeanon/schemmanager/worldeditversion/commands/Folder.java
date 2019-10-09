@@ -248,11 +248,11 @@ public class Folder {
             if (deepSearch) {
                 MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedPath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + path, "//schem list " + path, p);
             } else {
-                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name, ChatColor.RED + "Open " + ChatColor.GREEN + name, "//schem list " + path, p);
+                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name, ChatColor.RED + "Open " + ChatColor.GREEN + path, "//schem list " + path, p);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            p.sendMessage(ChatColor.DARK_BLUE + "[" + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.DARK_BLUE + "] " + ChatColor.RED + "An Error occured while getting the paths for the files, pleas look at the console");
+            p.sendMessage(ChatColor.RED + "An Error occured while getting the paths for the files, please see the console for a full stacktrace");
         }
     }
 }
