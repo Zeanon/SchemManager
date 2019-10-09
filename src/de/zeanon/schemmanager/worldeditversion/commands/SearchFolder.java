@@ -53,7 +53,9 @@ public class SearchFolder {
                             listmax = (int) count;
                         }
                         for (int i = 0; i < listmax; i++) {
-                            sendListLine(p, schemPath, listPath, files[i], i, deepSearch);
+                            if (sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
+                                return false;
+                            }
                         }
 
                         if (side > 1) {
@@ -101,7 +103,9 @@ public class SearchFolder {
                                 listmax = (int) count - (listmax * (side_number - 1));
                             }
                             for (int i = 0; i < listmax; i++) {
-                                sendListLine(p, schemPath, listPath, files[id], id, deepSearch);
+                                if (sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
+                                    return false;
+                                }
                                 id++;
                             }
 
@@ -153,7 +157,9 @@ public class SearchFolder {
                                 listmax = (int) count;
                             }
                             for (int i = 0; i < listmax; i++) {
-                                sendListLine(p, schemPath, listPath, files[i], i, deepSearch);
+                                if (sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
+                                    return false;
+                                }
                             }
 
                             if (side > 1) {
@@ -201,7 +207,9 @@ public class SearchFolder {
                             listmax = (int) count - (listmax * (side_number - 1));
                         }
                         for (int i = 0; i < listmax; i++) {
-                            sendListLine(p, schemPath, listPath, files[id], id, deepSearch);
+                            if (sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
+                                return false;
+                            }
                             id++;
                         }
 
@@ -232,19 +240,35 @@ public class SearchFolder {
     }
 
 
-    private static void sendListLine(Player p, Path schemFolderPath, Path listPath, File file, int id, boolean deepSearch) {
+    private static boolean sendListLineFailed(Player p, Path schemFolderPath, Path listPath, File file, int id, boolean deepSearch) {
+        return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
+    }
+
+    private static boolean sendListLine(Player p, Path schemFolderPath, Path listPath, File file, int id, boolean deepSearch) {
         try {
-            String name = file.getName();
-            String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
-            String shortenedPath = deepSearch ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString()) : null;
-            if (deepSearch) {
-                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedPath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Open " + ChatColor.GREEN + path, "//schem list " + path, p);
+            String name;
+            String path;
+            String shortenedRelativePath;
+            if (InternalFileUtils.getExtension(file.getName()).equals("schem")) {
+                name = InternalFileUtils.removeExtension(file.getName());
+                path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+                shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
             } else {
-                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GREEN + name, ChatColor.RED + "Open " + ChatColor.GREEN + path, "//schem list " + path, p);
+                name = file.getName();
+                path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
+                shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString()) : null;
+            }
+            if (deepSearch) {
+                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
+                return true;
+            } else {
+                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name, ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
+                return true;
             }
         } catch (IOException e) {
             e.printStackTrace();
             p.sendMessage(ChatColor.RED + "An Error occured while getting the paths for the files, please see the console for a full stacktrace");
+            return false;
         }
     }
 
