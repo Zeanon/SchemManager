@@ -21,7 +21,7 @@ public class CommandHandler implements CommandExecutor {
                     p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                             + "argument" + ChatColor.YELLOW + ">");
 
-                    return sendUsage(p);
+                    return sendUpdateUsage(p) && sendDisableUsage(p);
                 } else if (args[0].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {
                     if (args.length == 1) {
                         MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to disable " + ChatColor.DARK_PURPLE
@@ -65,15 +65,12 @@ public class CommandHandler implements CommandExecutor {
                         }
                     } else {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-                                ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " updatePlugin", ChatColor.DARK_GREEN + ""
-                                        + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
-                                "/schemmanager updatePlugin", p);
-                        return true;
+                        return sendUpdateUsage(p);
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "Invalid sub-command '" + ChatColor.GOLD + "" + args[0] + ChatColor.RED + ".");
-                    return sendUsage(p);
+                    return sendUpdateUsage(p) && sendDisableUsage(p);
+
                 }
             } else {
                 if (args[0].equalsIgnoreCase("disable")) {
@@ -94,12 +91,12 @@ public class CommandHandler implements CommandExecutor {
      * @param p Player to send to
      * @return usage
      */
-    private boolean sendUsage(Player p) {
+    private boolean sendUpdateUsage(Player p) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-                ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " updatePlugin", ChatColor.DARK_GREEN + ""
+                ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
-                "/schemmanager updatePlugin", p);
-        return sendDisableUsage(p);
+                "/schemmanager update", p);
+        return true;
     }
 
     private boolean sendDisableUsage(Player p) {

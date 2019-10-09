@@ -55,7 +55,7 @@ public class List {
                         listmax = (int) count;
                     }
                     for (int i = 0; i < listmax; i++) {
-                        sendListLine(p, schemPath, files[i], i, deepSearch);
+                        sendListLine(p, schemPath, deepSearch ? "" : null, files[i], i, deepSearch);
                     }
 
                     if (side > 1) {
@@ -99,7 +99,7 @@ public class List {
                             listmax = (int) count - (listmax * (side_number - 1));
                         }
                         for (int i = 0; i < listmax; i++) {
-                            sendListLine(p, schemPath, files[id], id, deepSearch);
+                            sendListLine(p, schemPath, deepSearch ? "" : null, files[id], id, deepSearch);
                             id++;
                         }
 
@@ -147,7 +147,7 @@ public class List {
                             listmax = (int) count;
                         }
                         for (int i = 0; i < listmax; i++) {
-                            sendListLine(p, schemPath, files[i], i, deepSearch);
+                            sendListLine(p, schemPath, deepSearch ? args[2] : null, files[i], i, deepSearch);
                         }
 
                         if (side > 1) {
@@ -191,7 +191,7 @@ public class List {
                         listmax = (int) count - (listmax * (side_number - 1));
                     }
                     for (int i = 0; i < listmax; i++) {
-                        sendListLine(p, schemPath, files[id], id, deepSearch);
+                        sendListLine(p, schemPath, deepSearch ? args[2] : null, files[id], id, deepSearch);
                         id++;
                     }
 
@@ -218,19 +218,22 @@ public class List {
     }
 
 
-    private static void sendListLine(Player p, Path schemFolderPath, File file, int id, boolean deepSearch) {
+    private static void sendListLine(Player p, Path schemFolderPath, String listedPath, File file, int id, boolean deepSearch) {
         try {
             String name;
             String path;
+            String listPath;
             if (InternalFileUtils.getExtension(file.getName()).equals("schem")) {
                 name = InternalFileUtils.removeExtension(file.getName());
                 path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+                listPath = deepSearch ? FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemFolderPath.resolve(listedPath).toRealPath().relativize(file.toPath().toRealPath()).toString())) : null;
             } else {
                 name = file.getName();
                 path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
+                listPath = deepSearch ? FilenameUtils.separatorsToUnix(schemFolderPath.resolve(listedPath).toRealPath().relativize(file.toPath().toRealPath()).toString()) : null;
             }
             if (deepSearch) {
-                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + path + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
+                MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + listPath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
             } else {
                 MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name, ChatColor.RED + "Load " + ChatColor.GOLD + name + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
             }
