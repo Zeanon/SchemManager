@@ -103,9 +103,9 @@ public class Help {
                         + ChatColor.YELLOW + " [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
                 slash + schemAlias + " searchfolder ", p);
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Update the plugin: ",
-                ChatColor.GRAY + "/schemmanager " + ChatColor.AQUA + "updatePlugin", ChatColor.DARK_GREEN + ""
+                ChatColor.GRAY + "/schemmanager " + ChatColor.AQUA + "update", ChatColor.DARK_GREEN + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
-                "/schemmanager updatePlugin", p);
+                "/schemmanager update", p);
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Disable the plugin: ",
                 ChatColor.GRAY + "/schemmanager " + ChatColor.AQUA + "disable", ChatColor.DARK_RED + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",
