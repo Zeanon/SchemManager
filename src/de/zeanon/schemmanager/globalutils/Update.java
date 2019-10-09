@@ -24,7 +24,7 @@ import java.util.Objects;
 public class Update {
 
     static boolean updatePlugin(Player p) {
-        p.sendMessage(ChatColor.DARK_BLUE + "[" + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.DARK_BLUE + "] " + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is updating...");
+        p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is updating...");
         String fileName;
         try {
             fileName = new File(WorldEditVersionMain.class.getProtectionDomain()
@@ -35,20 +35,20 @@ public class Update {
                     .getName();
         } catch (URISyntaxException e) {
             e.printStackTrace();
-            p.sendMessage(ChatColor.DARK_BLUE + "[" + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.DARK_BLUE + "] " + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
+            p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
             return false;
         }
         try {
             if (writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
-                p.sendMessage(ChatColor.DARK_BLUE + "[" + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.DARK_BLUE + "] " + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
+                p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
                 return updateReload();
             } else {
-                p.sendMessage(ChatColor.DARK_BLUE + "[" + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.DARK_BLUE + "] " + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
+                p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
                 return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
-            p.sendMessage(ChatColor.DARK_BLUE + "[" + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.DARK_BLUE + "] " + ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
+            p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
             return false;
         }
     }
@@ -130,6 +130,7 @@ public class Update {
     }
 
 
+    @SuppressWarnings("Duplicates")
     private static boolean writeToFile(File file, BufferedInputStream inputStream) {
         try {
             FileOutputStream outputStream = null;
