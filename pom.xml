@@ -7,7 +7,7 @@
     <version>4.1.12</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
-    <description>Manager your schematics properly</description>
+    <description>Manage your schematics properly</description>
     <url>https://github.com/Zeanon/SchemManager</url>
 
     <licenses>
@@ -145,7 +145,7 @@
         <dependency>
             <groupId>de.leonhard</groupId>
             <artifactId>lightningstorage</artifactId>
-            <version>2.5.6</version>
+            <version>LATEST</version>
             <scope>compile</scope>
         </dependency>
 
