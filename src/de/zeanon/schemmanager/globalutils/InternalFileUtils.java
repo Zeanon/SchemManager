@@ -25,7 +25,7 @@ public class InternalFileUtils {
         pluginFolderPath = pathBuilder.toString();
     }
 
-    static String getPluginFolderPath() {
+    public static String getPluginFolderPath() {
         return pluginFolderPath;
     }
 
