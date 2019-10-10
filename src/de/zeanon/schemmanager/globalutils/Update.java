@@ -17,17 +17,17 @@ public class Update {
 
     static boolean updatePlugin() {
         if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-            return PlugManEnabledUpdate.updatePlugin();
+            return PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
         } else {
-            return DefaultUpdate.updatePlugin();
+            return DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
         }
     }
 
     static boolean updatePlugin(Player p) {
         if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-            return PlugManEnabledUpdate.updatePlugin(p);
+            return PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
         } else {
-            return DefaultUpdate.updatePlugin(p);
+            return DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
         }
     }
 
