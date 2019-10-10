@@ -2,7 +2,6 @@ package de.zeanon.schemmanager.globalutils.UpdateUtils;
 
 import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.ConfigUtils;
 import de.zeanon.schemmanager.globalutils.InternalFileUtils;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import net.md_5.bungee.api.ChatColor;
@@ -17,7 +16,7 @@ import java.net.URL;
 @SuppressWarnings("Duplicates")
 public class PlugManEnabledUpdate {
 
-    public static boolean updatePlugin() {
+    public static boolean updatePlugin(boolean autoReload) {
         System.out.println(SchemManager.getInstance().getName() + " is updating...");
         String fileName;
         try {
@@ -35,7 +34,7 @@ public class PlugManEnabledUpdate {
         try {
             if (UpdateUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
                 System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
-                if (ConfigUtils.getBoolean("Automatic Reload")) {
+                if (autoReload) {
                     PluginUtil.reload(SchemManager.getInstance());
                 }
                 return true;
@@ -50,7 +49,7 @@ public class PlugManEnabledUpdate {
         }
     }
 
-    public static boolean updatePlugin(Player p) {
+    public static boolean updatePlugin(Player p, boolean autoReload) {
         p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
         String fileName;
         try {
@@ -68,7 +67,8 @@ public class PlugManEnabledUpdate {
         try {
             if (UpdateUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
                 p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " was updated successfully.");
-                if (ConfigUtils.getBoolean("Automatic Reload")) {
+                if (autoReload) {
+                    p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is reloading.");
                     PluginUtil.reload(SchemManager.getInstance());
                 }
                 return true;
