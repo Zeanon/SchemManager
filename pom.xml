@@ -1,9 +1,11 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>de.zeanon</groupId>
-    <artifactId>SchemManager</artifactId>
+    <artifactId>schemmanager</artifactId>
     <version>4.1.12</version>
+    <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manager your schematics properly.</description>
     <url>https://github.com/Zeanon/SchemManager</url>
@@ -142,7 +144,7 @@
         <!-- LightningStorage by JavaFactoryDev -->
         <dependency>
             <groupId>de.leonhard</groupId>
-            <artifactId>LightningStorage</artifactId>
+            <artifactId>lightningstorage</artifactId>
             <version>LATEST</version>
             <scope>compile</scope>
         </dependency>
