@@ -31,7 +31,7 @@
 # disable uses schemmanager.disable                                                                            #
 ################################################################################################################
 
-Plugin Version: ${project.version}
+Plugin Version: v${project.version}
 
 File Extensions: [schem, schematic]
 
