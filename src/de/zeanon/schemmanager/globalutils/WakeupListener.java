@@ -1,18 +1,26 @@
 package de.zeanon.schemmanager.globalutils;
 
 import de.zeanon.schemmanager.SchemManager;
-import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 
 public class WakeupListener implements Listener {
 
     @EventHandler
-    public void onPluginEnable(PluginEnableEvent e) {
-        if (e.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit") || e.getPlugin() == Bukkit.getPluginManager().getPlugin("FastAsyncWorldEdit")) {
-            RequestUtils.disable();
-            Bukkit.getPluginManager().enablePlugin(SchemManager.getInstance());
+    public void onPluginEnable(PluginEnableEvent event) {
+        if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldEdit") || event.getPlugin() == SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit")) {
+            SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+            SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
         }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        Player p = event.getPlayer();
+        RequestUtils.removeDisableRequest(p);
+        RequestUtils.removeUpdateRequest(p);
     }
 }

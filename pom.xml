@@ -5,7 +5,7 @@
     <artifactId>SchemManager</artifactId>
     <version>4.1.12</version>
     <name>SchemManager</name>
-    <description>Manager your schematics properly</description>
+    <description>Manager your schematics properly.</description>
     <url>https://github.com/Zeanon/SchemManager</url>
 
     <licenses>
@@ -160,7 +160,7 @@
             <groupId>com.rylinaux</groupId>
             <artifactId>PlugMan</artifactId>
             <version>2.1.6</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

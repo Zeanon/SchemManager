@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.worldeditversion.utils;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
-import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +17,7 @@ public class WorldEditVersionSchemUtils {
     private static Path schemFolderPath;
 
     public static void initWorldEditPlugin() {
-        we = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
+        we = (WorldEditPlugin) SchemManager.getPluginManager().getPlugin("WorldEdit");
     }
 
     public static WorldEditPlugin getWorldEditPlugin() {
@@ -53,7 +53,7 @@ public class WorldEditVersionSchemUtils {
                 }
             }
         } else {
-            schemFolderPath = Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("WorldEdit")).getDataFolder().toPath().resolve(tempPath).normalize();
+            schemFolderPath = Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder().toPath().resolve(tempPath).normalize();
             schemFolder = schemFolderPath.toFile();
             if (!schemFolder.exists()) {
                 if (!schemFolder.mkdirs()) {

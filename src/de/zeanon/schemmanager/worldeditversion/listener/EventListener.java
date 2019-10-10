@@ -4,7 +4,6 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.globalutils.RequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import org.apache.commons.lang.ArrayUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,38 +21,7 @@ public class EventListener implements Listener {
     static boolean worldguardEnabled = false;
 
     public EventListener() {
-        if (Bukkit.getPluginManager().getPlugin("WorldGuard") != null && Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) {
-            worldguardEnabled = true;
-        }
-    }
-
-
-    @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
-        Player p = event.getPlayer();
-        RequestUtils.removeDisableRequest(p);
-        RequestUtils.removeUpdateRequest(p);
-        WorldEditVersionRequestUtils.removeDeleteRequest(p);
-        WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
-        WorldEditVersionRequestUtils.removeRenameRequest(p);
-        WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
-        WorldEditVersionRequestUtils.removeOverWriteRequest(p);
-    }
-
-
-    @EventHandler
-    public void onPluginDisable(PluginDisableEvent event) {
-        if (event.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldEdit")) {
-            RequestUtils.disable();
-            Bukkit.getPluginManager().enablePlugin(SchemManager.getInstance());
-        } else if (event.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
-            worldguardEnabled = false;
-        }
-    }
-
-    @EventHandler
-    public void onPluginEnable(PluginEnableEvent event) {
-        if (event.getPlugin() == Bukkit.getPluginManager().getPlugin("WorldGuard")) {
+        if (SchemManager.getPluginManager().getPlugin("WorldGuard") != null && SchemManager.getPluginManager().isPluginEnabled("WorldGuard")) {
             worldguardEnabled = true;
         }
     }
@@ -86,6 +54,40 @@ public class EventListener implements Listener {
             } else {
                 event.setCompletions(new ArrayList<>());
             }
+        }
+    }
+
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        Player p = event.getPlayer();
+        RequestUtils.removeDisableRequest(p);
+        RequestUtils.removeUpdateRequest(p);
+        WorldEditVersionRequestUtils.removeDeleteRequest(p);
+        WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
+        WorldEditVersionRequestUtils.removeRenameRequest(p);
+        WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
+        WorldEditVersionRequestUtils.removeOverWriteRequest(p);
+    }
+
+
+    @EventHandler
+    public void onPluginDisable(PluginDisableEvent event) {
+        if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldEdit")) {
+            SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+            SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
+        } else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
+            worldguardEnabled = false;
+        }
+    }
+
+    @EventHandler
+    public void onPluginEnable(PluginEnableEvent event) {
+        if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit")) {
+            SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+            SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
+        } else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
+            worldguardEnabled = true;
         }
     }
 }
