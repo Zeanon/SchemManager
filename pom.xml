@@ -83,7 +83,8 @@
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifestEntries>
-                            <Built-By>${user.name}</Built-By>
+                            <Manifest-Version>{project.version}</Manifest-Version>
+                            <Built-By>Maven</Built-By>
                         </manifestEntries>
                     </archive>
                 </configuration>
