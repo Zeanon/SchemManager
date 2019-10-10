@@ -5,7 +5,7 @@
     <artifactId>SchemManager</artifactId>
     <version>4.1.12</version>
     <name>SchemManager</name>
-    <description>Manager your schematics properly</description>
+    <description>Manager your schematics properly.</description>
     <url>https://github.com/Zeanon/SchemManager</url>
 
     <licenses>
@@ -36,7 +36,7 @@
                 <targetPath>.</targetPath>
                 <directory>${basedir}/src/resources/</directory>
                 <includes>
-                    <include>**/*.yml</include>
+                    <include>plugin.yml</include>
                 </includes>
             </resource>
         </resources>

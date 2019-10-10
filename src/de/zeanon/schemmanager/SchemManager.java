@@ -13,32 +13,42 @@ public class SchemManager extends JavaPlugin {
 
     public static Config config;
     private static volatile SchemManager instance;
+    private static PluginManager pluginManager;
 
     public static SchemManager getInstance() {
         if (instance == null) {
             throw new IllegalStateException("Couldn't get null");
+        } else {
+            return instance;
         }
-        return instance;
+    }
+
+    public static PluginManager getPluginManager() {
+        if (pluginManager == null) {
+            throw new IllegalStateException("Couldn't get null");
+        } else {
+            return pluginManager;
+        }
     }
 
     @Override
     public void onEnable() {
         instance = this;
+        pluginManager = Bukkit.getPluginManager();
         InternalFileUtils.initiate();
-        PluginManager pm = Bukkit.getPluginManager();
         Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler());
         Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new TabCompleter());
-		/*if (pm.getPlugin("FastAsyncWorldEdit") != null && pm.isPluginEnabled("FastAsyncWorldEdit"))) {
+		/*if (pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.isPluginEnabled("FastAsyncWorldEdit"))) {
 		//TODO
 		}
 		else */
-        if (pm.getPlugin("WorldEdit") != null && pm.isPluginEnabled("WorldEdit")) {
+        if (pluginManager.getPlugin("WorldEdit") != null && pluginManager.isPluginEnabled("WorldEdit")) {
             boolean failedToLoad = false;
-            System.out.println("[" + getName() + "] >> Launching WorldEdit Version of " + getName());
+            System.out.println("[" + getName() + "] >> Launching WorldEdit Version of " + getName() + ".");
             System.out.println("[" + getName() + "] >> Loading Configs.");
             try {
                 config = new Config("config", getDataFolder().getAbsolutePath(), "config");
-                System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded");
+                System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " could not be loaded");
@@ -46,25 +56,25 @@ public class SchemManager extends JavaPlugin {
             }
             if (failedToLoad) {
                 System.out.println("[" + getName() + "] >> Could not load config files... unloading Plugin...");
-                RequestUtils.disable();
+                SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
             } else {
                 if (!Update.updateConfig(false)) {
-                    RequestUtils.disable();
+                    SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
                 } else {
-                    System.out.println("[" + getName() + "] >> Config files are loaded sucessfully");
+                    System.out.println("[" + getName() + "] >> Config files are loaded sucessfully.");
                     new WorldEditVersionMain().onEnable();
                 }
             }
         } else {
-            System.out.println("[" + getName() + "] >> could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work");
-            System.out.println("[" + getName() + "] >> it will automatically activate when one of the above gets enabled");
-            System.out.println("[" + getName() + "] >> rudimentary function like updating and disabling will still work");
-            pm.registerEvents(new WakeupListener(), this);
+            pluginManager.registerEvents(new WakeupListener(), this);
+            System.out.println("[" + getName() + "] >> Could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work.");
+            System.out.println("[" + getName() + "] >> " + getName() + " will automatically activate when one of the above gets enabled.");
+            System.out.println("[" + getName() + "] >> Rudimentary function like updating and disabling will still work.");
         }
     }
 
     @Override
     public void onDisable() {
-        System.out.println("[" + getName() + "] >> unloaded");
+        System.out.println("[" + getName() + "] >> unloaded.");
     }
 }

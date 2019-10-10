@@ -1,7 +1,5 @@
 package de.zeanon.schemmanager.globalutils;
 
-import de.zeanon.schemmanager.SchemManager;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -38,10 +36,5 @@ public class RequestUtils {
 
     static boolean checkUpdateRequest(Player p) {
         return updateRequests.contains(p.getUniqueId().toString());
-    }
-
-
-    public static void disable() {
-        Bukkit.getPluginManager().disablePlugin(SchemManager.getInstance());
     }
 }

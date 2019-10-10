@@ -1,5 +1,6 @@
 package de.zeanon.schemmanager.globalutils;
 
+import de.zeanon.schemmanager.SchemManager;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,19 +26,19 @@ public class CommandHandler implements CommandExecutor {
                 } else if (args[0].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {
                     if (args.length == 1) {
                         MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to disable " + ChatColor.DARK_PURPLE
-                                        + "SchemManager" + ChatColor.RED + "? ", "/schemmanager disable confirm", "/schemmanager disable deny",
+                                        + SchemManager.getInstance().getName() + ChatColor.RED + "? ", "/schemmanager disable confirm", "/schemmanager disable deny",
                                 p);
                         RequestUtils.addDisableRequest(p);
                         return true;
                     } else if (args.length == 2 && (args[1].equalsIgnoreCase("confirm") || args[1].equalsIgnoreCase("deny"))) {
                         if (args[1].equalsIgnoreCase("confirm") && RequestUtils.checkDisableRequest(p)) {
-                            p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is being disabled.");
-                            RequestUtils.disable();
+                            p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is being disabled.");
+                            SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
                             return true;
                         } else if (args[1].equalsIgnoreCase("deny") && RequestUtils.checkDisableRequest(p)) {
                             RequestUtils.removeDisableRequest(p);
                             p.sendMessage(
-                                    ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " will not be disabled.");
+                                    ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " will not be disabled.");
                             return true;
                         } else {
                             return true;
@@ -58,7 +59,7 @@ public class CommandHandler implements CommandExecutor {
                             return Update.updatePlugin(p);
                         } else if (args[1].equalsIgnoreCase("deny") && RequestUtils.checkUpdateRequest(p)) {
                             RequestUtils.removeUpdateRequest(p);
-                            p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " will not be updated.");
+                            p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " will not be updated.");
                             return true;
                         } else {
                             return true;
@@ -73,8 +74,8 @@ public class CommandHandler implements CommandExecutor {
 
                 }
             } else {
-                if (args[0].equalsIgnoreCase("disable")) {
-                    RequestUtils.disable();
+                if (args.length == 1 && args[0].equalsIgnoreCase("disable")) {
+                    SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
                     return true;
                 } else if (args[0].equalsIgnoreCase("update")) {
                     return Update.updatePlugin();

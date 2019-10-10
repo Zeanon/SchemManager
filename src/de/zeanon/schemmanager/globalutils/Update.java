@@ -7,7 +7,6 @@ import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtil
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginManager;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -24,7 +23,7 @@ import java.util.Objects;
 public class Update {
 
     static boolean updatePlugin(Player p) {
-        p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " is updating...");
+        p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
         String fileName;
         try {
             fileName = new File(WorldEditVersionMain.class.getProtectionDomain()
@@ -35,27 +34,27 @@ public class Update {
                     .getName();
         } catch (URISyntaxException e) {
             e.printStackTrace();
-            p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
+            p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
             return false;
         }
         try {
             if (writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
-                p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " was updated successfully.");
+                p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " was updated successfully.");
                 return updateReload();
             } else {
-                p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
+                p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
                 return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
-            p.sendMessage(ChatColor.DARK_PURPLE + "SchemManager" + ChatColor.RED + " could not be updated.");
+            p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
             return false;
         }
     }
 
 
     static boolean updatePlugin() {
-        System.out.println("SchemManager is updating...");
+        System.out.println(SchemManager.getInstance().getName() + " is updating...");
         String fileName;
         try {
             fileName = new File(WorldEditVersionMain.class.getProtectionDomain()
@@ -66,28 +65,27 @@ public class Update {
                     .getName();
         } catch (URISyntaxException e) {
             e.printStackTrace();
-            System.out.println("SchemManager could not be updated.");
+            System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
             return false;
         }
         try {
             if (writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
-                System.out.println("SchemManager was updated successfully.");
+                System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
                 return updateReload();
             } else {
-                System.out.println("SchemManager could not be updated.");
+                System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
                 return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("SchemManager could not be updated.");
+            System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
             return false;
         }
     }
 
     private static boolean updateReload() {
         if (ConfigUtils.getBoolean("Automatic Reload")) {
-            PluginManager pm = Bukkit.getPluginManager();
-            if (pm.getPlugin("PlugMan") != null && pm.isPluginEnabled(pm.getPlugin("PlugMan"))) {
+            if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
                 PluginUtil.reload(SchemManager.getInstance());
             } else {
                 Bukkit.getServer().reload();
