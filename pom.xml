@@ -90,30 +90,6 @@
                     </archive>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <executions>
-                    <execution>
-                        <id>moveFiles</id>
-                        <phase>install</phase>
-                        <configuration>
-                            <tasks>
-                                <copy todir="E:\Servers\Server 1.14\plugins" flatten="true" overwrite="true"
-                                      verbose="true" failonerror="true">
-                                    <fileset dir="${basedir}/target"
-                                             includes="SchemManager.jar"/>
-                                </copy>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
     <repositories>
