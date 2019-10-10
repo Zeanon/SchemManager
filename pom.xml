@@ -4,10 +4,10 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.1.12</version>
+    <version>4.1.13</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
-    <description>Manager your schematics properly.</description>
+    <description>Manage your schematics properly</description>
     <url>https://github.com/Zeanon/SchemManager</url>
 
     <licenses>
