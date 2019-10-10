@@ -85,7 +85,7 @@
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifestEntries>
                             <Manifest-Version>${project.version}</Manifest-Version>
-                            <Built-By>${project.name} Developments</Built-By>
+                            <Built-By>${project.name} Developer Team</Built-By>
                         </manifestEntries>
                     </archive>
                 </configuration>
