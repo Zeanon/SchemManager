@@ -160,7 +160,7 @@
         <!-- PlugMan API -->
         <dependency>
             <groupId>com.rylinaux</groupId>
-            <artifactId>PlugMan</artifactId>
+            <artifactId>plugman</artifactId>
             <version>2.1.6</version>
             <scope>provided</scope>
         </dependency>
