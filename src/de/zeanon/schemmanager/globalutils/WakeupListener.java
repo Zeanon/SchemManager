@@ -1,8 +1,10 @@
 package de.zeanon.schemmanager.globalutils;
 
 import de.zeanon.schemmanager.SchemManager;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 
 public class WakeupListener implements Listener {
@@ -13,5 +15,12 @@ public class WakeupListener implements Listener {
             SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
             SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
         }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        Player p = event.getPlayer();
+        RequestUtils.removeDisableRequest(p);
+        RequestUtils.removeUpdateRequest(p);
     }
 }
