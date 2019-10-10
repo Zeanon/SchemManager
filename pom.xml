@@ -59,9 +59,6 @@
                 <excludes>
                     <exclude>plugin.yml</exclude>
                 </excludes>
-                <includes>
-                    <include>**/*.yml</include>
-                </includes>
             </resource>
         </resources>
         <plugins>
