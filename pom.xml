@@ -45,19 +45,6 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <addMavenDescriptor>false</addMavenDescriptor>
-                        <manifestEntries>
-                            <Built-By>${user.name}</Built-By>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
@@ -86,6 +73,19 @@
                             <shadedPattern>de.zeanon.schemmanager</shadedPattern>
                         </relocation>
                     </relocations>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifestEntries>
+                            <Built-By>${user.name}</Built-By>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
 
