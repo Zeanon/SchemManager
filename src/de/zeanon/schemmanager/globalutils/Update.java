@@ -50,7 +50,7 @@ public class Update {
             boolean stoplagOverride = !SchemManager.config.contains("Stoplag Override") || SchemManager.config.getBoolean("Stoplag Override");
             boolean autoReload = !SchemManager.config.contains("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
 
-            if (UpdateUtils.writeToFile(new File(SchemManager.getInstance().getDataFolder(), "config.yml"), new BufferedInputStream(Objects.requireNonNull(WorldEditVersionRequestUtils.class.getClassLoader().getResourceAsStream("config.yml"))))) {
+            if (UpdateUtils.writeToFile(new File(SchemManager.getInstance().getDataFolder(), "config.yml"), new BufferedInputStream(Objects.requireNonNull(WorldEditVersionRequestUtils.class.getClassLoader().getResourceAsStream("resources/config.yml"))))) {
                 SchemManager.config.update();
 
                 SchemManager.config.set("Plugin Version", SchemManager.getInstance().getDescription().getVersion());

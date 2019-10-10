@@ -47,7 +47,7 @@ public class SchemManager extends JavaPlugin {
             System.out.println("[" + getName() + "] >> Launching WorldEdit Version of " + getName() + ".");
             System.out.println("[" + getName() + "] >> Loading Configs.");
             try {
-                config = new Config("config", getDataFolder().getAbsolutePath(), "config");
+                config = new Config("config", getDataFolder().getAbsolutePath(), "resources/config");
                 System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
             } catch (Exception e) {
                 e.printStackTrace();
