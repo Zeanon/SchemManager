@@ -41,7 +41,7 @@ public class Update {
                 || !SchemManager.config.contains("Stoplag Override")
                 || !SchemManager.config.contains("Automatic Reload")
                 || !SchemManager.config.contains("Plugin Version")
-                || !SchemManager.config.getString("Plugin Version").substring(1).equals(SchemManager.getInstance().getDescription().getVersion())) {
+                || !SchemManager.config.getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())) {
             List<String> fileExtensions = SchemManager.config.contains("File Extensions") ? SchemManager.config.getStringList("File Extensions") : Arrays.asList("schem", "schematic");
             int listmax = SchemManager.config.contains("Listmax") ? SchemManager.config.getInt("Listmax") : 10;
             boolean spaceLists = !SchemManager.config.contains("Space Lists") || SchemManager.config.getBoolean("Space Lists");
