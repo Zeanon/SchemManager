@@ -123,7 +123,7 @@
                                 <copy todir="E:\Servers\Server 1.14\plugins" flatten="true" overwrite="true"
                                       verbose="true" failonerror="true">
                                     <fileset dir="${basedir}/target"
-                                             includes="SchemManager.jar"/>
+                                             includes="${project.build.finalName}.jar"/>
                                 </copy>
                             </tasks>
                         </configuration>
