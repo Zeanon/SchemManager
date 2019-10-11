@@ -40,7 +40,7 @@
     </developers>
 
     <build>
-        <defaultGoal>clean install -U</defaultGoal>
+        <defaultGoal>clean package -U</defaultGoal>
         <finalName>${project.name}</finalName>
         <sourceDirectory>${basedir}/src/</sourceDirectory>
         <resources>
