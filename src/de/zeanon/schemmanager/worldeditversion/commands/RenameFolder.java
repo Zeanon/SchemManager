@@ -17,7 +17,7 @@ import java.util.Objects;
 @SuppressWarnings("Duplicates")
 public class RenameFolder {
 
-    public static boolean onRenameFolder(Player p, String[] args) {
+    public static boolean onRenameFolder(final Player p, final String[] args) {
         try {
             Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
             File directory_old = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
@@ -130,7 +130,7 @@ public class RenameFolder {
     }
 
 
-    private static boolean deepMerge(File oldFile, File newFile) {
+    private static boolean deepMerge(final File oldFile, final File newFile) {
         if (Objects.requireNonNull(oldFile.listFiles()).length == 0) {
             return true;
         } else {

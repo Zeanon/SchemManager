@@ -12,7 +12,7 @@ import java.nio.file.Path;
 
 public class Save {
 
-    public static boolean onSave(Player p, String[] args) {
+    public static boolean onSave(final Player p, final String[] args) {
         Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         File file = schemPath != null ? (args[2].endsWith(".schem") ? WorldEditVersionSchemUtils.getSchemPath().resolve(args[2]).toFile() : WorldEditVersionSchemUtils.getSchemPath().resolve(args[2] + ".schem").toFile()) : null;
         final boolean fileExists = file != null && file.exists() && !file.isDirectory();

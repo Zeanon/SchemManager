@@ -13,7 +13,7 @@ public class ConfigUtils {
      * @param path the yaml path
      * @return value
      */
-    public static int getInt(String path) {
+    public static int getInt(final String path) {
         if (SchemManager.config.contains(path)) {
             return SchemManager.config.getInt(path);
         } else {
@@ -28,7 +28,7 @@ public class ConfigUtils {
      * @param path the yaml path
      * @return value
      */
-    public static boolean getBoolean(String path) {
+    public static boolean getBoolean(final String path) {
         if (SchemManager.config.contains(path)) {
             return SchemManager.config.getBoolean(path);
         } else {
@@ -44,7 +44,7 @@ public class ConfigUtils {
      * @return value
      */
     @SuppressWarnings("unchecked")
-    public static List<String> getStringList(String path) {
+    public static List<String> getStringList(final String path) {
         if (SchemManager.config.contains(path)) {
             return SchemManager.config.getStringList(path);
         } else {
@@ -53,7 +53,7 @@ public class ConfigUtils {
         }
     }
 
-    private static Object getDefaultValue(String path) {
+    private static Object getDefaultValue(final String path) {
         switch (path) {
             case "Space Lists":
                 return true;

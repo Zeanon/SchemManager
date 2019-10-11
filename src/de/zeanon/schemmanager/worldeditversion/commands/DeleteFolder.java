@@ -1,5 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
+import de.zeanon.schemmanager.globalutils.ConfigUtils;
+import de.zeanon.schemmanager.globalutils.InternalFileUtils;
 import de.zeanon.schemmanager.globalutils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
@@ -14,7 +16,7 @@ import java.util.Objects;
 
 public class DeleteFolder {
 
-    public static boolean onDeleteFolder(Player p, String[] args) {
+    public static boolean onDeleteFolder(final Player p, final String[] args) {
         Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         File file = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
         final boolean fileExists = file != null && file.exists() && file.isDirectory();
@@ -36,9 +38,8 @@ public class DeleteFolder {
                 WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
                 if (fileExists) {
                     try {
-                        String parentName = null;
                         FileUtils.deleteDirectory(file);
-                        parentName = Rename.getParentName(parentName, file);
+                        String parentName = getParentName(file);
                         p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was deleted successfully.");
                         if (parentName != null) {
                             p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
@@ -63,5 +64,14 @@ public class DeleteFolder {
         } else {
             return false;
         }
+    }
+
+    @SuppressWarnings("Duplicates")
+    private static String getParentName(final File file) {
+        String parentName = null;
+        if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
+            parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
+        }
+        return parentName;
     }
 }

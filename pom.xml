@@ -4,7 +4,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.2.0</version>
+    <version>4.2.1</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
@@ -28,6 +28,7 @@
             </roles>
             <timezone>Germany</timezone>
         </developer>
+
         <developer>
             <name>Leonhard Solbach</name>
             <email>JavaFactoryDev@gmail.com</email>
@@ -47,18 +48,13 @@
             <resource>
                 <filtering>true</filtering>
                 <targetPath>.</targetPath>
-                <directory>${basedir}/src/resources/</directory>
-                <includes>
-                    <include>plugin.yml</include>
-                </includes>
+                <directory>${basedir}/src/resources/spigotresources/</directory>
             </resource>
+
             <resource>
                 <filtering>true</filtering>
                 <targetPath>resources</targetPath>
-                <directory>${basedir}/src/resources/</directory>
-                <excludes>
-                    <exclude>plugin.yml</exclude>
-                </excludes>
+                <directory>${basedir}/src/resources/pluginresources/</directory>
             </resource>
         </resources>
         <plugins>

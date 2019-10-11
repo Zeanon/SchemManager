@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.globalutils.UpdateUtils;
+package de.zeanon.schemmanager.globalutils.updateutils;
 
 import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
@@ -16,7 +16,7 @@ import java.net.URL;
 @SuppressWarnings("Duplicates")
 public class PlugManEnabledUpdate {
 
-    public static boolean updatePlugin(boolean autoReload) {
+    public static boolean updatePlugin(final boolean autoReload) {
         System.out.println(SchemManager.getInstance().getName() + " is updating...");
         String fileName;
         try {
@@ -49,7 +49,7 @@ public class PlugManEnabledUpdate {
         }
     }
 
-    public static boolean updatePlugin(Player p, boolean autoReload) {
+    public static boolean updatePlugin(final Player p, final boolean autoReload) {
         p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
         String fileName;
         try {

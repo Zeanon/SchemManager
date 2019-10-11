@@ -34,7 +34,7 @@ public class InternalFileUtils {
      * @param deep   deepSearch
      * @return the files of the folder that are directorys
      */
-    public static ArrayList<File> getFolders(File folder, Boolean deep) {
+    public static ArrayList<File> getFolders(final File folder, final Boolean deep) {
         ArrayList<File> files = new ArrayList<>();
         for (File file : Objects.requireNonNull(folder.listFiles())) {
             if (file.isDirectory()) {
@@ -48,7 +48,7 @@ public class InternalFileUtils {
     }
 
 
-    public static ArrayList<File> getExistingFiles(Path path) {
+    public static ArrayList<File> getExistingFiles(final Path path) {
         ArrayList<File> tempFiles = new ArrayList<>();
         if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(getExtension(path.toString())::equalsIgnoreCase)) {
             File file = path.toFile();
@@ -67,15 +67,15 @@ public class InternalFileUtils {
     }
 
 
-    public static String removeExtension(String path) {
+    public static String removeExtension(final String path) {
         return path.replaceFirst("[.][^.]+$", "");
     }
 
-    public static String getExtension(String path) {
+    public static String getExtension(final String path) {
         return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : "";
     }
 
-    public static String deleteEmptyParent(File file) {
+    public static String deleteEmptyParent(final File file) {
         if (file.getParentFile().delete()) {
             return deleteEmptyParent(file.getParentFile());
         }

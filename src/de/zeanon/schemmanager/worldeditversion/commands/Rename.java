@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class Rename {
 
-    public static boolean onRename(Player p, String[] args) {
+    public static boolean onRename(final Player p, final String[] args) {
         Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         ArrayList<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
         ArrayList<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
@@ -60,7 +60,7 @@ public class Rename {
     }
 
 
-    private static boolean moveFile(Player p, String fileName, ArrayList<File> oldFiles, ArrayList<File> newFiles, Path destPath) {
+    private static boolean moveFile(final Player p, final String fileName, final ArrayList<File> oldFiles, final ArrayList<File> newFiles, final Path destPath) {
         try {
             if (newFiles != null) {
                 for (File file : newFiles) {
@@ -74,10 +74,10 @@ public class Rename {
             for (File file : oldFiles) {
                 if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(InternalFileUtils.getExtension(destPath.toString())::equals)) {
                     FileUtils.moveFile(file, new File(destPath.toString() + InternalFileUtils.getExtension(file.getName())));
-                    parentName = getParentName(parentName, file);
+                    parentName = getParentName(file);
                 } else {
                     FileUtils.moveFile(file, destPath.toFile());
-                    parentName = getParentName(parentName, file);
+                    parentName = getParentName(file);
                 }
             }
             p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");
@@ -92,7 +92,9 @@ public class Rename {
         }
     }
 
-    static String getParentName(String parentName, File file) {
+    @SuppressWarnings("Duplicates")
+    private static String getParentName(final File file) {
+        String parentName = null;
         if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
             parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
         }

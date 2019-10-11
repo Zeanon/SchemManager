@@ -27,7 +27,7 @@ public class EventListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onTab(TabCompleteEvent event) {
+    public void onTab(final TabCompleteEvent event) {
         String message = event.getBuffer();
         while (message.contains("  ")) {
             message = message.replaceAll(" {2}", " ");
@@ -59,7 +59,7 @@ public class EventListener implements Listener {
 
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
+    public void onQuit(final PlayerQuitEvent event) {
         Player p = event.getPlayer();
         RequestUtils.removeDisableRequest(p);
         RequestUtils.removeUpdateRequest(p);
@@ -72,7 +72,7 @@ public class EventListener implements Listener {
 
 
     @EventHandler
-    public void onPluginDisable(PluginDisableEvent event) {
+    public void onPluginDisable(final PluginDisableEvent event) {
         if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldEdit")) {
             SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
             SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
@@ -82,7 +82,7 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onPluginEnable(PluginEnableEvent event) {
+    public void onPluginEnable(final PluginEnableEvent event) {
         if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit")) {
             SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
             SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());

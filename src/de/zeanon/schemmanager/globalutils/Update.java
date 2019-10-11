@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.globalutils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.UpdateUtils.DefaultUpdate;
-import de.zeanon.schemmanager.globalutils.UpdateUtils.PlugManEnabledUpdate;
-import de.zeanon.schemmanager.globalutils.UpdateUtils.UpdateUtils;
+import de.zeanon.schemmanager.globalutils.updateutils.DefaultUpdate;
+import de.zeanon.schemmanager.globalutils.updateutils.PlugManEnabledUpdate;
+import de.zeanon.schemmanager.globalutils.updateutils.UpdateUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import org.bukkit.entity.Player;
 
@@ -23,7 +23,7 @@ public class Update {
         }
     }
 
-    static boolean updatePlugin(Player p) {
+    static boolean updatePlugin(final Player p) {
         if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
             return PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
         } else {
@@ -32,7 +32,7 @@ public class Update {
     }
 
 
-    public static boolean updateConfig(boolean force) {
+    public static boolean updateConfig(final boolean force) {
         if (force || !SchemManager.config.contains("File Extensions")
                 || !SchemManager.config.contains("Listmax")
                 || !SchemManager.config.contains("Space Lists")
