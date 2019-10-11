@@ -45,12 +45,12 @@
         <sourceDirectory>${basedir}/src/</sourceDirectory>
         <resources>
             <resource>
-                <filtering>false</filtering>
+                <filtering>true</filtering>
                 <targetPath>.</targetPath>
                 <directory>${basedir}/src/resources/spigotresources/</directory>
             </resource>
             <resource>
-                <filtering>false</filtering>
+                <filtering>true</filtering>
                 <targetPath>resources</targetPath>
                 <directory>${basedir}/src/resources/pluginresources/</directory>
             </resource>
