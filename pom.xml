@@ -28,6 +28,7 @@
             </roles>
             <timezone>Germany</timezone>
         </developer>
+
         <developer>
             <name>Leonhard Solbach</name>
             <email>JavaFactoryDev@gmail.com</email>
@@ -49,6 +50,7 @@
                 <targetPath>.</targetPath>
                 <directory>${basedir}/src/resources/spigotresources/</directory>
             </resource>
+
             <resource>
                 <filtering>true</filtering>
                 <targetPath>resources</targetPath>
