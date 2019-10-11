@@ -69,8 +69,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <meminitial>1000m</meminitial>
-                    <maxmem>4000m</maxmem>
                 </configuration>
             </plugin>
 
