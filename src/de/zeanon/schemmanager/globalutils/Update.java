@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.globalutils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.UpdateUtils.DefaultUpdate;
-import de.zeanon.schemmanager.globalutils.UpdateUtils.PlugManEnabledUpdate;
-import de.zeanon.schemmanager.globalutils.UpdateUtils.UpdateUtils;
+import de.zeanon.schemmanager.globalutils.updateutils.DefaultUpdate;
+import de.zeanon.schemmanager.globalutils.updateutils.PlugManEnabledUpdate;
+import de.zeanon.schemmanager.globalutils.updateutils.UpdateUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import org.bukkit.entity.Player;
 
