@@ -18,9 +18,9 @@ public class UpdateUtils {
                     Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 } else {
                     outputStream = new FileOutputStream(file);
-                    final byte[] data = new byte[1024];
+                    final byte[] data = new byte[5120];
                     int count;
-                    while ((count = inputStream.read(data, 0, 1024)) != -1) {
+                    while ((count = inputStream.read(data, 0, 5120)) != -1) {
                         outputStream.write(data, 0, count);
                     }
                 }
