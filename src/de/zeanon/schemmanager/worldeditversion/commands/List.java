@@ -19,7 +19,7 @@ import java.util.Collection;
 @SuppressWarnings("Duplicates")
 public class List {
 
-    public static boolean onList(Player p, String[] args, boolean deepSearch) {
+    public static boolean onList(final Player p, final String[] args, final boolean deepSearch) {
         int listmax = ConfigUtils.getInt("Listmax");
         Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
@@ -250,11 +250,11 @@ public class List {
     }
 
 
-    private static boolean sendListLineFailed(Player p, Path schemFolderPath, Path listPath, File file, int id, boolean deepSearch) {
+    private static boolean sendListLineFailed(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
         return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
     }
 
-    private static boolean sendListLine(Player p, Path schemFolderPath, Path listPath, File file, int id, boolean deepSearch) {
+    private static boolean sendListLine(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
         try {
             String name;
             String path;

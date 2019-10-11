@@ -18,7 +18,7 @@ public class CommandListener implements Listener {
 
     @SuppressWarnings("Duplicates")
     @EventHandler(priority = EventPriority.HIGH)
-    public boolean onCommand(PlayerCommandPreprocessEvent event) {
+    public boolean onCommand(final PlayerCommandPreprocessEvent event) {
         Player p = event.getPlayer();
         String[] args = event.getMessage().replaceAll("worldedit:", "/").split(" ");
 
@@ -346,7 +346,7 @@ public class CommandListener implements Listener {
     }
 
 
-    private boolean searchFolderUsage(Player p, String slash, String schemAlias) {
+    private boolean searchFolderUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " searchfolder " + ChatColor.YELLOW
                         + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
@@ -362,7 +362,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    private boolean searchUsage(Player p, String slash, String schemAlias) {
+    private boolean searchUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " search " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
@@ -378,7 +378,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    private boolean folderUsage(Player p, String slash, String schemAlias) {
+    private boolean folderUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " folder " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
@@ -392,7 +392,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    private boolean listUsage(Player p, String slash, String schemAlias) {
+    private boolean listUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " list " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
@@ -406,7 +406,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    private boolean saveUsage(Player p, String slash, String schemAlias) {
+    private boolean saveUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
@@ -416,7 +416,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    private boolean defaultSaveUsage(Player p, String slash, String schemAlias) {
+    private boolean defaultSaveUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save "
                         + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-f" + ChatColor.YELLOW + "] <"
@@ -428,7 +428,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    private boolean loadUsage(Player p, String slash, String schemAlias) {
+    private boolean loadUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " load " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> ["
@@ -440,7 +440,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    private boolean renameFolderUsage(Player p, String slash, String schemAlias) {
+    private boolean renameFolderUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " renamefolder " + ChatColor.YELLOW
                         + "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GREEN + "newname" + ChatColor.YELLOW + ">",
@@ -450,7 +450,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    private boolean renameUsage(Player p, String slash, String schemAlias) {
+    private boolean renameUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " rename " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GOLD + "newname" + ChatColor.YELLOW + ">",
@@ -460,7 +460,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    private boolean deleteFolderUsage(Player p, String slash, String schemAlias) {
+    private boolean deleteFolderUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " deletefolder " + ChatColor.YELLOW
                         + "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + ">",
@@ -470,7 +470,7 @@ public class CommandListener implements Listener {
         return true;
     }
 
-    private boolean deleteUsage(Player p, String slash, String schemAlias) {
+    private boolean deleteUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " delete " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",

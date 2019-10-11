@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class Help {
 
-    public static boolean onHelp(Player p, String slash, String schemAlias) {
+    public static boolean onHelp(final Player p, final String slash, final String schemAlias) {
         if (ConfigUtils.getBoolean("Space Lists")) {
             p.sendMessage(" ");
         }
@@ -113,7 +113,7 @@ public class Help {
         return true;
     }
 
-    public static boolean onFormats(Player p, boolean suppressBlankLine) {
+    public static boolean onFormats(final Player p, final boolean suppressBlankLine) {
         if (ConfigUtils.getBoolean("Space Lists") && !suppressBlankLine) {
             p.sendMessage(" ");
         }

@@ -18,7 +18,7 @@ import java.util.Arrays;
 @SuppressWarnings("Duplicates")
 public class SearchFolder {
 
-    public static boolean onSearchFolder(Player p, String[] args, Boolean deepSearch) {
+    public static boolean onSearchFolder(final Player p, final String[] args, final Boolean deepSearch) {
         int listmax = ConfigUtils.getInt("Listmax");
         Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
@@ -240,11 +240,11 @@ public class SearchFolder {
     }
 
 
-    private static boolean sendListLineFailed(Player p, Path schemFolderPath, Path listPath, File file, int id, boolean deepSearch) {
+    private static boolean sendListLineFailed(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
         return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
     }
 
-    private static boolean sendListLine(Player p, Path schemFolderPath, Path listPath, File file, int id, boolean deepSearch) {
+    private static boolean sendListLine(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
         try {
             String name;
             String path;
@@ -272,7 +272,7 @@ public class SearchFolder {
         }
     }
 
-    private static File[] getFileArray(File directory, boolean deepSearch, String regex) {
+    private static File[] getFileArray(final File directory, final boolean deepSearch, final String regex) {
         ArrayList<File> files = new ArrayList<>();
         for (File file : InternalFileUtils.getFolders(directory, deepSearch)) {
             if (file.getName().toLowerCase().contains(regex.toLowerCase())) {

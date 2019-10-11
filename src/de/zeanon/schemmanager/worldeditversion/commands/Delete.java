@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class Delete {
 
-    public static boolean onDelete(Player p, String[] args) {
+    public static boolean onDelete(final Player p, final String[] args) {
         Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         ArrayList<File> files = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
         final boolean fileExists = files != null && files.size() > 0;

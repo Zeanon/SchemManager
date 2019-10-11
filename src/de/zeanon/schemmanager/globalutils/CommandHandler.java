@@ -14,7 +14,7 @@ public class CommandHandler implements CommandExecutor {
      */
     @SuppressWarnings("NullableProblems")
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
         if (command.getName().equalsIgnoreCase("schemmanager")) {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
@@ -92,7 +92,7 @@ public class CommandHandler implements CommandExecutor {
      * @param p Player to send to
      * @return usage
      */
-    private boolean sendUpdateUsage(Player p) {
+    private boolean sendUpdateUsage(final Player p) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
@@ -100,7 +100,7 @@ public class CommandHandler implements CommandExecutor {
         return true;
     }
 
-    private boolean sendDisableUsage(Player p) {
+    private boolean sendDisableUsage(final Player p) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " disable", ChatColor.DARK_RED + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",

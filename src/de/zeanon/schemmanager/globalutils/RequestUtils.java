@@ -13,28 +13,28 @@ public class RequestUtils {
     private static final ArrayList<String> updateRequests = new ArrayList<>();
 
 
-    static void addDisableRequest(Player p) {
+    static void addDisableRequest(final Player p) {
         disableRequests.add(p.getUniqueId().toString());
     }
 
-    public static void removeDisableRequest(Player p) {
+    public static void removeDisableRequest(final Player p) {
         disableRequests.remove(p.getUniqueId().toString());
     }
 
-    static boolean checkDisableRequest(Player p) {
+    static boolean checkDisableRequest(final Player p) {
         return disableRequests.contains(p.getUniqueId().toString());
     }
 
 
-    static void addUpdateRequest(Player p) {
+    static void addUpdateRequest(final Player p) {
         updateRequests.add(p.getUniqueId().toString());
     }
 
-    public static void removeUpdateRequest(Player p) {
+    public static void removeUpdateRequest(final Player p) {
         updateRequests.remove(p.getUniqueId().toString());
     }
 
-    static boolean checkUpdateRequest(Player p) {
+    static boolean checkUpdateRequest(final Player p) {
         return updateRequests.contains(p.getUniqueId().toString());
     }
 }

@@ -18,7 +18,8 @@ public class MessageUtils {
      * @param command        the command to be executed when clicked
      * @param target         the player the message is sent to
      */
-    public static void sendCommandMessage(String message, String commandMessage, String hoverMessage, String command, Player target) {
+    @SuppressWarnings("Duplicates")
+    public static void sendCommandMessage(final String message, final String commandMessage, final String hoverMessage, final String command, final Player target) {
         new TextComponent();
         TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
         TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
@@ -37,7 +38,8 @@ public class MessageUtils {
      * @param command        the command to be executed when clicked
      * @param target         the player the message is sent to
      */
-    public static void sendInvertedCommandMessage(String message, String commandMessage, String hoverMessage, String command, Player target) {
+    @SuppressWarnings("Duplicates")
+    public static void sendInvertedCommandMessage(final String message, final String commandMessage, final String hoverMessage, final String command, final Player target) {
         new TextComponent();
         TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
         TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
@@ -55,7 +57,7 @@ public class MessageUtils {
      * @param commandNo  the command to be executed when clicked on no
      * @param target     the player the message is sent to
      */
-    public static void sendBooleanMessage(String message, String commandYes, String commandNo, Player target) {
+    public static void sendBooleanMessage(final String message, final String commandYes, final String commandNo, final Player target) {
         new TextComponent();
         TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
         TextComponent seperator = new TextComponent(TextComponent.fromLegacyText(ChatColor.BLACK + " " + ChatColor.BOLD + "| "));
@@ -82,7 +84,7 @@ public class MessageUtils {
      * @param target          the player the message is sent to
      * @param buttonColor     the color of the buttons
      */
-    public static void sendScrollMessage(String commandForward, String commandBackward, String messageForward, String messageBackward, Player target, ChatColor buttonColor) {
+    public static void sendScrollMessage(final String commandForward, final String commandBackward, final String messageForward, final String messageBackward, final Player target, final ChatColor buttonColor) {
         TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
         TextComponent commandPartBackward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[<<<]"));
         TextComponent commandPartForward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[>>>]"));
@@ -107,7 +109,7 @@ public class MessageUtils {
      * @param target         the player the message is sent to
      */
     @SuppressWarnings("Duplicates")
-    public static void sendSuggestMessage(String message, String suggestMessage, String hoverMessage, String command, Player target) {
+    public static void sendSuggestMessage(final String message, final String suggestMessage, final String hoverMessage, final String command, final Player target) {
         TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
         TextComponent suggestPart = new TextComponent(TextComponent.fromLegacyText(suggestMessage));
         suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
@@ -124,7 +126,7 @@ public class MessageUtils {
      * @param target       the player the message is sent to
      */
     @SuppressWarnings("Duplicates")
-    public static void sendHoverMessage(String message1, String message2, String message3, String hoverMessage, Player target) {
+    public static void sendHoverMessage(final String message1, final String message2, final String message3, final String hoverMessage, final Player target) {
         TextComponent localMessage1 = new TextComponent(TextComponent.fromLegacyText(message1));
         TextComponent hoverPart = new TextComponent(TextComponent.fromLegacyText(message2));
         TextComponent localMessage2 = new TextComponent(TextComponent.fromLegacyText(message3));

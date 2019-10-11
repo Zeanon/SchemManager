@@ -17,7 +17,7 @@ import java.util.List;
 class WorldEditVersionTabCompleter {
 
     @SuppressWarnings("Duplicates")
-    static List<String> onTab(String[] args, String buffer, boolean alreadyDeep, boolean argumentEnded) {
+    static List<String> onTab(final String[] args, final String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
         ArrayList<String> completions = new ArrayList<>();
         if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
             if (argumentEnded) {
@@ -246,7 +246,7 @@ class WorldEditVersionTabCompleter {
         return completions;
     }
 
-    private static void addFileToCompletions(String regex, ArrayList<String> completions, File file) {
+    private static void addFileToCompletions(final String regex, final ArrayList<String> completions, final File file) {
         try {
             if (((file.getName() + " ").toLowerCase()).startsWith(regex.toLowerCase())) {
                 Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
@@ -260,7 +260,7 @@ class WorldEditVersionTabCompleter {
         }
     }
 
-    private static File[] getFileArray(File directory) {
+    private static File[] getFileArray(final File directory) {
         String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
         Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, false);
         return rawFiles.toArray(new File[0]);

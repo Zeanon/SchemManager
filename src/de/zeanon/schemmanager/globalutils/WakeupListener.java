@@ -10,7 +10,7 @@ import org.bukkit.event.server.PluginEnableEvent;
 public class WakeupListener implements Listener {
 
     @EventHandler
-    public void onPluginEnable(PluginEnableEvent event) {
+    public void onPluginEnable(final PluginEnableEvent event) {
         if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldEdit") || event.getPlugin() == SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit")) {
             SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
             SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
@@ -18,7 +18,7 @@ public class WakeupListener implements Listener {
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
+    public void onQuit(final PlayerQuitEvent event) {
         Player p = event.getPlayer();
         RequestUtils.removeDisableRequest(p);
         RequestUtils.removeUpdateRequest(p);

@@ -13,15 +13,15 @@ public class WorldEditVersionRequestUtils {
     private static HashMap<String, String> overwriteRequests = new HashMap<>();
 
 
-    public static void addDeleteRequest(Player p, String name) {
+    public static void addDeleteRequest(final Player p, final String name) {
         deleteRequests.put(p.getUniqueId().toString(), name);
     }
 
-    public static void removeDeleteRequest(Player p) {
+    public static void removeDeleteRequest(final Player p) {
         deleteRequests.remove(p.getUniqueId().toString());
     }
 
-    public static boolean checkDeleteRequest(Player p, String name) {
+    public static boolean checkDeleteRequest(final Player p, final String name) {
         if (deleteRequests.containsKey(p.getUniqueId().toString())) {
             return deleteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
         }
@@ -29,15 +29,15 @@ public class WorldEditVersionRequestUtils {
     }
 
 
-    public static void addDeleteFolderRequest(Player p, String name) {
+    public static void addDeleteFolderRequest(final Player p, final String name) {
         deleteFolderRequests.put(p.getUniqueId().toString(), name);
     }
 
-    public static void removeDeleteFolderRequest(Player p) {
+    public static void removeDeleteFolderRequest(final Player p) {
         deleteFolderRequests.remove(p.getUniqueId().toString());
     }
 
-    public static boolean checkDeleteFolderRequest(Player p, String name) {
+    public static boolean checkDeleteFolderRequest(final Player p, final String name) {
         if (deleteFolderRequests.containsKey(p.getUniqueId().toString())) {
             return deleteFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
         } else {
@@ -46,15 +46,15 @@ public class WorldEditVersionRequestUtils {
     }
 
 
-    public static void addRenameRequest(Player p, String name) {
+    public static void addRenameRequest(final Player p, final String name) {
         renameRequests.put(p.getUniqueId().toString(), name);
     }
 
-    public static void removeRenameRequest(Player p) {
+    public static void removeRenameRequest(final Player p) {
         renameRequests.remove(p.getUniqueId().toString());
     }
 
-    public static boolean checkRenameRequest(Player p, String name) {
+    public static boolean checkRenameRequest(final Player p, final String name) {
         if (renameRequests.containsKey(p.getUniqueId().toString())) {
             return renameRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
         } else {
@@ -63,15 +63,15 @@ public class WorldEditVersionRequestUtils {
     }
 
 
-    public static void addRenameFolderRequest(Player p, String name) {
+    public static void addRenameFolderRequest(final Player p, final String name) {
         renameFolderRequests.put(p.getUniqueId().toString(), name);
     }
 
-    public static void removeRenameFolderRequest(Player p) {
+    public static void removeRenameFolderRequest(final Player p) {
         renameFolderRequests.remove(p.getUniqueId().toString());
     }
 
-    public static boolean checkRenameFolderRequest(Player p, String name) {
+    public static boolean checkRenameFolderRequest(final Player p, final String name) {
         if (renameFolderRequests.containsKey(p.getUniqueId().toString())) {
             return renameFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
         } else {
@@ -80,15 +80,15 @@ public class WorldEditVersionRequestUtils {
     }
 
 
-    public static void addOverwriteRequest(Player p, String name) {
+    public static void addOverwriteRequest(final Player p, final String name) {
         overwriteRequests.put(p.getUniqueId().toString(), name);
     }
 
-    public static void removeOverWriteRequest(Player p) {
+    public static void removeOverWriteRequest(final Player p) {
         overwriteRequests.remove(p.getUniqueId().toString());
     }
 
-    public static boolean checkOverWriteRequest(Player p, String name) {
+    public static boolean checkOverWriteRequest(final Player p, final String name) {
         if (overwriteRequests.containsKey(p.getUniqueId().toString())) {
             return overwriteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
         } else {
