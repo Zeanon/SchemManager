@@ -122,7 +122,7 @@
                             <tasks>
                                 <copy todir="E:\Servers\Server 1.14\plugins" flatten="true" overwrite="true"
                                       verbose="true" failonerror="true">
-                                    <fileset dir="${basedir}/target"
+                                    <fileset dir="${basedir}\target"
                                              includes="${project.build.finalName}.jar"/>
                                 </copy>
                             </tasks>
