@@ -15,7 +15,7 @@ public class UpdateUtils {
             FileOutputStream outputStream = null;
             try {
                 if (!file.exists()) {
-                    Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(inputStream, file.toPath(), StandardCopyOption.ATOMIC_MOVE);
                 } else {
                     outputStream = new FileOutputStream(file);
                     final byte[] data = new byte[5120];
