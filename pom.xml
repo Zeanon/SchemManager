@@ -4,7 +4,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.2.1</version>
+    <version>4.2.3</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
@@ -41,7 +41,7 @@
     </developers>
 
     <build>
-        <defaultGoal>clean package -U</defaultGoal>
+        <defaultGoal>clean install -U</defaultGoal>
         <finalName>${project.name}</finalName>
         <sourceDirectory>${basedir}/src/</sourceDirectory>
         <resources>
