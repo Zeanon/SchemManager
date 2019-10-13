@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.globalutils;
+package de.zeanon.schemmanager.utils;
 
 import de.zeanon.schemmanager.SchemManager;
 import net.md_5.bungee.api.ChatColor;

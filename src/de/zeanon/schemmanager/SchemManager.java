@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager;
 
 import de.leonhard.storage.Config;
-import de.zeanon.schemmanager.globalutils.*;
+import de.zeanon.schemmanager.utils.*;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -62,7 +62,7 @@ public class SchemManager extends JavaPlugin {
                     SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
                 } else {
                     System.out.println("[" + getName() + "] >> Config files are loaded sucessfully.");
-                    new WorldEditVersionMain().onEnable();
+                    WorldEditVersionMain.onEnable();
                 }
             }
         } else {

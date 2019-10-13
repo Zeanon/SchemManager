@@ -1,9 +1,11 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import de.zeanon.schemmanager.globalutils.ConfigUtils;
-import de.zeanon.schemmanager.globalutils.InternalFileUtils;
-import de.zeanon.schemmanager.globalutils.MessageUtils;
+import de.zeanon.schemmanager.utils.ConfigUtils;
+import de.zeanon.schemmanager.utils.InternalFileUtils;
+import de.zeanon.schemmanager.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -17,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @SuppressWarnings("Duplicates")
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class List {
 
     public static boolean onList(final Player p, final String[] args, final boolean deepSearch) {

@@ -1,8 +1,10 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
-import de.zeanon.schemmanager.globalutils.ConfigUtils;
-import de.zeanon.schemmanager.globalutils.InternalFileUtils;
+import de.zeanon.schemmanager.utils.ConfigUtils;
+import de.zeanon.schemmanager.utils.InternalFileUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -14,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 class WorldEditVersionTabCompleter {
 
     @SuppressWarnings("Duplicates")

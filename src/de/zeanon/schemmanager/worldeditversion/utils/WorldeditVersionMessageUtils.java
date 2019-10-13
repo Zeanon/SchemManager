@@ -1,5 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.utils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -7,6 +9,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WorldeditVersionMessageUtils {
 
     @SuppressWarnings("Duplicates")

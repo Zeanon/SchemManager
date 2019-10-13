@@ -1,10 +1,12 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-import de.zeanon.schemmanager.globalutils.ConfigUtils;
-import de.zeanon.schemmanager.globalutils.InternalFileUtils;
-import de.zeanon.schemmanager.globalutils.MessageUtils;
+import de.zeanon.schemmanager.utils.ConfigUtils;
+import de.zeanon.schemmanager.utils.InternalFileUtils;
+import de.zeanon.schemmanager.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
@@ -15,6 +17,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Objects;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Rename {
 
     public static boolean onRename(final Player p, final String[] args) {

@@ -1,10 +1,13 @@
-package de.zeanon.schemmanager.globalutils;
+package de.zeanon.schemmanager.utils;
 
 import de.zeanon.schemmanager.SchemManager;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigUtils {
 
     /**

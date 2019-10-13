@@ -1,11 +1,14 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.ConfigUtils;
-import de.zeanon.schemmanager.globalutils.MessageUtils;
+import de.zeanon.schemmanager.utils.ConfigUtils;
+import de.zeanon.schemmanager.utils.MessageUtils;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Help {
 
     public static boolean onHelp(final Player p, final String slash, final String schemAlias) {

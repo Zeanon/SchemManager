@@ -14,7 +14,7 @@ public class WorldEditVersionMain {
 
     public static Config weConfig;
 
-    public void onEnable() {
+    public static void onEnable() {
         try {
             weConfig = new Config(new File(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config.yml"));
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded sucessfully.");

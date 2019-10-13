@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
-import de.zeanon.schemmanager.globalutils.ConfigUtils;
-import de.zeanon.schemmanager.globalutils.MessageUtils;
+import de.zeanon.schemmanager.utils.ConfigUtils;
+import de.zeanon.schemmanager.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.commands.*;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldeditVersionMessageUtils;

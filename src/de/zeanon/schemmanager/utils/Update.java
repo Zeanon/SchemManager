@@ -1,10 +1,12 @@
-package de.zeanon.schemmanager.globalutils;
+package de.zeanon.schemmanager.utils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.updateutils.DefaultUpdate;
-import de.zeanon.schemmanager.globalutils.updateutils.PlugManEnabledUpdate;
-import de.zeanon.schemmanager.globalutils.updateutils.UpdateUtils;
+import de.zeanon.schemmanager.utils.updateutils.DefaultUpdate;
+import de.zeanon.schemmanager.utils.updateutils.PlugManEnabledUpdate;
+import de.zeanon.schemmanager.utils.updateutils.UpdateUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.io.BufferedInputStream;
@@ -13,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Update {
 
     static boolean updatePlugin() {
