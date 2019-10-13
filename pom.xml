@@ -41,6 +41,10 @@
         </developer>
     </developers>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
         <defaultGoal>clean install -U</defaultGoal>
         <finalName>${project.name}</finalName>
