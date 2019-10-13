@@ -1,4 +1,7 @@
-package de.zeanon.schemmanager.globalutils.updateutils;
+package de.zeanon.schemmanager.utils.updateutils;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -6,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UpdateUtils {
 
     private static final int BUFFER_SIZE = 8192;

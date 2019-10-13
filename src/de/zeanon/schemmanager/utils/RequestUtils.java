@@ -1,12 +1,12 @@
-package de.zeanon.schemmanager.globalutils;
+package de.zeanon.schemmanager.utils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-/**
- * a Global WorldEditVersionRequestUtils Class
- */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RequestUtils {
 
     private static final ArrayList<String> disableRequests = new ArrayList<>();

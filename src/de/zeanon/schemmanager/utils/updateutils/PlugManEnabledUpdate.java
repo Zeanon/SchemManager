@@ -1,9 +1,11 @@
-package de.zeanon.schemmanager.globalutils.updateutils;
+package de.zeanon.schemmanager.utils.updateutils;
 
 import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.InternalFileUtils;
+import de.zeanon.schemmanager.utils.InternalFileUtils;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -14,6 +16,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 @SuppressWarnings("Duplicates")
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PlugManEnabledUpdate {
 
     public static boolean updatePlugin(final boolean autoReload) {

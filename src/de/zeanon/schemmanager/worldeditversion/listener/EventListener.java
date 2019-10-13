@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.globalutils.RequestUtils;
+import de.zeanon.schemmanager.utils.RequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.entity.Player;

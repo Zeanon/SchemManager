@@ -1,6 +1,8 @@
-package de.zeanon.schemmanager.globalutils;
+package de.zeanon.schemmanager.utils;
 
 import de.zeanon.schemmanager.SchemManager;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InternalFileUtils {
 
     private static String pluginFolderPath;
