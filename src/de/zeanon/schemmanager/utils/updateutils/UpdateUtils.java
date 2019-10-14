@@ -16,31 +16,18 @@ public class UpdateUtils {
 
     @SuppressWarnings("Duplicates")
     public static boolean writeToFile(final File file, final BufferedInputStream inputStream) {
-        try {
-            FileOutputStream outputStream = null;
-            try {
-                if (!file.exists()) {
-                    Files.copy(inputStream, file.toPath());
-                } else {
-                    outputStream = new FileOutputStream(file);
-                    final byte[] data = new byte[BUFFER_SIZE];
-                    int count;
-                    while ((count = inputStream.read(data, 0, BUFFER_SIZE)) != -1) {
-                        outputStream.write(data, 0, count);
-                    }
+        try (FileOutputStream outputStream = new FileOutputStream(file)) {
+            if (!file.exists()) {
+                Files.copy(inputStream, file.toPath());
+                return true;
+            } else {
+                final byte[] data = new byte[BUFFER_SIZE];
+                int count;
+                while ((count = inputStream.read(data, 0, BUFFER_SIZE)) != -1) {
+                    outputStream.write(data, 0, count);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            } finally {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-                if (outputStream != null) {
-                    outputStream.close();
-                }
+                return true;
             }
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
