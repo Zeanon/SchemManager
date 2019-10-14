@@ -22,6 +22,8 @@ public class WorldEditVersionMain {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file.");
+            SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+            return;
         }
         try {
             WorldEditVersionSchemUtils.initWorldEditPlugin();
