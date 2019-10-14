@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.utils.updateutils;
 
-import de.leonhard.storage.Config;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +8,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UpdateUtils {
