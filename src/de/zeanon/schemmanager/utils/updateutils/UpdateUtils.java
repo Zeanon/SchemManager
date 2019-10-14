@@ -14,7 +14,6 @@ public class UpdateUtils {
 
     private static final int BUFFER_SIZE = 8192;
 
-    @SuppressWarnings("Duplicates")
     public static boolean writeToFile(final File file, final BufferedInputStream inputStream) {
         try (FileOutputStream outputStream = new FileOutputStream(file)) {
             if (!file.exists()) {
