@@ -79,8 +79,8 @@ public class InternalFileUtils {
     }
 
     public static String deleteEmptyParent(final File file) {
-        if (file.getParentFile().delete()) {
-            return deleteEmptyParent(file.getParentFile());
+        if (file.getAbsoluteFile().getParentFile().delete()) {
+            return deleteEmptyParent(file.getAbsoluteFile().getParentFile());
         }
         return file.getName();
     }

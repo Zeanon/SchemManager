@@ -98,8 +98,8 @@ public class Rename {
     @SuppressWarnings("Duplicates")
     private static String getParentName(final File file) {
         String parentName = null;
-        if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
-            parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
+        if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getAbsoluteFile().getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
+            parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
         }
         return parentName;
     }

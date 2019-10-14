@@ -28,7 +28,7 @@ public class WorldEditVersionSchemUtils {
     }
 
     public static Path getSchemPath() {
-        if (WorldEditVersionMain.weConfig.hasNotChanged()) {
+        if (!WorldEditVersionMain.weConfig.hasChanged()) {
             return schemFolderPath;
         } else {
             try {

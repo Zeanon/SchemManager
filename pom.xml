@@ -4,7 +4,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.2.2</version>
+    <version>4.2.3</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
@@ -40,6 +40,10 @@
             <timezone>Germany</timezone>
         </developer>
     </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <build>
         <defaultGoal>clean install -U</defaultGoal>

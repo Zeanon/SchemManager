@@ -42,8 +42,8 @@ public class Delete {
                             p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
                             return false;
                         } else {
-                            if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
-                                parentName = Objects.requireNonNull(file.getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
+                            if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getAbsoluteFile().getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
+                                parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
                             }
                         }
                     }
