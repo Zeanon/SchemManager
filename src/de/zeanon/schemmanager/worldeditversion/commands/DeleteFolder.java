@@ -19,7 +19,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DeleteFolder {
 
-    public static boolean onDeleteFolder(final Player p, final String[] args) {
+    public static void onDeleteFolder(final Player p, final String[] args) {
         Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         File file = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
         final boolean fileExists = file != null && file.exists() && file.isDirectory();
@@ -31,10 +31,8 @@ public class DeleteFolder {
                 }
                 MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem delfolder " + args[2] + " confirm", "//schem delfolder " + args[2] + " deny", p);
                 WorldEditVersionRequestUtils.addDeleteFolderRequest(p, args[2]);
-                return true;
             } else {
                 p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
-                return false;
             }
         } else if (args.length == 4 && WorldEditVersionRequestUtils.checkDeleteFolderRequest(p, args[2])) {
             if (args[3].equalsIgnoreCase("confirm")) {
@@ -47,25 +45,17 @@ public class DeleteFolder {
                         if (parentName != null) {
                             p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
                         }
-                        return true;
                     } catch (IOException e) {
                         e.printStackTrace();
                         p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " could not be deleted.");
-                        return false;
                     }
                 } else {
                     p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
-                    return false;
                 }
             } else if (args[3].equalsIgnoreCase("deny")) {
                 WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
                 p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not deleted.");
-                return true;
-            } else {
-                return false;
             }
-        } else {
-            return false;
         }
     }
 

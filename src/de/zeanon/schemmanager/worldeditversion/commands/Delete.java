@@ -18,7 +18,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Delete {
 
-    public static boolean onDelete(final Player p, final String[] args) {
+    public static void onDelete(final Player p, final String[] args) {
         Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
         ArrayList<File> files = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
         final boolean fileExists = files != null && files.size() > 0;
@@ -27,10 +27,8 @@ public class Delete {
             if (fileExists) {
                 MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem del " + args[2] + " confirm", "//schem del " + args[2] + " deny", p);
                 WorldEditVersionRequestUtils.addDeleteRequest(p, args[2]);
-                return true;
             } else {
                 p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
-                return false;
             }
         } else if (args.length == 4 && WorldEditVersionRequestUtils.checkDeleteRequest(p, args[2])) {
             if (args[3].equalsIgnoreCase("confirm")) {
@@ -40,7 +38,7 @@ public class Delete {
                     for (File file : files) {
                         if (!file.delete()) {
                             p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
-                            return false;
+                            return;
                         } else {
                             //noinspection Duplicates
                             if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getAbsoluteFile().getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
@@ -52,21 +50,14 @@ public class Delete {
                     if (parentName != null) {
                         p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
                     }
-                    return true;
                 } else {
                     p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
-                    return false;
                 }
 
             } else if (args[3].equalsIgnoreCase("deny")) {
                 WorldEditVersionRequestUtils.removeDeleteRequest(p);
                 p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was not deleted.");
-                return true;
-            } else {
-                return false;
             }
-        } else {
-            return false;
         }
     }
 }

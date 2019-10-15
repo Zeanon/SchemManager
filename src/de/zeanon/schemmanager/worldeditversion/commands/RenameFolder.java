@@ -20,7 +20,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RenameFolder {
 
-    public static boolean onRenameFolder(final Player p, final String[] args) {
+    public static void onRenameFolder(final Player p, final String[] args) {
         try {
             Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
             File directory_old = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
@@ -29,7 +29,7 @@ public class RenameFolder {
             if (args.length == 4) {
                 if (directory_old == null || !directory_old.exists() || !directory_old.isDirectory()) {
                     p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
-                    return false;
+                    return;
                 } else if (directory_new.exists() && directory_new.isDirectory()) {
                     p.sendMessage(ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
                     int id = 0;
@@ -87,7 +87,6 @@ public class RenameFolder {
                 }
                 MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem renamefolder " + args[2] + " " + args[3] + " confirm", "//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
                 WorldEditVersionRequestUtils.addRenameFolderRequest(p, args[2]);
-                return true;
             } else if (args.length == 5 && WorldEditVersionRequestUtils.checkRenameFolderRequest(p, args[2])) {
                 if (args[4].equalsIgnoreCase("confirm")) {
                     WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
@@ -100,35 +99,25 @@ public class RenameFolder {
                                     p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
                                 }
                                 p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was renamed successfully.");
-                                return true;
                             } catch (IOException e) {
                                 e.printStackTrace();
                                 p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " could not be renamed.");
                                 WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
-                                return false;
                             }
                         } else {
                             p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " could not be renamed.");
-                            return false;
                         }
                     } else {
                         p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
-                        return false;
                     }
                 } else if (args[4].equalsIgnoreCase("deny")) {
                     WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
                     p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not renamed");
-                    return true;
-                } else {
-                    return false;
                 }
-            } else {
-                return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
             p.sendMessage(ChatColor.RED + "An Error occured while getting the filepaths for the schematics and folders, please see console for further information.");
-            return false;
         }
     }
 
