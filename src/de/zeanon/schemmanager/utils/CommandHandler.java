@@ -21,7 +21,6 @@ public class CommandHandler implements CommandExecutor {
                 if (args.length == 0) {
                     p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                             + "argument" + ChatColor.YELLOW + ">");
-
                     return sendUpdateUsage(p) && sendDisableUsage(p);
                 } else if (args[0].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {
                     if (args.length == 1) {
@@ -71,7 +70,6 @@ public class CommandHandler implements CommandExecutor {
                 } else {
                     p.sendMessage(ChatColor.RED + "Invalid sub-command '" + ChatColor.GOLD + "" + args[0] + ChatColor.RED + ".");
                     return sendUpdateUsage(p) && sendDisableUsage(p);
-
                 }
             } else {
                 if (args.length == 1 && args[0].equalsIgnoreCase("disable")) {
