@@ -19,7 +19,7 @@ import java.net.URL;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PlugManEnabledUpdate {
 
-    public static boolean updatePlugin(final boolean autoReload) {
+    public static void updatePlugin(final boolean autoReload) {
         System.out.println(SchemManager.getInstance().getName() + " is updating...");
         String fileName;
         try {
@@ -32,7 +32,7 @@ public class PlugManEnabledUpdate {
         } catch (URISyntaxException e) {
             e.printStackTrace();
             System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
-            return false;
+            return;
         }
         try {
             if (UpdateUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
@@ -40,19 +40,16 @@ public class PlugManEnabledUpdate {
                 if (autoReload) {
                     PluginUtil.reload(SchemManager.getInstance());
                 }
-                return true;
             } else {
                 System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
-                return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
-            return false;
         }
     }
 
-    public static boolean updatePlugin(final Player p, final boolean autoReload) {
+    public static void updatePlugin(final Player p, final boolean autoReload) {
         p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
         String fileName;
         try {
@@ -65,7 +62,7 @@ public class PlugManEnabledUpdate {
         } catch (URISyntaxException e) {
             e.printStackTrace();
             p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
-            return false;
+            return;
         }
         try {
             if (UpdateUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
@@ -74,15 +71,12 @@ public class PlugManEnabledUpdate {
                     p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is reloading.");
                     PluginUtil.reload(SchemManager.getInstance());
                 }
-                return true;
             } else {
                 p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
-                return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
             p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
-            return false;
         }
     }
 }

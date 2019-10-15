@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Help {
 
-    public static boolean onHelp(final Player p, final String slash, final String schemAlias) {
+    public static void onHelp(final Player p, final String slash, final String schemAlias) {
         if (ConfigUtils.getBoolean("Space Lists")) {
             p.sendMessage(" ");
         }
@@ -113,10 +113,9 @@ public class Help {
                 ChatColor.GRAY + "/schemmanager " + ChatColor.AQUA + "disable", ChatColor.DARK_RED + ""
                         + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",
                 "/schemmanager disable", p);
-        return true;
     }
 
-    public static boolean onFormats(final Player p, final boolean suppressBlankLine) {
+    public static void onFormats(final Player p, final boolean suppressBlankLine) {
         if (ConfigUtils.getBoolean("Space Lists") && !suppressBlankLine) {
             p.sendMessage(" ");
         }
@@ -132,6 +131,5 @@ public class Help {
         } else {
             p.sendMessage(ChatColor.LIGHT_PURPLE + "schem" + ChatColor.AQUA + ", " + ChatColor.LIGHT_PURPLE + "schematic");
         }
-        return true;
     }
 }

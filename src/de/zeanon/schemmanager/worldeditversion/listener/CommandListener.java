@@ -18,40 +18,41 @@ public class CommandListener implements Listener {
 
     @SuppressWarnings("Duplicates")
     @EventHandler(priority = EventPriority.HIGH)
-    public boolean onCommand(final PlayerCommandPreprocessEvent event) {
+    public void onCommand(final PlayerCommandPreprocessEvent event) {
         Player p = event.getPlayer();
         String[] args = event.getMessage().replaceAll("worldedit:", "/").split(" ");
 
-        if (args[0].equalsIgnoreCase("/schem") || args[0].equalsIgnoreCase("/schematic")
-                || args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
+        if (args[0].equalsIgnoreCase("/schem")
+                || args[0].equalsIgnoreCase("/schematic")
+                || args[0].equalsIgnoreCase("//schem")
+                || args[0].equalsIgnoreCase("//schematic")) {
 
             String slash = args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic") ? "//" : "/";
             String schemAlias = args[0].equalsIgnoreCase("/schematic") || args[0].equalsIgnoreCase("//schematic") ? "schematic" : "schem";
 
-
             if (args.length == 1) {
                 event.setCancelled(true);
-                return Help.onHelp(p, slash, schemAlias);
+                Help.onHelp(p, slash, schemAlias);
             } else if ((args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("del") && p.hasPermission("worldedit.schematic.delete"))) {
                 event.setCancelled(true);
                 if (args.length <= 5) {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
-                        return deleteUsage(p, slash, schemAlias);
+                        deleteUsage(p, slash, schemAlias);
                     } else if (args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
-                        return deleteUsage(p, slash, schemAlias);
+                        deleteUsage(p, slash, schemAlias);
                     } else if (args.length == 4 && !WorldEditVersionRequestUtils.checkDeleteFolderRequest(p, args[2])
                             && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return deleteUsage(p, slash, schemAlias);
+                        deleteUsage(p, slash, schemAlias);
                     } else {
-                        return Delete.onDelete(p, args);
+                        Delete.onDelete(p, args);
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    return deleteUsage(p, slash, schemAlias);
+                    deleteUsage(p, slash, schemAlias);
                 }
             } else if ((args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("delfolder")) && p.hasPermission("worldedit.schematic.delete")) {
                 event.setCancelled(true);
@@ -59,20 +60,20 @@ public class CommandListener implements Listener {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GREEN
                                 + "filename" + ChatColor.YELLOW + ">");
-                        return deleteFolderUsage(p, slash, schemAlias);
+                        deleteFolderUsage(p, slash, schemAlias);
                     } else if (args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
-                        return deleteFolderUsage(p, slash, schemAlias);
+                        deleteFolderUsage(p, slash, schemAlias);
                     } else if (args.length == 4 && !WorldEditVersionRequestUtils.checkDeleteFolderRequest(p, args[2])
                             && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return deleteFolderUsage(p, slash, schemAlias);
+                        deleteFolderUsage(p, slash, schemAlias);
                     } else {
-                        return DeleteFolder.onDeleteFolder(p, args);
+                        DeleteFolder.onDeleteFolder(p, args);
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    return deleteFolderUsage(p, slash, schemAlias);
+                    deleteFolderUsage(p, slash, schemAlias);
                 }
             } else if (args[1].equalsIgnoreCase("rename") && p.hasPermission("worldedit.schematic.save")) {
                 event.setCancelled(true);
@@ -80,21 +81,21 @@ public class CommandListener implements Listener {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
-                        return renameUsage(p, slash, schemAlias);
+                        renameUsage(p, slash, schemAlias);
                     } else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
                         String name = args[2].contains("./") ? args[2] : args[3];
                         p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
-                        return renameUsage(p, slash, schemAlias);
+                        renameUsage(p, slash, schemAlias);
                     } else if (args.length == 5 && !WorldEditVersionRequestUtils.checkRenameRequest(p, args[2])
                             && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return renameUsage(p, slash, schemAlias);
+                        renameUsage(p, slash, schemAlias);
                     } else {
-                        return Rename.onRename(p, args);
+                        Rename.onRename(p, args);
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    return renameUsage(p, slash, schemAlias);
+                    renameUsage(p, slash, schemAlias);
                 }
             } else if (args[1].equalsIgnoreCase("renamefolder") && p.hasPermission("worldedit.schematic.save")) {
                 event.setCancelled(true);
@@ -102,41 +103,39 @@ public class CommandListener implements Listener {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GREEN
                                 + "filename" + ChatColor.YELLOW + ">");
-                        return renameFolderUsage(p, slash, schemAlias);
+                        renameFolderUsage(p, slash, schemAlias);
                     } else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
                         String name = args[2].contains("./") ? args[2] : args[3];
                         p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
-                        return renameFolderUsage(p, slash, schemAlias);
+                        renameFolderUsage(p, slash, schemAlias);
                     } else if (args.length == 5 && !args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny") && !WorldEditVersionRequestUtils.checkRenameFolderRequest(p, args[2])) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return renameFolderUsage(p, slash, schemAlias);
+                        renameFolderUsage(p, slash, schemAlias);
                     } else {
-                        return RenameFolder.onRenameFolder(p, args);
+                        RenameFolder.onRenameFolder(p, args);
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    return renameFolderUsage(p, slash, schemAlias);
+                    renameFolderUsage(p, slash, schemAlias);
                 }
             } else if (args[1].equalsIgnoreCase("load") && p.hasPermission("worldedit.schematic.load")) {
                 if (args.length < 3) {
                     event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                             + "filename" + ChatColor.YELLOW + ">");
-                    return loadUsage(p, slash, schemAlias);
+                    loadUsage(p, slash, schemAlias);
                 } else if (args[2].contains("./")) {
                     event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
-                    return loadUsage(p, slash, schemAlias);
+                    loadUsage(p, slash, schemAlias);
                 } else if (args.length > 4) {
                     event.setCancelled(true);
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    return loadUsage(p, slash, schemAlias);
+                    loadUsage(p, slash, schemAlias);
                 } else if (args.length > 3 && !ConfigUtils.getStringList("File Extensions").contains(args[3])) {
                     event.setCancelled(true);
                     p.sendMessage(ChatColor.LIGHT_PURPLE + args[3] + ChatColor.RED + " is no valid file format.");
-                    return Help.onFormats(p, true);
-                } else {
-                    return true;
+                    Help.onFormats(p, true);
                 }
             } else if (args[1].equalsIgnoreCase("save") && p.hasPermission("worldedit.schematic.save")) {
                 if (!ConfigUtils.getBoolean("Save Function Override")) {
@@ -144,42 +143,38 @@ public class CommandListener implements Listener {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
-                        return defaultSaveUsage(p, slash, schemAlias);
+                        defaultSaveUsage(p, slash, schemAlias);
                     } else if (args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
-                        return defaultSaveUsage(p, slash, schemAlias);
+                        defaultSaveUsage(p, slash, schemAlias);
                     } else if (args.length > 4 && !args[2].equalsIgnoreCase("-f")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return defaultSaveUsage(p, slash, schemAlias);
-                    } else {
-                        return true;
+                        defaultSaveUsage(p, slash, schemAlias);
                     }
                 } else if (args.length > 2 && args.length < 5 && args[2].equalsIgnoreCase("-f")) {
                     if (args.length == 3) {
                         event.setCancelled(true);
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
-                        return saveUsage(p, slash, schemAlias);
-                    } else {
-                        return true;
+                        saveUsage(p, slash, schemAlias);
                     }
                 } else {
                     event.setCancelled(true);
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
-                        return saveUsage(p, slash, schemAlias);
+                        saveUsage(p, slash, schemAlias);
                     } else if (args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
-                        return saveUsage(p, slash, schemAlias);
+                        saveUsage(p, slash, schemAlias);
                     } else if (args.length > 4) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return saveUsage(p, slash, schemAlias);
+                        saveUsage(p, slash, schemAlias);
                     } else if (args.length == 4 && !WorldEditVersionRequestUtils.checkOverWriteRequest(p, args[2]) && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return saveUsage(p, slash, schemAlias);
+                        saveUsage(p, slash, schemAlias);
                     } else {
-                        return Save.onSave(p, args);
+                        Save.onSave(p, args);
                     }
                 }
             } else if (args[1].equalsIgnoreCase("list") && p.hasPermission("worldedit.schematic.list")) {
@@ -197,16 +192,16 @@ public class CommandListener implements Listener {
                 if (args.length <= 4) {
                     if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[3]))) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return listUsage(p, slash, schemAlias);
+                        listUsage(p, slash, schemAlias);
                     } else if (args.length >= 3 && args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
-                        return listUsage(p, slash, schemAlias);
+                        listUsage(p, slash, schemAlias);
                     } else {
-                        return List.onList(p, args, deep);
+                        List.onList(p, args, deep);
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    return listUsage(p, slash, schemAlias);
+                    listUsage(p, slash, schemAlias);
                 }
             } else if (args[1].equalsIgnoreCase("folder") && p.hasPermission("worldedit.schematic.list")) {
                 event.setCancelled(true);
@@ -224,16 +219,16 @@ public class CommandListener implements Listener {
                 if (args.length <= 4) {
                     if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[3]))) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return folderUsage(p, slash, schemAlias);
+                        folderUsage(p, slash, schemAlias);
                     } else if (args.length >= 3 && args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
-                        return folderUsage(p, slash, schemAlias);
+                        folderUsage(p, slash, schemAlias);
                     } else {
-                        return Folder.onFolder(p, args, deep);
+                        Folder.onFolder(p, args, deep);
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    return folderUsage(p, slash, schemAlias);
+                    folderUsage(p, slash, schemAlias);
                 }
             } else if (args[1].equalsIgnoreCase("search") && p.hasPermission("worldedit.schematic.list")) {
                 event.setCancelled(true);
@@ -251,19 +246,19 @@ public class CommandListener implements Listener {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
-                        return searchUsage(p, slash, schemAlias);
+                        searchUsage(p, slash, schemAlias);
                     } else if (args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
-                        return searchUsage(p, slash, schemAlias);
+                        searchUsage(p, slash, schemAlias);
                     } else if (args.length == 5 && (StringUtils.isNumeric(args[2]) || StringUtils.isNumeric(args[3]) || !StringUtils.isNumeric(args[4]))) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return searchUsage(p, slash, schemAlias);
+                        searchUsage(p, slash, schemAlias);
                     } else {
-                        return Search.onSearch(p, args, deep);
+                        Search.onSearch(p, args, deep);
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    return searchUsage(p, slash, schemAlias);
+                    searchUsage(p, slash, schemAlias);
                 }
             } else if (args[1].equalsIgnoreCase("searchfolder") && p.hasPermission("worldedit.schematic.list")) {
                 event.setCancelled(true);
@@ -281,43 +276,41 @@ public class CommandListener implements Listener {
                     if (args.length < 3) {
                         p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
                                 + "filename" + ChatColor.YELLOW + ">");
-                        return searchFolderUsage(p, slash, schemAlias);
+                        searchFolderUsage(p, slash, schemAlias);
                     } else if (args[2].contains("./")) {
                         p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
-                        return searchUsage(p, slash, schemAlias);
+                        searchFolderUsage(p, slash, schemAlias);
                     } else if (args.length == 5 && (StringUtils.isNumeric(args[2]) || StringUtils.isNumeric(args[3]) || !StringUtils.isNumeric(args[4]))) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
-                        return searchFolderUsage(p, slash, schemAlias);
+                        searchFolderUsage(p, slash, schemAlias);
                     } else {
-                        return SearchFolder.onSearchFolder(p, args, deep);
+                        SearchFolder.onSearchFolder(p, args, deep);
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
-                    return searchFolderUsage(p, slash, schemAlias);
+                    searchFolderUsage(p, slash, schemAlias);
                 }
             } else if (args[1].equalsIgnoreCase("help")) {
                 event.setCancelled(true);
                 if (args.length == 2) {
-                    return Help.onHelp(p, slash, schemAlias);
+                    Help.onHelp(p, slash, schemAlias);
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                             ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " help", ChatColor.LIGHT_PURPLE + ""
                                     + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS HELP ME",
                             slash + schemAlias + " help", p);
-                    return true;
                 }
             } else if (args[1].equalsIgnoreCase("formats")) {
                 event.setCancelled(true);
                 if (args.length == 2) {
-                    return Help.onFormats(p, false);
+                    Help.onFormats(p, false);
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
                     MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                             ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " formats", ChatColor.DARK_BLUE + ""
                                     + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "There are different formats? :O",
                             slash + schemAlias + " formats", p);
-                    return true;
                 }
             } else {
                 event.setCancelled(true);
@@ -330,23 +323,17 @@ public class CommandListener implements Listener {
                         + ChatColor.RED + ", " + ChatColor.GOLD + "folder" + ChatColor.RED + ", " + ChatColor.GOLD
                         + "search" + ChatColor.RED + ", " + ChatColor.GOLD + "searchfolder");
                 WorldeditVersionMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
-                return true;
             }
         } else if (args[0].equalsIgnoreCase("/stoplag") && EventListener.worldguardEnabled && ConfigUtils.getBoolean("Stoplag Override")) {
             if (args.length == 1 || (!args[1].equalsIgnoreCase("confirm") && !args[1].equalsIgnoreCase("-c"))) {
                 event.setCancelled(true);
                 p.performCommand("stoplag confirm");
-                return true;
-            } else {
-                return true;
             }
-        } else {
-            return false;
         }
     }
 
 
-    private boolean searchFolderUsage(final Player p, final String slash, final String schemAlias) {
+    private void searchFolderUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " searchfolder " + ChatColor.YELLOW
                         + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
@@ -359,10 +346,9 @@ public class CommandListener implements Listener {
                         + "] " + ChatColor.GOLD + "example" + ChatColor.YELLOW + " ["
                         + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
                 slash + schemAlias + " searchfolder ", p);
-        return true;
     }
 
-    private boolean searchUsage(final Player p, final String slash, final String schemAlias) {
+    private void searchUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " search " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
@@ -375,10 +361,9 @@ public class CommandListener implements Listener {
                         + "example" + ChatColor.YELLOW + " [" + ChatColor.DARK_PURPLE + "page"
                         + ChatColor.YELLOW + "]",
                 slash + schemAlias + " search ", p);
-        return true;
     }
 
-    private boolean folderUsage(final Player p, final String slash, final String schemAlias) {
+    private void folderUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " folder " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
@@ -389,10 +374,9 @@ public class CommandListener implements Listener {
                         + "] [" + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] ["
                         + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
                 slash + schemAlias + " folder ", p);
-        return true;
     }
 
-    private boolean listUsage(final Player p, final String slash, final String schemAlias) {
+    private void listUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " list " + ChatColor.YELLOW + "["
                         + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
@@ -403,20 +387,18 @@ public class CommandListener implements Listener {
                         + "] [" + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] ["
                         + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
                 slash + schemAlias + " list ", p);
-        return true;
     }
 
-    private boolean saveUsage(final Player p, final String slash, final String schemAlias) {
+    private void saveUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save "
                         + ChatColor.GOLD + "example",
                 slash + schemAlias + " save ", p);
-        return true;
     }
 
-    private boolean defaultSaveUsage(final Player p, final String slash, final String schemAlias) {
+    private void defaultSaveUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " save "
                         + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-f" + ChatColor.YELLOW + "] <"
@@ -425,10 +407,9 @@ public class CommandListener implements Listener {
                         + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-f" + ChatColor.YELLOW + "]"
                         + ChatColor.GOLD + "example",
                 slash + schemAlias + " save ", p);
-        return true;
     }
 
-    private boolean loadUsage(final Player p, final String slash, final String schemAlias) {
+    private void loadUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " load " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> ["
@@ -437,46 +418,41 @@ public class CommandListener implements Listener {
                         + ChatColor.GOLD + "example " + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "format" + ChatColor.YELLOW
                         + "]",
                 slash + schemAlias + " load ", p);
-        return true;
     }
 
-    private boolean renameFolderUsage(final Player p, final String slash, final String schemAlias) {
+    private void renameFolderUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " renamefolder " + ChatColor.YELLOW
                         + "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GREEN + "newname" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA
                         + " renamefolder " + ChatColor.GREEN + "example newname",
                 slash + schemAlias + " renamefolder ", p);
-        return true;
     }
 
-    private boolean renameUsage(final Player p, final String slash, final String schemAlias) {
+    private void renameUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " rename " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GOLD + "newname" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " rename "
                         + ChatColor.GOLD + "example newname",
                 slash + schemAlias + " rename ", p);
-        return true;
     }
 
-    private boolean deleteFolderUsage(final Player p, final String slash, final String schemAlias) {
+    private void deleteFolderUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " deletefolder " + ChatColor.YELLOW
                         + "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA
                         + " deletefolder " + ChatColor.GREEN + "example",
                 slash + schemAlias + " deletefolder ", p);
-        return true;
     }
 
-    private boolean deleteUsage(final Player p, final String slash, final String schemAlias) {
+    private void deleteUsage(final Player p, final String slash, final String schemAlias) {
         MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
                 ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " delete " + ChatColor.YELLOW + "<"
                         + ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",
                 ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " delete "
                         + ChatColor.GOLD + "example",
                 slash + schemAlias + " delete ", p);
-        return true;
     }
 }
