@@ -12,26 +12,8 @@ import org.bukkit.event.server.PluginEnableEvent;
 
 public class EventListener implements Listener {
 
-    static boolean worldguardEnabled = false;
-
-    public EventListener() {
-        if (SchemManager.getPluginManager().getPlugin("WorldGuard") != null && SchemManager.getPluginManager().isPluginEnabled("WorldGuard")) {
-            worldguardEnabled = true;
-        }
-    }
-
-
-    @EventHandler
-    public void onQuit(final PlayerQuitEvent event) {
-        Player p = event.getPlayer();
-        RequestUtils.removeDisableRequest(p);
-        RequestUtils.removeUpdateRequest(p);
-        WorldEditVersionRequestUtils.removeDeleteRequest(p);
-        WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
-        WorldEditVersionRequestUtils.removeRenameRequest(p);
-        WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
-        WorldEditVersionRequestUtils.removeOverWriteRequest(p);
-    }
+    static boolean worldguardEnabled = SchemManager.getPluginManager().getPlugin("WorldGuard") != null
+            && SchemManager.getPluginManager().isPluginEnabled("WorldGuard");
 
 
     @EventHandler
@@ -52,5 +34,18 @@ public class EventListener implements Listener {
         } else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
             worldguardEnabled = true;
         }
+    }
+
+
+    @EventHandler
+    public void onQuit(final PlayerQuitEvent event) {
+        Player p = event.getPlayer();
+        RequestUtils.removeDisableRequest(p);
+        RequestUtils.removeUpdateRequest(p);
+        WorldEditVersionRequestUtils.removeDeleteRequest(p);
+        WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
+        WorldEditVersionRequestUtils.removeRenameRequest(p);
+        WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
+        WorldEditVersionRequestUtils.removeOverWriteRequest(p);
     }
 }
