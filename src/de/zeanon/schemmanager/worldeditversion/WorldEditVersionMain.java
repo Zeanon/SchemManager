@@ -6,7 +6,6 @@ import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
 import de.zeanon.schemmanager.worldeditversion.listener.EventListener;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
@@ -16,7 +15,7 @@ public class WorldEditVersionMain {
 
     public static void onEnable() {
         try {
-            weConfig = new Config(new File(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config.yml"));
+            weConfig = new Config(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder().getAbsolutePath(), "config.yml");
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded sucessfully.");
         } catch (Exception e) {
             e.printStackTrace();
