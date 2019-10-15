@@ -22,12 +22,13 @@ public class CommandListener implements Listener {
         Player p = event.getPlayer();
         String[] args = event.getMessage().replaceAll("worldedit:", "/").split(" ");
 
-        if (args[0].equalsIgnoreCase("/schem") || args[0].equalsIgnoreCase("/schematic")
-                || args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
+        if (args[0].equalsIgnoreCase("/schem")
+                || args[0].equalsIgnoreCase("/schematic")
+                || args[0].equalsIgnoreCase("//schem")
+                || args[0].equalsIgnoreCase("//schematic")) {
 
             String slash = args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic") ? "//" : "/";
             String schemAlias = args[0].equalsIgnoreCase("/schematic") || args[0].equalsIgnoreCase("//schematic") ? "schematic" : "schem";
-
 
             if (args.length == 1) {
                 event.setCancelled(true);

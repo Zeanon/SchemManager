@@ -8,6 +8,7 @@ import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtil
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -18,20 +19,30 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Update {
 
-    static boolean updatePlugin() {
-        if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-            return PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
-        } else {
-            return DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
-        }
+    static void updatePlugin() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
+                    PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
+                } else {
+                    DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
+                }
+            }
+        }.runTaskAsynchronously(SchemManager.getInstance());
     }
 
-    static boolean updatePlugin(final Player p) {
-        if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-            return PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
-        } else {
-            return DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
-        }
+    static void updatePlugin(final Player p) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
+                    PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
+                } else {
+                    DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
+                }
+            }
+        }.runTaskAsynchronously(SchemManager.getInstance());
     }
 
 
@@ -71,7 +82,8 @@ public class Update {
                 System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + SchemManager.config.getFile().getName() + " could not be updated");
                 return false;
             }
+        } else {
+            return true;
         }
-        return true;
     }
 }
