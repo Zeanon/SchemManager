@@ -2,6 +2,7 @@ package de.zeanon.schemmanager.worldeditversion.listener;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.RequestUtils;
+import de.zeanon.schemmanager.utils.Task;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ import org.bukkit.event.server.TabCompleteEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.ExecutionException;
 
 public class EventListener implements Listener {
 
@@ -46,7 +48,16 @@ public class EventListener implements Listener {
                     args = (String[]) ArrayUtils.removeElement(args, "-d");
                     deep = true;
                 }
-                event.setCompletions(WorldEditVersionTabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" ")));
+                String[] finalArgs = args;
+                boolean finalDeep = deep;
+                String finalMessage = message;
+                Task.runAsync(() -> WorldEditVersionTabCompleter.onTab(finalArgs, event.getBuffer(), finalDeep, finalMessage.endsWith(" ")), completions -> {
+                    try {
+                        event.setCompletions(completions.get());
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
         } else if (args[0].equalsIgnoreCase("/stoplag")) {
             if (args.length == 1 || (args.length == 2 && !message.endsWith(" "))) {
