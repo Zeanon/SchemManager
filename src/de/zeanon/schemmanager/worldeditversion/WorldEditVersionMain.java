@@ -15,7 +15,7 @@ public class WorldEditVersionMain {
 
     public static void onEnable() {
         try {
-            weConfig = new Config(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder().getAbsolutePath(), "config.yml");
+            weConfig = new Config("config.yml", Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder().getAbsolutePath());
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded sucessfully.");
         } catch (Exception e) {
             e.printStackTrace();
