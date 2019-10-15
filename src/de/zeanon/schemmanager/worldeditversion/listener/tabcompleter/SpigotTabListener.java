@@ -1,6 +1,5 @@
-package de.zeanon.schemmanager.worldeditversion.listener.tablistener;
+package de.zeanon.schemmanager.worldeditversion.listener.tabcompleter;
 
-import de.zeanon.schemmanager.worldeditversion.listener.WorldEditVersionTabCompleter;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

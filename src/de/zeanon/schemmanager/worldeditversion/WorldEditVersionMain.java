@@ -4,8 +4,8 @@ import de.leonhard.storage.Config;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
 import de.zeanon.schemmanager.worldeditversion.listener.EventListener;
-import de.zeanon.schemmanager.worldeditversion.listener.tablistener.PaperTabListener;
-import de.zeanon.schemmanager.worldeditversion.listener.tablistener.SpigotTabListener;
+import de.zeanon.schemmanager.worldeditversion.listener.tabcompleter.PaperTabListener;
+import de.zeanon.schemmanager.worldeditversion.listener.tabcompleter.SpigotTabListener;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import org.bukkit.Bukkit;
 

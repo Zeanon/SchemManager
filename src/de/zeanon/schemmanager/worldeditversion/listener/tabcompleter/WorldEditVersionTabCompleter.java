@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.worldeditversion.listener;
+package de.zeanon.schemmanager.worldeditversion.listener.tabcompleter;
 
 import de.zeanon.schemmanager.utils.ConfigUtils;
 import de.zeanon.schemmanager.utils.InternalFileUtils;
@@ -17,56 +17,55 @@ import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public
 class WorldEditVersionTabCompleter {
 
     @SuppressWarnings("Duplicates")
-    public static List<String> onTab(final String[] args, final String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
+    static List<String> onTab(final String[] args, final String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
         ArrayList<String> completions = new ArrayList<>();
         if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
             if (argumentEnded) {
                 return Arrays.asList("help", "load", "formats", "save", "rename", "renamfolder", "del", "delete", "delfolder", "deletefolder", "list", "folder", "search", "searchfolder");
             } else {
-                if ("help".startsWith(args[1])) {
+                if ("help".startsWith(args[1]) && !"help".equals(args[1])) {
                     completions.add("help");
                 }
-                if ("load".startsWith(args[1])) {
+                if ("load".startsWith(args[1]) && !"load".equals(args[1])) {
                     completions.add("load");
                 }
-                if ("formats".startsWith(args[1])) {
+                if ("formats".startsWith(args[1]) && !"formats".equals(args[1])) {
                     completions.add("formats");
                 }
-                if ("save".startsWith(args[1])) {
+                if ("save".startsWith(args[1]) && !"save".equals(args[1])) {
                     completions.add("save");
                 }
-                if ("rename".startsWith(args[1])) {
+                if ("rename".startsWith(args[1]) && !"rename".equals(args[1])) {
                     completions.add("rename");
                 }
-                if ("renamefolder".startsWith(args[1])) {
+                if ("renamefolder".startsWith(args[1]) && !"renamefolder".equals(args[1])) {
                     completions.add("renamefolder");
                 }
-                if ("del".startsWith(args[1])) {
+                if ("del".startsWith(args[1]) && !"del".equals(args[1])) {
                     completions.add("del");
                 }
-                if ("delete".startsWith(args[1])) {
+                if ("delete".startsWith(args[1]) && !"delete".equals(args[1])) {
                     completions.add("delete");
                 }
-                if ("delfolder".startsWith(args[1])) {
+                if ("delfolder".startsWith(args[1]) && !"delfolder".equals(args[1])) {
                     completions.add("delfolder");
                 }
-                if ("deletefolder".startsWith(args[1])) {
+                if ("deletefolder".startsWith(args[1]) && !"deletefolder".equals(args[1])) {
                     completions.add("deletefolder");
                 }
-                if ("list".startsWith(args[1])) {
+                if ("list".startsWith(args[1]) && !"list".equals(args[1])) {
                     completions.add("list");
                 }
-                if ("folder".startsWith(args[1])) {
+                if ("folder".startsWith(args[1]) && !"folder".equals(args[1])) {
                     completions.add("folder");
                 }
-                if ("search".startsWith(args[1])) {
+                if ("search".startsWith(args[1]) && !"search".equals(args[1])) {
                     completions.add("search");
                 }
-                if ("searchfolder".startsWith(args[1])) {
+                if ("searchfolder".startsWith(args[1]) && !"searchfolder".equals(args[1])) {
                     completions.add("searchfolder");
                 }
             }
@@ -98,10 +97,10 @@ class WorldEditVersionTabCompleter {
                 }
             } else {
                 if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
-                    if ("-d".startsWith(args[2])) {
+                    if ("-d".startsWith(args[2]) && !"-d".equals(args[2])) {
                         completions.add("-d");
                     }
-                    if ("-deep".startsWith(args[2])) {
+                    if ("-deep".startsWith(args[2]) && !"-deep".equals(args[2])) {
                         completions.add("-deep");
                     }
                 }
@@ -188,7 +187,7 @@ class WorldEditVersionTabCompleter {
                 switch (args[1]) {
                     case "load":
                         for (String extension : ConfigUtils.getStringList("File Extensions")) {
-                            if ((extension + " ").toLowerCase().startsWith(args[3])) {
+                            if (extension.toLowerCase().startsWith(args[3]) && !extension.equals(args[3])) {
                                 completions.add(extension);
                             }
                         }
@@ -252,7 +251,7 @@ class WorldEditVersionTabCompleter {
 
     private static void addFileToCompletions(final String regex, final ArrayList<String> completions, final File file) {
         try {
-            if (((file.getName() + " ").toLowerCase()).startsWith(regex.toLowerCase())) {
+            if (file.getName().toLowerCase().startsWith(regex.toLowerCase()) && !file.getName().toLowerCase().equals(regex.toLowerCase())) {
                 Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
                 if (schemPath != null) {
                     String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
