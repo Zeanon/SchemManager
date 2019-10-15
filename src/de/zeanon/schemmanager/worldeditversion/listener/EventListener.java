@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.event.server.TabCompleteEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,33 +29,38 @@ public class EventListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onTab(final TabCompleteEvent event) {
-        String message = event.getBuffer();
-        while (message.contains("  ")) {
-            message = message.replaceAll(" {2}", " ");
-        }
-        String[] args = message.replaceAll("worldedit:", "/").split(" ");
-        if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
-            if (message.contains("./")) {
-                event.setCompletions(new ArrayList<>());
-            } else {
-                boolean deep = false;
-                if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
-                    args = (String[]) ArrayUtils.removeElement(args, "-deep");
-                    deep = true;
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                String message = event.getBuffer();
+                while (message.contains("  ")) {
+                    message = message.replaceAll(" {2}", " ");
                 }
-                if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
-                    args = (String[]) ArrayUtils.removeElement(args, "-d");
-                    deep = true;
+                String[] args = message.replaceAll("worldedit:", "/").split(" ");
+                if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
+                    if (message.contains("./")) {
+                        event.setCompletions(new ArrayList<>());
+                    } else {
+                        boolean deep = false;
+                        if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
+                            args = (String[]) ArrayUtils.removeElement(args, "-deep");
+                            deep = true;
+                        }
+                        if (args.length > 2 && args[2].equalsIgnoreCase("-d")) {
+                            args = (String[]) ArrayUtils.removeElement(args, "-d");
+                            deep = true;
+                        }
+                        event.setCompletions(WorldEditVersionTabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" ")));
+                    }
+                } else if (args[0].equalsIgnoreCase("/stoplag")) {
+                    if (args.length == 1 || (args.length == 2 && !message.endsWith(" "))) {
+                        event.setCompletions(Collections.singletonList("-c"));
+                    } else {
+                        event.setCompletions(new ArrayList<>());
+                    }
                 }
-                event.setCompletions(WorldEditVersionTabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" ")));
             }
-        } else if (args[0].equalsIgnoreCase("/stoplag")) {
-            if (args.length == 1 || (args.length == 2 && !message.endsWith(" "))) {
-                event.setCompletions(Collections.singletonList("-c"));
-            } else {
-                event.setCompletions(new ArrayList<>());
-            }
-        }
+        }.runTaskAsynchronously(SchemManager.getInstance());
     }
 
 
