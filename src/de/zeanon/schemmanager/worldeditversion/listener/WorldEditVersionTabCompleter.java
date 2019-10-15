@@ -17,10 +17,11 @@ import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+public
 class WorldEditVersionTabCompleter {
 
     @SuppressWarnings("Duplicates")
-    static List<String> onTab(final String[] args, final String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
+    public static List<String> onTab(final String[] args, final String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
         ArrayList<String> completions = new ArrayList<>();
         if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
             if (argumentEnded) {

@@ -46,9 +46,6 @@ public class SchemManager extends JavaPlugin {
             boolean failedToLoad = false;
             System.out.println("[" + getName() + "] >> Launching WorldEdit Version of " + getName() + ".");
             System.out.println("[" + getName() + "] >> Loading Configs.");
-            if (Bukkit.getVersion().contains("git-Paper")) {
-                System.out.println("PAPER");
-            }
             try {
                 config = new Config("config", getDataFolder().getAbsolutePath(), SchemManager.class.getClassLoader().getResourceAsStream("resources/config.yml"));
                 System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
