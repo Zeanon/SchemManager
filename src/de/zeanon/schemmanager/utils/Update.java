@@ -65,7 +65,7 @@ public class Update {
             boolean autoReload = !SchemManager.config.contains("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
 
             if (UpdateUtils.writeToFile(new File(SchemManager.getInstance().getDataFolder(), "config.yml"), new BufferedInputStream(Objects.requireNonNull(WorldEditVersionRequestUtils.class.getClassLoader().getResourceAsStream("resources/config.yml"))))) {
-                SchemManager.config.update();
+                SchemManager.config.reload();
 
                 SchemManager.config.set("Plugin Version", SchemManager.getInstance().getDescription().getVersion());
                 SchemManager.config.set("File Extensions", fileExtensions);
