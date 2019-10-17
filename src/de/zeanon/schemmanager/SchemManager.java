@@ -1,17 +1,19 @@
 package de.zeanon.schemmanager;
 
-import de.leonhard.storage.Config;
+import de.leonhard.storage.LightningStorage;
+import de.leonhard.storage.internal.datafiles.config.YamlConfig;
 import de.zeanon.schemmanager.utils.*;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Objects;
 
 public class SchemManager extends JavaPlugin {
 
-    public static Config config;
+    public static YamlConfig config;
     private static volatile SchemManager instance;
     private static PluginManager pluginManager;
 
@@ -47,7 +49,9 @@ public class SchemManager extends JavaPlugin {
             System.out.println("[" + getName() + "] >> Launching WorldEdit Version of " + getName() + ".");
             System.out.println("[" + getName() + "] >> Loading Configs.");
             try {
-                config = new Config("config", getDataFolder().getAbsolutePath(), SchemManager.class.getClassLoader().getResourceAsStream("resources/config.yml"));
+                config = LightningStorage.dataFile("config", getDataFolder().getAbsolutePath())
+                        .fromInputStream(SchemManager.class.getClassLoader().getResourceAsStream("resources/config.yml"))
+                        .createYamlConfig();
                 System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -58,12 +62,22 @@ public class SchemManager extends JavaPlugin {
                 System.out.println("[" + getName() + "] >> Could not load config files... unloading Plugin...");
                 SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
             } else {
-                if (!Update.updateConfig(false)) {
-                    SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
-                } else {
-                    System.out.println("[" + getName() + "] >> Config files are loaded sucessfully.");
-                    WorldEditVersionMain.onEnable();
-                }
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if (!Update.updateConfig(false)) {
+                            SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+                        } else {
+                            System.out.println("[" + getName() + "] >> Config files are loaded sucessfully.");
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    WorldEditVersionMain.onEnable();
+                                }
+                            }.runTask(SchemManager.getInstance());
+                        }
+                    }
+                }.runTaskAsynchronously(SchemManager.getInstance());
             }
         } else {
             pluginManager.registerEvents(new WakeupListener(), this);

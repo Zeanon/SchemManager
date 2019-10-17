@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion;
 
-import de.leonhard.storage.Config;
+import de.leonhard.storage.LightningStorage;
+import de.leonhard.storage.internal.datafiles.config.YamlConfig;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
 import de.zeanon.schemmanager.worldeditversion.listener.EventListener;
@@ -14,11 +15,12 @@ import java.util.Objects;
 
 public class WorldEditVersionMain {
 
-    public static Config weConfig;
+    public static YamlConfig weConfig;
 
     public static void onEnable() {
         try {
-            weConfig = new Config("config", Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder().getAbsolutePath());
+            weConfig = LightningStorage.dataFile("config", Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder().getAbsolutePath())
+                    .createYamlConfig();
             System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded sucessfully.");
         } catch (Exception e) {
             e.printStackTrace();

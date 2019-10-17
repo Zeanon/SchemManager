@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class CommandHandler implements CommandExecutor {
 
@@ -50,7 +51,12 @@ public class CommandHandler implements CommandExecutor {
                     } else if (args.length == 2 && (args[1].equalsIgnoreCase("confirm") || args[1].equalsIgnoreCase("deny"))) {
                         if (args[1].equalsIgnoreCase("confirm") && RequestUtils.checkUpdateRequest(p)) {
                             RequestUtils.removeUpdateRequest(p);
-                            Update.updatePlugin(p);
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    Update.updatePlugin(p);
+                                }
+                            }.runTaskAsynchronously(SchemManager.getInstance());
                         } else if (args[1].equalsIgnoreCase("deny") && RequestUtils.checkUpdateRequest(p)) {
                             RequestUtils.removeUpdateRequest(p);
                             p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " will not be updated.");
@@ -68,7 +74,12 @@ public class CommandHandler implements CommandExecutor {
                 if (args.length == 1 && args[0].equalsIgnoreCase("disable")) {
                     SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
                 } else if (args[0].equalsIgnoreCase("update")) {
-                    Update.updatePlugin();
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            Update.updatePlugin();
+                        }
+                    }.runTaskAsynchronously(SchemManager.getInstance());
                 }
             }
         }

@@ -3,6 +3,7 @@ package de.zeanon.schemmanager.utils;
 import de.zeanon.schemmanager.SchemManager;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,10 +18,15 @@ public class ConfigUtils {
      * @return value
      */
     public static int getInt(final String path) {
-        if (SchemManager.config.contains(path)) {
+        if (SchemManager.config.hasKey(path)) {
             return SchemManager.config.getInt(path);
         } else {
-            Update.updateConfig(true);
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Update.updateConfig(true);
+                }
+            }.runTaskAsynchronously(SchemManager.getInstance());
             return (int) getDefaultValue(path);
         }
     }
@@ -32,10 +38,15 @@ public class ConfigUtils {
      * @return value
      */
     public static boolean getBoolean(final String path) {
-        if (SchemManager.config.contains(path)) {
+        if (SchemManager.config.hasKey(path)) {
             return SchemManager.config.getBoolean(path);
         } else {
-            Update.updateConfig(true);
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Update.updateConfig(true);
+                }
+            }.runTaskAsynchronously(SchemManager.getInstance());
             return (boolean) getDefaultValue(path);
         }
     }
@@ -48,10 +59,15 @@ public class ConfigUtils {
      */
     @SuppressWarnings("unchecked")
     public static List<String> getStringList(final String path) {
-        if (SchemManager.config.contains(path)) {
+        if (SchemManager.config.hasKey(path)) {
             return SchemManager.config.getStringList(path);
         } else {
-            Update.updateConfig(true);
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Update.updateConfig(true);
+                }
+            }.runTaskAsynchronously(SchemManager.getInstance());
             return (List<String>) getDefaultValue(path);
         }
     }

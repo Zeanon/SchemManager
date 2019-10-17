@@ -8,10 +8,8 @@ import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtil
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -20,52 +18,43 @@ import java.util.Objects;
 public class Update {
 
     static void updatePlugin() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-                    PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
-                } else {
-                    DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
-                }
-            }
-        }.runTaskAsynchronously(SchemManager.getInstance());
+        if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
+            PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
+        } else {
+            DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
+        }
     }
 
     static void updatePlugin(final Player p) {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-                    PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
-                } else {
-                    DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
-                }
-            }
-        }.runTaskAsynchronously(SchemManager.getInstance());
+        if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
+            PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
+        } else {
+            DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
+        }
     }
 
 
     public static boolean updateConfig(final boolean force) {
-        if (force || !SchemManager.config.contains("File Extensions")
-                || !SchemManager.config.contains("Listmax")
-                || !SchemManager.config.contains("Space Lists")
-                || !SchemManager.config.contains("Delete empty Folders")
-                || !SchemManager.config.contains("Save Function Override")
-                || !SchemManager.config.contains("Stoplag Override")
-                || !SchemManager.config.contains("Automatic Reload")
-                || !SchemManager.config.contains("Plugin Version")
-                || !SchemManager.config.getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())) {
-            List<String> fileExtensions = SchemManager.config.contains("File Extensions") ? SchemManager.config.getStringList("File Extensions") : Arrays.asList("schem", "schematic");
-            int listmax = SchemManager.config.contains("Listmax") ? SchemManager.config.getInt("Listmax") : 10;
-            boolean spaceLists = !SchemManager.config.contains("Space Lists") || SchemManager.config.getBoolean("Space Lists");
-            boolean deleteEmptyFolders = !SchemManager.config.contains("Delete empty Folders") || SchemManager.config.getBoolean("Delete empty Folders");
-            boolean saveOverride = !SchemManager.config.contains("Save Function Override") || SchemManager.config.getBoolean("Save Function Override");
-            boolean stoplagOverride = !SchemManager.config.contains("Stoplag Override") || SchemManager.config.getBoolean("Stoplag Override");
-            boolean autoReload = !SchemManager.config.contains("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
+        if (force || !SchemManager.config.hasKey("Plugin Version")
+                || !SchemManager.config.getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())
+                || !SchemManager.config.hasKey("File Extensions")
+                || !SchemManager.config.hasKey("Listmax")
+                || !SchemManager.config.hasKey("Space Lists")
+                || !SchemManager.config.hasKey("Delete empty Folders")
+                || !SchemManager.config.hasKey("Save Function Override")
+                || !SchemManager.config.hasKey("Stoplag Override")
+                || !SchemManager.config.hasKey("Automatic Reload")) {
 
-            if (UpdateUtils.writeToFile(new File(SchemManager.getInstance().getDataFolder(), "config.yml"), new BufferedInputStream(Objects.requireNonNull(WorldEditVersionRequestUtils.class.getClassLoader().getResourceAsStream("resources/config.yml"))))) {
-                SchemManager.config.reload();
+            List<String> fileExtensions = SchemManager.config.hasKey("File Extensions") ? SchemManager.config.getStringList("File Extensions") : Arrays.asList("schem", "schematic");
+            int listmax = SchemManager.config.hasKey("Listmax") ? SchemManager.config.getInt("Listmax") : 10;
+            boolean spaceLists = !SchemManager.config.hasKey("Space Lists") || SchemManager.config.getBoolean("Space Lists");
+            boolean deleteEmptyFolders = !SchemManager.config.hasKey("Delete empty Folders") || SchemManager.config.getBoolean("Delete empty Folders");
+            boolean saveOverride = !SchemManager.config.hasKey("Save Function Override") || SchemManager.config.getBoolean("Save Function Override");
+            boolean stoplagOverride = !SchemManager.config.hasKey("Stoplag Override") || SchemManager.config.getBoolean("Stoplag Override");
+            boolean autoReload = !SchemManager.config.hasKey("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
+
+            if (UpdateUtils.writeToFile(SchemManager.config.getFile(), new BufferedInputStream(Objects.requireNonNull(WorldEditVersionRequestUtils.class.getClassLoader().getResourceAsStream("resources/config.yml"))))) {
+                SchemManager.config.reload(true);
 
                 SchemManager.config.set("Plugin Version", SchemManager.getInstance().getDescription().getVersion());
                 SchemManager.config.set("File Extensions", fileExtensions);
