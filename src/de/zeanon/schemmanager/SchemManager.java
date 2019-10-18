@@ -46,6 +46,7 @@ public class SchemManager extends JavaPlugin {
 				System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " could not be loaded");
 				failedToLoad = true;
 			}
+
 			if (failedToLoad) {
 				System.out.println("[" + getName() + "] >> Could not load config files... unloading Plugin...");
 				SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
