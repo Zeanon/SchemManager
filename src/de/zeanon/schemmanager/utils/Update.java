@@ -17,23 +17,6 @@ import org.bukkit.entity.Player;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Update {
 
-	static void updatePlugin() {
-		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-			PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
-		} else {
-			DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
-		}
-	}
-
-	static void updatePlugin(final Player p) {
-		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-			PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
-		} else {
-			DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
-		}
-	}
-
-
 	public static boolean updateConfig(final boolean force) {
 		if (force || !SchemManager.config.hasKey("Plugin Version")
 			|| !SchemManager.config.getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())
@@ -73,6 +56,22 @@ public class Update {
 			}
 		} else {
 			return true;
+		}
+	}
+
+	static void updatePlugin() {
+		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
+			PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
+		} else {
+			DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
+		}
+	}
+
+	static void updatePlugin(final Player p) {
+		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
+			PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
+		} else {
+			DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
 		}
 	}
 }

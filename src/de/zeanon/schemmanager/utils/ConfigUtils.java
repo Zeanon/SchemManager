@@ -33,6 +33,35 @@ public class ConfigUtils {
 	}
 
 	/**
+	 * Get the default values of the different Config keys.
+	 *
+	 * @param key the Config key.
+	 * @return the default value.
+	 */
+	private static Object getDefaultValue(final String key) {
+		switch (key) {
+			case "Space Lists":
+				return true;
+			case "Delete empty Folders":
+				return true;
+			case "Listmax":
+				return 10;
+			case "Save Function Override":
+				return true;
+			case "Stoplag Override":
+				return true;
+			case "Automatic Reload":
+				return true;
+			case "File Extensions":
+				return Arrays.asList("schem", "schematic");
+			case "Plugin Version":
+				return SchemManager.getInstance().getDescription().getVersion();
+			default:
+				return null;
+		}
+	}
+
+	/**
 	 * get a boolean from the config.
 	 *
 	 * @param key the yaml key.
@@ -72,35 +101,6 @@ public class ConfigUtils {
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
 			return (List<String>) getDefaultValue(key);
-		}
-	}
-
-	/**
-	 * Get the default values of the different Config keys.
-	 *
-	 * @param key the Config key.
-	 * @return the default value.
-	 */
-	private static Object getDefaultValue(final String key) {
-		switch (key) {
-			case "Space Lists":
-				return true;
-			case "Delete empty Folders":
-				return true;
-			case "Listmax":
-				return 10;
-			case "Save Function Override":
-				return true;
-			case "Stoplag Override":
-				return true;
-			case "Automatic Reload":
-				return true;
-			case "File Extensions":
-				return Arrays.asList("schem", "schematic");
-			case "Plugin Version":
-				return SchemManager.getInstance().getDescription().getVersion();
-			default:
-				return null;
 		}
 	}
 }

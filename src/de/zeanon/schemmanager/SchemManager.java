@@ -16,22 +16,6 @@ public class SchemManager extends JavaPlugin {
 	private static volatile SchemManager instance;
 	private static PluginManager pluginManager;
 
-	public static PluginManager getPluginManager() {
-		if (pluginManager == null) {
-			throw new IllegalStateException("Couldn't get null");
-		} else {
-			return pluginManager;
-		}
-	}
-
-	public static SchemManager getInstance() {
-		if (instance == null) {
-			throw new IllegalStateException("Couldn't get null");
-		} else {
-			return instance;
-		}
-	}
-
 	@Override
 	public void onDisable() {
 		System.out.println("[" + getName() + "] >> unloaded.");
@@ -78,6 +62,22 @@ public class SchemManager extends JavaPlugin {
 			System.out.println("[" + getName() + "] >> Could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work.");
 			System.out.println("[" + getName() + "] >> " + getName() + " will automatically activate when one of the above gets enabled.");
 			System.out.println("[" + getName() + "] >> Rudimentary function like updating and disabling will still work.");
+		}
+	}
+
+	public static PluginManager getPluginManager() {
+		if (pluginManager == null) {
+			throw new IllegalStateException("Couldn't get null");
+		} else {
+			return pluginManager;
+		}
+	}
+
+	public static SchemManager getInstance() {
+		if (instance == null) {
+			throw new IllegalStateException("Couldn't get null");
+		} else {
+			return instance;
 		}
 	}
 }
