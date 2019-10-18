@@ -2,7 +2,7 @@
 <project name="maven-antrun-" default="main"  >
 <target name="main">
   <copy flatten="true" todir="E:\Servers\Server 1.14\plugins" failonerror="true" overwrite="true" verbose="true">
-    <fileset includes="SchemManager.jar" dir="D:\IntelliJ Projects\SchemManager/target"/>
+    <fileset includes="SchemManager.jar" dir="C:\Users\vinze\IdeaProjects\SchemManager/target"/>
   </copy>
 </target>
 </project>
