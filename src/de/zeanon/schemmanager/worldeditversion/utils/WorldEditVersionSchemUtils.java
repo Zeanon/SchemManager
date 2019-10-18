@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.worldeditversion.utils;
 
-
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;

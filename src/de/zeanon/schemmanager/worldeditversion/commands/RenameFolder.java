@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.InternalFileUtils;
 import de.zeanon.schemmanager.utils.MessageUtils;

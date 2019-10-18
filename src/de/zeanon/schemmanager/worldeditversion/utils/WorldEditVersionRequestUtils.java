@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.worldeditversion.utils;
 
-
 import java.util.HashMap;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

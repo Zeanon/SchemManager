@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.utils;
 
-
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;

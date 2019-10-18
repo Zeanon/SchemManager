@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.worldeditversion.listener.tabcompleter;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import org.apache.commons.lang.ArrayUtils;

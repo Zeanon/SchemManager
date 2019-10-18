@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.utils;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.command.Command;

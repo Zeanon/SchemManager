@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.worldeditversion;
 
-
 import de.leonhard.storage.LightningStorage;
 import de.leonhard.storage.internal.datafiles.config.YamlConfig;
 import de.zeanon.schemmanager.SchemManager;

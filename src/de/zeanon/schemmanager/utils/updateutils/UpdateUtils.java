@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.utils.updateutils;
 
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;

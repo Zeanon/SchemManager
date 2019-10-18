@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.utils.updateutils;
 
-
 import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.InternalFileUtils;

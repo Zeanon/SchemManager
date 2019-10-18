@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.utils;
 
-
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.updateutils.DefaultUpdate;
 import de.zeanon.schemmanager.utils.updateutils.PlugManEnabledUpdate;

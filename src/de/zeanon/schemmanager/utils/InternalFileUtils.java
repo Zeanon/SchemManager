@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.utils;
 
-
 import de.zeanon.schemmanager.SchemManager;
 import java.io.File;
 import java.nio.file.Path;

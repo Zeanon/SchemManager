@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.utils;
 
-
 import java.util.ArrayList;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

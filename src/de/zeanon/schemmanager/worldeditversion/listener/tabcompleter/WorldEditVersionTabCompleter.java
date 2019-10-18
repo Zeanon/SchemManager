@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.worldeditversion.listener.tabcompleter;
 
-
 import de.zeanon.schemmanager.utils.ConfigUtils;
 import de.zeanon.schemmanager.utils.InternalFileUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;

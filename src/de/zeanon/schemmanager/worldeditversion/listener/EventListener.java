@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
-
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.RequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;

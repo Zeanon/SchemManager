@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
-
 import com.sk89q.worldedit.EmptyClipboardException;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.MessageUtils;

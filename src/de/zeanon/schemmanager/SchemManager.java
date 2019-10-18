@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager;
 
-
 import de.leonhard.storage.LightningStorage;
 import de.leonhard.storage.internal.datafiles.config.YamlConfig;
 import de.zeanon.schemmanager.utils.*;

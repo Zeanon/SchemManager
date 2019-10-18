@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.worldeditversion.listener.tabcompleter;
 
-
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.utils;
 
-
 import de.zeanon.schemmanager.SchemManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
