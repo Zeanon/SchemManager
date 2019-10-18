@@ -2,7 +2,10 @@ package de.zeanon.schemmanager;
 
 import de.leonhard.storage.LightningStorage;
 import de.leonhard.storage.internal.datafiles.config.YamlConfig;
-import de.zeanon.schemmanager.utils.*;
+import de.zeanon.schemmanager.utils.CommandHandler;
+import de.zeanon.schemmanager.utils.TabCompleter;
+import de.zeanon.schemmanager.utils.Update;
+import de.zeanon.schemmanager.utils.WakeupListener;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import java.util.Objects;
 import org.bukkit.Bukkit;
@@ -25,7 +28,6 @@ public class SchemManager extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		pluginManager = Bukkit.getPluginManager();
-		InternalFileUtils.initiate();
 		Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler());
 		Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new TabCompleter());
 		/*if (pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.isPluginEnabled("FastAsyncWorldEdit"))) {
@@ -37,9 +39,9 @@ public class SchemManager extends JavaPlugin {
 			System.out.println("[" + getName() + "] >> Launching WorldEdit Version of " + getName() + ".");
 			System.out.println("[" + getName() + "] >> Loading Configs.");
 			try {
-				config = LightningStorage.dataFile("config", getDataFolder().getAbsolutePath())
+				config = LightningStorage.create("config", getDataFolder().getAbsolutePath())
 										 .fromInputStream(SchemManager.class.getClassLoader().getResourceAsStream("resources/config.yml"))
-										 .createYamlConfig();
+										 .asYamlConfig();
 				System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -4,7 +4,6 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.updateutils.DefaultUpdate;
 import de.zeanon.schemmanager.utils.updateutils.PlugManEnabledUpdate;
 import de.zeanon.schemmanager.utils.updateutils.UpdateUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import java.io.BufferedInputStream;
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +35,7 @@ public class Update {
 			boolean stoplagOverride = !SchemManager.config.hasKey("Stoplag Override") || SchemManager.config.getBoolean("Stoplag Override");
 			boolean autoReload = !SchemManager.config.hasKey("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
 
-			if (UpdateUtils.writeToFile(SchemManager.config.getFile(), new BufferedInputStream(Objects.requireNonNull(WorldEditVersionRequestUtils.class.getClassLoader().getResourceAsStream("resources/config.yml"))))) {
+			if (UpdateUtils.writeToFile(SchemManager.config.getFile(), new BufferedInputStream(Objects.requireNonNull(SchemManager.getInstance().getClass().getClassLoader().getResourceAsStream("resources/config.yml"))))) {
 				SchemManager.config.reload(true);
 
 				SchemManager.config.set("Plugin Version", SchemManager.getInstance().getDescription().getVersion());
