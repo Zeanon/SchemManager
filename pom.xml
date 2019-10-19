@@ -217,7 +217,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- lombok -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
