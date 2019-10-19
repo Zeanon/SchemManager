@@ -44,10 +44,10 @@ public class CommandHandler implements CommandExecutor {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						sendDisableUsage(p);
 					}
-				} else if (args[0].equalsIgnoreCase("update") && p.hasPermission("schemmanager.update")) {
+				} else if (args[0].equalsIgnoreCase("reload") && p.hasPermission("schemmanager.reload")) {
 					if (args.length == 1) {
-						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to update?", "/schemmanager update confirm",
-														"/schemmanager update deny", p);
+						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to reload?", "/schemmanager reload confirm",
+														"/schemmanager reload deny", p);
 						RequestUtils.addUpdateRequest(p);
 					} else if (args.length == 2 && (args[1].equalsIgnoreCase("confirm") || args[1].equalsIgnoreCase("deny"))) {
 						if (args[1].equalsIgnoreCase("confirm") && RequestUtils.checkUpdateRequest(p)) {
@@ -55,7 +55,6 @@ public class CommandHandler implements CommandExecutor {
 							new BukkitRunnable() {
 								@Override
 								public void run() {
-
 									Update.updatePlugin(p);
 								}
 							}.runTaskAsynchronously(SchemManager.getInstance());
@@ -75,7 +74,7 @@ public class CommandHandler implements CommandExecutor {
 			} else {
 				if (args.length == 1 && args[0].equalsIgnoreCase("disable")) {
 					SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
-				} else if (args[0].equalsIgnoreCase("update")) {
+				} else if (args[0].equalsIgnoreCase("reload")) {
 					new BukkitRunnable() {
 						@Override
 						public void run() {
@@ -91,9 +90,9 @@ public class CommandHandler implements CommandExecutor {
 
 	private void sendUpdateUsage(final Player p) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""
+										ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " reload", ChatColor.DARK_GREEN + ""
 																									   + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
-										"/schemmanager update", p);
+										"/schemmanager reload", p);
 	}
 
 	private void sendDisableUsage(final Player p) {

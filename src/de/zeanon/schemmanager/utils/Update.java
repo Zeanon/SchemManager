@@ -36,7 +36,7 @@ public class Update {
 			boolean autoReload = !SchemManager.config.hasKey("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
 
 			if (UpdateUtils.writeToFile(SchemManager.config.getFile(), new BufferedInputStream(Objects.requireNonNull(SchemManager.getInstance().getClass().getClassLoader().getResourceAsStream("resources/config.yml"))))) {
-				SchemManager.config.reload(true);
+				SchemManager.config.reload();
 
 				SchemManager.config.set("Plugin Version", SchemManager.getInstance().getDescription().getVersion());
 				SchemManager.config.set("File Extensions", fileExtensions);
