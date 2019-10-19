@@ -1,9 +1,6 @@
 package de.zeanon.schemmanager.utils.updateutils;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -15,7 +12,7 @@ public class UpdateUtils {
 	private static final int BUFFER_SIZE = 8192;
 
 	public static synchronized boolean writeToFile(final File file, final BufferedInputStream inputStream) {
-		try (FileOutputStream outputStream = new FileOutputStream(file)) {
+		try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
 			if (!file.exists()) {
 				Files.copy(inputStream, file.toPath());
 				return true;
