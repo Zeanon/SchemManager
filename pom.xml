@@ -121,13 +121,14 @@
                         <id>moveFiles</id>
                         <phase>install</phase>
                         <configuration>
-                            <tasks>
+                            <target unless="maven.copy.skip">
+                                <echo message="To skip, call -Dmaven.copy.skip=true"/>
                                 <copy todir="E:\Servers\Server 1.14\plugins" flatten="true" overwrite="true"
                                       verbose="true" failonerror="true">
                                     <fileset dir="${basedir}/target"
                                              includes="${project.build.finalName}.jar"/>
                                 </copy>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -189,7 +190,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>LATEST</version>
+            <version>2.6</version>
             <scope>provided</scope>
         </dependency>
 
@@ -197,7 +198,7 @@
         <dependency>
             <groupId>de.leonhard</groupId>
             <artifactId>lightningstorage</artifactId>
-            <version>LATEST</version>
+            <version>2.5.10</version>
             <scope>compile</scope>
         </dependency>
 
