@@ -39,8 +39,8 @@ public class SchemManager extends JavaPlugin {
 			System.out.println("[" + getName() + "] >> Launching WorldEdit Version of " + getName() + ".");
 			System.out.println("[" + getName() + "] >> Loading Configs.");
 			try {
-				config = LightningStorage.create("config", getDataFolder().getAbsolutePath())
-										 .fromInputStream(SchemManager.class.getClassLoader().getResourceAsStream("resources/config.yml"))
+				config = LightningStorage.create(getDataFolder(), "config")
+										 .fromResource("resources/config.yml")
 										 .asYamlConfig();
 				System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
 			} catch (Exception e) {

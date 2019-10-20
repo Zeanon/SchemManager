@@ -19,7 +19,7 @@ public class WorldEditVersionMain {
 
 	public static void onEnable() {
 		try {
-			weConfig = LightningStorage.create("config", Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder().getAbsolutePath())
+			weConfig = LightningStorage.create(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
 									   .asYamlConfig();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded sucessfully.");
 		} catch (Exception e) {
