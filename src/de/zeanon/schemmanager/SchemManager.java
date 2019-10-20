@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager;
 
 import de.leonhard.storage.LightningStorage;
-import de.leonhard.storage.internal.datafiles.YamlConfig;
+import de.leonhard.storage.internal.datafiles.config.YamlConfig;
 import de.zeanon.schemmanager.utils.CommandHandler;
 import de.zeanon.schemmanager.utils.TabCompleter;
 import de.zeanon.schemmanager.utils.Update;

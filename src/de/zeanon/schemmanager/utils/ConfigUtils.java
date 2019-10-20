@@ -41,17 +41,13 @@ public class ConfigUtils {
 	private static Object getDefaultValue(final String key) {
 		switch (key) {
 			case "Space Lists":
-				return true;
 			case "Delete empty Folders":
+			case "Save Function Override":
+			case "Automatic Reload":
+			case "Stoplag Override":
 				return true;
 			case "Listmax":
 				return 10;
-			case "Save Function Override":
-				return true;
-			case "Stoplag Override":
-				return true;
-			case "Automatic Reload":
-				return true;
 			case "File Extensions":
 				return Arrays.asList("schem", "schematic");
 			case "Plugin Version":
