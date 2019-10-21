@@ -108,7 +108,7 @@
                             <groupId>com.rylinaux</groupId>
                             <artifactId>plugman</artifactId>
                             <version>2.1.6</version>
-                            <file>${basedir}/src/libs/PlugMan.jar</file>
+                            <file>${basedir}/src/resources/libs/PlugMan.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
                         </configuration>
@@ -138,21 +138,12 @@
                         <id>moveFiles</id>
                         <phase>verify</phase>
                         <configuration>
-                            <target>
-                                <unless>maven.copy.skip</unless>
-                                <echo>
-                                    <message>To skip, call -Dmaven.copy.skip=true</message>
-                                </echo>
-                                <copy>
-                                    <todir>E:\Servers\Server 1.14\plugins</todir>
-                                    <flatten>true</flatten>
-                                    <overwrite>true</overwrite>
-                                    <verbose>true</verbose>
-                                    <failonerror>true</failonerror>
-                                    <fileset>
-                                        <dir>${basedir}/target</dir>
-                                        <includes>${project.build.finalName}.jar</includes>
-                                    </fileset>
+                            <target unless="maven.copy.skip">
+                                <echo message="To skip, call -Dmaven.copy.skip=true"/>
+                                <copy todir="E:\Servers\Server 1.14\plugins" flatten="true" overwrite="true"
+                                      verbose="true" failonerror="true">
+                                    <fileset dir="${basedir}/target"
+                                             includes="${project.build.finalName}.jar"/>
                                 </copy>
                             </target>
                         </configuration>
