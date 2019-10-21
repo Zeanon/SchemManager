@@ -66,6 +66,29 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <executions>
+                    <execution>
+                        <id>install-plugman</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <groupId>com.rylinaux</groupId>
+                            <artifactId>plugman</artifactId>
+                            <version>2.1.6</version>
+                            <file>${basedir}/src/resources/libs/PlugMan.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.1.1</version>
                 <executions>
@@ -100,29 +123,6 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>3.0.0-M1</version>
-                <executions>
-                    <execution>
-                        <id>install-plugman</id>
-                        <phase>validate</phase>
-                        <configuration>
-                            <groupId>com.rylinaux</groupId>
-                            <artifactId>plugman</artifactId>
-                            <version>2.1.6</version>
-                            <file>${basedir}/src/resources/libs/PlugMan.jar</file>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                        </configuration>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
