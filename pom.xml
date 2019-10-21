@@ -83,7 +83,7 @@
                             <shadedPattern>de.zeanon.schemmanager.shaded.leonhard</shadedPattern>
                         </relocation>
                     </relocations>
-                    <createDependencyReducedPom>true</createDependencyReducedPom>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
                 </configuration>
             </plugin>
 
