@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager;
 
 import de.leonhard.storage.LightningStorage;
-import de.leonhard.storage.lightningstorage.internal.datafiles.config.YamlConfig;
+import de.leonhard.storage.lightningstorage.internal.datafiles.config.LightningConfig;
 import de.zeanon.schemmanager.utils.CommandHandler;
 import de.zeanon.schemmanager.utils.TabCompleter;
 import de.zeanon.schemmanager.utils.Update;
@@ -15,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SchemManager extends JavaPlugin {
 
-	public static YamlConfig config;
+	public static LightningConfig config;
 	private static volatile SchemManager instance;
 	private static PluginManager pluginManager;
 
@@ -40,8 +40,8 @@ public class SchemManager extends JavaPlugin {
 			System.out.println("[" + getName() + "] >> Loading Configs.");
 			try {
 				config = LightningStorage.create(getDataFolder(), "config")
-										 .fromResource("resources/config.yml")
-										 .asYamlConfig();
+										 .fromResource("resources/config.ls")
+										 .asLightningConfig();
 				System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
 			} catch (Exception e) {
 				e.printStackTrace();

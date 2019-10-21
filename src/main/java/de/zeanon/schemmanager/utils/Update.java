@@ -35,7 +35,7 @@ public class Update {
 			boolean stoplagOverride = !SchemManager.config.hasKey("Stoplag Override") || SchemManager.config.getBoolean("Stoplag Override");
 			boolean autoReload = !SchemManager.config.hasKey("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
 
-			if (UpdateUtils.writeToFile(SchemManager.config.getFile(), new BufferedInputStream(Objects.requireNonNull(SchemManager.getInstance().getClass().getClassLoader().getResourceAsStream("resources/config.yml"))))) {
+			if (UpdateUtils.writeToFile(SchemManager.config.getFile(), new BufferedInputStream(Objects.requireNonNull(SchemManager.getInstance().getClass().getClassLoader().getResourceAsStream("resources/config.ls"))))) {
 				SchemManager.config.reload();
 
 				SchemManager.config.set("Plugin Version", SchemManager.getInstance().getDescription().getVersion());

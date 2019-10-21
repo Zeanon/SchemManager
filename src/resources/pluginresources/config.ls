@@ -31,18 +31,18 @@
 # disable uses schemmanager.disable                                                                            #
 ################################################################################################################
 
-Plugin Version: ${project.version}
+Plugin Version = ${project.version}
 
-File Extensions: [schem, schematic]
+File Extensions = [schem, schematic]
 
-Listmax: 10
+Listmax = 10
 
-Space Lists: true
+Space Lists = true
 
-Delete empty Folders: true
+Delete empty Folders = true
 
-Save Function Override: true
+Save Function Override = true
 
-Stoplag Override: true
+Stoplag Override = true
 
-Automatic Reload: true
+Automatic Reload = true
