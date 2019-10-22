@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.4.0</version>
+    <version>4.4.1</version>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
     <url>https://github.com/Zeanon/SchemManager</url>
@@ -90,7 +90,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -162,12 +162,6 @@
         </plugins>
     </build>
     <repositories>
-        <!-- TheWarKing Repo -->
-        <repository>
-            <id>thewarking-public</id>
-            <url>http://thewarking.de:8081/repository/</url>
-        </repository>
-
         <!-- Spigot Repo -->
         <repository>
             <id>spigot-repo</id>
@@ -191,6 +185,12 @@
             <id>enginehub-maven</id>
             <url>http://maven.enginehub.org/repo/</url>
         </repository>
+
+        <!-- TheWarKing Repo -->
+        <repository>
+            <id>thewarking-public</id>
+            <url>http://thewarking.de:8081/repository/PluginUtils/</url>
+        </repository>
     </repositories>
     <dependencies>
         <!-- Spigot API -->
@@ -209,19 +209,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Commons.lang.io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- LightningStorage by JavaFactoryDev -->
         <dependency>
             <groupId>de.leonhard</groupId>
             <artifactId>lightningstorage</artifactId>
-            <version>3.0.0-Beta-v2</version>
+            <version>3.0.0-Beta-v3.1</version>
             <scope>compile</scope>
         </dependency>
 
@@ -229,7 +221,7 @@
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
-            <version>7.0.1-SNAPSHOT</version>
+            <version>7.1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -253,7 +245,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>13.0</version>
+            <version>17.0.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
