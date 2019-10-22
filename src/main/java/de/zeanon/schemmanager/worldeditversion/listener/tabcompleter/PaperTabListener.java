@@ -3,6 +3,7 @@ package de.zeanon.schemmanager.worldeditversion.listener.tabcompleter;
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -32,13 +33,18 @@ public class PaperTabListener implements Listener {
 					args = (String[]) ArrayUtils.removeElement(args, "-d");
 					deep = true;
 				}
-				event.setCompletions(WorldEditVersionTabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" ")));
+				List<String> tempList = WorldEditVersionTabCompleter.onTab(args, event.getBuffer(), deep, message.endsWith(" "));
+				if (!tempList.isEmpty()) {
+					event.setCompletions(tempList);
+				} else {
+					event.setCancelled(true);
+				}
 			}
 		} else if (args[0].equalsIgnoreCase("/stoplag")) {
 			if (args.length == 1 || (args.length == 2 && !args[1].equals("-c") && !message.endsWith(" "))) {
 				event.setCompletions(Collections.singletonList("-c"));
 			} else {
-				event.setCompletions(new ArrayList<>());
+				event.setCancelled(true);
 			}
 		}
 	}
