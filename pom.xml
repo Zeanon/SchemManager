@@ -103,7 +103,7 @@
                     <relocations>
                         <relocation>
                             <pattern>de.leonhard</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.shaded.leonhard</shadedPattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded</shadedPattern>
                         </relocation>
                     </relocations>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -213,7 +213,7 @@
         <dependency>
             <groupId>de.leonhard</groupId>
             <artifactId>lightningstorage</artifactId>
-            <version>3.0.0-Beta-v3.4</version>
+            <version>3.0.0-Beta-v3.6</version>
             <scope>compile</scope>
         </dependency>
 
