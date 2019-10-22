@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main" unless="maven.copy.skip">
+  <echo message="To skip, call -Dmaven.copy.skip=true"/>
+  <copy flatten="true" todir="E:\Servers\Server 1.14\plugins" failonerror="true" overwrite="true" verbose="true">
+    <fileset includes="SchemManager.jar" dir="D:\IntelliJ Projects\SchemManager/target"/>
+  </copy>
+</target>
+</project>
