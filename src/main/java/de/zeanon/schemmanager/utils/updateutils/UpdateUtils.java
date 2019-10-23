@@ -11,7 +11,7 @@ public class UpdateUtils {
 
 	private static final int BUFFER_SIZE = 8192;
 
-	public static synchronized boolean writeToFile(final File file, final BufferedInputStream inputStream) {
+	static synchronized boolean writeToFile(final File file, final BufferedInputStream inputStream) {
 		try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
 			if (!file.exists()) {
 				Files.copy(inputStream, file.toPath());
