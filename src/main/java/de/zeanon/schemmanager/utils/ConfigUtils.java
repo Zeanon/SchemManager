@@ -14,7 +14,7 @@ public class ConfigUtils {
 	/**
 	 * get an int from the config.
 	 *
-	 * @param key the yaml key.
+	 * @param key the Config key.
 	 * @return value.
 	 */
 	public static int getInt(final String key) {
@@ -24,7 +24,6 @@ public class ConfigUtils {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-
 					Update.updateConfig(true);
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
@@ -60,7 +59,7 @@ public class ConfigUtils {
 	/**
 	 * get a boolean from the config.
 	 *
-	 * @param key the yaml key.
+	 * @param key the Config key.
 	 * @return value.
 	 */
 	public static boolean getBoolean(final String key) {
@@ -70,7 +69,6 @@ public class ConfigUtils {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-
 					Update.updateConfig(true);
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
@@ -81,7 +79,7 @@ public class ConfigUtils {
 	/**
 	 * get a StringList from the config.
 	 *
-	 * @param key the yaml key.
+	 * @param key the Config key.
 	 * @return value.
 	 */
 	@SuppressWarnings("unchecked")
@@ -92,7 +90,6 @@ public class ConfigUtils {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-
 					Update.updateConfig(true);
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());

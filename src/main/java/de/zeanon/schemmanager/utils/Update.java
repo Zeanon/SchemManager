@@ -3,11 +3,8 @@ package de.zeanon.schemmanager.utils;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.updateutils.DefaultUpdate;
 import de.zeanon.schemmanager.utils.updateutils.PlugManEnabledUpdate;
-import de.zeanon.schemmanager.utils.updateutils.UpdateUtils;
-import java.io.BufferedInputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
@@ -35,7 +32,9 @@ public class Update {
 			boolean stoplagOverride = !SchemManager.config.hasKey("Stoplag Override") || SchemManager.config.getBoolean("Stoplag Override");
 			boolean autoReload = !SchemManager.config.hasKey("Automatic Reload") || SchemManager.config.getBoolean("Automatic Reload");
 
-			if (UpdateUtils.writeToFile(SchemManager.config.getFile(), new BufferedInputStream(Objects.requireNonNull(SchemManager.getInstance().getClass().getClassLoader().getResourceAsStream("resources/config.ls"))))) {
+			try {
+				SchemManager.config.setFileContentFromResource("resources/config.ls");
+
 				SchemManager.config.reload();
 
 				SchemManager.config.set("Plugin Version", SchemManager.getInstance().getDescription().getVersion());
@@ -49,7 +48,8 @@ public class Update {
 
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + SchemManager.config.getFile().getName() + " updated");
 				return true;
-			} else {
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + SchemManager.config.getFile().getName() + " could not be updated");
 				return false;
 			}

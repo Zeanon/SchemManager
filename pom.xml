@@ -25,6 +25,7 @@
             <url>https://github.com/Zeanon</url>
             <roles>
                 <role>Lead Developer</role>
+                <role>Coolest guy on earth</role>
             </roles>
             <timezone>Germany</timezone>
         </developer>
@@ -36,6 +37,7 @@
             <url>https://github.com/JavaFactoryDev</url>
             <roles>
                 <role>Library Developer</role>
+                <role>Does not know how to document code</role>
             </roles>
             <timezone>Germany</timezone>
         </developer>
@@ -213,7 +215,7 @@
         <dependency>
             <groupId>de.leonhard</groupId>
             <artifactId>lightningstorage</artifactId>
-            <version>3.0.0-Beta-v3.6</version>
+            <version>3.0.0-Beta-v3.14</version>
             <scope>compile</scope>
         </dependency>
 
