@@ -215,7 +215,7 @@
         <dependency>
             <groupId>de.leonhard</groupId>
             <artifactId>lightningstorage</artifactId>
-            <version>3.0.0-Beta-v3.13</version>
+            <version>3.0.0-Beta-v3.14</version>
             <scope>compile</scope>
         </dependency>
 
