@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 
 @SuppressWarnings("Duplicates")
@@ -38,7 +39,12 @@ public class PlugManEnabledUpdate {
 			if (UpdateUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
 				System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
 				if (autoReload) {
-					PluginUtil.reload(SchemManager.getInstance());
+					new BukkitRunnable() {
+						@Override
+						public void run() {
+							PluginUtil.reload(SchemManager.getInstance());
+						}
+					}.runTask(SchemManager.getInstance());
 				}
 			} else {
 				System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
@@ -68,8 +74,13 @@ public class PlugManEnabledUpdate {
 			if (UpdateUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
 				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " was updated successfully.");
 				if (autoReload) {
-					p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is reloading.");
-					PluginUtil.reload(SchemManager.getInstance());
+					new BukkitRunnable() {
+						@Override
+						public void run() {
+							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is reloading.");
+							PluginUtil.reload(SchemManager.getInstance());
+						}
+					}.runTask(SchemManager.getInstance());
 				}
 			} else {
 				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
