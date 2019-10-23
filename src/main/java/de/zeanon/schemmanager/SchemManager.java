@@ -43,7 +43,7 @@ public class SchemManager extends JavaPlugin {
 										 .fromResource("resources/config.ls")
 										 .asLightningConfig();
 				System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
-			} catch (Exception e) {
+			} catch (IllegalStateException e) {
 				e.printStackTrace();
 				System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " could not be loaded");
 				failedToLoad = true;
