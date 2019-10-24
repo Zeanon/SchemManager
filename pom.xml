@@ -1,254 +1,254 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+			xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.zeanon</groupId>
-    <artifactId>schemmanager</artifactId>
-    <version>4.4.2-Beta-v2.0</version>
-    <name>SchemManager</name>
-    <description>Manage your schematics properly</description>
-    <url>https://github.com/Zeanon/SchemManager</url>
+	<groupId>de.zeanon</groupId>
+	<artifactId>schemmanager</artifactId>
+	<version>4.4.2-Beta-v2.0</version>
+	<name>SchemManager</name>
+	<description>Manage your schematics properly</description>
+	<url>https://github.com/Zeanon/SchemManager</url>
 
-    <licenses>
-        <license>
-            <name>MIT License with non-profit condition</name>
-            <url>https://github.com/Zeanon/SchemManager/blob/master/LICENSE</url>
-        </license>
-    </licenses>
+	<licenses>
+		<license>
+			<name>MIT License with non-profit condition</name>
+			<url>https://github.com/Zeanon/SchemManager/blob/master/LICENSE</url>
+		</license>
+	</licenses>
 
-    <developers>
-        <developer>
-            <id>Zeanon</id>
-            <name>Zeanon</name>
-            <email>thezeanon@gmail.com</email>
-            <url>https://github.com/Zeanon</url>
-            <roles>
-                <role>Lead Developer</role>
-                <role>Coolest guy on earth</role>
-            </roles>
-            <timezone>Germany</timezone>
-        </developer>
+	<developers>
+		<developer>
+			<id>Zeanon</id>
+			<name>Zeanon</name>
+			<email>thezeanon@gmail.com</email>
+			<url>https://github.com/Zeanon</url>
+			<roles>
+				<role>Lead Developer</role>
+				<role>Coolest guy on earth</role>
+			</roles>
+			<timezone>Germany</timezone>
+		</developer>
 
-        <developer>
-            <id>JavaFactoryDev</id>
-            <name>Leonhard Solbach</name>
-            <email>JavaFactoryDev@gmail.com</email>
-            <url>https://github.com/JavaFactoryDev</url>
-            <roles>
-                <role>Library Developer</role>
-                <role>Does not know how to document code</role>
-            </roles>
-            <timezone>Germany</timezone>
-        </developer>
-    </developers>
+		<developer>
+			<id>JavaFactoryDev</id>
+			<name>Leonhard Solbach</name>
+			<email>JavaFactoryDev@gmail.com</email>
+			<url>https://github.com/JavaFactoryDev</url>
+			<roles>
+				<role>Library Developer</role>
+				<role>Does not know how to document code</role>
+			</roles>
+			<timezone>Germany</timezone>
+		</developer>
+	</developers>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
-    <packaging>jar</packaging>
+	<packaging>jar</packaging>
 
-    <build>
-        <defaultGoal>clean validate verify -U -Dmaven.copy.skip=true</defaultGoal>
-        <finalName>${project.name}</finalName>
-        <resources>
-            <resource>
-                <filtering>true</filtering>
-                <targetPath>.</targetPath>
-                <directory>${basedir}/src/resources/spigotresources/</directory>
-            </resource>
+	<build>
+		<defaultGoal>clean validate verify -U -Dmaven.copy.skip=true</defaultGoal>
+		<finalName>${project.name}</finalName>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<targetPath>.</targetPath>
+				<directory>${basedir}/src/resources/spigotresources/</directory>
+			</resource>
 
-            <resource>
-                <filtering>true</filtering>
-                <targetPath>resources</targetPath>
-                <directory>${basedir}/src/resources/pluginresources/</directory>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>3.0.0-M1</version>
-                <executions>
-                    <execution>
-                        <id>install-plugman</id>
-                        <phase>validate</phase>
-                        <configuration>
-                            <groupId>com.rylinaux</groupId>
-                            <artifactId>plugman</artifactId>
-                            <version>2.1.6</version>
-                            <file>${basedir}/src/resources/libs/PlugMan.jar</file>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                        </configuration>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<resource>
+				<filtering>true</filtering>
+				<targetPath>resources</targetPath>
+				<directory>${basedir}/src/resources/pluginresources/</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<executions>
+					<execution>
+						<id>install-plugman</id>
+						<phase>validate</phase>
+						<configuration>
+							<groupId>com.rylinaux</groupId>
+							<artifactId>plugman</artifactId>
+							<version>2.1.6</version>
+							<file>${basedir}/src/resources/libs/PlugMan.jar</file>
+							<packaging>jar</packaging>
+							<generatePom>true</generatePom>
+						</configuration>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>de.leonhard</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.shaded</shadedPattern>
-                        </relocation>
-                    </relocations>
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<relocations>
+						<relocation>
+							<pattern>de.leonhard</pattern>
+							<shadedPattern>de.zeanon.schemmanager.shaded</shadedPattern>
+						</relocation>
+					</relocations>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <archive>
-                        <addMavenDescriptor>false</addMavenDescriptor>
-                        <manifestEntries>
-                            <Manifest-Version>${project.version}</Manifest-Version>
-                            <Built-By>${project.name} Development Team</Built-By>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.2</version>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+						<manifestEntries>
+							<Manifest-Version>${project.version}</Manifest-Version>
+							<Built-By>${project.name} Development Team</Built-By>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <executions>
-                    <execution>
-                        <id>moveFiles</id>
-                        <phase>verify</phase>
-                        <configuration>
-                            <target unless="maven.copy.skip">
-                                <echo message="To skip, call -Dmaven.copy.skip=true"/>
-                                <copy todir="E:\Servers\Server 1.14\plugins" flatten="true" overwrite="true"
-                                      verbose="true" failonerror="true">
-                                    <fileset dir="${basedir}/target"
-                                             includes="${project.build.finalName}.jar"/>
-                                </copy>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-    <repositories>
-        <!-- Spigot Repo -->
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>moveFiles</id>
+						<phase>verify</phase>
+						<configuration>
+							<target unless="maven.copy.skip">
+								<echo message="To skip, call -Dmaven.copy.skip=true"/>
+								<copy todir="E:\Servers\Server 1.14\plugins" flatten="true" overwrite="true"
+										verbose="true" failonerror="true">
+									<fileset dir="${basedir}/target"
+												includes="${project.build.finalName}.jar"/>
+								</copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<!-- Spigot Repo -->
+		<repository>
+			<id>spigot-repo</id>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+		</repository>
 
-        <!-- BungeeCord Repo -->
-        <repository>
-            <id>bungeecord-repo</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
+		<!-- BungeeCord Repo -->
+		<repository>
+			<id>bungeecord-repo</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
 
-        <!-- Paper repo -->
-        <repository>
-            <id>papermc</id>
-            <url>https://papermc.io/repo/repository/maven-public/</url>
-        </repository>
+		<!-- Paper repo -->
+		<repository>
+			<id>papermc</id>
+			<url>https://papermc.io/repo/repository/maven-public/</url>
+		</repository>
 
-        <!-- WorldEdit Repo -->
-        <repository>
-            <id>enginehub-maven</id>
-            <url>http://maven.enginehub.org/repo/</url>
-        </repository>
+		<!-- WorldEdit Repo -->
+		<repository>
+			<id>enginehub-maven</id>
+			<url>http://maven.enginehub.org/repo/</url>
+		</repository>
 
-        <!-- TheWarKing Repo -->
-        <repository>
-            <id>thewarking-public</id>
-            <url>http://thewarking.de:8081/repository/PluginUtils/</url>
-        </repository>
-    </repositories>
-    <dependencies>
-        <!-- Spigot API -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.14.4-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
+		<!-- TheWarKing Repo -->
+		<repository>
+			<id>thewarking-public</id>
+			<url>http://thewarking.de:8081/repository/PluginUtils/</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<!-- Spigot API -->
+		<dependency>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-api</artifactId>
+			<version>1.14.4-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <!-- PaperMC API -->
-        <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>1.14.4-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
+		<!-- PaperMC API -->
+		<dependency>
+			<groupId>com.destroystokyo.paper</groupId>
+			<artifactId>paper-api</artifactId>
+			<version>1.14.4-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <!-- LightningStorage by JavaFactoryDev and Zeanon-->
-        <dependency>
-            <groupId>de.leonhard</groupId>
-            <artifactId>lightningstorage</artifactId>
-            <version>3.0.0-Beta-v3.19</version>
-            <scope>compile</scope>
-        </dependency>
+		<!-- LightningStorage by JavaFactoryDev and Zeanon-->
+		<dependency>
+			<groupId>de.leonhard</groupId>
+			<artifactId>lightningstorage</artifactId>
+			<version>3.0.0-Beta-v3.19</version>
+			<scope>compile</scope>
+		</dependency>
 
-        <!-- WorldEdit API -->
-        <dependency>
-            <groupId>com.sk89q.worldedit</groupId>
-            <artifactId>worldedit-bukkit</artifactId>
-            <version>7.1.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
+		<!-- WorldEdit API -->
+		<dependency>
+			<groupId>com.sk89q.worldedit</groupId>
+			<artifactId>worldedit-bukkit</artifactId>
+			<version>7.1.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <!-- PlugMan API -->
-        <dependency>
-            <groupId>com.rylinaux</groupId>
-            <artifactId>plugman</artifactId>
-            <version>2.1.6</version>
-            <scope>provided</scope>
-        </dependency>
+		<!-- PlugMan API -->
+		<dependency>
+			<groupId>com.rylinaux</groupId>
+			<artifactId>plugman</artifactId>
+			<version>2.1.6</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
-            <scope>provided</scope>
-        </dependency>
+		<!-- Lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.10</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <!-- JetBrains -->
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>17.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+		<!-- JetBrains -->
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+			<version>17.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 </project>
