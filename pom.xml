@@ -211,7 +211,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- LightningStorage by JavaFactoryDev -->
+        <!-- LightningStorage by JavaFactoryDev and Zeanon-->
         <dependency>
             <groupId>de.leonhard</groupId>
             <artifactId>lightningstorage</artifactId>
