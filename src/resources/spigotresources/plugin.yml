@@ -1,5 +1,5 @@
 name: ${project.name}
-version: ${project.version}
+version: 2.3
 api-version: 1.14
 description: ${project.description}
 authors: [Zeanon, JavaFactoryDev]
@@ -8,5 +8,5 @@ main: de.zeanon.schemmanager.SchemManager
 softdepend: [WorldEdit, FastAsyncWorldEdit, WorldGuard, PlugMan]
 commands:
   schemmanager:
-  description: The basic command for SchemManager
-  aliases: sm
+    description: The basic command for SchemManager
+    aliases: sm
