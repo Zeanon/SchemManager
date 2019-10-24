@@ -36,7 +36,7 @@ public class WorldEditVersionSchemUtils {
 				return schemFolderPath;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				return null;
+				throw new IllegalStateException("Could not get the Schematic-Folder");
 			}
 		}
 	}

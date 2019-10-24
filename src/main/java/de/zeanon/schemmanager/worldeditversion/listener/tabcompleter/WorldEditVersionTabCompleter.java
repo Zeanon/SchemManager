@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.listener.tabcompleter;
 
 import de.zeanon.schemmanager.utils.ConfigUtils;
-import de.zeanon.schemmanager.utils.InternalFileUtils;
+import de.zeanon.schemmanager.utils.FileUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import java.io.File;
 import java.io.IOException;
@@ -12,19 +12,17 @@ import java.util.Collection;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class WorldEditVersionTabCompleter {
 
-	@SuppressWarnings("Duplicates")
 	static List<String> onTab(final String[] args, final String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
 		ArrayList<String> completions = new ArrayList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
-				return Arrays.asList("help", "load", "formats", "save", "rename", "renamfolder", "del", "delete", "delfolder", "deletefolder", "list", "folder", "search", "searchfolder");
+				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "del", "delete", "delfolder", "deletefolder", "list", "folder", "search", "searchfolder");
 			} else {
 				if ("help".startsWith(args[1]) && !"help".equals(args[1])) {
 					completions.add("help");
@@ -82,7 +80,7 @@ class WorldEditVersionTabCompleter {
 						for (File file : getFileArray(pathFile)) {
 							completions.add(file.getName());
 						}
-						for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+						for (File file : FileUtils.getFolders(pathFile, false)) {
 							completions.add(file.getName());
 						}
 					}
@@ -90,7 +88,7 @@ class WorldEditVersionTabCompleter {
 					Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-						for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+						for (File file : FileUtils.getFolders(pathFile, false)) {
 							completions.add(file.getName());
 						}
 					}
@@ -124,7 +122,7 @@ class WorldEditVersionTabCompleter {
 							for (File file : getFileArray(pathFile)) {
 								addFileToCompletions(regex, completions, file);
 							}
-							for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+							for (File file : FileUtils.getFolders(pathFile, false)) {
 								addFileToCompletions(regex, completions, file);
 							}
 						}
@@ -145,7 +143,7 @@ class WorldEditVersionTabCompleter {
 
 						File pathFile = tempDirectory.toFile();
 						if (pathFile.exists() && pathFile.isDirectory()) {
-							for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+							for (File file : FileUtils.getFolders(pathFile, false)) {
 								String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
 								addFileToCompletions(regex, completions, file);
 							}
@@ -166,7 +164,7 @@ class WorldEditVersionTabCompleter {
 							for (File file : getFileArray(pathFile)) {
 								completions.add(file.getName());
 							}
-							for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+							for (File file : FileUtils.getFolders(pathFile, false)) {
 								completions.add(file.getName());
 							}
 						}
@@ -176,7 +174,7 @@ class WorldEditVersionTabCompleter {
 						Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
 						File pathFile = schemPath != null ? schemPath.toFile() : null;
 						if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-							for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+							for (File file : FileUtils.getFolders(pathFile, false)) {
 								completions.add(file.getName());
 							}
 						}
@@ -212,7 +210,7 @@ class WorldEditVersionTabCompleter {
 								for (File file : getFileArray(pathFile)) {
 									addFileToCompletions(regex, completions, file);
 								}
-								for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+								for (File file : FileUtils.getFolders(pathFile, false)) {
 									addFileToCompletions(regex, completions, file);
 								}
 							}
@@ -235,7 +233,7 @@ class WorldEditVersionTabCompleter {
 
 							File pathFile = tempDirectory.toFile();
 							if (pathFile.exists() && pathFile.isDirectory()) {
-								for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+								for (File file : FileUtils.getFolders(pathFile, false)) {
 									String regex = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
 									addFileToCompletions(regex, completions, file);
 								}
@@ -251,7 +249,7 @@ class WorldEditVersionTabCompleter {
 
 	private static File[] getFileArray(final File directory) {
 		String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
-		Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, false);
+		Collection<File> rawFiles = org.apache.commons.io.FileUtils.listFiles(directory, extensions, false);
 		return rawFiles.toArray(new File[0]);
 	}
 

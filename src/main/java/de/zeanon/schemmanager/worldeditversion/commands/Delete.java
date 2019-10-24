@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.ConfigUtils;
-import de.zeanon.schemmanager.utils.InternalFileUtils;
+import de.zeanon.schemmanager.utils.FileUtils;
 import de.zeanon.schemmanager.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
@@ -25,7 +25,7 @@ public class Delete {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
-				ArrayList<File> files = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
+				ArrayList<File> files = schemPath != null ? FileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
 				final boolean fileExists = files != null && files.size() > 0;
 
 				if (args.length == 3) {
@@ -45,15 +45,14 @@ public class Delete {
 									p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
 									return;
 								} else {
-									//noinspection Duplicates
 									if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getAbsoluteFile().getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
-										parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
+										parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : FileUtils.deleteEmptyParent(file);
 									}
 								}
 							}
 							p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was deleted successfully.");
 							if (parentName != null) {
-								p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted sucessfully due to being empty.");
+								p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
 							}
 						} else {
 							p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");

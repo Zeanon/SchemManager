@@ -21,8 +21,10 @@ public class CommandHandler implements CommandExecutor {
 			if (sender instanceof Player) {
 				Player p = (Player) sender;
 				if (args.length == 0) {
-					p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
-								  + "argument" + ChatColor.YELLOW + ">");
+					p.sendMessage(ChatColor.RED + "Missing argument for "
+								  + ChatColor.YELLOW + "<"
+								  + ChatColor.GOLD + "argument"
+								  + ChatColor.YELLOW + ">");
 					sendUpdateUsage(p);
 					sendDisableUsage(p);
 				} else if (args[0].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {

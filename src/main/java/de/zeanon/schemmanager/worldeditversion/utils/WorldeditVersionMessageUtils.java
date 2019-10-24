@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WorldeditVersionMessageUtils {
 
-	@SuppressWarnings("Duplicates")
+	@SuppressWarnings("DuplicatedCode")
 	public static void sendInvalidSubCommand(final Player target, final String slash, final String schemAlias) {
 		TextComponent base = new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "Usage: "));
 		TextComponent schem = new TextComponent(TextComponent.fromLegacyText(ChatColor.GRAY + slash + "schem"));

@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class InternalFileUtils {
+public class FileUtils {
 
-	private static String pluginFolderPath;
+	private static final String pluginFolderPath;
 
 	static {
 		String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
@@ -30,9 +30,9 @@ public class InternalFileUtils {
 	}
 
 	/**
-	 * @param folder thefolder to look into
+	 * @param folder the folder to look into
 	 * @param deep   deepSearch
-	 * @return the files of the folder that are directorys
+	 * @return the files of the folder that are directories
 	 */
 	public static ArrayList<File> getFolders(final File folder, final Boolean deep) {
 		ArrayList<File> files = new ArrayList<>();

@@ -11,7 +11,6 @@ import org.bukkit.event.server.TabCompleteEvent;
 
 public class SpigotTabListener implements Listener {
 
-	@SuppressWarnings("Duplicates")
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onTab(final TabCompleteEvent event) {
 		String message = event.getBuffer();
