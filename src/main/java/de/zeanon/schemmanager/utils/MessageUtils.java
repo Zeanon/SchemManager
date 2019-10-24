@@ -22,7 +22,6 @@ public class MessageUtils {
 	 * @param command        the command to be executed when clicked
 	 * @param target         the player the message is sent to
 	 */
-	@SuppressWarnings("Duplicates")
 	public static void sendCommandMessage(final String message, final String commandMessage, final String hoverMessage, final String command, final Player target) {
 		new TextComponent();
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
@@ -42,7 +41,6 @@ public class MessageUtils {
 	 * @param command        the command to be executed when clicked
 	 * @param target         the player the message is sent to
 	 */
-	@SuppressWarnings("Duplicates")
 	public static void sendInvertedCommandMessage(final String message, final String commandMessage, final String hoverMessage, final String command, final Player target) {
 		new TextComponent();
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
@@ -64,7 +62,7 @@ public class MessageUtils {
 	public static void sendBooleanMessage(final String message, final String commandYes, final String commandNo, final Player target) {
 		new TextComponent();
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
-		TextComponent seperator = new TextComponent(TextComponent.fromLegacyText(ChatColor.BLACK + " " + ChatColor.BOLD + "| "));
+		TextComponent separator = new TextComponent(TextComponent.fromLegacyText(ChatColor.BLACK + " " + ChatColor.BOLD + "| "));
 		TextComponent commandPartYes = new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "[Y]"));
 		TextComponent commandPartNo = new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[N]"));
 		commandPartYes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandYes));
@@ -73,7 +71,7 @@ public class MessageUtils {
 		commandPartNo.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[NO]"))).create()));
 		localMessage.addExtra(" ");
 		localMessage.addExtra(commandPartYes);
-		localMessage.addExtra(seperator);
+		localMessage.addExtra(separator);
 		localMessage.addExtra(commandPartNo);
 		target.spigot().sendMessage(localMessage);
 	}
@@ -112,7 +110,6 @@ public class MessageUtils {
 	 * @param command        the command to be suggested when clicked
 	 * @param target         the player the message is sent to
 	 */
-	@SuppressWarnings("Duplicates")
 	public static void sendSuggestMessage(final String message, final String suggestMessage, final String hoverMessage, final String command, final Player target) {
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
 		TextComponent suggestPart = new TextComponent(TextComponent.fromLegacyText(suggestMessage));
@@ -129,7 +126,6 @@ public class MessageUtils {
 	 * @param hoverMessage the message to be shown when hovering over message2
 	 * @param target       the player the message is sent to
 	 */
-	@SuppressWarnings("Duplicates")
 	public static void sendHoverMessage(final String message1, final String message2, final String message3, final String hoverMessage, final Player target) {
 		TextComponent localMessage1 = new TextComponent(TextComponent.fromLegacyText(message1));
 		TextComponent hoverPart = new TextComponent(TextComponent.fromLegacyText(message2));

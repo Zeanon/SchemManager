@@ -12,7 +12,6 @@ import org.bukkit.event.Listener;
 
 public class PaperTabListener implements Listener {
 
-	@SuppressWarnings("Duplicates")
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onTab(final AsyncTabCompleteEvent event) {
 		String message = event.getBuffer();

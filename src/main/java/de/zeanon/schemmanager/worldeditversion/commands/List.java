@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.ConfigUtils;
-import de.zeanon.schemmanager.utils.InternalFileUtils;
+import de.zeanon.schemmanager.utils.FileUtils;
 import de.zeanon.schemmanager.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import java.io.File;
@@ -13,14 +13,13 @@ import java.util.Collection;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
-@SuppressWarnings("Duplicates")
+@SuppressWarnings("DuplicatedCode")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class List {
 
@@ -45,7 +44,7 @@ public class List {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						} else {
-							Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
+							Collection<File> rawFiles = org.apache.commons.io.FileUtils.listFiles(directory, extensions, deepSearch);
 							File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -86,7 +85,7 @@ public class List {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 							} else {
-								Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
+								Collection<File> rawFiles = org.apache.commons.io.FileUtils.listFiles(directory, extensions, deepSearch);
 								File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -141,7 +140,7 @@ public class List {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 							} else {
-								Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
+								Collection<File> rawFiles = org.apache.commons.io.FileUtils.listFiles(directory, extensions, deepSearch);
 								File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -182,7 +181,7 @@ public class List {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						} else {
-							Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
+							Collection<File> rawFiles = org.apache.commons.io.FileUtils.listFiles(directory, extensions, deepSearch);
 							File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -245,10 +244,10 @@ public class List {
 			String name;
 			String path;
 			String shortenedRelativePath;
-			if (InternalFileUtils.getExtension(file.getName()).equals("schem")) {
-				name = InternalFileUtils.removeExtension(file.getName());
-				path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
-				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
+			if (FileUtils.getExtension(file.getName()).equals("schem")) {
+				name = FileUtils.removeExtension(file.getName());
+				path = FilenameUtils.separatorsToUnix(FileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(FileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
 			} else {
 				name = file.getName();
 				path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
@@ -263,7 +262,7 @@ public class List {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			p.sendMessage(ChatColor.RED + "An Error occured while getting the filepaths for the schematics, please see console for further information.");
+			p.sendMessage(ChatColor.RED + "An Error occurred while getting the filepaths for the schematics, please see console for further information.");
 			return false;
 		}
 	}

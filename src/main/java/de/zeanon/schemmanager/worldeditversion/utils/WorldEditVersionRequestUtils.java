@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WorldEditVersionRequestUtils {
 
-	private static HashMap<String, String> deleteRequests = new HashMap<>();
-	private static HashMap<String, String> deleteFolderRequests = new HashMap<>();
-	private static HashMap<String, String> renameRequests = new HashMap<>();
-	private static HashMap<String, String> renameFolderRequests = new HashMap<>();
-	private static HashMap<String, String> overwriteRequests = new HashMap<>();
+	private static final HashMap<String, String> deleteRequests = new HashMap<>();
+	private static final HashMap<String, String> deleteFolderRequests = new HashMap<>();
+	private static final HashMap<String, String> renameRequests = new HashMap<>();
+	private static final HashMap<String, String> renameFolderRequests = new HashMap<>();
+	private static final HashMap<String, String> overwriteRequests = new HashMap<>();
 
 
 	public static void addDeleteRequest(final Player p, final String name) {

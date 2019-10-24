@@ -14,7 +14,8 @@ import org.bukkit.entity.Player;
 public class Update {
 
 	public static boolean updateConfig(final boolean force) {
-		if (force || !SchemManager.config.hasKey("Plugin Version")
+		if (force
+			|| !SchemManager.config.hasKey("Plugin Version")
 			|| !SchemManager.config.getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())
 			|| !SchemManager.config.hasKey("File Extensions")
 			|| !SchemManager.config.hasKey("Listmax")

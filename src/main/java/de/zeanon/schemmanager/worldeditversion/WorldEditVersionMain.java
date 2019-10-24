@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion;
 
 import de.leonhard.storage.LightningStorage;
+import de.leonhard.storage.lightningstorage.internal.base.enums.ConfigSetting;
 import de.leonhard.storage.lightningstorage.internal.datafiles.config.YamlConfig;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
@@ -20,8 +21,9 @@ public class WorldEditVersionMain {
 	public static void onEnable() {
 		try {
 			weConfig = LightningStorage.create(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
+									   .configSetting(ConfigSetting.SKIP_COMMENTS)
 									   .asYamlConfig();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded sucessfully.");
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file.");
@@ -31,7 +33,7 @@ public class WorldEditVersionMain {
 		try {
 			WorldEditVersionSchemUtils.initWorldEditPlugin();
 			WorldEditVersionSchemUtils.initSchemPath();
-		} catch (FileNotFoundException e) {
+		} catch (IllegalStateException | FileNotFoundException e) {
 			e.printStackTrace();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder.");
 		}

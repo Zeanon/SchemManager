@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager.utils.updateutils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.utils.InternalFileUtils;
+import de.zeanon.schemmanager.utils.FileUtils;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -15,7 +15,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 
-@SuppressWarnings("Duplicates")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DefaultUpdate {
 
@@ -35,7 +34,7 @@ public class DefaultUpdate {
 			return;
 		}
 		try {
-			if (UpdateUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
+			if (UpdateUtils.writeToFile(new File(FileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
 				System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
 				if (autoReload) {
 					Bukkit.getServer().reload();
@@ -65,7 +64,7 @@ public class DefaultUpdate {
 			return;
 		}
 		try {
-			if (UpdateUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
+			if (UpdateUtils.writeToFile(new File(FileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
 				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " was updated successfully.");
 				if (autoReload) {
 					p.sendMessage(ChatColor.RED + "Server is reloading.");

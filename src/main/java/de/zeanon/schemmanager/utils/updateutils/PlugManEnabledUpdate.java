@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.utils.updateutils;
 
 import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.utils.InternalFileUtils;
+import de.zeanon.schemmanager.utils.FileUtils;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -15,7 +15,6 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
 
-@SuppressWarnings("Duplicates")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PlugManEnabledUpdate {
 
@@ -35,7 +34,7 @@ public class PlugManEnabledUpdate {
 			return;
 		}
 		try {
-			if (UpdateUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
+			if (UpdateUtils.writeToFile(new File(FileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
 				System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
 				if (autoReload) {
 					PluginUtil.reload(SchemManager.getInstance());
@@ -65,7 +64,7 @@ public class PlugManEnabledUpdate {
 			return;
 		}
 		try {
-			if (UpdateUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
+			if (UpdateUtils.writeToFile(new File(FileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
 				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " was updated successfully.");
 				if (autoReload) {
 					p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is reloading.");

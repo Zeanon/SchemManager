@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UpdateUtils {
-
-	private static final int BUFFER_SIZE = 8192;
+class UpdateUtils {
 
 	static synchronized boolean writeToFile(final File file, final BufferedInputStream inputStream) {
 		try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
@@ -17,9 +15,9 @@ public class UpdateUtils {
 				Files.copy(inputStream, file.toPath());
 				return true;
 			} else {
-				final byte[] data = new byte[BUFFER_SIZE];
+				final byte[] data = new byte[8192];
 				int count;
-				while ((count = inputStream.read(data, 0, BUFFER_SIZE)) != -1) {
+				while ((count = inputStream.read(data, 0, 8192)) != -1) {
 					outputStream.write(data, 0, count);
 				}
 				return true;

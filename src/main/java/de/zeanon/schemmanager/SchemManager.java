@@ -8,6 +8,7 @@ import de.zeanon.schemmanager.utils.Update;
 import de.zeanon.schemmanager.utils.WakeupListener;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import java.util.Objects;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,8 +17,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class SchemManager extends JavaPlugin {
 
 	public static LightningConfig config;
-	private static volatile SchemManager instance;
+	@Getter
+	private static SchemManager instance;
+	@Getter
 	private static PluginManager pluginManager;
+
+	{
+		instance = this;
+		pluginManager = Bukkit.getPluginManager();
+	}
 
 	@Override
 	public void onDisable() {
@@ -26,8 +34,6 @@ public class SchemManager extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		instance = this;
-		pluginManager = Bukkit.getPluginManager();
 		Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler());
 		Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new TabCompleter());
 		/*if (pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.isPluginEnabled("FastAsyncWorldEdit"))) {
@@ -55,7 +61,7 @@ public class SchemManager extends JavaPlugin {
 				if (!Update.updateConfig(false)) {
 					SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 				} else {
-					System.out.println("[" + getName() + "] >> Config files are loaded sucessfully.");
+					System.out.println("[" + getName() + "] >> Config files are loaded successfully.");
 					WorldEditVersionMain.onEnable();
 				}
 			}
@@ -64,22 +70,6 @@ public class SchemManager extends JavaPlugin {
 			System.out.println("[" + getName() + "] >> Could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work.");
 			System.out.println("[" + getName() + "] >> " + getName() + " will automatically activate when one of the above gets enabled.");
 			System.out.println("[" + getName() + "] >> Rudimentary function like updating and disabling will still work.");
-		}
-	}
-
-	public static PluginManager getPluginManager() {
-		if (pluginManager == null) {
-			throw new IllegalStateException("Couldn't get null");
-		} else {
-			return pluginManager;
-		}
-	}
-
-	public static SchemManager getInstance() {
-		if (instance == null) {
-			throw new IllegalStateException("Couldn't get null");
-		} else {
-			return instance;
 		}
 	}
 }

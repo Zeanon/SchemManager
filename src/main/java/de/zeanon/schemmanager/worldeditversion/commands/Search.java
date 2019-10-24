@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.utils.ConfigUtils;
-import de.zeanon.schemmanager.utils.InternalFileUtils;
+import de.zeanon.schemmanager.utils.FileUtils;
 import de.zeanon.schemmanager.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import java.io.File;
@@ -13,19 +13,18 @@ import java.util.Arrays;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
-@SuppressWarnings("Duplicates")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Search {
 
 	public static void onSearch(final Player p, final String[] args, final Boolean deepSearch) {
 		new BukkitRunnable() {
+			@SuppressWarnings("DuplicatedCode")
 			@Override
 			public void run() {
 				int listmax = ConfigUtils.getInt("Listmax");
@@ -229,8 +228,8 @@ public class Search {
 
 	private static File[] getFileArray(final File directory, final String[] extensions, final boolean deepSearch, final String regex) {
 		ArrayList<File> files = new ArrayList<>();
-		for (File file : FileUtils.listFiles(directory, extensions, deepSearch)) {
-			if (InternalFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
+		for (File file : org.apache.commons.io.FileUtils.listFiles(directory, extensions, deepSearch)) {
+			if (FileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
 				files.add(file);
 			}
 		}
@@ -243,15 +242,16 @@ public class Search {
 		return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
 	}
 
+	@SuppressWarnings("DuplicatedCode")
 	private static boolean sendListLine(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
 		try {
 			String name;
 			String path;
 			String shortenedRelativePath;
-			if (InternalFileUtils.getExtension(file.getName()).equals("schem")) {
-				name = InternalFileUtils.removeExtension(file.getName());
-				path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
-				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
+			if (FileUtils.getExtension(file.getName()).equals("schem")) {
+				name = FileUtils.removeExtension(file.getName());
+				path = FilenameUtils.separatorsToUnix(FileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(FileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
 			} else {
 				name = file.getName();
 				path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
@@ -266,7 +266,7 @@ public class Search {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			p.sendMessage(ChatColor.RED + "An Error occured while getting the filepaths for the schematics, please see console for further information.");
+			p.sendMessage(ChatColor.RED + "An Error occurred while getting the filepaths for the schematics, please see console for further information.");
 			return false;
 		}
 	}
