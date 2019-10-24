@@ -73,7 +73,7 @@
 				<executions>
 					<execution>
 						<id>install-plugman</id>
-						<phase>validate</phase>
+						<phase>clean</phase>
 						<configuration>
 							<groupId>com.rylinaux</groupId>
 							<artifactId>plugman</artifactId>
