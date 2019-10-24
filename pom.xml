@@ -50,7 +50,7 @@
 	<packaging>jar</packaging>
 
 	<build>
-		<defaultGoal>clean validate verify -U -Dmaven.copy.skip=true</defaultGoal>
+		<defaultGoal>clean verify -U -Dmaven.copy.skip=true</defaultGoal>
 		<finalName>${project.name}</finalName>
 		<resources>
 			<resource>
