@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.utils.ConfigUtils;
-import de.zeanon.schemmanager.utils.MessageUtils;
+import de.zeanon.schemmanager.global.utils.ConfigUtils;
+import de.zeanon.schemmanager.global.utils.MessageUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
@@ -14,7 +14,7 @@ public class Help {
 
 	public static void onHelp(final Player p, final String slash, final String schemAlias) {
 		if (ConfigUtils.getBoolean("Space Lists")) {
-			p.sendMessage(" ");
+			p.sendMessage("");
 		}
 
 		p.sendMessage(ChatColor.AQUA + "=== SchemManager | Version "
@@ -118,7 +118,7 @@ public class Help {
 
 	public static void onFormats(final Player p, final boolean suppressBlankLine) {
 		if (ConfigUtils.getBoolean("Space Lists") && !suppressBlankLine) {
-			p.sendMessage(" ");
+			p.sendMessage("");
 		}
 		p.sendMessage(ChatColor.RED + "Available formats:");
 		if (ConfigUtils.getStringList("File Extensions").size() > 0) {

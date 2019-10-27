@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.utils.ConfigUtils;
-import de.zeanon.schemmanager.utils.FileUtils;
-import de.zeanon.schemmanager.utils.MessageUtils;
+import de.zeanon.schemmanager.global.utils.ConfigUtils;
+import de.zeanon.schemmanager.global.utils.InternalFileUtils;
+import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import java.io.File;
 import java.io.IOException;
@@ -19,12 +19,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
+@SuppressWarnings("Duplicates")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SearchFolder {
 
 	public static void onSearchFolder(final Player p, final String[] args, final Boolean deepSearch) {
 		new BukkitRunnable() {
-			@SuppressWarnings("DuplicatedCode")
 			@Override
 			public void run() {
 				int listmax = ConfigUtils.getInt("Listmax");
@@ -48,7 +48,7 @@ public class SearchFolder {
 							int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
 							if (spaceLists) {
-								p.sendMessage(" ");
+								p.sendMessage("");
 							}
 							if (count < 1) {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No folders found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics", p);
@@ -92,7 +92,7 @@ public class SearchFolder {
 									return;
 								}
 								if (spaceLists) {
-									p.sendMessage(" ");
+									p.sendMessage("");
 								}
 								if (count < 1) {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No folders found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics", p);
@@ -140,7 +140,7 @@ public class SearchFolder {
 								int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
 								if (spaceLists) {
-									p.sendMessage(" ");
+									p.sendMessage("");
 								}
 								if (count < 1) {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No folders found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics/" + args[2], p);
@@ -184,7 +184,7 @@ public class SearchFolder {
 								return;
 							}
 							if (spaceLists) {
-								p.sendMessage(" ");
+								p.sendMessage("");
 							}
 							if (count < 1) {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No folders found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics/" + args[2], p);
@@ -227,7 +227,7 @@ public class SearchFolder {
 
 	private static File[] getFileArray(final File directory, final boolean deepSearch, final String regex) {
 		ArrayList<File> files = new ArrayList<>();
-		for (File file : FileUtils.getFolders(directory, deepSearch)) {
+		for (File file : InternalFileUtils.getFolders(directory, deepSearch)) {
 			if (file.getName().toLowerCase().contains(regex.toLowerCase())) {
 				files.add(file);
 			}
@@ -241,16 +241,15 @@ public class SearchFolder {
 		return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
 	}
 
-	@SuppressWarnings("DuplicatedCode")
 	private static boolean sendListLine(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
 		try {
 			String name;
 			String path;
 			String shortenedRelativePath;
-			if (FileUtils.getExtension(file.getName()).equals("schem")) {
-				name = FileUtils.removeExtension(file.getName());
-				path = FilenameUtils.separatorsToUnix(FileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
-				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(FileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
+			if (InternalFileUtils.getExtension(file.getName()).equals("schem")) {
+				name = InternalFileUtils.removeExtension(file.getName());
+				path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
 			} else {
 				name = file.getName();
 				path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());

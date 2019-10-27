@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.utils.ConfigUtils;
-import de.zeanon.schemmanager.utils.FileUtils;
-import de.zeanon.schemmanager.utils.MessageUtils;
+import de.zeanon.schemmanager.global.utils.ConfigUtils;
+import de.zeanon.schemmanager.global.utils.InternalFileUtils;
+import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import java.io.File;
@@ -14,6 +14,7 @@ import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -26,8 +27,8 @@ public class Rename {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
-				ArrayList<File> oldFiles = schemPath != null ? FileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
-				ArrayList<File> newFiles = schemPath != null ? FileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
+				ArrayList<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
+				ArrayList<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
 				final boolean oldFileExists = oldFiles != null && oldFiles.size() > 0;
 				final boolean newFileExists = newFiles != null && newFiles.size() > 0;
 
@@ -72,11 +73,11 @@ public class Rename {
 			}
 			String parentName = null;
 			for (File file : oldFiles) {
-				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(FileUtils.getExtension(destPath.toString())::equals)) {
-					org.apache.commons.io.FileUtils.moveFile(file, new File(destPath.toString() + FileUtils.getExtension(file.getName())));
+				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(InternalFileUtils.getExtension(destPath.toString()) :: equals)) {
+					FileUtils.moveFile(file, new File(destPath.toString() + InternalFileUtils.getExtension(file.getName())));
 					parentName = getParentName(file);
 				} else {
-					org.apache.commons.io.FileUtils.moveFile(file, destPath.toFile());
+					FileUtils.moveFile(file, destPath.toFile());
 					parentName = getParentName(file);
 				}
 			}
@@ -93,7 +94,7 @@ public class Rename {
 	private static String getParentName(final File file) {
 		String parentName = null;
 		if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getAbsoluteFile().getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
-			parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : FileUtils.deleteEmptyParent(file);
+			parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
 		}
 		return parentName;
 	}

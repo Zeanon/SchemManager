@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.worldeditversion.commands;
 
 import com.sk89q.worldedit.EmptyClipboardException;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.utils.MessageUtils;
+import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import java.io.File;
@@ -33,7 +33,12 @@ public class Save {
 							p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
 							MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem save " + args[2] + " confirm", "//schem save " + args[2] + " deny", p);
 						} else {
-							p.performCommand("/schem save -f " + args[2]);
+							new BukkitRunnable() {
+								@Override
+								public void run() {
+									p.performCommand("/schem save -f " + args[2]);
+								}
+							}.runTask(SchemManager.getInstance());
 						}
 					} catch (EmptyClipboardException e) {
 						p.sendMessage(ChatColor.RED + "Your clipboard is empty. Use //copy first.");
@@ -41,7 +46,12 @@ public class Save {
 				} else {
 					if (args[3].equalsIgnoreCase("confirm") && WorldEditVersionRequestUtils.checkOverWriteRequest(p, args[2])) {
 						WorldEditVersionRequestUtils.removeOverWriteRequest(p);
-						p.performCommand("/schem save -f " + args[2]);
+						new BukkitRunnable() {
+							@Override
+							public void run() {
+								p.performCommand("/schem save -f " + args[2]);
+							}
+						}.runTask(SchemManager.getInstance());
 					} else if (args[3].equalsIgnoreCase("deny") && WorldEditVersionRequestUtils.checkOverWriteRequest(p, args[2])) {
 						WorldEditVersionRequestUtils.removeOverWriteRequest(p);
 						p.sendMessage(ChatColor.LIGHT_PURPLE + args[2] + " was not overwritten.");

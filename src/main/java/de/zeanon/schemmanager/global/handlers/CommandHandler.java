@@ -1,6 +1,9 @@
-package de.zeanon.schemmanager.utils;
+package de.zeanon.schemmanager.global.handlers;
 
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.schemmanager.global.utils.MessageUtils;
+import de.zeanon.schemmanager.global.utils.RequestUtils;
+import de.zeanon.schemmanager.global.utils.Update;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,10 +24,8 @@ public class CommandHandler implements CommandExecutor {
 			if (sender instanceof Player) {
 				Player p = (Player) sender;
 				if (args.length == 0) {
-					p.sendMessage(ChatColor.RED + "Missing argument for "
-								  + ChatColor.YELLOW + "<"
-								  + ChatColor.GOLD + "argument"
-								  + ChatColor.YELLOW + ">");
+					p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
+								  + "argument" + ChatColor.YELLOW + ">");
 					sendUpdateUsage(p);
 					sendDisableUsage(p);
 				} else if (args[0].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {
@@ -80,7 +81,6 @@ public class CommandHandler implements CommandExecutor {
 					new BukkitRunnable() {
 						@Override
 						public void run() {
-
 							Update.updatePlugin();
 						}
 					}.runTaskAsynchronously(SchemManager.getInstance());

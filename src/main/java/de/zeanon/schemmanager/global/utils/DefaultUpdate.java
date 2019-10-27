@@ -1,8 +1,6 @@
-package de.zeanon.schemmanager.utils.updateutils;
+package de.zeanon.schemmanager.global.utils;
 
-import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.utils.FileUtils;
 import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -12,13 +10,16 @@ import java.net.URL;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 
+@SuppressWarnings("DuplicatedCode")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class PlugManEnabledUpdate {
+class DefaultUpdate {
 
-	public static void updatePlugin(final boolean autoReload) {
+	static void updatePlugin(final boolean autoReload) {
 		System.out.println(SchemManager.getInstance().getName() + " is updating...");
 		String fileName;
 		try {
@@ -34,10 +35,15 @@ public class PlugManEnabledUpdate {
 			return;
 		}
 		try {
-			if (UpdateUtils.writeToFile(new File(FileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
+			if (InternalFileUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
 				System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
 				if (autoReload) {
-					PluginUtil.reload(SchemManager.getInstance());
+					new BukkitRunnable() {
+						@Override
+						public void run() {
+							Bukkit.getServer().reload();
+						}
+					}.runTask(SchemManager.getInstance());
 				}
 			} else {
 				System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
@@ -48,7 +54,7 @@ public class PlugManEnabledUpdate {
 		}
 	}
 
-	public static void updatePlugin(final Player p, final boolean autoReload) {
+	static void updatePlugin(final Player p, final boolean autoReload) {
 		p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
 		String fileName;
 		try {
@@ -64,11 +70,16 @@ public class PlugManEnabledUpdate {
 			return;
 		}
 		try {
-			if (UpdateUtils.writeToFile(new File(FileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
+			if (InternalFileUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
 				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " was updated successfully.");
 				if (autoReload) {
-					p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is reloading.");
-					PluginUtil.reload(SchemManager.getInstance());
+					new BukkitRunnable() {
+						@Override
+						public void run() {
+							p.sendMessage(ChatColor.RED + "Server is reloading.");
+							Bukkit.getServer().reload();
+						}
+					}.runTask(SchemManager.getInstance());
 				}
 			} else {
 				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");

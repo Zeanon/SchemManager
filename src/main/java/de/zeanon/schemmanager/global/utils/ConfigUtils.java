@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.utils;
+package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
 import java.util.Arrays;
@@ -18,8 +18,8 @@ public class ConfigUtils {
 	 * @return value.
 	 */
 	public static int getInt(final String key) {
-		if (SchemManager.config.hasKey(key)) {
-			return SchemManager.config.getInt(key);
+		if (SchemManager.getLocalConfig().hasKey(key)) {
+			return SchemManager.getLocalConfig().getInt(key);
 		} else {
 			new BukkitRunnable() {
 				@Override
@@ -63,8 +63,8 @@ public class ConfigUtils {
 	 * @return value.
 	 */
 	public static boolean getBoolean(final String key) {
-		if (SchemManager.config.hasKey(key)) {
-			return SchemManager.config.getBoolean(key);
+		if (SchemManager.getLocalConfig().hasKey(key)) {
+			return SchemManager.getLocalConfig().getBoolean(key);
 		} else {
 			new BukkitRunnable() {
 				@Override
@@ -84,8 +84,8 @@ public class ConfigUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static List<String> getStringList(final String key) {
-		if (SchemManager.config.hasKey(key)) {
-			return SchemManager.config.getStringList(key);
+		if (SchemManager.getLocalConfig().hasKey(key)) {
+			return SchemManager.getLocalConfig().getStringList(key);
 		} else {
 			new BukkitRunnable() {
 				@Override

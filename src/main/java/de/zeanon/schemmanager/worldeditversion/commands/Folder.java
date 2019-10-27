@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.utils.ConfigUtils;
-import de.zeanon.schemmanager.utils.FileUtils;
-import de.zeanon.schemmanager.utils.MessageUtils;
+import de.zeanon.schemmanager.global.utils.ConfigUtils;
+import de.zeanon.schemmanager.global.utils.InternalFileUtils;
+import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import java.io.File;
 import java.io.IOException;
@@ -19,12 +19,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
+@SuppressWarnings("Duplicates")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Folder {
 
 	public static void onFolder(final Player p, final String[] args, final boolean deepSearch) {
 		new BukkitRunnable() {
-			@SuppressWarnings("DuplicatedCode")
 			@Override
 			public void run() {
 				int listmax = ConfigUtils.getInt("Listmax");
@@ -43,14 +43,14 @@ public class Folder {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						} else {
-							ArrayList<File> rawFiles = FileUtils.getFolders(directory, deepSearch);
+							ArrayList<File> rawFiles = InternalFileUtils.getFolders(directory, deepSearch);
 							File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
 							int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
 							if (spaceLists) {
-								p.sendMessage(" ");
+								p.sendMessage("");
 							}
 							if (count < 1) {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No folders found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics", p);
@@ -84,7 +84,7 @@ public class Folder {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 							} else {
-								ArrayList<File> rawFiles = FileUtils.getFolders(directory, deepSearch);
+								ArrayList<File> rawFiles = InternalFileUtils.getFolders(directory, deepSearch);
 								File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -96,7 +96,7 @@ public class Folder {
 									return;
 								}
 								if (spaceLists) {
-									p.sendMessage(" ");
+									p.sendMessage("");
 								}
 								if (count < 1) {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No folders found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics", p);
@@ -139,14 +139,14 @@ public class Folder {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 							} else {
-								ArrayList<File> rawFiles = FileUtils.getFolders(directory, deepSearch);
+								ArrayList<File> rawFiles = InternalFileUtils.getFolders(directory, deepSearch);
 								File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
 								int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
 								if (spaceLists) {
-									p.sendMessage(" ");
+									p.sendMessage("");
 								}
 								if (count < 1) {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No folders found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics/" + args[2], p);
@@ -179,7 +179,7 @@ public class Folder {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						} else {
-							ArrayList<File> rawFiles = FileUtils.getFolders(directory, deepSearch);
+							ArrayList<File> rawFiles = InternalFileUtils.getFolders(directory, deepSearch);
 							File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -191,7 +191,7 @@ public class Folder {
 								return;
 							}
 							if (spaceLists) {
-								p.sendMessage(" ");
+								p.sendMessage("");
 							}
 							if (count < 1) {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No folders found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics/" + args[2], p);
@@ -237,16 +237,15 @@ public class Folder {
 		return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
 	}
 
-	@SuppressWarnings("DuplicatedCode")
 	private static boolean sendListLine(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
 		try {
 			String name;
 			String path;
 			String shortenedRelativePath;
-			if (FileUtils.getExtension(file.getName()).equals("schem")) {
-				name = FileUtils.removeExtension(file.getName());
-				path = FilenameUtils.separatorsToUnix(FileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
-				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(FileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
+			if (InternalFileUtils.getExtension(file.getName()).equals("schem")) {
+				name = InternalFileUtils.removeExtension(file.getName());
+				path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
 			} else {
 				name = file.getName();
 				path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());

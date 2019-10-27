@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.utils;
+package de.zeanon.schemmanager.global.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -10,6 +10,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
 
+@SuppressWarnings("DuplicatedCode")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MessageUtils {
 

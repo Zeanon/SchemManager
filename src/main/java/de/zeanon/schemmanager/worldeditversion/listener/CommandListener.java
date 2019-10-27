@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.listener;
 
-import de.zeanon.schemmanager.utils.ConfigUtils;
-import de.zeanon.schemmanager.utils.MessageUtils;
+import de.zeanon.schemmanager.global.utils.ConfigUtils;
+import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.commands.*;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldeditVersionMessageUtils;
@@ -15,12 +15,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 
+@SuppressWarnings("DuplicatedCode")
 public class CommandListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onCommand(final PlayerCommandPreprocessEvent event) {
 		Player p = event.getPlayer();
-		String[] args = event.getMessage().replaceAll("worldedit:", "/").split(" ");
+		String[] args = event.getMessage().replaceAll("worldedit:", "/").split("\\s+");
 
 		if (args[0].equalsIgnoreCase("/schem")
 			|| args[0].equalsIgnoreCase("/schematic")

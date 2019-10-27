@@ -1,6 +1,7 @@
-package de.zeanon.schemmanager.utils;
+package de.zeanon.schemmanager.global.handlers;
 
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.schemmanager.global.utils.RequestUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

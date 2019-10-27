@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.utils.FileUtils;
-import de.zeanon.schemmanager.utils.MessageUtils;
+import de.zeanon.schemmanager.global.utils.InternalFileUtils;
+import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import java.io.File;
@@ -12,6 +12,7 @@ import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -37,19 +38,19 @@ public class RenameFolder {
 							p.sendMessage(ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
 							String[] extension = {"schematic", "schem"};
-							for (File oldFile : org.apache.commons.io.FileUtils.listFiles(directory_old, extension, true)) {
-								for (File newFile : org.apache.commons.io.FileUtils.listFiles(directory_new, extension, true)) {
-									if (FileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(FileUtils.removeExtension(oldFile.getName())) && newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
+							for (File oldFile : FileUtils.listFiles(directory_old, extension, true)) {
+								for (File newFile : FileUtils.listFiles(directory_new, extension, true)) {
+									if (InternalFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(InternalFileUtils.removeExtension(oldFile.getName())) && newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
 										if (id == 0) {
 											p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
 										}
 										String name;
 										String path;
 										String shortenedRelativePath;
-										if (FileUtils.getExtension(newFile.getName()).equals("schem")) {
-											name = FileUtils.removeExtension(newFile.getName());
-											path = FilenameUtils.separatorsToUnix(FileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
-											shortenedRelativePath = FilenameUtils.separatorsToUnix(FileUtils.removeExtension(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
+										if (InternalFileUtils.getExtension(newFile.getName()).equals("schem")) {
+											name = InternalFileUtils.removeExtension(newFile.getName());
+											path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
+											shortenedRelativePath = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
 										} else {
 											name = newFile.getName();
 											path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());
@@ -62,8 +63,8 @@ public class RenameFolder {
 							}
 
 							int i = 0;
-							for (File oldFolder : FileUtils.getFolders(directory_old, true)) {
-								for (File newFolder : FileUtils.getFolders(directory_new, true)) {
+							for (File oldFolder : InternalFileUtils.getFolders(directory_old, true)) {
+								for (File newFolder : InternalFileUtils.getFolders(directory_new, true)) {
 									if (newFolder.getName().equalsIgnoreCase(oldFolder.getName()) && newFolder.toPath().relativize(directory_new.toPath()).equals(oldFolder.toPath().relativize(directory_old.toPath()))) {
 										if (i == 0) {
 											p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
@@ -96,8 +97,8 @@ public class RenameFolder {
 							if (directory_old != null && directory_old.exists() && directory_old.isDirectory()) {
 								if (deepMerge(directory_old, directory_new)) {
 									try {
-										org.apache.commons.io.FileUtils.deleteDirectory(directory_old);
-										String parentName = Objects.requireNonNull(directory_old.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : FileUtils.deleteEmptyParent(directory_old);
+										FileUtils.deleteDirectory(directory_old);
+										String parentName = Objects.requireNonNull(directory_old.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(directory_old);
 										if (parentName != null) {
 											p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
 										}
@@ -140,13 +141,13 @@ public class RenameFolder {
 							}
 						} else {
 							if (new File(newFile, tempFile.getName()).delete()) {
-								org.apache.commons.io.FileUtils.moveToDirectory(tempFile, newFile, true);
+								FileUtils.moveToDirectory(tempFile, newFile, true);
 							} else {
 								return false;
 							}
 						}
 					} else {
-						org.apache.commons.io.FileUtils.moveToDirectory(tempFile, newFile, true);
+						FileUtils.moveToDirectory(tempFile, newFile, true);
 					}
 				}
 			} catch (IOException e) {

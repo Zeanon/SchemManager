@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.utils;
+package de.zeanon.schemmanager.global.utils;
 
 import java.util.ArrayList;
 import lombok.AccessLevel;
@@ -20,19 +20,23 @@ public class RequestUtils {
 		updateRequests.remove(p.getUniqueId().toString());
 	}
 
-	static void addDisableRequest(final Player p) {
-		disableRequests.add(p.getUniqueId().toString());
+	public static void addDisableRequest(final Player p) {
+		if (!checkDisableRequest(p)) {
+			disableRequests.add(p.getUniqueId().toString());
+		}
 	}
 
-	static boolean checkDisableRequest(final Player p) {
+	public static boolean checkDisableRequest(final Player p) {
 		return disableRequests.contains(p.getUniqueId().toString());
 	}
 
-	static void addUpdateRequest(final Player p) {
-		updateRequests.add(p.getUniqueId().toString());
+	public static void addUpdateRequest(final Player p) {
+		if (!checkUpdateRequest(p)) {
+			updateRequests.add(p.getUniqueId().toString());
+		}
 	}
 
-	static boolean checkUpdateRequest(final Player p) {
+	public static boolean checkUpdateRequest(final Player p) {
 		return updateRequests.contains(p.getUniqueId().toString());
 	}
 }

@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.utils;
+package de.zeanon.schemmanager.global.handlers;
 
 import java.util.ArrayList;
 import java.util.List;

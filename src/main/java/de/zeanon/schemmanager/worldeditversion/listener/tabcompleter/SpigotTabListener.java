@@ -9,14 +9,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.TabCompleteEvent;
 
 
+@SuppressWarnings("DuplicatedCode")
 public class SpigotTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onTab(final TabCompleteEvent event) {
 		String message = event.getBuffer();
-		while (message.contains("  ")) {
-			message = message.replaceAll(" {2}", " ");
-		}
+		message = message.replaceAll("\\s+", " ");
 		String[] args = message.replaceAll("worldedit:", "/").split(" ");
 		if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
 			if (message.contains("./")) {

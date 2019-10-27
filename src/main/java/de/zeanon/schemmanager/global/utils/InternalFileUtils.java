@@ -1,7 +1,8 @@
-package de.zeanon.schemmanager.utils;
+package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
-import java.io.File;
+import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class FileUtils {
+public class InternalFileUtils {
 
 	private static final String pluginFolderPath;
 
@@ -23,10 +24,6 @@ public class FileUtils {
 			pathBuilder.append(parts[i]).append(slash);
 		}
 		pluginFolderPath = pathBuilder.toString();
-	}
-
-	public static String getPluginFolderPath() {
-		return pluginFolderPath;
 	}
 
 	/**
@@ -47,10 +44,9 @@ public class FileUtils {
 		return files;
 	}
 
-
 	public static ArrayList<File> getExistingFiles(final Path path) {
 		ArrayList<File> tempFiles = new ArrayList<>();
-		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(getExtension(path.toString())::equalsIgnoreCase)) {
+		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(getExtension(path.toString()) :: equalsIgnoreCase)) {
 			File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				return new ArrayList<>(Collections.singletonList(file));
@@ -66,7 +62,6 @@ public class FileUtils {
 		return files;
 	}
 
-
 	public static String removeExtension(final String path) {
 		return path.replaceFirst("[.][^.]+$", "");
 	}
@@ -80,5 +75,28 @@ public class FileUtils {
 			return deleteEmptyParent(file.getAbsoluteFile().getParentFile());
 		}
 		return file.getName();
+	}
+
+	static String getPluginFolderPath() {
+		return pluginFolderPath;
+	}
+
+	static synchronized boolean writeToFile(final File file, final BufferedInputStream inputStream) {
+		try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
+			if (!file.exists()) {
+				Files.copy(inputStream, file.toPath());
+				return true;
+			} else {
+				final byte[] data = new byte[8192];
+				int count;
+				while ((count = inputStream.read(data, 0, 8192)) != -1) {
+					outputStream.write(data, 0, count);
+				}
+				return true;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

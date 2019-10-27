@@ -2,7 +2,6 @@ package de.zeanon.schemmanager.worldeditversion.utils;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.worldeditversion.WorldEditVersionMain;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -28,7 +27,7 @@ public class WorldEditVersionSchemUtils {
 	}
 
 	public static Path getSchemPath() {
-		if (!WorldEditVersionMain.weConfig.hasChanged()) {
+		if (!SchemManager.getWeConfig().hasChanged()) {
 			return schemFolderPath;
 		} else {
 			try {
@@ -36,13 +35,13 @@ public class WorldEditVersionSchemUtils {
 				return schemFolderPath;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				throw new IllegalStateException("Could not get the Schematic-Folder");
+				return null;
 			}
 		}
 	}
 
 	public static void initSchemPath() throws FileNotFoundException {
-		Path tempPath = Paths.get(WorldEditVersionMain.weConfig.getString("saving.dir"));
+		Path tempPath = Paths.get(SchemManager.getWeConfig().getString("saving.dir"));
 		if (tempPath.isAbsolute()) {
 			schemFolderPath = tempPath.normalize();
 			schemFolder = schemFolderPath.toFile();

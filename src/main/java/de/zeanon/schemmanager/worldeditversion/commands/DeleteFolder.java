@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.utils.ConfigUtils;
-import de.zeanon.schemmanager.utils.FileUtils;
-import de.zeanon.schemmanager.utils.MessageUtils;
+import de.zeanon.schemmanager.global.utils.ConfigUtils;
+import de.zeanon.schemmanager.global.utils.InternalFileUtils;
+import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
 import java.io.File;
@@ -13,6 +13,7 @@ import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -43,7 +44,7 @@ public class DeleteFolder {
 						WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
 						if (fileExists) {
 							try {
-								org.apache.commons.io.FileUtils.deleteDirectory(file);
+								FileUtils.deleteDirectory(file);
 								String parentName = getParentName(file);
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was deleted successfully.");
 								if (parentName != null) {
@@ -69,7 +70,7 @@ public class DeleteFolder {
 
 		String parentName = null;
 		if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getAbsoluteFile().getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
-			parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : FileUtils.deleteEmptyParent(file);
+			parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
 		}
 		return parentName;
 	}
