@@ -13,7 +13,6 @@ public class Update {
 
 	public static boolean updateConfig(final boolean force) {
 		if (force
-			|| !SchemManager.getLocalConfig().hasKey("Plugin Version")
 			|| !SchemManager.getLocalConfig().getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())
 			|| !SchemManager.getLocalConfig().hasKey("File Extensions")
 			|| !SchemManager.getLocalConfig().hasKey("Listmax")
