@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
@@ -19,7 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class DefaultUpdate {
 
-	static void updatePlugin(final boolean autoReload) {
+	static void updatePlugin(final boolean autoReload, final JavaPlugin instance) {
 		System.out.println(SchemManager.getInstance().getName() + " is updating...");
 		String fileName;
 		try {
@@ -43,7 +44,7 @@ class DefaultUpdate {
 						public void run() {
 							Bukkit.getServer().reload();
 						}
-					}.runTask(SchemManager.getInstance());
+					}.runTask(instance);
 				}
 			} else {
 				System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
@@ -54,7 +55,7 @@ class DefaultUpdate {
 		}
 	}
 
-	static void updatePlugin(final Player p, final boolean autoReload) {
+	static void updatePlugin(final Player p, final boolean autoReload, final JavaPlugin instance) {
 		p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
 		String fileName;
 		try {
@@ -79,7 +80,7 @@ class DefaultUpdate {
 							p.sendMessage(ChatColor.RED + "Server is reloading.");
 							Bukkit.getServer().reload();
 						}
-					}.runTask(SchemManager.getInstance());
+					}.runTask(instance);
 				}
 			} else {
 				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");

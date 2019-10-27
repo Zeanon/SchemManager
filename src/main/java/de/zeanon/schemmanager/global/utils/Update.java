@@ -60,7 +60,7 @@ public class Update {
 		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
 			PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
 		} else {
-			DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
+			DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"), SchemManager.getInstance());
 		}
 	}
 
@@ -68,7 +68,7 @@ public class Update {
 		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
 			PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
 		} else {
-			DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
+			DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"), SchemManager.getInstance());
 		}
 	}
 }
