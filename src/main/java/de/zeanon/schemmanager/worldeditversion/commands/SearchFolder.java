@@ -27,7 +27,7 @@ public class SearchFolder {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				int listmax = ConfigUtils.getInt("Listmax");
+				byte listmax = ConfigUtils.getByte("Listmax");
 				Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
 				boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
 
@@ -56,9 +56,9 @@ public class SearchFolder {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics", p);
 
 								if (count < listmax) {
-									listmax = (int) count;
+									listmax = (byte) count;
 								}
-								for (int i = 0; i < listmax; i++) {
+								for (byte i = 0; i < listmax; i++) {
 									if (sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 										return;
 									}
@@ -101,9 +101,9 @@ public class SearchFolder {
 
 									int id = (side_number - 1) * listmax;
 									if (count < listmax * side_number) {
-										listmax = (int) count - (listmax * (side_number - 1));
+										listmax = (byte) ((int) count - (listmax * (side_number - 1)));
 									}
-									for (int i = 0; i < listmax; i++) {
+									for (byte i = 0; i < listmax; i++) {
 										if (sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 											return;
 										}
@@ -148,9 +148,9 @@ public class SearchFolder {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics/" + args[2], p);
 
 									if (count < listmax) {
-										listmax = (int) count;
+										listmax = (byte) count;
 									}
-									for (int i = 0; i < listmax; i++) {
+									for (byte i = 0; i < listmax; i++) {
 										if (sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 											return;
 										}
@@ -193,9 +193,9 @@ public class SearchFolder {
 
 								int id = (side_number - 1) * listmax;
 								if (count < listmax * side_number) {
-									listmax = (int) count - (listmax * (side_number - 1));
+									listmax = (byte) ((int) count - (listmax * (side_number - 1)));
 								}
-								for (int i = 0; i < listmax; i++) {
+								for (byte i = 0; i < listmax; i++) {
 									if (sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 										return;
 									}

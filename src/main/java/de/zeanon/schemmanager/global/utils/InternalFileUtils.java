@@ -20,7 +20,7 @@ public class InternalFileUtils {
 		String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
 		String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
 		StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
-		for (int i = 1; i < parts.length - 1; i++) {
+		for (byte i = 1; i < parts.length - 1; i++) {
 			pathBuilder.append(parts[i]).append(slash);
 		}
 		pluginFolderPath = pathBuilder.toString();

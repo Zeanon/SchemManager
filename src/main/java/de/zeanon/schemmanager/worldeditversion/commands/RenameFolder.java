@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.worldeditversion.commands;
 
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
@@ -37,9 +38,9 @@ public class RenameFolder {
 						} else if (directory_new.exists() && directory_new.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
-							String[] extension = {"schematic", "schem"};
-							for (File oldFile : FileUtils.listFiles(directory_old, extension, true)) {
-								for (File newFile : FileUtils.listFiles(directory_new, extension, true)) {
+							String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
+							for (File oldFile : FileUtils.listFiles(directory_old, extensions, true)) {
+								for (File newFile : FileUtils.listFiles(directory_new, extensions, true)) {
 									if (InternalFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(InternalFileUtils.removeExtension(oldFile.getName())) && newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
 										if (id == 0) {
 											p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");

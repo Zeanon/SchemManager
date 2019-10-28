@@ -124,7 +124,7 @@ public class Help {
 		if (ConfigUtils.getStringList("File Extensions").size() > 0) {
 			String[] formats = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
 			StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&b, ");
-			for (int i = 1; i < formats.length - 1; i++) {
+			for (byte i = 1; i < formats.length - 1; i++) {
 				pathBuilder.append("&d").append(formats[i]).append("&b").append(", ");
 			}
 			pathBuilder.append("&d").append(formats[formats.length - 1]);

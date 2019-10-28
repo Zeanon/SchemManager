@@ -109,7 +109,7 @@ class WorldEditVersionTabCompleter {
 					String[] pathArgs = args[2].split("/");
 					if (tempDirectory != null) {
 						if (!args[2].endsWith("/")) {
-							for (int i = 0; i < pathArgs.length - 1; i++) {
+							for (byte i = 0; i < pathArgs.length - 1; i++) {
 								tempDirectory = tempDirectory.resolve(pathArgs[i]);
 							}
 						} else {
@@ -134,7 +134,7 @@ class WorldEditVersionTabCompleter {
 					String[] pathArgs = args[2].split("/");
 					if (tempDirectory != null) {
 						if (!args[2].endsWith("/")) {
-							for (int i = 0; i < pathArgs.length - 1; i++) {
+							for (byte i = 0; i < pathArgs.length - 1; i++) {
 								tempDirectory = tempDirectory.resolve(pathArgs[i]);
 							}
 						} else {
@@ -202,7 +202,7 @@ class WorldEditVersionTabCompleter {
 						if (tempDirectory != null) {
 							String[] pathArgs = args[3].split("/");
 							if (!args[3].endsWith("/")) {
-								for (int i = 0; i < pathArgs.length - 1; i++) {
+								for (byte i = 0; i < pathArgs.length - 1; i++) {
 									tempDirectory = tempDirectory.resolve(pathArgs[i]);
 								}
 							} else {
@@ -229,7 +229,7 @@ class WorldEditVersionTabCompleter {
 						if (tempDirectory != null) {
 							String[] pathArgs = args[3].split("/");
 							if (!args[3].endsWith("/")) {
-								for (int i = 0; i < pathArgs.length - 1; i++) {
+								for (byte i = 0; i < pathArgs.length - 1; i++) {
 									tempDirectory = tempDirectory.resolve(pathArgs[i]);
 								}
 							} else {

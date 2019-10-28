@@ -17,9 +17,9 @@ public class ConfigUtils {
 	 * @param key the Config key.
 	 * @return value.
 	 */
-	public static int getInt(final String key) {
+	public static byte getByte(final String key) {
 		if (SchemManager.getLocalConfig().hasKey(key)) {
-			return SchemManager.getLocalConfig().getInt(key);
+			return SchemManager.getLocalConfig().getByte(key);
 		} else {
 			new BukkitRunnable() {
 				@Override
@@ -27,7 +27,7 @@ public class ConfigUtils {
 					Update.updateConfig(true);
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
-			return (int) getDefaultValue(key);
+			return (byte) getDefaultValue(key);
 		}
 	}
 
