@@ -42,6 +42,7 @@ public class WorldEditVersionSchemUtils {
 
 	public static void initSchemPath() throws FileNotFoundException {
 		Path tempPath = Paths.get(SchemManager.getWeConfig().getString("saving.dir"));
+		SchemManager.getWeConfig().clearData();
 		if (tempPath.isAbsolute()) {
 			schemFolderPath = tempPath.normalize();
 			schemFolder = schemFolderPath.toFile();

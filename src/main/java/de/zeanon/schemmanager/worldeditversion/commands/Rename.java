@@ -73,7 +73,7 @@ public class Rename {
 			}
 			String parentName = null;
 			for (File file : oldFiles) {
-				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(InternalFileUtils.getExtension(destPath.toString()) :: equals)) {
+				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(InternalFileUtils.getExtension(destPath.toString())::equals)) {
 					FileUtils.moveFile(file, new File(destPath.toString() + InternalFileUtils.getExtension(file.getName())));
 					parentName = getParentName(file);
 				} else {
