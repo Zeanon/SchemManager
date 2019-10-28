@@ -33,7 +33,7 @@ public class SearchFolder {
 
 				String deep = "";
 				if (deepSearch) {
-					deep = "-deep ";
+					deep = "-d ";
 				}
 
 				if (args.length == 3) {
