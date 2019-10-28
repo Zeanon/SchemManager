@@ -5,7 +5,7 @@
 
 	<groupId>de.zeanon</groupId>
 	<artifactId>schemmanager</artifactId>
-	<version>4.4.2-Beta-v2.23</version>
+	<version>4.4.2-Beta-v2.24</version>
 	<name>SchemManager</name>
 	<description>Manage your schematics properly</description>
 	<url>https://github.com/Zeanon/SchemManager</url>
@@ -209,6 +209,14 @@
 			<artifactId>paper-api</artifactId>
 			<version>1.14.4-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- Commons IO -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- LightningStorage by JavaFactoryDev and Zeanon-->
