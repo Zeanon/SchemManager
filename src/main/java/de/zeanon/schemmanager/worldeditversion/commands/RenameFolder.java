@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
+@SuppressWarnings("DuplicatedCode")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RenameFolder {
 

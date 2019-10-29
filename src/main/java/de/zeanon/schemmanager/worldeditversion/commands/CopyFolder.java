@@ -17,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
+@SuppressWarnings("DuplicatedCode")
 public class CopyFolder {
 
 	public static void onCopyFolder(final Player p, final String[] args) {
