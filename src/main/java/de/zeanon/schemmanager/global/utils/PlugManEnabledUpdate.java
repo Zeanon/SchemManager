@@ -14,7 +14,6 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
 
-@SuppressWarnings("DuplicatedCode")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class PlugManEnabledUpdate {
 
