@@ -160,105 +160,81 @@ class WorldEditVersionTabCompleter {
 			}
 		} else if ((args.length == 4 && !argumentEnded) || args.length == 3) {
 			if (argumentEnded) {
-				switch (args[1]) {
-					case "load": {
-						completions.addAll(ConfigUtils.getStringList("File Extensions"));
-						break;
-					}
-					case "rename":
-					case "copy": {
-						Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
-						File pathFile = schemPath != null ? schemPath.toFile() : null;
-						if (pathFile != null) {
-							for (File file : getFileArray(pathFile)) {
-								completions.add(file.getName());
-							}
-							for (File file : InternalFileUtils.getFolders(pathFile, false)) {
-								completions.add(file.getName());
-							}
+				if (args[1].equalsIgnoreCase("load")) {
+					completions.addAll(ConfigUtils.getStringList("File Extensions"));
+				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
+					Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
+					File pathFile = schemPath != null ? schemPath.toFile() : null;
+					if (pathFile != null) {
+						for (File file : getFileArray(pathFile)) {
+							completions.add(file.getName());
 						}
-						break;
-					}
-					case "renamefolder":
-					case "copyfolder": {
-						Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
-						File pathFile = schemPath != null ? schemPath.toFile() : null;
-						if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-							for (File file : InternalFileUtils.getFolders(pathFile, false)) {
-								completions.add(file.getName());
-							}
+						for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+							completions.add(file.getName());
 						}
-						break;
 					}
-					default: {
-						break;
+				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
+					Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
+					File pathFile = schemPath != null ? schemPath.toFile() : null;
+					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
+						for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+							completions.add(file.getName());
+						}
 					}
 				}
 			} else {
-				switch (args[1]) {
-					case "load": {
-						for (String extension : ConfigUtils.getStringList("File Extensions")) {
-							if (extension.toLowerCase().startsWith(args[3]) && !extension.equals(args[3])) {
-								completions.add(extension);
+				if (args[1].equalsIgnoreCase("load")) {
+					for (String extension : ConfigUtils.getStringList("File Extensions")) {
+						if (extension.toLowerCase().startsWith(args[3]) && !extension.equals(args[3])) {
+							completions.add(extension);
+						}
+					}
+				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
+					Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
+					if (tempDirectory != null) {
+						String[] pathArgs = args[3].split("/");
+						if (!args[3].endsWith("/")) {
+							for (byte i = 0; i < pathArgs.length - 1; i++) {
+								tempDirectory = tempDirectory.resolve(pathArgs[i]);
+							}
+						} else {
+							for (String pathArg : pathArgs) {
+								tempDirectory = tempDirectory.resolve(pathArg);
 							}
 						}
-						break;
-					}
-					case "rename":
-					case "copy": {
-						Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
-						if (tempDirectory != null) {
-							String[] pathArgs = args[3].split("/");
-							if (!args[3].endsWith("/")) {
-								for (byte i = 0; i < pathArgs.length - 1; i++) {
-									tempDirectory = tempDirectory.resolve(pathArgs[i]);
-								}
-							} else {
-								for (String pathArg : pathArgs) {
-									tempDirectory = tempDirectory.resolve(pathArg);
-								}
-							}
 
-							File pathFile = tempDirectory.toFile();
-							if (pathFile.exists() && pathFile.isDirectory()) {
+						File pathFile = tempDirectory.toFile();
+						if (pathFile.exists() && pathFile.isDirectory()) {
+							String regex = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
+							for (File file : getFileArray(pathFile)) {
+								addFileToCompletions(regex, completions, file);
+							}
+							for (File file : InternalFileUtils.getFolders(pathFile, false)) {
+								addFileToCompletions(regex, completions, file);
+							}
+						}
+					}
+				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
+					Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
+					if (tempDirectory != null) {
+						String[] pathArgs = args[3].split("/");
+						if (!args[3].endsWith("/")) {
+							for (byte i = 0; i < pathArgs.length - 1; i++) {
+								tempDirectory = tempDirectory.resolve(pathArgs[i]);
+							}
+						} else {
+							for (String pathArg : pathArgs) {
+								tempDirectory = tempDirectory.resolve(pathArg);
+							}
+						}
+
+						File pathFile = tempDirectory.toFile();
+						if (pathFile.exists() && pathFile.isDirectory()) {
+							for (File file : InternalFileUtils.getFolders(pathFile, false)) {
 								String regex = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
-								for (File file : getFileArray(pathFile)) {
-									addFileToCompletions(regex, completions, file);
-								}
-								for (File file : InternalFileUtils.getFolders(pathFile, false)) {
-									addFileToCompletions(regex, completions, file);
-								}
+								addFileToCompletions(regex, completions, file);
 							}
 						}
-						break;
-					}
-					case "renamefolder":
-					case "copyfolder": {
-						Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
-						if (tempDirectory != null) {
-							String[] pathArgs = args[3].split("/");
-							if (!args[3].endsWith("/")) {
-								for (byte i = 0; i < pathArgs.length - 1; i++) {
-									tempDirectory = tempDirectory.resolve(pathArgs[i]);
-								}
-							} else {
-								for (String pathArg : pathArgs) {
-									tempDirectory = tempDirectory.resolve(pathArg);
-								}
-							}
-
-							File pathFile = tempDirectory.toFile();
-							if (pathFile.exists() && pathFile.isDirectory()) {
-								for (File file : InternalFileUtils.getFolders(pathFile, false)) {
-									String regex = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
-									addFileToCompletions(regex, completions, file);
-								}
-							}
-						}
-						break;
-					}
-					default: {
-						break;
 					}
 				}
 			}
