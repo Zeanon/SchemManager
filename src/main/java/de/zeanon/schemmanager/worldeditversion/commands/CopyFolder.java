@@ -10,8 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -19,10 +17,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RenameFolder {
+public class CopyFolder {
 
-	public static void onRenameFolder(final Player p, final String[] args) {
+	public static void onCopyFolder(final Player p, final String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -90,34 +87,23 @@ public class RenameFolder {
 											  + " folders with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
 							}
 						}
-						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem renamefolder " + args[2] + " " + args[3] + " confirm", "//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
-						WorldEditVersionRequestUtils.addRenameFolderRequest(p, args[2]);
-					} else if (args.length == 5 && WorldEditVersionRequestUtils.checkRenameFolderRequest(p, args[2])) {
+						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to copy " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem copyfolder " + args[2] + " " + args[3] + " confirm", "//schem copyfolder " + args[2] + " " + args[3] + " deny", p);
+						WorldEditVersionRequestUtils.addCopyFolderRequest(p, args[2]);
+					} else if (args.length == 5 && WorldEditVersionRequestUtils.checkCopyFolderRequest(p, args[2])) {
 						if (args[4].equalsIgnoreCase("confirm")) {
-							WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
+							WorldEditVersionRequestUtils.removeCopyFolderRequest(p);
 							if (directory_old != null && directory_old.exists() && directory_old.isDirectory()) {
 								if (deepMerge(directory_old, directory_new)) {
-									try {
-										FileUtils.deleteDirectory(directory_old);
-										String parentName = Objects.requireNonNull(directory_old.getAbsoluteFile().getParentFile().listFiles()).length > 0 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(directory_old);
-										p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was renamed successfully.");
-										if (parentName != null) {
-											p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
-										}
-									} catch (IOException e) {
-										e.printStackTrace();
-										p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " could not be renamed.");
-										WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
-									}
+									p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was copied successfully.");
 								} else {
-									p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " could not be renamed.");
+									p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " could not be copied.");
 								}
 							} else {
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 							}
 						} else if (args[4].equalsIgnoreCase("deny")) {
-							WorldEditVersionRequestUtils.removeRenameFolderRequest(p);
-							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not renamed");
+							WorldEditVersionRequestUtils.removeCopyFolderRequest(p);
+							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not copied");
 						}
 					}
 				} catch (IOException e) {
@@ -142,13 +128,17 @@ public class RenameFolder {
 							}
 						} else {
 							if (new File(newFile, tempFile.getName()).delete()) {
-								FileUtils.moveToDirectory(tempFile, newFile, true);
+								FileUtils.copyFileToDirectory(tempFile, newFile, true);
 							} else {
 								return false;
 							}
 						}
 					} else {
-						FileUtils.moveToDirectory(tempFile, newFile, true);
+						if (tempFile.isDirectory()) {
+							FileUtils.copyDirectoryToDirectory(tempFile, newFile);
+						} else {
+							FileUtils.copyFileToDirectory(tempFile, newFile, true);
+						}
 					}
 				}
 			} catch (IOException e) {

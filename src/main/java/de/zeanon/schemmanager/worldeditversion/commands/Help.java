@@ -56,6 +56,20 @@ public class Help {
 										ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "renamefolder "
 										+ ChatColor.GREEN + "example newname",
 										slash + schemAlias + " renamefolder ", p);
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "Copy a schematic: ",
+										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "copy " + ChatColor.YELLOW + "<"
+										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> <"
+										+ ChatColor.GOLD + "newname" + ChatColor.YELLOW + ">",
+										ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "copy "
+										+ ChatColor.GOLD + "example newname",
+										slash + schemAlias + " copy ", p);
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "Copy a folder: ",
+										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "copyfolder " + ChatColor.YELLOW + "<"
+										+ ChatColor.GREEN + "filename" + ChatColor.YELLOW + "> <"
+										+ ChatColor.GREEN + "newname" + ChatColor.YELLOW + ">",
+										ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "copyfolder "
+										+ ChatColor.GREEN + "example newname",
+										slash + schemAlias + " copyfolder ", p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Delete a schematic: ",
 										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "delete " + ChatColor.YELLOW + "<"
 										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",

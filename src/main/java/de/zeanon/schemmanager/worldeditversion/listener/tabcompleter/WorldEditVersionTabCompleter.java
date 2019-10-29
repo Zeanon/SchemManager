@@ -23,7 +23,7 @@ class WorldEditVersionTabCompleter {
 		ArrayList<String> completions = new ArrayList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
-				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "del", "delete", "delfolder", "deletefolder", "list", "folder", "search", "searchfolder");
+				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "folder", "search", "searchfolder");
 			} else {
 				if ("help".startsWith(args[1]) && !"help".equals(args[1])) {
 					completions.add("help");
@@ -42,6 +42,12 @@ class WorldEditVersionTabCompleter {
 				}
 				if ("renamefolder".startsWith(args[1]) && !"renamefolder".equals(args[1])) {
 					completions.add("renamefolder");
+				}
+				if ("copy".startsWith(args[1]) && !"copy".equals(args[1])) {
+					completions.add("copy");
+				}
+				if ("copyfolder".startsWith(args[1]) && !"copyfolder".equals(args[1])) {
+					completions.add("copyfolder");
 				}
 				if ("del".startsWith(args[1]) && !"del".equals(args[1])) {
 					completions.add("del");
@@ -74,7 +80,7 @@ class WorldEditVersionTabCompleter {
 					completions.add("-d");
 					completions.add("-deep");
 				}
-				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
+				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
 					Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null) {
@@ -85,7 +91,7 @@ class WorldEditVersionTabCompleter {
 							completions.add(file.getName());
 						}
 					}
-				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
+				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
 					Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
@@ -103,7 +109,7 @@ class WorldEditVersionTabCompleter {
 						completions.add("-deep");
 					}
 				}
-				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename")) {
+				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
 					Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
 					String[] pathArgs = args[2].split("/");
 					if (tempDirectory != null) {
@@ -128,7 +134,7 @@ class WorldEditVersionTabCompleter {
 							}
 						}
 					}
-				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder")) {
+				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
 					Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
 					String[] pathArgs = args[2].split("/");
 					if (tempDirectory != null) {
@@ -159,7 +165,8 @@ class WorldEditVersionTabCompleter {
 						completions.addAll(ConfigUtils.getStringList("File Extensions"));
 						break;
 					}
-					case "rename": {
+					case "rename":
+					case "copy": {
 						Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
 						File pathFile = schemPath != null ? schemPath.toFile() : null;
 						if (pathFile != null) {
@@ -172,7 +179,8 @@ class WorldEditVersionTabCompleter {
 						}
 						break;
 					}
-					case "renamefolder": {
+					case "renamefolder":
+					case "copyfolder": {
 						Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
 						File pathFile = schemPath != null ? schemPath.toFile() : null;
 						if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
@@ -196,7 +204,8 @@ class WorldEditVersionTabCompleter {
 						}
 						break;
 					}
-					case "rename": {
+					case "rename":
+					case "copy": {
 						Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
 						if (tempDirectory != null) {
 							String[] pathArgs = args[3].split("/");
@@ -223,7 +232,8 @@ class WorldEditVersionTabCompleter {
 						}
 						break;
 					}
-					case "renamefolder": {
+					case "renamefolder":
+					case "copyfolder": {
 						Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
 						if (tempDirectory != null) {
 							String[] pathArgs = args[3].split("/");

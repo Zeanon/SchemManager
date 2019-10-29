@@ -117,6 +117,49 @@ public class CommandListener implements Listener {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					renameFolderUsage(p, slash, schemAlias);
 				}
+			} else if (args[1].equalsIgnoreCase("copy") && p.hasPermission("worldedit.schematic.save")) {
+				event.setCancelled(true);
+				if (args.length <= 5) {
+					if (args.length < 3) {
+						p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
+									  + "filename" + ChatColor.YELLOW + ">");
+						copyUsage(p, slash, schemAlias);
+					} else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
+						String name = args[2].contains("./") ? args[2] : args[3];
+						p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
+						copyUsage(p, slash, schemAlias);
+					} else if (args.length == 5 && !WorldEditVersionRequestUtils.checkRenameRequest(p, args[2])
+							   && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
+						p.sendMessage(ChatColor.RED + "Too many arguments.");
+						copyUsage(p, slash, schemAlias);
+					} else {
+						Copy.onCopy(p, args);
+					}
+				} else {
+					p.sendMessage(ChatColor.RED + "Too many arguments.");
+					copyUsage(p, slash, schemAlias);
+				}
+			} else if (args[1].equalsIgnoreCase("copyfolder") && p.hasPermission("worldedit.schematic.save")) {
+				event.setCancelled(true);
+				if (args.length <= 5) {
+					if (args.length < 3) {
+						p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GREEN
+									  + "filename" + ChatColor.YELLOW + ">");
+						copyFolderUsage(p, slash, schemAlias);
+					} else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
+						String name = args[2].contains("./") ? args[2] : args[3];
+						p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
+						copyFolderUsage(p, slash, schemAlias);
+					} else if (args.length == 5 && !args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny") && !WorldEditVersionRequestUtils.checkRenameFolderRequest(p, args[2])) {
+						p.sendMessage(ChatColor.RED + "Too many arguments.");
+						copyFolderUsage(p, slash, schemAlias);
+					} else {
+						CopyFolder.onCopyFolder(p, args);
+					}
+				} else {
+					p.sendMessage(ChatColor.RED + "Too many arguments.");
+					copyFolderUsage(p, slash, schemAlias);
+				}
 			} else if (args[1].equalsIgnoreCase("load") && p.hasPermission("worldedit.schematic.load")) {
 				if (args.length < 3) {
 					event.setCancelled(true);
@@ -317,7 +360,8 @@ public class CommandListener implements Listener {
 							  + "'. Options: " + ChatColor.GOLD + "help" + ChatColor.RED + ", " + ChatColor.GOLD + "load"
 							  + ChatColor.RED + ", " + ChatColor.GOLD + "formats" + ChatColor.RED + ", " + ChatColor.GOLD + "save"
 							  + ChatColor.RED + ", " + ChatColor.GOLD + "rename" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "renamefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "delete" + ChatColor.RED + ", "
+							  + "renamefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "copy" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "copyfolder" + ChatColor.RED + ", " + ChatColor.GOLD + "delete" + ChatColor.RED + ", "
 							  + ChatColor.GOLD + "deletefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "list"
 							  + ChatColor.RED + ", " + ChatColor.GOLD + "folder" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "search" + ChatColor.RED + ", " + ChatColor.GOLD + "searchfolder");
@@ -365,6 +409,24 @@ public class CommandListener implements Listener {
 										ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA
 										+ " renamefolder " + ChatColor.GREEN + "example newname",
 										slash + schemAlias + " renamefolder ", p);
+	}
+
+	private void copyUsage(final Player p, final String slash, final String schemAlias) {
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
+										ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " copy " + ChatColor.YELLOW + "<"
+										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GOLD + "newname" + ChatColor.YELLOW + ">",
+										ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " copy "
+										+ ChatColor.GOLD + "example newname",
+										slash + schemAlias + " copy ", p);
+	}
+
+	private void copyFolderUsage(final Player p, final String slash, final String schemAlias) {
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
+										ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " copyfolder " + ChatColor.YELLOW
+										+ "<" + ChatColor.GREEN + "filename" + ChatColor.YELLOW + "> <" + ChatColor.GREEN + "newname" + ChatColor.YELLOW + ">",
+										ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA
+										+ " copyfolder " + ChatColor.GREEN + "example newname",
+										slash + schemAlias + " copyfolder ", p);
 	}
 
 	private void loadUsage(final Player p, final String slash, final String schemAlias) {

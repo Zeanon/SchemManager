@@ -14,7 +14,33 @@ public class WorldEditVersionRequestUtils {
 	private static final HashMap<String, String> renameRequests = new HashMap<>();
 	private static final HashMap<String, String> renameFolderRequests = new HashMap<>();
 	private static final HashMap<String, String> overwriteRequests = new HashMap<>();
+	private static final HashMap<String, String> copyRequest = new HashMap<>();
+	private static final HashMap<String, String> copyFolderRequest = new HashMap<>();
 
+
+	public static void addCopyRequest(final Player p, final String name) {
+		copyRequest.put(p.getUniqueId().toString(), name);
+	}
+
+	public static void removeCopyRequest(final Player p) {
+		copyRequest.remove(p.getUniqueId().toString());
+	}
+
+	public static boolean checkCopyRequest(final Player p, final String name) {
+		return copyRequest.containsKey(p.getUniqueId().toString()) && copyRequest.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+	}
+
+	public static void addCopyFolderRequest(final Player p, final String name) {
+		copyFolderRequest.put(p.getUniqueId().toString(), name);
+	}
+
+	public static void removeCopyFolderRequest(final Player p) {
+		copyFolderRequest.remove(p.getUniqueId().toString());
+	}
+
+	public static boolean checkCopyFolderRequest(final Player p, final String name) {
+		return copyFolderRequest.containsKey(p.getUniqueId().toString()) && copyFolderRequest.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+	}
 
 	public static void addDeleteRequest(final Player p, final String name) {
 		deleteRequests.put(p.getUniqueId().toString(), name);
@@ -25,10 +51,7 @@ public class WorldEditVersionRequestUtils {
 	}
 
 	public static boolean checkDeleteRequest(final Player p, final String name) {
-		if (deleteRequests.containsKey(p.getUniqueId().toString())) {
-			return deleteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
-		}
-		return false;
+		return deleteRequests.containsKey(p.getUniqueId().toString()) && deleteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 
 
@@ -41,11 +64,7 @@ public class WorldEditVersionRequestUtils {
 	}
 
 	public static boolean checkDeleteFolderRequest(final Player p, final String name) {
-		if (deleteFolderRequests.containsKey(p.getUniqueId().toString())) {
-			return deleteFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
-		} else {
-			return false;
-		}
+		return deleteFolderRequests.containsKey(p.getUniqueId().toString()) && deleteFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 
 
@@ -58,11 +77,7 @@ public class WorldEditVersionRequestUtils {
 	}
 
 	public static boolean checkRenameRequest(final Player p, final String name) {
-		if (renameRequests.containsKey(p.getUniqueId().toString())) {
-			return renameRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
-		} else {
-			return false;
-		}
+		return renameRequests.containsKey(p.getUniqueId().toString()) && renameRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 
 
@@ -75,11 +90,7 @@ public class WorldEditVersionRequestUtils {
 	}
 
 	public static boolean checkRenameFolderRequest(final Player p, final String name) {
-		if (renameFolderRequests.containsKey(p.getUniqueId().toString())) {
-			return renameFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
-		} else {
-			return false;
-		}
+		return renameFolderRequests.containsKey(p.getUniqueId().toString()) && renameFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 
 
@@ -92,10 +103,6 @@ public class WorldEditVersionRequestUtils {
 	}
 
 	public static boolean checkOverWriteRequest(final Player p, final String name) {
-		if (overwriteRequests.containsKey(p.getUniqueId().toString())) {
-			return overwriteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
-		} else {
-			return false;
-		}
+		return overwriteRequests.containsKey(p.getUniqueId().toString()) && overwriteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 }
