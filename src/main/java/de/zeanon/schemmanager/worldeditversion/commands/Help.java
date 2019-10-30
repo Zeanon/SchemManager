@@ -24,6 +24,10 @@ public class Help {
 										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "help", ChatColor.LIGHT_PURPLE + ""
 																											 + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "OMG PLS HELP ME",
 										slash + schemAlias + " help", p);
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "Show Available formats: ",
+										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "formats", ChatColor.BLUE + ""
+																												+ ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "There are different formats? :O",
+										slash + schemAlias + " formats", p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Load a schematic: ",
 										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "load " + ChatColor.YELLOW + "<"
 										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + "> ["
@@ -32,10 +36,6 @@ public class Help {
 										+ ChatColor.GOLD + "example " + ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "format" + ChatColor.YELLOW
 										+ "]",
 										slash + schemAlias + " load ", p);
-		MessageUtils.sendSuggestMessage(ChatColor.RED + "Show Available formats: ",
-										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "formats", ChatColor.BLUE + ""
-																												+ ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "There are different formats? :O",
-										slash + schemAlias + " formats", p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Save a schematic: ",
 										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "save " + ChatColor.YELLOW + "<"
 										+ ChatColor.GOLD + "filename" + ChatColor.YELLOW + ">",

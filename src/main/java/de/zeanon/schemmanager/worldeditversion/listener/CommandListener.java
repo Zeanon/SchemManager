@@ -357,14 +357,20 @@ public class CommandListener implements Listener {
 			} else {
 				event.setCancelled(true);
 				p.sendMessage(ChatColor.RED + "Invalid sub-command '" + ChatColor.GOLD + "" + args[1] + ChatColor.RED
-							  + "'. Options: " + ChatColor.GOLD + "help" + ChatColor.RED + ", " + ChatColor.GOLD + "load"
-							  + ChatColor.RED + ", " + ChatColor.GOLD + "formats" + ChatColor.RED + ", " + ChatColor.GOLD + "save"
-							  + ChatColor.RED + ", " + ChatColor.GOLD + "rename" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "renamefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "copy" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "copyfolder" + ChatColor.RED + ", " + ChatColor.GOLD + "delete" + ChatColor.RED + ", "
-							  + ChatColor.GOLD + "deletefolder" + ChatColor.RED + ", " + ChatColor.GOLD + "list"
-							  + ChatColor.RED + ", " + ChatColor.GOLD + "folder" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "search" + ChatColor.RED + ", " + ChatColor.GOLD + "searchfolder");
+							  + "'. Options: " + ChatColor.GOLD + "help" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "formats" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "save" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "load" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "rename" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "renamefolder" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "copy" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "copyfolder" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "delete" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "deletefolder" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "list" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "folder" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "search" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "searchfolder");
 				WorldeditVersionMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
 			}
 		} else if (args[0].equalsIgnoreCase("/stoplag") && EventListener.worldguardEnabled && ConfigUtils.getBoolean("Stoplag Override")) {
