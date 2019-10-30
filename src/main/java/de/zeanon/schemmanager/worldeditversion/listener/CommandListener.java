@@ -15,7 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 
-@SuppressWarnings("DuplicatedCode")
 public class CommandListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -246,7 +245,7 @@ public class CommandListener implements Listener {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					listUsage(p, slash, schemAlias);
 				}
-			} else if (args[1].equalsIgnoreCase("folder") && p.hasPermission("worldedit.schematic.list")) {
+			} else if (args[1].equalsIgnoreCase("listfolder") && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
 				boolean deep = false;
 
@@ -262,16 +261,16 @@ public class CommandListener implements Listener {
 				if (args.length <= 4) {
 					if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[3]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						folderUsage(p, slash, schemAlias);
+						listFolderUsage(p, slash, schemAlias);
 					} else if (args.length >= 3 && args[2].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
-						folderUsage(p, slash, schemAlias);
+						listFolderUsage(p, slash, schemAlias);
 					} else {
-						Folder.onFolder(p, args, deep);
+						ListFolder.onListFolder(p, args, deep);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					folderUsage(p, slash, schemAlias);
+					listFolderUsage(p, slash, schemAlias);
 				}
 			} else if (args[1].equalsIgnoreCase("search") && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
@@ -474,17 +473,17 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " list ", p);
 	}
 
-	private void folderUsage(final Player p, final String slash, final String schemAlias) {
+	private void listFolderUsage(final Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " folder " + ChatColor.YELLOW + "["
+										ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " listfolder " + ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN
 										+ "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page"
 										+ ChatColor.YELLOW + "]",
-										ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " folder "
+										ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + ChatColor.AQUA + " listfolder "
 										+ ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW
 										+ "] [" + ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] ["
 										+ ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
-										slash + schemAlias + " folder ", p);
+										slash + schemAlias + " listfolder ", p);
 	}
 
 	private void searchUsage(final Player p, final String slash, final String schemAlias) {

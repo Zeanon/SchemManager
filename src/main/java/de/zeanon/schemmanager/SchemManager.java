@@ -3,7 +3,7 @@ package de.zeanon.schemmanager;
 import de.leonhard.storage.LightningStorage;
 import de.leonhard.storage.internal.datafiles.config.LightningConfig;
 import de.leonhard.storage.internal.datafiles.raw.YamlFile;
-import de.leonhard.storage.internal.enums.Comments;
+import de.leonhard.storage.internal.enums.Comment;
 import de.leonhard.storage.internal.enums.DataType;
 import de.leonhard.storage.internal.enums.Reload;
 import de.zeanon.schemmanager.global.handlers.CommandHandler;
@@ -77,7 +77,7 @@ public class SchemManager extends JavaPlugin {
 					try {
 						weConfig = LightningStorage.create(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
 												   .reloadSetting(Reload.AUTOMATICALLY)
-												   .commentSetting(Comments.SKIP)
+												   .commentSetting(Comment.SKIP)
 												   .dataType(DataType.STANDARD)
 												   .asYamlFile();
 						System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");

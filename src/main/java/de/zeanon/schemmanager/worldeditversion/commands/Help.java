@@ -91,15 +91,15 @@ public class Help {
 										+ ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page"
 										+ ChatColor.YELLOW + "]",
 										slash + schemAlias + " list ", p);
-		MessageUtils.sendSuggestMessage(ChatColor.RED + "List folder: ",
-										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "folder " + ChatColor.YELLOW + "["
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "List folders: ",
+										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "listfolder " + ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder"
 										+ ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page" + ChatColor.YELLOW + "]",
-										ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "folder "
+										ChatColor.RED + "e.g. " + ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "listfolder "
 										+ ChatColor.YELLOW + "[" + ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] ["
 										+ ChatColor.GREEN + "folder" + ChatColor.YELLOW + "] [" + ChatColor.DARK_PURPLE + "page"
 										+ ChatColor.YELLOW + "]",
-										slash + schemAlias + " folder ", p);
+										slash + schemAlias + " listfolder ", p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Search for a schematic: ",
 										ChatColor.GRAY + slash + schemAlias + " " + ChatColor.AQUA + "search " + ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d" + ChatColor.YELLOW + "] [" + ChatColor.GREEN + "folder"

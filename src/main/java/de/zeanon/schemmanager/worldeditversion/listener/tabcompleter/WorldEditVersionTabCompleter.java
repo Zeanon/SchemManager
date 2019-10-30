@@ -23,7 +23,7 @@ class WorldEditVersionTabCompleter {
 		ArrayList<String> completions = new ArrayList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
-				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "folder", "search", "searchfolder");
+				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder");
 			} else {
 				if ("help".startsWith(args[1]) && !"help".equals(args[1])) {
 					completions.add("help");
@@ -64,8 +64,8 @@ class WorldEditVersionTabCompleter {
 				if ("list".startsWith(args[1]) && !"list".equals(args[1])) {
 					completions.add("list");
 				}
-				if ("folder".startsWith(args[1]) && !"folder".equals(args[1])) {
-					completions.add("folder");
+				if ("listfolder".startsWith(args[1]) && !"listfolder".equals(args[1])) {
+					completions.add("listfolder");
 				}
 				if ("search".startsWith(args[1]) && !"search".equals(args[1])) {
 					completions.add("search");
@@ -76,7 +76,7 @@ class WorldEditVersionTabCompleter {
 			}
 		} else if ((args.length == 3 && !argumentEnded) || args.length == 2) {
 			if (argumentEnded) {
-				if (!alreadyDeep && buffer.endsWith(" ") && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
+				if (!alreadyDeep && buffer.endsWith(" ") && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
 					completions.add("-d");
 					completions.add("-deep");
 				}
@@ -91,7 +91,7 @@ class WorldEditVersionTabCompleter {
 							completions.add(file.getName());
 						}
 					}
-				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
+				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
 					Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
@@ -101,7 +101,7 @@ class WorldEditVersionTabCompleter {
 					}
 				}
 			} else {
-				if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
+				if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
 					if ("-d".startsWith(args[2]) && !"-d".equals(args[2])) {
 						completions.add("-d");
 					}
@@ -134,7 +134,7 @@ class WorldEditVersionTabCompleter {
 							}
 						}
 					}
-				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("folder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
+				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
 					Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
 					String[] pathArgs = args[2].split("/");
 					if (tempDirectory != null) {
