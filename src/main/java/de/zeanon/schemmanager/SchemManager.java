@@ -23,7 +23,9 @@ public class SchemManager extends JavaPlugin {
 
 	private static LightningConfig config;
 	private static YamlFile weConfig;
+	@SuppressWarnings("CanBeFinal")
 	private static SchemManager instance;
+	@SuppressWarnings("CanBeFinal")
 	private static PluginManager pluginManager;
 
 	{
