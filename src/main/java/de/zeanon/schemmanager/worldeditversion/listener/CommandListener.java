@@ -368,7 +368,7 @@ public class CommandListener implements Listener {
 							  + "delete" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "deletefolder" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "list" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "folder" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "listfolder" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "search" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "searchfolder");
 				WorldeditVersionMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
