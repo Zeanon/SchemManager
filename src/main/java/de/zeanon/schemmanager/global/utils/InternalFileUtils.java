@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import lombok.AccessLevel;
+import lombok.Cleanup;
 import lombok.NoArgsConstructor;
 
 
+@SuppressWarnings("unused")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InternalFileUtils {
 
@@ -46,7 +48,7 @@ public class InternalFileUtils {
 
 	public static ArrayList<File> getExistingFiles(final Path path) {
 		ArrayList<File> tempFiles = new ArrayList<>();
-		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(getExtension(path.toString())::equalsIgnoreCase)) {
+		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(getExtension(path.toString()) :: equalsIgnoreCase)) {
 			File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				return new ArrayList<>(Collections.singletonList(file));
@@ -81,22 +83,16 @@ public class InternalFileUtils {
 		return pluginFolderPath;
 	}
 
-	static synchronized boolean writeToFile(final File file, final BufferedInputStream inputStream) {
-		try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
-			if (!file.exists()) {
-				Files.copy(inputStream, file.toPath());
-				return true;
-			} else {
-				final byte[] data = new byte[8192];
-				int count;
-				while ((count = inputStream.read(data, 0, 8192)) != -1) {
-					outputStream.write(data, 0, count);
-				}
-				return true;
+	static synchronized void writeToFile(final File file, final BufferedInputStream inputStream) throws IOException {
+		@Cleanup BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file));
+		if (!file.exists()) {
+			Files.copy(inputStream, file.toPath());
+		} else {
+			final byte[] data = new byte[8192];
+			int count;
+			while ((count = inputStream.read(data, 0, 8192)) != -1) {
+				outputStream.write(data, 0, count);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
 		}
 	}
 }

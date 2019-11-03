@@ -19,29 +19,18 @@ class PlugManEnabledUpdate {
 
 	static void updatePlugin(final boolean autoReload) {
 		System.out.println(SchemManager.getInstance().getName() + " is updating...");
-		String fileName;
 		try {
-			fileName = new File(WorldEditVersionMain.class.getProtectionDomain()
-														  .getCodeSource()
-														  .getLocation()
-														  .toURI()
-														  .getPath())
-					.getName();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-			System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
-			return;
-		}
-		try {
-			if (InternalFileUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
-				System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
-				if (autoReload) {
-					PluginUtil.reload(SchemManager.getInstance());
-				}
-			} else {
-				System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
+			InternalFileUtils.writeToFile(new File(WorldEditVersionMain.class.getProtectionDomain()
+																			 .getCodeSource()
+																			 .getLocation()
+																			 .toURI()
+																			 .getPath())
+												  .getCanonicalFile(), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()));
+			System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
+			if (autoReload) {
+				PluginUtil.reload(SchemManager.getInstance());
 			}
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 			System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
 		}
@@ -49,30 +38,19 @@ class PlugManEnabledUpdate {
 
 	static void updatePlugin(final Player p, final boolean autoReload) {
 		p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
-		String fileName;
 		try {
-			fileName = new File(WorldEditVersionMain.class.getProtectionDomain()
-														  .getCodeSource()
-														  .getLocation()
-														  .toURI()
-														  .getPath())
-					.getName();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-			p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
-			return;
-		}
-		try {
-			if (InternalFileUtils.writeToFile(new File(InternalFileUtils.getPluginFolderPath() + fileName), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()))) {
-				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " was updated successfully.");
-				if (autoReload) {
-					p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is reloading.");
-					PluginUtil.reload(SchemManager.getInstance());
-				}
-			} else {
-				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
+			InternalFileUtils.writeToFile(new File(WorldEditVersionMain.class.getProtectionDomain()
+																			 .getCodeSource()
+																			 .getLocation()
+																			 .toURI()
+																			 .getPath())
+												  .getCanonicalFile(), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()));
+			p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " was updated successfully.");
+			if (autoReload) {
+				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is reloading.");
+				PluginUtil.reload(SchemManager.getInstance());
 			}
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 			p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
 		}

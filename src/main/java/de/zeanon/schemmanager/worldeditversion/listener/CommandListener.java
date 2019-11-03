@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class CommandListener implements Listener {
 
+	@SuppressWarnings("DuplicatedCode")
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onCommand(final PlayerCommandPreprocessEvent event) {
 		Player p = event.getPlayer();
@@ -222,6 +223,7 @@ public class CommandListener implements Listener {
 			} else if (args[1].equalsIgnoreCase("list") && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
 				boolean deep = false;
+
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
 					deep = true;
 					args = (String[]) ArrayUtils.removeElement(args, "-deep");
@@ -275,6 +277,7 @@ public class CommandListener implements Listener {
 			} else if (args[1].equalsIgnoreCase("search") && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
 				boolean deep = false;
+
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
 					deep = true;
 					args = (String[]) ArrayUtils.removeElement(args, "-deep");
@@ -305,6 +308,7 @@ public class CommandListener implements Listener {
 			} else if (args[1].equalsIgnoreCase("searchfolder") && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
 				boolean deep = false;
+
 				if (args.length > 2 && args[2].equalsIgnoreCase("-deep")) {
 					deep = true;
 					args = (String[]) ArrayUtils.removeElement(args, "-deep");
