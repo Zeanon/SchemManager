@@ -82,7 +82,6 @@ public class ConfigUtils {
 	 * @param key the Config key.
 	 * @return value.
 	 */
-	@SuppressWarnings("unchecked")
 	public static List<String> getStringList(final String key) {
 		if (SchemManager.getLocalConfig().hasKey(key)) {
 			return SchemManager.getLocalConfig().getStringList(key);
@@ -93,6 +92,7 @@ public class ConfigUtils {
 					Update.updateConfig(true);
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
+			//noinspection unchecked
 			return (List<String>) getDefaultValue(key);
 		}
 	}
