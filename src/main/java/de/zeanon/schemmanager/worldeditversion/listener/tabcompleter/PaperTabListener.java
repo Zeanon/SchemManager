@@ -10,7 +10,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 
-@SuppressWarnings("DuplicatedCode")
 public class PaperTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)

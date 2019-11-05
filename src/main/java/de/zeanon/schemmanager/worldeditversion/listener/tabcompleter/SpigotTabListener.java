@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.TabCompleteEvent;
 
 
-@SuppressWarnings("DuplicatedCode")
 public class SpigotTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)

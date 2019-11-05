@@ -17,7 +17,6 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class CommandListener implements Listener {
 
-	@SuppressWarnings("DuplicatedCode")
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onCommand(final PlayerCommandPreprocessEvent event) {
 		Player p = event.getPlayer();
