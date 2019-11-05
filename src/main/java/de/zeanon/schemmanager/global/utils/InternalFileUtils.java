@@ -48,7 +48,7 @@ public class InternalFileUtils {
 
 	public static ArrayList<File> getExistingFiles(final Path path) {
 		ArrayList<File> tempFiles = new ArrayList<>();
-		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(getExtension(path.toString())::equalsIgnoreCase)) {
+		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(getExtension(path.toString()) :: equalsIgnoreCase)) {
 			File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				return new ArrayList<>(Collections.singletonList(file));

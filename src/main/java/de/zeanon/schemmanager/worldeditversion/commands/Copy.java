@@ -68,7 +68,7 @@ public class Copy {
 				}
 			}
 			for (File file : oldFiles) {
-				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(InternalFileUtils.getExtension(destPath.toString())::equals)) {
+				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(InternalFileUtils.getExtension(destPath.toString()) :: equals)) {
 					FileUtils.copyFile(file, new File(destPath.toString() + InternalFileUtils.getExtension(file.getName())));
 				} else {
 					FileUtils.copyFile(file, destPath.toFile());
