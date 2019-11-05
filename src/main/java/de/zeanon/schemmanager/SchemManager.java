@@ -3,6 +3,7 @@ package de.zeanon.schemmanager;
 import de.leonhard.storage.LightningStorage;
 import de.leonhard.storage.internal.datafiles.config.LightningConfig;
 import de.leonhard.storage.internal.datafiles.raw.YamlFile;
+import de.leonhard.storage.internal.settings.Comment;
 import de.leonhard.storage.internal.settings.DataType;
 import de.leonhard.storage.internal.settings.Reload;
 import de.zeanon.schemmanager.global.handlers.CommandHandler;
@@ -42,50 +43,51 @@ public class SchemManager extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		System.out.println("[" + getName() + "] >> unloaded.");
+		System.out.println("[" + this.getName() + "] >> unloaded.");
 	}
 
 	@Override
 	public void onEnable() {
-		Objects.requireNonNull(getCommand("schemmanager")).setExecutor(new CommandHandler());
-		Objects.requireNonNull(getCommand("schemmanager")).setTabCompleter(new TabCompleter());
+		Objects.requireNonNull(this.getCommand("schemmanager")).setExecutor(new CommandHandler());
+		Objects.requireNonNull(this.getCommand("schemmanager")).setTabCompleter(new TabCompleter());
 		/*if (pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.isPluginEnabled("FastAsyncWorldEdit"))) {
 		//TODO
 		}
 		else */
 		if (pluginManager.getPlugin("WorldEdit") != null && pluginManager.isPluginEnabled("WorldEdit")) {
 			boolean failedToLoad = false;
-			System.out.println("[" + getName() + "] >> Launching WorldEdit Version of " + getName() + ".");
-			System.out.println("[" + getName() + "] >> Loading Configs.");
+			System.out.println("[" + this.getName() + "] >> Launching WorldEdit Version of " + this.getName() + ".");
+			System.out.println("[" + this.getName() + "] >> Loading Configs.");
 			try {
-				config = LightningStorage.create(getDataFolder(), "config")
+				config = LightningStorage.create(this.getDataFolder(), "config")
 										 .fromResource("resources/config.ls")
 										 .asLightningConfig();
-				System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
+				System.out.println("[" + this.getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
-				System.out.println("[" + getName() + "] >> [Configs] >> " + config.getName() + " could not be loaded");
+				System.out.println("[" + this.getName() + "] >> [Configs] >> " + config.getName() + " could not be loaded");
 				failedToLoad = true;
 			}
 			if (failedToLoad) {
-				System.out.println("[" + getName() + "] >> Could not load config files... unloading Plugin...");
+				System.out.println("[" + this.getName() + "] >> could not load config files...");
+				System.out.println("[" + this.getName() + "] >> unloading Plugin...");
 				SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			} else {
 				if (!Update.updateConfig(false)) {
 					SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 				} else {
-					System.out.println("[" + getName() + "] >> Config files are loaded successfully.");
+					System.out.println("[" + this.getName() + "] >> Config files are loaded successfully.");
 					try {
 						weConfig = LightningStorage.create(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
 												   .reloadSetting(Reload.AUTOMATICALLY)
-												   .commentSetting(false)
+												   .commentSetting(Comment.SKIP)
 												   .dataType(DataType.STANDARD)
 												   .asYamlFile();
-						System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
+						System.out.println("[" + this.getName() + "] >> WorldEdit Config is loaded successfully.");
 					} catch (IllegalStateException e) {
 						e.printStackTrace();
-						System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file.");
-						SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+						System.out.println("[" + this.getName() + "] >> Could not load WorldEdit Config file.");
+						SchemManager.getPluginManager().disablePlugin(this);
 						return;
 					}
 					try {
@@ -93,7 +95,7 @@ public class SchemManager extends JavaPlugin {
 						WorldEditVersionSchemUtils.initSchemPath();
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
-						System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder.");
+						System.out.println("[" + this.getName() + "] >> Could not load WorldEdit Schematic folder.");
 						this.enableSleepMode();
 						return;
 					}
@@ -107,9 +109,9 @@ public class SchemManager extends JavaPlugin {
 
 	private void enableSleepMode() {
 		pluginManager.registerEvents(new WakeupListener(), this);
-		System.out.println("[" + getName() + "] >> Could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work.");
-		System.out.println("[" + getName() + "] >> " + getName() + " will automatically activate when one of the above gets enabled.");
-		System.out.println("[" + getName() + "] >> Rudimentary function like updating and disabling will still work.");
+		System.out.println("[" + this.getName() + "] >> Could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work.");
+		System.out.println("[" + this.getName() + "] >> " + this.getName() + " will automatically activate when one of the above gets enabled.");
+		System.out.println("[" + this.getName() + "] >> Rudimentary function like updating and disabling will still work.");
 	}
 
 	public static PluginManager getPluginManager() {
