@@ -1,10 +1,10 @@
-package de.zeanon.schemmanager.worldeditversion.listener;
+package de.zeanon.schemmanager.worldeditmode.listener;
 
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
-import de.zeanon.schemmanager.worldeditversion.commands.*;
-import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.WorldeditVersionMessageUtils;
+import de.zeanon.schemmanager.worldeditmode.commands.*;
+import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
+import de.zeanon.schemmanager.worldeditmode.utils.WorldeditModeMessageUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -42,7 +42,7 @@ public class CommandListener implements Listener {
 					} else if (args[2].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
 						deleteUsage(p, slash, schemAlias);
-					} else if (args.length == 4 && !WorldEditVersionRequestUtils.checkDeleteFolderRequest(p, args[2])
+					} else if (args.length == 4 && !WorldEditModeRequestUtils.checkDeleteFolderRequest(p, args[2])
 							   && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						deleteUsage(p, slash, schemAlias);
@@ -63,7 +63,7 @@ public class CommandListener implements Listener {
 					} else if (args[2].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
 						deleteFolderUsage(p, slash, schemAlias);
-					} else if (args.length == 4 && !WorldEditVersionRequestUtils.checkDeleteFolderRequest(p, args[2])
+					} else if (args.length == 4 && !WorldEditModeRequestUtils.checkDeleteFolderRequest(p, args[2])
 							   && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						deleteFolderUsage(p, slash, schemAlias);
@@ -85,7 +85,7 @@ public class CommandListener implements Listener {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
 						renameUsage(p, slash, schemAlias);
-					} else if (args.length == 5 && !WorldEditVersionRequestUtils.checkRenameRequest(p, args[2])
+					} else if (args.length == 5 && !WorldEditModeRequestUtils.checkRenameRequest(p, args[2])
 							   && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						renameUsage(p, slash, schemAlias);
@@ -107,7 +107,7 @@ public class CommandListener implements Listener {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
 						renameFolderUsage(p, slash, schemAlias);
-					} else if (args.length == 5 && !args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny") && !WorldEditVersionRequestUtils.checkRenameFolderRequest(p, args[2])) {
+					} else if (args.length == 5 && !args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny") && !WorldEditModeRequestUtils.checkRenameFolderRequest(p, args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						renameFolderUsage(p, slash, schemAlias);
 					} else {
@@ -128,7 +128,7 @@ public class CommandListener implements Listener {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
 						copyUsage(p, slash, schemAlias);
-					} else if (args.length == 5 && !WorldEditVersionRequestUtils.checkRenameRequest(p, args[2])
+					} else if (args.length == 5 && !WorldEditModeRequestUtils.checkRenameRequest(p, args[2])
 							   && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						copyUsage(p, slash, schemAlias);
@@ -150,7 +150,7 @@ public class CommandListener implements Listener {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File \'" + name + "\'resolution error: Path is not allowed.");
 						copyFolderUsage(p, slash, schemAlias);
-					} else if (args.length == 5 && !args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny") && !WorldEditVersionRequestUtils.checkRenameFolderRequest(p, args[2])) {
+					} else if (args.length == 5 && !args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny") && !WorldEditModeRequestUtils.checkRenameFolderRequest(p, args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						copyFolderUsage(p, slash, schemAlias);
 					} else {
@@ -212,7 +212,7 @@ public class CommandListener implements Listener {
 					} else if (args.length > 4) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						saveUsage(p, slash, schemAlias);
-					} else if (args.length == 4 && !WorldEditVersionRequestUtils.checkOverWriteRequest(p, args[2]) && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
+					} else if (args.length == 4 && !WorldEditModeRequestUtils.checkOverWriteRequest(p, args[2]) && !args[3].equalsIgnoreCase("confirm") && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						saveUsage(p, slash, schemAlias);
 					} else {
@@ -374,7 +374,7 @@ public class CommandListener implements Listener {
 							  + "listfolder" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "search" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "searchfolder");
-				WorldeditVersionMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
+				WorldeditModeMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
 			}
 		} else if (args[0].equalsIgnoreCase("/stoplag") && EventListener.worldguardEnabled && ConfigUtils.getBoolean("Stoplag Override")) {
 			if (args.length == 1 || (!args[1].equalsIgnoreCase("confirm") && !args[1].equalsIgnoreCase("-c"))) {

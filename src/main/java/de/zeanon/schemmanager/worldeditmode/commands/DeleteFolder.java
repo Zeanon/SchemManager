@@ -1,11 +1,11 @@
-package de.zeanon.schemmanager.worldeditversion.commands;
+package de.zeanon.schemmanager.worldeditmode.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
+import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
+import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -25,7 +25,7 @@ public class DeleteFolder {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
+				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				File file = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
 				final boolean fileExists = file != null && file.exists() && file.isDirectory();
 
@@ -35,13 +35,13 @@ public class DeleteFolder {
 							MessageUtils.sendInvertedCommandMessage(ChatColor.RED + " still contains files.", ChatColor.GREEN + args[2], ChatColor.RED + "Open " + ChatColor.GREEN + args[2], "//schem list " + args[2], p);
 						}
 						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem delfolder " + args[2] + " confirm", "//schem delfolder " + args[2] + " deny", p);
-						WorldEditVersionRequestUtils.addDeleteFolderRequest(p, args[2]);
+						WorldEditModeRequestUtils.addDeleteFolderRequest(p, args[2]);
 					} else {
 						p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 					}
-				} else if (args.length == 4 && WorldEditVersionRequestUtils.checkDeleteFolderRequest(p, args[2])) {
+				} else if (args.length == 4 && WorldEditModeRequestUtils.checkDeleteFolderRequest(p, args[2])) {
 					if (args[3].equalsIgnoreCase("confirm")) {
-						WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
+						WorldEditModeRequestUtils.removeDeleteFolderRequest(p);
 						if (fileExists) {
 							try {
 								FileUtils.deleteDirectory(file);
@@ -58,7 +58,7 @@ public class DeleteFolder {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 						}
 					} else if (args[3].equalsIgnoreCase("deny")) {
-						WorldEditVersionRequestUtils.removeDeleteFolderRequest(p);
+						WorldEditModeRequestUtils.removeDeleteFolderRequest(p);
 						p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not deleted.");
 					}
 				}
@@ -69,7 +69,7 @@ public class DeleteFolder {
 	private static String getParentName(final File file) {
 
 		String parentName = null;
-		if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getAbsoluteFile().getParentFile().equals(WorldEditVersionSchemUtils.getSchemFolder())) {
+		if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getAbsoluteFile().getParentFile().equals(WorldEditModeSchemUtils.getSchemFolder())) {
 			parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
 		}
 		return parentName;

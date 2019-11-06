@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.worldeditversion.utils;
+package de.zeanon.schemmanager.worldeditmode.utils;
 
 import java.util.HashMap;
 import lombok.AccessLevel;
@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class WorldEditVersionRequestUtils {
+public class WorldEditModeRequestUtils {
 
 	private static final HashMap<String, String> deleteRequests = new HashMap<>();
 	private static final HashMap<String, String> deleteFolderRequests = new HashMap<>();

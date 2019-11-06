@@ -18,8 +18,8 @@ public class ConfigUtils {
 	 * @return value.
 	 */
 	public static byte getByte(final String key) {
-		if (SchemManager.getLocalConfig().hasKey(key)) {
-			return SchemManager.getLocalConfig().getByte(key);
+		if (Utils.getConfig().hasKey(key)) {
+			return Utils.getConfig().getByte(key);
 		} else {
 			new BukkitRunnable() {
 				@Override
@@ -63,8 +63,8 @@ public class ConfigUtils {
 	 * @return value.
 	 */
 	public static boolean getBoolean(final String key) {
-		if (SchemManager.getLocalConfig().hasKey(key)) {
-			return SchemManager.getLocalConfig().getBoolean(key);
+		if (Utils.getConfig().hasKey(key)) {
+			return Utils.getConfig().getBoolean(key);
 		} else {
 			new BukkitRunnable() {
 				@Override
@@ -83,8 +83,8 @@ public class ConfigUtils {
 	 * @return value.
 	 */
 	public static List<String> getStringList(final String key) {
-		if (SchemManager.getLocalConfig().hasKey(key)) {
-			return SchemManager.getLocalConfig().getStringList(key);
+		if (Utils.getConfig().hasKey(key)) {
+			return Utils.getConfig().getStringList(key);
 		} else {
 			new BukkitRunnable() {
 				@Override

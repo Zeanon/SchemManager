@@ -1,10 +1,10 @@
-package de.zeanon.schemmanager.worldeditversion.commands;
+package de.zeanon.schemmanager.worldeditmode.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
+import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -28,7 +28,7 @@ public class ListFolder {
 			@Override
 			public void run() {
 				byte listmax = ConfigUtils.getByte("Listmax");
-				Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
+				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
 
 				String deep = "";

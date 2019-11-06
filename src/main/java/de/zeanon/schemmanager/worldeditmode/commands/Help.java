@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.worldeditversion.commands;
+package de.zeanon.schemmanager.worldeditmode.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;

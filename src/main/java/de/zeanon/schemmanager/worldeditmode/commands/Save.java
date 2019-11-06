@@ -1,10 +1,11 @@
-package de.zeanon.schemmanager.worldeditversion.commands;
+package de.zeanon.schemmanager.worldeditmode.commands;
 
 import com.sk89q.worldedit.EmptyClipboardException;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionRequestUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
+import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
+import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
+import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import java.io.File;
 import java.nio.file.Path;
 import lombok.AccessLevel;
@@ -21,14 +22,14 @@ public class Save {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
-				File file = schemPath != null ? (args[2].endsWith(".schem") ? WorldEditVersionSchemUtils.getSchemPath().resolve(args[2]).toFile() : WorldEditVersionSchemUtils.getSchemPath().resolve(args[2] + ".schem").toFile()) : null;
+				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+				File file = schemPath != null ? (args[2].endsWith(".schem") ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile() : WorldEditModeSchemUtils.getSchemPath().resolve(args[2] + ".schem").toFile()) : null;
 				final boolean fileExists = file != null && file.exists() && !file.isDirectory();
 
 				if (args.length == 3) {
 					try {
-						WorldEditVersionSchemUtils.getWorldEditPlugin().getSession(p).getClipboard();
-						WorldEditVersionRequestUtils.addOverwriteRequest(p, args[2]);
+						WorldEditMode.getWorldEditPlugin().getSession(p).getClipboard();
+						WorldEditModeRequestUtils.addOverwriteRequest(p, args[2]);
 						if (fileExists) {
 							p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
 							MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem save " + args[2] + " confirm", "//schem save " + args[2] + " deny", p);
@@ -44,16 +45,16 @@ public class Save {
 						p.sendMessage(ChatColor.RED + "Your clipboard is empty. Use //copy first.");
 					}
 				} else {
-					if (args[3].equalsIgnoreCase("confirm") && WorldEditVersionRequestUtils.checkOverWriteRequest(p, args[2])) {
-						WorldEditVersionRequestUtils.removeOverWriteRequest(p);
+					if (args[3].equalsIgnoreCase("confirm") && WorldEditModeRequestUtils.checkOverWriteRequest(p, args[2])) {
+						WorldEditModeRequestUtils.removeOverWriteRequest(p);
 						new BukkitRunnable() {
 							@Override
 							public void run() {
 								p.performCommand("/schem save -f " + args[2]);
 							}
 						}.runTask(SchemManager.getInstance());
-					} else if (args[3].equalsIgnoreCase("deny") && WorldEditVersionRequestUtils.checkOverWriteRequest(p, args[2])) {
-						WorldEditVersionRequestUtils.removeOverWriteRequest(p);
+					} else if (args[3].equalsIgnoreCase("deny") && WorldEditModeRequestUtils.checkOverWriteRequest(p, args[2])) {
+						WorldEditModeRequestUtils.removeOverWriteRequest(p);
 						p.sendMessage(ChatColor.LIGHT_PURPLE + args[2] + " was not overwritten.");
 					}
 				}

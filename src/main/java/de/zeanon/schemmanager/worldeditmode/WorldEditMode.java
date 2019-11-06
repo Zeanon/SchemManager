@@ -1,14 +1,17 @@
-package de.zeanon.schemmanager.worldeditversion;
+package de.zeanon.schemmanager.worldeditmode;
 
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.worldeditversion.listener.CommandListener;
-import de.zeanon.schemmanager.worldeditversion.listener.EventListener;
-import de.zeanon.schemmanager.worldeditversion.listener.tabcompleter.PaperTabListener;
-import de.zeanon.schemmanager.worldeditversion.listener.tabcompleter.SpigotTabListener;
+import de.zeanon.schemmanager.worldeditmode.listener.CommandListener;
+import de.zeanon.schemmanager.worldeditmode.listener.EventListener;
+import de.zeanon.schemmanager.worldeditmode.listener.tabcompleter.PaperTabListener;
+import de.zeanon.schemmanager.worldeditmode.listener.tabcompleter.SpigotTabListener;
 import org.bukkit.Bukkit;
 
 
-public class WorldEditVersionMain {
+public class WorldEditMode {
+
+	private static WorldEditPlugin we;
 
 	public static void onEnable() {
 		SchemManager.getPluginManager().registerEvents(new CommandListener(), SchemManager.getInstance());
@@ -19,5 +22,13 @@ public class WorldEditVersionMain {
 			SchemManager.getPluginManager().registerEvents(new SpigotTabListener(), SchemManager.getInstance());
 		}
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " launched successfully...");
+	}
+
+	public static void initWorldEditPlugin() {
+		we = (WorldEditPlugin) SchemManager.getPluginManager().getPlugin("WorldEdit");
+	}
+
+	public static WorldEditPlugin getWorldEditPlugin() {
+		return we;
 	}
 }

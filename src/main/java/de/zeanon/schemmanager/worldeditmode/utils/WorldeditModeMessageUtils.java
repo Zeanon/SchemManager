@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.worldeditversion.utils;
+package de.zeanon.schemmanager.worldeditmode.utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class WorldeditVersionMessageUtils {
+public class WorldeditModeMessageUtils {
 
 	@SuppressWarnings("Duplicates")
 	public static void sendInvalidSubCommand(final Player target, final String slash, final String schemAlias) {

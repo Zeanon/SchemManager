@@ -1,48 +1,40 @@
-package de.zeanon.schemmanager.worldeditversion.utils;
+package de.zeanon.schemmanager.worldeditmode.utils;
 
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import de.leonhard.storage.internal.utils.basic.Objects;
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.schemmanager.global.utils.Utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class WorldEditVersionSchemUtils {
+public class WorldEditModeSchemUtils {
 
-	private static WorldEditPlugin we;
 	private static File schemFolder;
 	private static Path schemFolderPath;
 
-	public static void initWorldEditPlugin() {
-		we = (WorldEditPlugin) SchemManager.getPluginManager().getPlugin("WorldEdit");
-	}
-
-	public static WorldEditPlugin getWorldEditPlugin() {
-		return we;
-	}
-
 	public static Path getSchemPath() {
-		if (!SchemManager.getWeConfig().hasChanged()) {
+		if (!Utils.getWeConfig().hasChanged()) {
 			return schemFolderPath;
 		} else {
 			try {
 				initSchemPath();
 				return schemFolderPath;
 			} catch (FileNotFoundException e) {
+				System.err.println("Could not initialize Schematic folder");
 				e.printStackTrace();
-				return null;
+				throw new IllegalStateException();
 			}
 		}
 	}
 
 	public static void initSchemPath() throws FileNotFoundException {
-		Path tempPath = Paths.get(SchemManager.getWeConfig().getString("saving.dir"));
-		SchemManager.getWeConfig().clearData();
+		Path tempPath = Paths.get(Utils.getWeConfig().getString("saving.dir"));
+		Utils.getWeConfig().clearData();
 		if (tempPath.isAbsolute()) {
 			schemFolderPath = tempPath.normalize();
 			schemFolder = schemFolderPath.toFile();
@@ -52,7 +44,7 @@ public class WorldEditVersionSchemUtils {
 				}
 			}
 		} else {
-			schemFolderPath = Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder().toPath().resolve(tempPath).normalize();
+			schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder().toPath().resolve(tempPath).normalize();
 			schemFolder = schemFolderPath.toFile();
 			if (!schemFolder.exists()) {
 				if (!schemFolder.mkdirs()) {
@@ -63,6 +55,17 @@ public class WorldEditVersionSchemUtils {
 	}
 
 	public static File getSchemFolder() {
-		return schemFolder;
+		if (!Utils.getWeConfig().hasChanged()) {
+			return schemFolder;
+		} else {
+			try {
+				initSchemPath();
+				return schemFolder;
+			} catch (FileNotFoundException e) {
+				System.err.println("Could not initialize Schematic folder");
+				e.printStackTrace();
+				throw new IllegalStateException();
+			}
+		}
 	}
 }

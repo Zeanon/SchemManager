@@ -1,18 +1,19 @@
-package de.zeanon.schemmanager.worldeditversion.listener.tabcompleter;
+package de.zeanon.schemmanager.worldeditmode.listener.tabcompleter;
 
+import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.server.TabCompleteEvent;
 
 
-public class SpigotTabListener implements Listener {
+public class PaperTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onTab(final TabCompleteEvent event) {
+	public void onTab(final AsyncTabCompleteEvent event) {
 		String message = event.getBuffer();
 		message = message.replaceAll("\\s+", " ");
 		boolean argumentEnded = message.endsWith(" ");
@@ -30,13 +31,18 @@ public class SpigotTabListener implements Listener {
 					args = (String[]) ArrayUtils.removeElement(args, "-d");
 					deep = true;
 				}
-				event.setCompletions(WorldEditVersionTabCompleter.onTab(args, event.getBuffer(), deep, argumentEnded));
+				List<String> tempList = WorldEditModeTabCompleter.onTab(args, event.getBuffer(), deep, argumentEnded);
+				if (!tempList.isEmpty()) {
+					event.setCompletions(tempList);
+				} else {
+					event.setCancelled(true);
+				}
 			}
 		} else if (args[0].equalsIgnoreCase("/stoplag")) {
-			if (args.length == 1 || (args.length == 2 && !message.endsWith(" "))) {
+			if (args.length == 1 || (args.length == 2 && !args[1].equals("-c") && !message.endsWith(" "))) {
 				event.setCompletions(Collections.singletonList("-c"));
 			} else {
-				event.setCompletions(new ArrayList<>());
+				event.setCancelled(true);
 			}
 		}
 	}

@@ -1,8 +1,8 @@
-package de.zeanon.schemmanager.worldeditversion.listener.tabcompleter;
+package de.zeanon.schemmanager.worldeditmode.listener.tabcompleter;
 
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.InternalFileUtils;
-import de.zeanon.schemmanager.worldeditversion.utils.WorldEditVersionSchemUtils;
+import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,7 +17,7 @@ import org.apache.commons.io.FilenameUtils;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class WorldEditVersionTabCompleter {
+class WorldEditModeTabCompleter {
 
 	static List<String> onTab(final String[] args, final String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
 		ArrayList<String> completions = new ArrayList<>();
@@ -81,7 +81,7 @@ class WorldEditVersionTabCompleter {
 					completions.add("-deep");
 				}
 				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
+					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null) {
 						for (File file : getFileArray(pathFile)) {
@@ -92,7 +92,7 @@ class WorldEditVersionTabCompleter {
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
-					Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
+					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
 						for (File file : InternalFileUtils.getFolders(pathFile, false)) {
@@ -110,7 +110,7 @@ class WorldEditVersionTabCompleter {
 					}
 				}
 				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
+					Path tempDirectory = WorldEditModeSchemUtils.getSchemPath();
 					String[] pathArgs = args[2].split("/");
 					if (tempDirectory != null) {
 						if (!args[2].endsWith("/")) {
@@ -135,7 +135,7 @@ class WorldEditVersionTabCompleter {
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
-					Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
+					Path tempDirectory = WorldEditModeSchemUtils.getSchemPath();
 					String[] pathArgs = args[2].split("/");
 					if (tempDirectory != null) {
 						if (!args[2].endsWith("/")) {
@@ -163,7 +163,7 @@ class WorldEditVersionTabCompleter {
 				if (args[1].equalsIgnoreCase("load")) {
 					completions.addAll(ConfigUtils.getStringList("File Extensions"));
 				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
+					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null) {
 						for (File file : getFileArray(pathFile)) {
@@ -174,7 +174,7 @@ class WorldEditVersionTabCompleter {
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
-					Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
+					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
 						for (File file : InternalFileUtils.getFolders(pathFile, false)) {
@@ -190,7 +190,7 @@ class WorldEditVersionTabCompleter {
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
+					Path tempDirectory = WorldEditModeSchemUtils.getSchemPath();
 					if (tempDirectory != null) {
 						String[] pathArgs = args[3].split("/");
 						if (!args[3].endsWith("/")) {
@@ -215,7 +215,7 @@ class WorldEditVersionTabCompleter {
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
-					Path tempDirectory = WorldEditVersionSchemUtils.getSchemPath();
+					Path tempDirectory = WorldEditModeSchemUtils.getSchemPath();
 					if (tempDirectory != null) {
 						String[] pathArgs = args[3].split("/");
 						if (!args[3].endsWith("/")) {
@@ -251,7 +251,7 @@ class WorldEditVersionTabCompleter {
 	private static void addFileToCompletions(final String regex, final ArrayList<String> completions, final File file) {
 		try {
 			if (file.getName().toLowerCase().startsWith(regex.toLowerCase()) && !file.getName().toLowerCase().equals(regex.toLowerCase())) {
-				Path schemPath = WorldEditVersionSchemUtils.getSchemPath();
+				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				if (schemPath != null) {
 					String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
 					completions.add(path);
