@@ -35,6 +35,10 @@ public class Utils {
 		}
 	}
 
+	static LightningConfig getConfig() {
+		return config;
+	}
+
 	private static void initWorldEditMode() {
 		WorldEditMode.initWorldEditPlugin();
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + ".");
@@ -106,9 +110,5 @@ public class Utils {
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work.");
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance().getName() + " will automatically activate when one of the above gets enabled.");
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Rudimentary function like updating and disabling will still work.");
-	}
-
-	static LightningConfig getConfig() {
-		return config;
 	}
 }

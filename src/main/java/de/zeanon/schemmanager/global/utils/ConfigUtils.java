@@ -18,9 +18,9 @@ public class ConfigUtils {
 	 * @return value.
 	 */
 	public static byte getByte(final String key) {
-		if (Utils.getConfig().hasKey(key)) {
+		try {
 			return Utils.getConfig().getByte(key);
-		} else {
+		} catch (IllegalStateException e) {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
@@ -28,6 +28,47 @@ public class ConfigUtils {
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
 			return (byte) getDefaultValue(key);
+		}
+	}
+
+	/**
+	 * get a boolean from the config.
+	 *
+	 * @param key the Config key.
+	 * @return value.
+	 */
+	public static boolean getBoolean(final String key) {
+		try {
+			return Utils.getConfig().getBoolean(key);
+		} catch (IllegalStateException e) {
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					Update.updateConfig(true);
+				}
+			}.runTaskAsynchronously(SchemManager.getInstance());
+			return (boolean) getDefaultValue(key);
+		}
+	}
+
+	/**
+	 * get a StringList from the config.
+	 *
+	 * @param key the Config key.
+	 * @return value.
+	 */
+	public static List<String> getStringList(final String key) {
+		try {
+			return Utils.getConfig().getStringList(key);
+		} catch (IllegalStateException e) {
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					Update.updateConfig(true);
+				}
+			}.runTaskAsynchronously(SchemManager.getInstance());
+			//noinspection unchecked
+			return (List<String>) getDefaultValue(key);
 		}
 	}
 
@@ -53,47 +94,6 @@ public class ConfigUtils {
 				return SchemManager.getInstance().getDescription().getVersion();
 			default:
 				return null;
-		}
-	}
-
-	/**
-	 * get a boolean from the config.
-	 *
-	 * @param key the Config key.
-	 * @return value.
-	 */
-	public static boolean getBoolean(final String key) {
-		if (Utils.getConfig().hasKey(key)) {
-			return Utils.getConfig().getBoolean(key);
-		} else {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					Update.updateConfig(true);
-				}
-			}.runTaskAsynchronously(SchemManager.getInstance());
-			return (boolean) getDefaultValue(key);
-		}
-	}
-
-	/**
-	 * get a StringList from the config.
-	 *
-	 * @param key the Config key.
-	 * @return value.
-	 */
-	public static List<String> getStringList(final String key) {
-		if (Utils.getConfig().hasKey(key)) {
-			return Utils.getConfig().getStringList(key);
-		} else {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					Update.updateConfig(true);
-				}
-			}.runTaskAsynchronously(SchemManager.getInstance());
-			//noinspection unchecked
-			return (List<String>) getDefaultValue(key);
 		}
 	}
 }
