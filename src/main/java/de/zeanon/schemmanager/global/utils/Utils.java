@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.leonhard.storage.LightningStorage;
-import de.leonhard.storage.internal.datafiles.config.LightningConfig;
-import de.leonhard.storage.internal.datafiles.raw.YamlFile;
+import de.leonhard.storage.internal.data.config.LightningConfig;
+import de.leonhard.storage.internal.data.raw.YamlFile;
 import de.leonhard.storage.internal.settings.Comment;
 import de.leonhard.storage.internal.settings.DataType;
 import de.leonhard.storage.internal.settings.Reload;
