@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.worldeditmode.commands;
 
+import de.leonhard.storage.internal.utils.LightningFileUtils;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
-import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import java.io.File;
@@ -230,7 +230,7 @@ public class Search {
 	private static File[] getFileArray(final File directory, final String[] extensions, final boolean deepSearch, final String regex) {
 		ArrayList<File> files = new ArrayList<>();
 		for (File file : FileUtils.listFiles(directory, extensions, deepSearch)) {
-			if (InternalFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
+			if (LightningFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
 				files.add(file);
 			}
 		}
@@ -248,10 +248,10 @@ public class Search {
 			String name;
 			String path;
 			String shortenedRelativePath;
-			if (InternalFileUtils.getExtension(file.getName()).equals("schem")) {
-				name = InternalFileUtils.removeExtension(file.getName());
-				path = FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
-				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(InternalFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
+			if (LightningFileUtils.getExtension(file.getName()).equals("schem")) {
+				name = LightningFileUtils.removeExtension(file.getName());
+				path = FilenameUtils.separatorsToUnix(LightningFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(LightningFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
 			} else {
 				name = file.getName();
 				path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());

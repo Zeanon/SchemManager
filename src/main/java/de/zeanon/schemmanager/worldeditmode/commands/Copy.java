@@ -1,5 +1,6 @@
 package de.zeanon.schemmanager.worldeditmode.commands;
 
+import de.leonhard.storage.internal.utils.LightningFileUtils;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.InternalFileUtils;
@@ -68,8 +69,8 @@ public class Copy {
 				}
 			}
 			for (File file : oldFiles) {
-				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(InternalFileUtils.getExtension(destPath.toString())::equals)) {
-					FileUtils.copyFile(file, new File(destPath.toString() + InternalFileUtils.getExtension(file.getName())));
+				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(LightningFileUtils.getExtension(destPath.toString())::equals)) {
+					FileUtils.copyFile(file, new File(destPath.toString() + LightningFileUtils.getExtension(file.getName())));
 				} else {
 					FileUtils.copyFile(file, destPath.toFile());
 				}

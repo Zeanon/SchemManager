@@ -1,5 +1,6 @@
 package de.zeanon.schemmanager.worldeditmode.commands;
 
+import de.leonhard.storage.internal.utils.LightningFileUtils;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.InternalFileUtils;
@@ -73,8 +74,8 @@ public class Rename {
 			}
 			String parentName = null;
 			for (File file : oldFiles) {
-				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(InternalFileUtils.getExtension(destPath.toString())::equals)) {
-					FileUtils.moveFile(file, new File(destPath.toString() + InternalFileUtils.getExtension(file.getName())));
+				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(LightningFileUtils.getExtension(destPath)::equals)) {
+					FileUtils.moveFile(file, new File(destPath + LightningFileUtils.getExtension(file)));
 					parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
 				} else {
 					FileUtils.moveFile(file, destPath.toFile());

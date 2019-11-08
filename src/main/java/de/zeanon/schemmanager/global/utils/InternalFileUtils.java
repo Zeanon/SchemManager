@@ -1,5 +1,6 @@
 package de.zeanon.schemmanager.global.utils;
 
+import de.leonhard.storage.internal.utils.LightningFileUtils;
 import de.zeanon.schemmanager.SchemManager;
 import java.io.*;
 import java.nio.file.Files;
@@ -48,7 +49,7 @@ public class InternalFileUtils {
 
 	public static ArrayList<File> getExistingFiles(final Path path) {
 		ArrayList<File> tempFiles = new ArrayList<>();
-		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(getExtension(path.toString())::equalsIgnoreCase)) {
+		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(LightningFileUtils.getExtension(path.toString())::equalsIgnoreCase)) {
 			File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				return new ArrayList<>(Collections.singletonList(file));
@@ -62,14 +63,6 @@ public class InternalFileUtils {
 			}
 		}
 		return files;
-	}
-
-	public static String removeExtension(final String path) {
-		return path.replaceFirst("[.][^.]+$", "");
-	}
-
-	public static String getExtension(final String path) {
-		return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : "";
 	}
 
 	public static String deleteEmptyParent(final File file) {
