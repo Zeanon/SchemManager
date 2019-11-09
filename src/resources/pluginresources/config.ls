@@ -3,12 +3,13 @@
 #||                                                                                                          ||#
 #||                                         SchemManager Config-File                                         ||#
 #||                                             Plugin by Zeanon                                             ||#
-#||                       Config-Management-System: LightningStorage by JavaFactoryDev                       ||#
+#||                            Config-Management-System: StorageManager by Zeanon                            ||#
 #||                                                                                                          ||#
 #||==========================================================================================================||#
 ################################################################################################################
 #                                                                                                              #
 ################################################################################################################
+# For Syntax-Highlighting for the config file, please visit https://github.com/Zeanon/StorageManager           #
 # To get information about the custom commands, just type /schem or //schem.                                   #
 # You don't need to reload the plugin when editing the config, it will automatically detect changes.           #
 # You can perform a deep search or deep listing by using -d.                                                   #

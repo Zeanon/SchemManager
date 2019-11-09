@@ -1,12 +1,12 @@
 package de.zeanon.schemmanager.worldeditmode.commands;
 
-import de.leonhard.storage.internal.utils.LightningFileUtils;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
+import de.zeanon.storage.internal.utils.SMFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -69,8 +69,8 @@ public class Copy {
 				}
 			}
 			for (File file : oldFiles) {
-				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(LightningFileUtils.getExtension(destPath.toString())::equals)) {
-					FileUtils.copyFile(file, new File(destPath.toString() + LightningFileUtils.getExtension(file.getName())));
+				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(SMFileUtils.getExtension(destPath.toString())::equals)) {
+					FileUtils.copyFile(file, new File(destPath.toString() + SMFileUtils.getExtension(file.getName())));
 				} else {
 					FileUtils.copyFile(file, destPath.toFile());
 				}

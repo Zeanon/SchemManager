@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager.global.utils;
 
-import de.leonhard.storage.internal.utils.LightningFileUtils;
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.storage.internal.utils.SMFileUtils;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,7 +49,7 @@ public class InternalFileUtils {
 
 	public static ArrayList<File> getExistingFiles(final Path path) {
 		ArrayList<File> tempFiles = new ArrayList<>();
-		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(LightningFileUtils.getExtension(path.toString())::equalsIgnoreCase)) {
+		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(SMFileUtils.getExtension(path.toString())::equalsIgnoreCase)) {
 			File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				return new ArrayList<>(Collections.singletonList(file));

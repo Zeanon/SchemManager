@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager;
 
-import de.leonhard.storage.internal.utils.basic.Objects;
 import de.zeanon.schemmanager.global.handlers.CommandHandler;
 import de.zeanon.schemmanager.global.handlers.TabCompleter;
 import de.zeanon.schemmanager.global.utils.Utils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;

@@ -1,15 +1,15 @@
 package de.zeanon.schemmanager.global.utils;
 
-import de.leonhard.storage.LightningStorage;
-import de.leonhard.storage.internal.data.config.LightningConfig;
-import de.leonhard.storage.internal.data.raw.YamlFile;
-import de.leonhard.storage.internal.settings.Comment;
-import de.leonhard.storage.internal.settings.DataType;
-import de.leonhard.storage.internal.settings.Reload;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.handlers.WakeupListener;
 import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
+import de.zeanon.storage.StorageManager;
+import de.zeanon.storage.internal.data.config.JarmlConfig;
+import de.zeanon.storage.internal.data.raw.YamlFile;
+import de.zeanon.storage.internal.settings.Comment;
+import de.zeanon.storage.internal.settings.DataType;
+import de.zeanon.storage.internal.settings.Reload;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class Utils {
 
 	private static YamlFile weConfig;
-	private static LightningConfig config;
+	private static JarmlConfig config;
 
 	public static YamlFile getWeConfig() {
 		return weConfig;
@@ -35,7 +35,7 @@ public class Utils {
 		}
 	}
 
-	static LightningConfig getConfig() {
+	static JarmlConfig getConfig() {
 		return config;
 	}
 
@@ -53,11 +53,11 @@ public class Utils {
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
 
 				try {
-					weConfig = LightningStorage.create(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
-											   .reloadSetting(Reload.AUTOMATICALLY)
-											   .commentSetting(Comment.SKIP)
-											   .dataType(DataType.STANDARD)
-											   .asYamlFile();
+					weConfig = StorageManager.yamlFile(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
+											 .reloadSetting(Reload.AUTOMATICALLY)
+											 .commentSetting(Comment.SKIP)
+											 .dataType(DataType.STANDARD)
+											 .create();
 					System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
@@ -91,9 +91,9 @@ public class Utils {
 	private static void loadConfigs() {
 		boolean failedToLoad = false;
 		try {
-			config = LightningStorage.create(SchemManager.getInstance().getDataFolder(), "config")
-									 .fromResource("resources/config.ls")
-									 .asLightningConfig();
+			config = StorageManager.jarmlConfig(SchemManager.getInstance().getDataFolder(), "config")
+								   .fromResource("resources/config.ls")
+								   .create();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
 		} catch (IllegalStateException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + config.getName() + " could not be loaded.");

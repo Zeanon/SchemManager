@@ -2,7 +2,7 @@ name: ${project.name}
 version: ${project.version}
 api-version: 1.14
 description: ${project.description}
-authors: [Zeanon, JavaFactoryDev]
+author: Zeanon
 website: ${project.url}
 main: de.zeanon.schemmanager.SchemManager
 softdepend: [WorldEdit, FastAsyncWorldEdit, WorldGuard, PlugMan]

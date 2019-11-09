@@ -1,12 +1,12 @@
 package de.zeanon.schemmanager.worldeditmode.commands;
 
-import de.leonhard.storage.internal.utils.LightningFileUtils;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
+import de.zeanon.storage.internal.utils.SMFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -43,17 +43,17 @@ public class RenameFolder {
 							String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
 							for (File oldFile : FileUtils.listFiles(directory_old, extensions, true)) {
 								for (File newFile : FileUtils.listFiles(directory_new, extensions, true)) {
-									if (LightningFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(LightningFileUtils.removeExtension(oldFile.getName())) && newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
+									if (SMFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName())) && newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
 										if (id == 0) {
 											p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
 										}
 										String name;
 										String path;
 										String shortenedRelativePath;
-										if (LightningFileUtils.getExtension(newFile.getName()).equals("schem")) {
-											name = LightningFileUtils.removeExtension(newFile.getName());
-											path = FilenameUtils.separatorsToUnix(LightningFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
-											shortenedRelativePath = FilenameUtils.separatorsToUnix(LightningFileUtils.removeExtension(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
+										if (SMFileUtils.getExtension(newFile.getName()).equals("schem")) {
+											name = SMFileUtils.removeExtension(newFile.getName());
+											path = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
+											shortenedRelativePath = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
 										} else {
 											name = newFile.getName();
 											path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());

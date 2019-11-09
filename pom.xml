@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.4.2-Beta-v2.57</version>
+    <version>4.4.2-Beta-v2.58</version>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
     <url>https://github.com/Zeanon/SchemManager</url>
@@ -104,8 +104,8 @@
                 <configuration>
                     <relocations>
                         <relocation>
-                            <pattern>de.leonhard</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.shaded</shadedPattern>
+                            <pattern>de.zeanon.storage</pattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded.storage</shadedPattern>
                         </relocation>
                     </relocations>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -219,11 +219,11 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- LightningStorage by JavaFactoryDev and Zeanon-->
+        <!-- StorageManager by JavaFactoryDev and Zeanon-->
         <dependency>
-            <groupId>de.leonhard</groupId>
-            <artifactId>lightningstorage</artifactId>
-            <version>3.0.0-Beta-v3.78</version>
+            <groupId>de.zeanon</groupId>
+            <artifactId>storagemanager</artifactId>
+            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
 
