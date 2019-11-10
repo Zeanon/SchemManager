@@ -48,7 +48,7 @@ public class Update {
 				boolean stoplagOverride = !Utils.getConfig().hasKey("Stoplag Override") || Utils.getConfig().getBoolean("Stoplag Override");
 				boolean autoReload = !Utils.getConfig().hasKey("Automatic Reload") || Utils.getConfig().getBoolean("Automatic Reload");
 
-				Utils.getConfig().setFileContentFromResource("resources/config.jrml");
+				Utils.getConfig().setFileContentFromResource("resources/config.tf");
 
 				LinkedHashMap<String, Object> dataMap = new LinkedHashMap<String, Object>() {{
 					put("Plugin Version", SchemManager.getInstance().getDescription().getVersion());
@@ -62,10 +62,10 @@ public class Update {
 				}};
 				Utils.getConfig().setAll(dataMap);
 
-				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.jrml' updated.");
+				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' updated.");
 				return true;
 			} catch (IllegalStateException e) {
-				System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.jrml' could not be updated.");
+				System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be updated.");
 				e.printStackTrace();
 				throw new IllegalStateException();
 			}

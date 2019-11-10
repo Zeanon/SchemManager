@@ -5,7 +5,7 @@ import de.zeanon.schemmanager.global.handlers.WakeupListener;
 import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.StorageManager;
-import de.zeanon.storage.internal.data.config.JarmlConfig;
+import de.zeanon.storage.internal.data.config.ThunderConfig;
 import de.zeanon.storage.internal.data.raw.YamlFile;
 import de.zeanon.storage.internal.settings.Comment;
 import de.zeanon.storage.internal.settings.DataType;
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class Utils {
 
 	private static YamlFile weConfig;
-	private static JarmlConfig config;
+	private static ThunderConfig config;
 
 	public static YamlFile getWeConfig() {
 		return weConfig;
@@ -35,7 +35,7 @@ public class Utils {
 		}
 	}
 
-	static JarmlConfig getConfig() {
+	static ThunderConfig getConfig() {
 		return config;
 	}
 
@@ -92,12 +92,12 @@ public class Utils {
 	private static void loadConfigs() {
 		boolean failedToLoad = false;
 		try {
-			config = StorageManager.jarmlConfig(SchemManager.getInstance().getDataFolder(), "config")
-								   .fromResource("resources/config.jrml")
+			config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
+								   .fromResource("resources/config.tf")
 								   .create();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.jrml' loaded.");
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
 		} catch (IllegalStateException e) {
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.jrml' could not be loaded.");
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be loaded.");
 			e.printStackTrace();
 			failedToLoad = true;
 		}
