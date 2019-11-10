@@ -210,7 +210,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- StorageManager by JavaFactoryDev and Zeanon-->
+        <!-- StorageManager by Zeanon-->
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>storagemanager</artifactId>
