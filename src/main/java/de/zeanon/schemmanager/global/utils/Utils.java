@@ -92,7 +92,7 @@ public class Utils {
 		boolean failedToLoad = false;
 		try {
 			config = StorageManager.jarmlConfig(SchemManager.getInstance().getDataFolder(), "config")
-								   .fromResource("resources/config.ls")
+								   .fromResource("resources/config.jrml")
 								   .create();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
 		} catch (IllegalStateException e) {

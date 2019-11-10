@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.4.2-Beta-v2.58</version>
+    <version>4.4.2-Beta-v2.59</version>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
     <url>https://github.com/Zeanon/SchemManager</url>
@@ -26,18 +26,6 @@
             <roles>
                 <role>Lead Developer</role>
                 <role>Coolest guy on earth</role>
-            </roles>
-            <timezone>Germany</timezone>
-        </developer>
-
-        <developer>
-            <id>JavaFactoryDev</id>
-            <name>Leonhard Solbach</name>
-            <email>JavaFactoryDev@gmail.com</email>
-            <url>https://github.com/JavaFactoryDev</url>
-            <roles>
-                <role>Library Developer</role>
-                <role>Does not know how to document code</role>
             </roles>
             <timezone>Germany</timezone>
         </developer>
@@ -223,7 +211,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>storagemanager</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
             <scope>compile</scope>
         </dependency>
 
