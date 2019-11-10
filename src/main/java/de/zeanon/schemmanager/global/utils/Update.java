@@ -28,7 +28,7 @@ public class Update {
 		}
 	}
 
-	static void updateConfig(final boolean force) {
+	static boolean updateConfig(final boolean force) {
 		if (force
 			|| !Utils.getConfig().getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())
 			|| !Utils.getConfig().hasKey("File Extensions")
@@ -63,11 +63,14 @@ public class Update {
 				Utils.getConfig().setAll(dataMap);
 
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + Utils.getConfig().getFile().getName() + " updated.");
+				return true;
 			} catch (IllegalStateException e) {
 				System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + Utils.getConfig().getFile().getName() + " could not be updated.");
 				e.printStackTrace();
 				throw new IllegalStateException();
 			}
+		} else {
+			return false;
 		}
 	}
 }

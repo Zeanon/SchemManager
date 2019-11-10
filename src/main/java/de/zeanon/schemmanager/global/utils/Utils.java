@@ -49,8 +49,9 @@ public class Utils {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are loaded successfully.");
 
 			try {
-				Update.updateConfig(false);
-				System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
+				if (Update.updateConfig(false)) {
+					System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
+				}
 
 				try {
 					weConfig = StorageManager.yamlFile(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
@@ -94,9 +95,9 @@ public class Utils {
 			config = StorageManager.jarmlConfig(SchemManager.getInstance().getDataFolder(), "config")
 								   .fromResource("resources/config.jrml")
 								   .create();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + config.getName() + " loaded.");
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.jrml' loaded.");
 		} catch (IllegalStateException e) {
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + config.getName() + " could not be loaded.");
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.jrml' could not be loaded.");
 			e.printStackTrace();
 			failedToLoad = true;
 		}
