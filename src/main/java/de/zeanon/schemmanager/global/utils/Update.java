@@ -28,16 +28,17 @@ public class Update {
 		}
 	}
 
-	static boolean updateConfig(final boolean force) {
+	static void updateConfig(final boolean force) {
 		if (force
-			|| !Utils.getConfig().getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())
+			|| !Utils.getConfig().hasKey("Plugin Version")
 			|| !Utils.getConfig().hasKey("File Extensions")
 			|| !Utils.getConfig().hasKey("Listmax")
 			|| !Utils.getConfig().hasKey("Space Lists")
 			|| !Utils.getConfig().hasKey("Delete empty Folders")
 			|| !Utils.getConfig().hasKey("Save Function Override")
 			|| !Utils.getConfig().hasKey("Stoplag Override")
-			|| !Utils.getConfig().hasKey("Automatic Reload")) {
+			|| !Utils.getConfig().hasKey("Automatic Reload")
+			|| !Utils.getConfig().getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())) {
 
 			try {
 				List<String> fileExtensions = Utils.getConfig().hasKey("File Extensions") ? Utils.getConfig().getStringList("File Extensions") : Arrays.asList("schem", "schematic");
@@ -63,14 +64,11 @@ public class Update {
 				Utils.getConfig().setAll(dataMap);
 
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' updated.");
-				return true;
 			} catch (IllegalStateException e) {
 				System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be updated.");
 				e.printStackTrace();
 				throw new IllegalStateException();
 			}
-		} else {
-			return false;
 		}
 	}
 }

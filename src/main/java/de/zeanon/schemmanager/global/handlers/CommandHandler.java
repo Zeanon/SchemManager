@@ -92,15 +92,15 @@ public class CommandHandler implements CommandExecutor {
 
 	private void sendUpdateUsage(final Player p) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""
-																									   + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
+										ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update",
+										ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
 										"/schemmanager update", p);
 	}
 
 	private void sendDisableUsage(final Player p) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " disable", ChatColor.DARK_RED + ""
-																										+ ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",
+										ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " disable",
+										ChatColor.DARK_RED + "" + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",
 										"/schemmanager disable", p);
 	}
 }
