@@ -62,10 +62,10 @@ public class Update {
 				}};
 				Utils.getConfig().setAll(dataMap);
 
-				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + Utils.getConfig().getFile().getName() + " updated.");
+				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.jrml' updated.");
 				return true;
 			} catch (IllegalStateException e) {
-				System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + Utils.getConfig().getFile().getName() + " could not be updated.");
+				System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.jrml' could not be updated.");
 				e.printStackTrace();
 				throw new IllegalStateException();
 			}
