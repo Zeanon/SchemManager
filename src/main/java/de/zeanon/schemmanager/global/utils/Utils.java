@@ -18,10 +18,6 @@ public class Utils {
 	private static YamlFile weConfig;
 	private static ThunderConfig config;
 
-	public static YamlFile getWeConfig() {
-		return weConfig;
-	}
-
 	public static void initPlugin() {
 		try {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Loading Configs...");
@@ -57,10 +53,31 @@ public class Utils {
 		}
 	}
 
+	public static YamlFile getWeConfig() {
+		return weConfig;
+	}
+
 	static ThunderConfig getConfig() {
 		return config;
 	}
 
+	private static void loadConfigs() {
+		boolean failedToLoad = false;
+		try {
+			config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
+								   .fromResource("resources/config.tf")
+								   .create();
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
+		} catch (IllegalStateException e) {
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be loaded.");
+			e.printStackTrace();
+			failedToLoad = true;
+		}
+		if (failedToLoad) {
+			throw new IllegalStateException();
+		}
+	}
+	
 	private static void initWorldEditMode() {
 		WorldEditMode.initWorldEditPlugin();
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + ".");
@@ -85,23 +102,6 @@ public class Utils {
 			e.printStackTrace();
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file.");
 			enableSleepMode();
-		}
-	}
-
-	private static void loadConfigs() {
-		boolean failedToLoad = false;
-		try {
-			config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
-								   .fromResource("resources/config.tf")
-								   .create();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
-		} catch (IllegalStateException e) {
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be loaded.");
-			e.printStackTrace();
-			failedToLoad = true;
-		}
-		if (failedToLoad) {
-			throw new IllegalStateException();
 		}
 	}
 
