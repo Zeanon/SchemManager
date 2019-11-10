@@ -77,7 +77,7 @@ public class Utils {
 			throw new IllegalStateException();
 		}
 	}
-	
+
 	private static void initWorldEditMode() {
 		WorldEditMode.initWorldEditPlugin();
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + ".");
