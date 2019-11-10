@@ -10,9 +10,11 @@
 #                                                                                                              #
 ################################################################################################################
 # For Syntax-Highlighting for the config file, please visit https://github.com/Zeanon/StorageManager           #
+#                                                                                                              #
 # To get information about the custom commands, just type /schem or //schem.                                   #
-# You don't need to reload the plugin when editing the config, it will automatically detect changes.           #
+# The plugin will reload the config on it's own when the config file gets updated                              #
 # You can perform a deep search or deep listing by using -d.                                                   #
+#                                                                                                              #
 # File Extensions: here you can specify the file-types the plugin recognizes as schematics.                    #
 # Listmax: The maximum amount of schematics per page to be shown.                                              #
 # Space Lists: Should there be a blank line before each schem or folder page?                                  #
