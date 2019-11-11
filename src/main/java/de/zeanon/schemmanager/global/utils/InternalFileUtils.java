@@ -2,14 +2,12 @@ package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.storage.internal.utils.SMFileUtils;
-import java.io.*;
-import java.nio.file.Files;
+import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import lombok.AccessLevel;
-import lombok.Cleanup;
 import lombok.NoArgsConstructor;
 
 
@@ -74,18 +72,5 @@ public class InternalFileUtils {
 
 	static String getPluginFolderPath() {
 		return pluginFolderPath;
-	}
-
-	static synchronized void writeToFile(final File file, final BufferedInputStream inputStream) throws IOException {
-		@Cleanup BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file));
-		if (!file.exists()) {
-			Files.copy(inputStream, file.toPath());
-		} else {
-			final byte[] data = new byte[8192];
-			int count;
-			while ((count = inputStream.read(data, 0, 8192)) != -1) {
-				outputStream.write(data, 0, count);
-			}
-		}
 	}
 }

@@ -49,7 +49,7 @@ public class Update {
 				boolean stoplagOverride = !Utils.getConfig().hasKey("Stoplag Override") || Utils.getConfig().getBoolean("Stoplag Override");
 				boolean autoReload = !Utils.getConfig().hasKey("Automatic Reload") || Utils.getConfig().getBoolean("Automatic Reload");
 
-				Utils.getConfig().setFileContentFromResource("resources/config.tf");
+				Utils.getConfig().setDataFromResource("resources/config.tf");
 
 				LinkedHashMap<String, Object> dataMap = new LinkedHashMap<String, Object>() {{
 					put("Plugin Version", SchemManager.getInstance().getDescription().getVersion());
