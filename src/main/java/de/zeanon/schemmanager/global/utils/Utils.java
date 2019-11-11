@@ -67,6 +67,7 @@ public class Utils {
 			config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
 								   .fromResource("resources/config.tf")
 								   .create();
+
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
 		} catch (IllegalStateException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be loaded.");
@@ -87,8 +88,8 @@ public class Utils {
 									 .reloadSetting(Reload.AUTOMATICALLY)
 									 .commentSetting(Comment.SKIP)
 									 .create();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
 
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
 			try {
 				WorldEditModeSchemUtils.initSchemPath();
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Schematic folder is loaded successfully.");
