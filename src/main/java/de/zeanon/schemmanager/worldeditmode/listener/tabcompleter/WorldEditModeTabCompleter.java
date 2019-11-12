@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -85,7 +86,7 @@ class WorldEditModeTabCompleter {
 						for (File file : getFileArray(pathFile)) {
 							completions.add(file.getName());
 						}
-						for (File file : SMFileUtils.getFolders(pathFile, false)) {
+						for (File file : SMFileUtils.listFolders(pathFile, false)) {
 							completions.add(file.getName());
 						}
 					}
@@ -93,7 +94,7 @@ class WorldEditModeTabCompleter {
 					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-						for (File file : SMFileUtils.getFolders(pathFile, false)) {
+						for (File file : SMFileUtils.listFolders(pathFile, false)) {
 							completions.add(file.getName());
 						}
 					}
@@ -127,7 +128,7 @@ class WorldEditModeTabCompleter {
 							for (File file : getFileArray(pathFile)) {
 								addFileToCompletions(regex, completions, file);
 							}
-							for (File file : SMFileUtils.getFolders(pathFile, false)) {
+							for (File file : SMFileUtils.listFolders(pathFile, false)) {
 								addFileToCompletions(regex, completions, file);
 							}
 						}
@@ -148,7 +149,7 @@ class WorldEditModeTabCompleter {
 
 						File pathFile = tempDirectory.toFile();
 						if (pathFile.exists() && pathFile.isDirectory()) {
-							for (File file : SMFileUtils.getFolders(pathFile, false)) {
+							for (File file : SMFileUtils.listFolders(pathFile, false)) {
 								String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
 								addFileToCompletions(regex, completions, file);
 							}
@@ -167,7 +168,7 @@ class WorldEditModeTabCompleter {
 						for (File file : getFileArray(pathFile)) {
 							completions.add(file.getName());
 						}
-						for (File file : SMFileUtils.getFolders(pathFile, false)) {
+						for (File file : SMFileUtils.listFolders(pathFile, false)) {
 							completions.add(file.getName());
 						}
 					}
@@ -175,7 +176,7 @@ class WorldEditModeTabCompleter {
 					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-						for (File file : SMFileUtils.getFolders(pathFile, false)) {
+						for (File file : SMFileUtils.listFolders(pathFile, false)) {
 							completions.add(file.getName());
 						}
 					}
@@ -207,7 +208,7 @@ class WorldEditModeTabCompleter {
 							for (File file : getFileArray(pathFile)) {
 								addFileToCompletions(regex, completions, file);
 							}
-							for (File file : SMFileUtils.getFolders(pathFile, false)) {
+							for (File file : SMFileUtils.listFolders(pathFile, false)) {
 								addFileToCompletions(regex, completions, file);
 							}
 						}
@@ -228,7 +229,7 @@ class WorldEditModeTabCompleter {
 
 						File pathFile = tempDirectory.toFile();
 						if (pathFile.exists() && pathFile.isDirectory()) {
-							for (File file : SMFileUtils.getFolders(pathFile, false)) {
+							for (File file : SMFileUtils.listFolders(pathFile, false)) {
 								String regex = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
 								addFileToCompletions(regex, completions, file);
 							}
@@ -251,7 +252,7 @@ class WorldEditModeTabCompleter {
 			if (file.getName().toLowerCase().startsWith(regex.toLowerCase()) && !file.getName().toLowerCase().equals(regex.toLowerCase())) {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				if (schemPath != null) {
-					String path = SMFileUtils.separatorsToUnix(schemPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
+					String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
 					completions.add(path);
 				}
 			}

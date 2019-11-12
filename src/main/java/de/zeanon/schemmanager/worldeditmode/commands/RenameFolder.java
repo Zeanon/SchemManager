@@ -7,14 +7,16 @@ import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.internal.utils.SMFileUtils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Objects;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -52,8 +54,8 @@ public class RenameFolder {
 										String shortenedRelativePath;
 										if (SMFileUtils.getExtension(newFile.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
 											name = SMFileUtils.removeExtension(newFile.getName());
-											path = SMFileUtils.separatorsToUnix(SMFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
-											shortenedRelativePath = SMFileUtils.separatorsToUnix(
+											path = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
+											shortenedRelativePath = FilenameUtils.separatorsToUnix(
 													SMFileUtils.removeExtension(
 															schemPath.resolve(args[3])
 																	 .toRealPath()
@@ -61,8 +63,8 @@ public class RenameFolder {
 																	 .toString()));
 										} else {
 											name = newFile.getName();
-											path = SMFileUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());
-											shortenedRelativePath = SMFileUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString());
+											path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());
+											shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString());
 										}
 										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
 																		ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
@@ -82,8 +84,8 @@ public class RenameFolder {
 											p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
 										}
 										String name = newFolder.getName();
-										String path = SMFileUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
-										String shortenedRelativePath = SMFileUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
+										String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
+										String shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
 										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ",
 																		ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
 																		ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path,
@@ -117,7 +119,7 @@ public class RenameFolder {
 										FileUtils.deleteDirectory(directory_old);
 										String parentName = Objects.notNull(directory_old.getAbsoluteFile().getParentFile().listFiles()).length > 0
 															|| ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(directory_old);
-										if (file.getName().equals(parentName)) {
+										if (directory_old.getName().equals(parentName)) {
 											parentName = null;
 										}
 										p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was renamed successfully.");

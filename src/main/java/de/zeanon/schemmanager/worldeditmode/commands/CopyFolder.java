@@ -6,11 +6,14 @@ import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.internal.utils.SMFileUtils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Objects;
+import java.util.List;
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -53,12 +56,12 @@ public class CopyFolder {
 										String shortenedRelativePath;
 										if (SMFileUtils.getExtension(newFile.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
 											name = SMFileUtils.removeExtension(newFile.getName());
-											path = SMFileUtils.separatorsToUnix(
+											path = FilenameUtils.separatorsToUnix(
 													SMFileUtils.removeExtension(
 															schemPath.toRealPath()
 																	 .relativize(newFile.toPath().toRealPath())
 																	 .toString()));
-											shortenedRelativePath = SMFileUtils.separatorsToUnix(
+											shortenedRelativePath = FilenameUtils.separatorsToUnix(
 													SMFileUtils.removeExtension(
 															schemPath.resolve(args[3])
 																	 .toRealPath()
@@ -66,11 +69,11 @@ public class CopyFolder {
 																	 .toString()));
 										} else {
 											name = newFile.getName();
-											path = SMFileUtils.separatorsToUnix(
+											path = FilenameUtils.separatorsToUnix(
 													schemPath.toRealPath()
 															 .relativize(newFile.toPath().toRealPath())
 															 .toString());
-											shortenedRelativePath = SMFileUtils.separatorsToUnix(
+											shortenedRelativePath = FilenameUtils.separatorsToUnix(
 													schemPath.resolve(args[3])
 															 .toRealPath()
 															 .relativize(newFile.toPath().toRealPath())
@@ -104,11 +107,11 @@ public class CopyFolder {
 														  + ChatColor.RED + ", they will be merged.");
 										}
 										String name = newFolder.getName();
-										String path = SMFileUtils.separatorsToUnix(
+										String path = FilenameUtils.separatorsToUnix(
 												schemPath.toRealPath()
 														 .relativize(newFolder.toPath().toRealPath())
 														 .toString());
-										String shortenedRelativePath = SMFileUtils.separatorsToUnix(
+										String shortenedRelativePath = FilenameUtils.separatorsToUnix(
 												schemPath.resolve(args[3])
 														 .toRealPath()
 														 .relativize(newFolder.toPath().toRealPath())

@@ -13,6 +13,7 @@ import java.util.Collection;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -309,15 +310,15 @@ public class List {
 			String shortenedRelativePath;
 			if (SMFileUtils.getExtension(file.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
 				name = SMFileUtils.removeExtension(file.getName());
-				path = SMFileUtils.separatorsToUnix(SMFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+				path = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
 				shortenedRelativePath = deepSearch
-										? SMFileUtils.separatorsToUnix(SMFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString()))
+										? FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString()))
 										: null;
 			} else {
 				name = file.getName();
-				path = SMFileUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
+				path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
 				shortenedRelativePath = deepSearch
-										? SMFileUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
+										? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
 										: null;
 			}
 			if (deepSearch) {
