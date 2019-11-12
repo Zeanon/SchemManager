@@ -24,8 +24,12 @@ public class Copy {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				ArrayList<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
-				ArrayList<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
+				ArrayList<File> oldFiles = schemPath != null
+										   ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
+										   : null;
+				ArrayList<File> newFiles = schemPath != null
+										   ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3]))
+										   : null;
 				final boolean oldFileExists = oldFiles != null && oldFiles.size() > 0;
 				final boolean newFileExists = newFiles != null && newFiles.size() > 0;
 
@@ -35,7 +39,11 @@ public class Copy {
 							p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
 						}
 
-						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to copy " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem copy " + args[2] + " " + args[3] + " confirm", "//schem copy " + args[2] + " " + args[3] + " deny", p);
+						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to copy "
+														+ ChatColor.GOLD + args[2]
+														+ ChatColor.RED + "?",
+														"//schem copy " + args[2] + " " + args[3] + " confirm",
+														"//schem copy " + args[2] + " " + args[3] + " deny", p);
 						WorldEditModeRequestUtils.addCopyRequest(p, args[2]);
 					} else {
 						p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
@@ -69,7 +77,9 @@ public class Copy {
 				}
 			}
 			for (File file : oldFiles) {
-				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(SMFileUtils.getExtension(destPath.toString())::equals)) {
+				if (ConfigUtils.getStringList("File Extensions")
+							   .stream()
+							   .noneMatch(SMFileUtils.getExtension(destPath.toString())::equals)) {
 					FileUtils.copyFile(file, new File(destPath.toString() + SMFileUtils.getExtension(file.getName())));
 				} else {
 					FileUtils.copyFile(file, destPath.toFile());

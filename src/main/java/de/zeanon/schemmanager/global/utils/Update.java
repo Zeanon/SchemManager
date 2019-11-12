@@ -13,7 +13,9 @@ import org.bukkit.entity.Player;
 public class Update {
 
 	public static void updatePlugin() {
-		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
+		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
+			&& SchemManager.getPluginManager()
+						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
 			PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
 		} else {
 			DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"), SchemManager.getInstance());
@@ -21,7 +23,9 @@ public class Update {
 	}
 
 	public static void updatePlugin(final Player p) {
-		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null && SchemManager.getPluginManager().isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
+		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
+			&& SchemManager.getPluginManager()
+						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
 			PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
 		} else {
 			DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"), SchemManager.getInstance());
@@ -38,16 +42,26 @@ public class Update {
 			|| !Utils.getConfig().hasKey("Save Function Override")
 			|| !Utils.getConfig().hasKey("Stoplag Override")
 			|| !Utils.getConfig().hasKey("Automatic Reload")
-			|| !Utils.getConfig().getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())) {
+			|| !Utils.getConfig().getString("Plugin Version")
+					 .equals(SchemManager.getInstance().getDescription().getVersion())) {
 
 			try {
-				List<String> fileExtensions = Utils.getConfig().hasKey("File Extensions") ? Utils.getConfig().getStringList("File Extensions") : Arrays.asList("schem", "schematic");
-				int listmax = Utils.getConfig().hasKey("Listmax") ? Utils.getConfig().getInt("Listmax") : 10;
-				boolean spaceLists = !Utils.getConfig().hasKey("Space Lists") || Utils.getConfig().getBoolean("Space Lists");
-				boolean deleteEmptyFolders = !Utils.getConfig().hasKey("Delete empty Folders") || Utils.getConfig().getBoolean("Delete empty Folders");
-				boolean saveOverride = !Utils.getConfig().hasKey("Save Function Override") || Utils.getConfig().getBoolean("Save Function Override");
-				boolean stoplagOverride = !Utils.getConfig().hasKey("Stoplag Override") || Utils.getConfig().getBoolean("Stoplag Override");
-				boolean autoReload = !Utils.getConfig().hasKey("Automatic Reload") || Utils.getConfig().getBoolean("Automatic Reload");
+				List<String> fileExtensions = Utils.getConfig().hasKey("File Extensions")
+											  ? Utils.getConfig().getStringList("File Extensions")
+											  : Arrays.asList("schem", "schematic");
+				int listmax = Utils.getConfig().hasKey("Listmax")
+							  ? Utils.getConfig().getInt("Listmax")
+							  : 10;
+				boolean spaceLists = !Utils.getConfig().hasKey("Space Lists")
+									 || Utils.getConfig().getBoolean("Space Lists");
+				boolean deleteEmptyFolders = !Utils.getConfig().hasKey("Delete empty Folders")
+											 || Utils.getConfig().getBoolean("Delete empty Folders");
+				boolean saveOverride = !Utils.getConfig().hasKey("Save Function Override")
+									   || Utils.getConfig().getBoolean("Save Function Override");
+				boolean stoplagOverride = !Utils.getConfig().hasKey("Stoplag Override")
+										  || Utils.getConfig().getBoolean("Stoplag Override");
+				boolean autoReload = !Utils.getConfig().hasKey("Automatic Reload")
+									 || Utils.getConfig().getBoolean("Automatic Reload");
 
 				Utils.getConfig().setDataFromResource("resources/config.tf");
 

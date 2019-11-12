@@ -26,7 +26,9 @@ class PlugManEnabledUpdate {
 																.getLocation()
 																.toURI()
 																.getPath())
-											.getCanonicalFile(), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()));
+											.getCanonicalFile(), new BufferedInputStream(
+					new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar")
+							.openStream()));
 			System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
 			if (autoReload) {
 				PluginUtil.reload(SchemManager.getInstance());
@@ -45,15 +47,20 @@ class PlugManEnabledUpdate {
 																.getLocation()
 																.toURI()
 																.getPath())
-											.getCanonicalFile(), new BufferedInputStream(new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar").openStream()));
-			p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " was updated successfully.");
+											.getCanonicalFile(), new BufferedInputStream(
+					new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar")
+							.openStream()));
+			p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+						  + ChatColor.RED + " was updated successfully.");
 			if (autoReload) {
-				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is reloading.");
+				p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+							  + ChatColor.RED + " is reloading.");
 				PluginUtil.reload(SchemManager.getInstance());
 			}
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
-			p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " could not be updated.");
+			p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+						  + ChatColor.RED + " could not be updated.");
 		}
 	}
 }

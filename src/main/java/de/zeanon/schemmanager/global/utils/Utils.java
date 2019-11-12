@@ -9,8 +9,8 @@ import de.zeanon.storage.internal.data.config.ThunderConfig;
 import de.zeanon.storage.internal.data.raw.YamlFile;
 import de.zeanon.storage.internal.settings.Comment;
 import de.zeanon.storage.internal.settings.Reload;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.FileNotFoundException;
-import java.util.Objects;
 
 
 public class Utils {
@@ -25,7 +25,9 @@ public class Utils {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are loaded successfully.");
 
 			try {
-				if (!Utils.getConfig().hasKey("Plugin Version") || !Utils.getConfig().getString("Plugin Version").equals(SchemManager.getInstance().getDescription().getVersion())) {
+				if (!Utils.getConfig().hasKey("Plugin Version")
+					|| !Utils.getConfig().getString("Plugin Version")
+							 .equals(SchemManager.getInstance().getDescription().getVersion())) {
 					System.out.println("[" + SchemManager.getInstance().getName() + "] >> Updating Configs...");
 					Update.updateConfig(false);
 					System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
@@ -84,7 +86,8 @@ public class Utils {
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + ".");
 
 		try {
-			weConfig = StorageManager.yamlFile(Objects.requireNonNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
+			weConfig = StorageManager.yamlFile(Objects.notNull(
+					SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
 									 .reloadSetting(Reload.AUTOMATICALLY)
 									 .commentSetting(Comment.SKIP)
 									 .create();

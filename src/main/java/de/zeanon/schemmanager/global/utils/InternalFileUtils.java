@@ -47,13 +47,17 @@ public class InternalFileUtils {
 
 	public static ArrayList<File> getExistingFiles(final Path path) {
 		ArrayList<File> tempFiles = new ArrayList<>();
-		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(SMFileUtils.getExtension(path.toString())::equalsIgnoreCase)) {
+		if (ConfigUtils.getStringList("File Extensions")
+					   .stream()
+					   .anyMatch(SMFileUtils.getExtension(path.toString())::equalsIgnoreCase)) {
 			File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				return new ArrayList<>(Collections.singletonList(file));
 			}
 		}
-		ConfigUtils.getStringList("File Extensions").iterator().forEachRemaining(extension -> tempFiles.add(new File(path + "." + extension)));
+		ConfigUtils.getStringList("File Extensions")
+				   .iterator()
+				   .forEachRemaining(extension -> tempFiles.add(new File(path + "." + extension)));
 		ArrayList<File> files = new ArrayList<>();
 		for (File file : tempFiles) {
 			if (file.exists() && !file.isDirectory()) {

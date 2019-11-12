@@ -44,7 +44,8 @@ public class WorldEditModeSchemUtils {
 				}
 			}
 		} else {
-			schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder().toPath().resolve(tempPath).normalize();
+			schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit"))
+									 .getDataFolder().toPath().resolve(tempPath).normalize();
 			schemFolder = schemFolderPath.toFile();
 			if (!schemFolder.exists()) {
 				if (!schemFolder.mkdirs()) {

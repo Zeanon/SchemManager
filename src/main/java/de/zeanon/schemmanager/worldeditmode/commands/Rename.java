@@ -39,7 +39,9 @@ public class Rename {
 							p.sendMessage(ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
 						}
 
-						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem rename " + args[2] + " " + args[3] + " confirm", "//schem rename " + args[2] + " " + args[3] + " deny", p);
+						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
+														"//schem rename " + args[2] + " " + args[3] + " confirm",
+														"//schem rename " + args[2] + " " + args[3] + " deny", p);
 						WorldEditModeRequestUtils.addRenameRequest(p, args[2]);
 					} else {
 						p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
@@ -76,10 +78,12 @@ public class Rename {
 			for (File file : oldFiles) {
 				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(SMFileUtils.getExtension(destPath)::equals)) {
 					FileUtils.moveFile(file, new File(destPath + SMFileUtils.getExtension(file)));
-					parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
+					parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
+								 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
 				} else {
 					FileUtils.moveFile(file, destPath.toFile());
-					parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
+					parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
+								 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
 				}
 			}
 			p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");

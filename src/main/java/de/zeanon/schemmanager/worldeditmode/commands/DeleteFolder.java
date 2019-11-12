@@ -32,9 +32,17 @@ public class DeleteFolder {
 				if (args.length == 3) {
 					if (fileExists) {
 						if (Objects.requireNonNull(file.listFiles()).length > 0) {
-							MessageUtils.sendInvertedCommandMessage(ChatColor.RED + " still contains files.", ChatColor.GREEN + args[2], ChatColor.RED + "Open " + ChatColor.GREEN + args[2], "//schem list " + args[2], p);
+							MessageUtils.sendInvertedCommandMessage(ChatColor.RED + " still contains files.",
+																	ChatColor.GREEN + args[2],
+																	ChatColor.RED + "Open "
+																	+ ChatColor.GREEN + args[2],
+																	"//schem list " + args[2], p);
 						}
-						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem delfolder " + args[2] + " confirm", "//schem delfolder " + args[2] + " deny", p);
+						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to delete "
+														+ ChatColor.GREEN + args[2]
+														+ ChatColor.RED + "?",
+														"//schem delfolder " + args[2] + " confirm",
+														"//schem delfolder " + args[2] + " deny", p);
 						WorldEditModeRequestUtils.addDeleteFolderRequest(p, args[2]);
 					} else {
 						p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
@@ -46,20 +54,26 @@ public class DeleteFolder {
 							try {
 								FileUtils.deleteDirectory(file);
 								String parentName = getParentName(file);
-								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was deleted successfully.");
+								p.sendMessage(ChatColor.GREEN + args[2]
+											  + ChatColor.RED + " was deleted successfully.");
 								if (parentName != null) {
-									p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
+									p.sendMessage(ChatColor.RED + "Folder "
+												  + ChatColor.GREEN + parentName
+												  + ChatColor.RED + " was deleted successfully due to being empty.");
 								}
 							} catch (IOException e) {
 								e.printStackTrace();
-								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " could not be deleted.");
+								p.sendMessage(ChatColor.GREEN + args[2]
+											  + ChatColor.RED + " could not be deleted.");
 							}
 						} else {
-							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
+							p.sendMessage(ChatColor.GREEN + args[2]
+										  + ChatColor.RED + " does not exist.");
 						}
 					} else if (args[3].equalsIgnoreCase("deny")) {
 						WorldEditModeRequestUtils.removeDeleteFolderRequest(p);
-						p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not deleted.");
+						p.sendMessage(ChatColor.GREEN + args[2]
+									  + ChatColor.RED + " was not deleted.");
 					}
 				}
 			}
@@ -69,8 +83,11 @@ public class DeleteFolder {
 	private static String getParentName(final File file) {
 
 		String parentName = null;
-		if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getAbsoluteFile().getParentFile().equals(WorldEditModeSchemUtils.getSchemFolder())) {
-			parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
+		if (ConfigUtils.getBoolean("Delete empty Folders")
+			&& !file.getAbsoluteFile().getParentFile().equals(WorldEditModeSchemUtils.getSchemFolder())) {
+			parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
+						 ? null
+						 : InternalFileUtils.deleteEmptyParent(file);
 		}
 		return parentName;
 	}

@@ -53,9 +53,15 @@ public class Search {
 								p.sendMessage("");
 							}
 							if (count < 1) {
-								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No schematics found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics", p);
+								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+															  ChatColor.AQUA + "No schematics found",
+															  ChatColor.AQUA + " ===",
+															  ChatColor.GRAY + "Schematics", p);
 							} else {
-								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics", p);
+								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+															  ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side,
+															  ChatColor.AQUA + " ===",
+															  ChatColor.GRAY + "Schematics", p);
 
 								if (count < listmax) {
 									listmax = (byte) count;
@@ -67,9 +73,15 @@ public class Search {
 								}
 
 								if (side > 1) {
-									MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " 2", "//schem search " + deep + args[2] + " " + side, ChatColor.DARK_PURPLE + "Page 2", ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
+									MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " 2",
+																   "//schem search " + deep + args[2] + " " + side,
+																   ChatColor.DARK_PURPLE + "Page 2",
+																   ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 								} else {
-									MessageUtils.sendScrollMessage("", "", ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+									MessageUtils.sendScrollMessage("",
+																   "",
+																   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
+																   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
 								}
 							}
 						}
@@ -90,16 +102,25 @@ public class Search {
 								int side_number = Integer.parseInt(args[3]);
 
 								if (side_number > side) {
-									MessageUtils.sendHoverMessage("", ChatColor.RED + "There are only " + side + " schematics in this list", "", ChatColor.GRAY + "Schematics", p);
+									MessageUtils.sendHoverMessage("",
+																  ChatColor.RED + "There are only " + side + " schematics in this list",
+																  "",
+																  ChatColor.GRAY + "Schematics", p);
 									return;
 								}
 								if (spaceLists) {
 									p.sendMessage("");
 								}
 								if (count < 1) {
-									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No schematics found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics", p);
+									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+																  ChatColor.AQUA + "No schematics found",
+																  ChatColor.AQUA + " ===",
+																  ChatColor.GRAY + "Schematics", p);
 								} else {
-									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Schematics | Page " + side_number + "/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics", p);
+									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+																  ChatColor.AQUA + "" + (int) count + " Schematics | Page " + side_number + "/" + side,
+																  ChatColor.AQUA + " ===",
+																  ChatColor.GRAY + "Schematics", p);
 
 									int id = (side_number - 1) * listmax;
 									if (count < listmax * side_number) {
@@ -115,15 +136,27 @@ public class Search {
 									if (side > 1) {
 										if (side_number > 1) {
 											if (side_number < side) {
-												MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + (side_number + 1), "//schem search " + deep + args[2] + " " + (side_number - 1), ChatColor.DARK_PURPLE + "Page " + (side_number + 1), ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+												MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + (side_number + 1),
+																			   "//schem search " + deep + args[2] + " " + (side_number - 1),
+																			   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
+																			   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
 											} else {
-												MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " 1", "//schem search " + deep + args[2] + " " + (side_number - 1), ChatColor.DARK_PURPLE + "Page 1", ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+												MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " 1",
+																			   "//schem search " + deep + args[2] + " " + (side_number - 1),
+																			   ChatColor.DARK_PURPLE + "Page 1",
+																			   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
 											}
 										} else {
-											MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + (side_number + 1), "//schem search " + deep + args[2] + " " + side, ChatColor.DARK_PURPLE + "Page " + (side_number + 1), ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
+											MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + (side_number + 1),
+																		   "//schem search " + deep + args[2] + " " + side,
+																		   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
+																		   ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 										}
 									} else {
-										MessageUtils.sendScrollMessage("", "", ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+										MessageUtils.sendScrollMessage("",
+																	   "",
+																	   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
+																	   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
 									}
 								}
 							}
@@ -145,9 +178,15 @@ public class Search {
 									p.sendMessage("");
 								}
 								if (count < 1) {
-									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No schematics found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics/" + args[2], p);
+									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+																  ChatColor.AQUA + "No schematics found",
+																  ChatColor.AQUA + " ===",
+																  ChatColor.GRAY + "Schematics/" + args[2], p);
 								} else {
-									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics/" + args[2], p);
+									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+																  ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side,
+																  ChatColor.AQUA + " ===",
+																  ChatColor.GRAY + "Schematics/" + args[2], p);
 
 									if (count < listmax) {
 										listmax = (byte) count;
@@ -159,9 +198,15 @@ public class Search {
 									}
 
 									if (side > 1) {
-										MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + args[3] + " 2", "//schem search " + deep + args[2] + " " + args[3] + " " + side, ChatColor.DARK_PURPLE + "Page 2", ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
+										MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + args[3] + " 2",
+																	   "//schem search " + deep + args[2] + " " + args[3] + " " + side,
+																	   ChatColor.DARK_PURPLE + "Page 2",
+																	   ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 									} else {
-										MessageUtils.sendScrollMessage("", "", ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+										MessageUtils.sendScrollMessage("",
+																	   "",
+																	   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
+																	   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
 									}
 								}
 							}
@@ -182,16 +227,25 @@ public class Search {
 							int side_number = Integer.parseInt(args[4]);
 
 							if (side_number > side) {
-								MessageUtils.sendHoverMessage("", ChatColor.RED + "There are only " + side + " schematics in this list", "", ChatColor.GRAY + "Schematics/" + args[2], p);
+								MessageUtils.sendHoverMessage("",
+															  ChatColor.RED + "There are only " + side + " schematics in this list",
+															  "",
+															  ChatColor.GRAY + "Schematics/" + args[2], p);
 								return;
 							}
 							if (spaceLists) {
 								p.sendMessage("");
 							}
 							if (count < 1) {
-								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "No schematics found", ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics/" + args[2], p);
+								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+															  ChatColor.AQUA + "No schematics found",
+															  ChatColor.AQUA + " ===",
+															  ChatColor.GRAY + "Schematics/" + args[2], p);
 							} else {
-								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ", ChatColor.AQUA + "" + (int) count + " Schematics | Page " + side_number + "/" + side, ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics/" + args[2], p);
+								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+															  ChatColor.AQUA + "" + (int) count + " Schematics | Page " + side_number + "/" + side,
+															  ChatColor.AQUA + " ===",
+															  ChatColor.GRAY + "Schematics/" + args[2], p);
 
 								int id = (side_number - 1) * listmax;
 								if (count < listmax * side_number) {
@@ -207,15 +261,27 @@ public class Search {
 								if (side > 1) {
 									if (side_number > 1) {
 										if (side_number < side) {
-											MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + args[3] + " " + (side_number + 1), "//schem search " + deep + args[2] + " " + args[3] + " " + (side_number - 1), ChatColor.DARK_PURPLE + "Page " + (side_number + 1), ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+											MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + args[3] + " " + (side_number + 1),
+																		   "//schem search " + deep + args[2] + " " + args[3] + " " + (side_number - 1),
+																		   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
+																		   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
 										} else {
-											MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + args[3] + " 1", "//schem search " + deep + args[2] + " " + args[3] + " " + (side_number - 1), ChatColor.DARK_PURPLE + "Page 1", ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+											MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + args[3] + " 1",
+																		   "//schem search " + deep + args[2] + " " + args[3] + " " + (side_number - 1),
+																		   ChatColor.DARK_PURPLE + "Page 1",
+																		   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
 										}
 									} else {
-										MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + args[3] + " " + (side_number + 1), "//schem search " + deep + args[2] + " " + args[3] + " " + side, ChatColor.DARK_PURPLE + "Page " + (side_number + 1), ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
+										MessageUtils.sendScrollMessage("//schem search " + deep + args[2] + " " + args[3] + " " + (side_number + 1),
+																	   "//schem search " + deep + args[2] + " " + args[3] + " " + side,
+																	   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
+																	   ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 									}
 								} else {
-									MessageUtils.sendScrollMessage("", "", ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+									MessageUtils.sendScrollMessage("",
+																   "",
+																   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
+																   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
 								}
 							}
 						}
@@ -255,13 +321,21 @@ public class Search {
 			} else {
 				name = file.getName();
 				path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
-				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString()) : null;
+				shortenedRelativePath = deepSearch
+										? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
+										: null;
 			}
 			if (deepSearch) {
-				MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
+				MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
+												ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
+												ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard",
+												"//schem load " + path, p);
 				return true;
 			} else {
-				MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name, ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
+				MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
+												ChatColor.GOLD + name,
+												ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard",
+												"//schem load " + path, p);
 				return true;
 			}
 		} catch (IOException e) {

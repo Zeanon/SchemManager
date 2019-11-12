@@ -27,7 +27,8 @@ public class WorldEditModeRequestUtils {
 	}
 
 	public static boolean checkCopyRequest(final Player p, final String name) {
-		return copyRequest.containsKey(p.getUniqueId().toString()) && copyRequest.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		return copyRequest.containsKey(p.getUniqueId().toString())
+			   && copyRequest.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 
 	public static void addCopyFolderRequest(final Player p, final String name) {
@@ -39,7 +40,8 @@ public class WorldEditModeRequestUtils {
 	}
 
 	public static boolean checkCopyFolderRequest(final Player p, final String name) {
-		return copyFolderRequest.containsKey(p.getUniqueId().toString()) && copyFolderRequest.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		return copyFolderRequest.containsKey(p.getUniqueId().toString())
+			   && copyFolderRequest.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 
 	public static void addDeleteRequest(final Player p, final String name) {
@@ -51,7 +53,8 @@ public class WorldEditModeRequestUtils {
 	}
 
 	public static boolean checkDeleteRequest(final Player p, final String name) {
-		return deleteRequests.containsKey(p.getUniqueId().toString()) && deleteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		return deleteRequests.containsKey(p.getUniqueId().toString())
+			   && deleteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 
 
@@ -64,7 +67,8 @@ public class WorldEditModeRequestUtils {
 	}
 
 	public static boolean checkDeleteFolderRequest(final Player p, final String name) {
-		return deleteFolderRequests.containsKey(p.getUniqueId().toString()) && deleteFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		return deleteFolderRequests.containsKey(p.getUniqueId().toString())
+			   && deleteFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 
 
@@ -77,7 +81,8 @@ public class WorldEditModeRequestUtils {
 	}
 
 	public static boolean checkRenameRequest(final Player p, final String name) {
-		return renameRequests.containsKey(p.getUniqueId().toString()) && renameRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		return renameRequests.containsKey(p.getUniqueId().toString())
+			   && renameRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 
 
@@ -90,7 +95,8 @@ public class WorldEditModeRequestUtils {
 	}
 
 	public static boolean checkRenameFolderRequest(final Player p, final String name) {
-		return renameFolderRequests.containsKey(p.getUniqueId().toString()) && renameFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		return renameFolderRequests.containsKey(p.getUniqueId().toString())
+			   && renameFolderRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 
 
@@ -103,6 +109,7 @@ public class WorldEditModeRequestUtils {
 	}
 
 	public static boolean checkOverWriteRequest(final Player p, final String name) {
-		return overwriteRequests.containsKey(p.getUniqueId().toString()) && overwriteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
+		return overwriteRequests.containsKey(p.getUniqueId().toString())
+			   && overwriteRequests.get(p.getUniqueId().toString()).equalsIgnoreCase(name);
 	}
 }

@@ -6,10 +6,10 @@ import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
@@ -25,12 +25,18 @@ public class Delete {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				ArrayList<File> files = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
+				ArrayList<File> files = schemPath != null
+										? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
+										: null;
 				final boolean fileExists = files != null && files.size() > 0;
 
 				if (args.length == 3) {
 					if (fileExists) {
-						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to delete " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem del " + args[2] + " confirm", "//schem del " + args[2] + " deny", p);
+						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to delete "
+														+ ChatColor.GOLD + args[2]
+														+ ChatColor.RED + "?",
+														"//schem del " + args[2] + " confirm",
+														"//schem del " + args[2] + " deny", p);
 						WorldEditModeRequestUtils.addDeleteRequest(p, args[2]);
 					} else {
 						p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
@@ -45,14 +51,21 @@ public class Delete {
 									p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
 									return;
 								} else {
-									if (ConfigUtils.getBoolean("Delete empty Folders") && !file.getAbsoluteFile().getParentFile().equals(WorldEditModeSchemUtils.getSchemFolder())) {
-										parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0 ? null : InternalFileUtils.deleteEmptyParent(file);
+									if (ConfigUtils.getBoolean("Delete empty Folders")
+										&& !file.getAbsoluteFile().getParentFile()
+												.equals(WorldEditModeSchemUtils.getSchemFolder())) {
+										parentName = Objects.notNull(
+												file.getAbsoluteFile().getParentFile().listFiles()).length > 0
+													 ? null
+													 : InternalFileUtils.deleteEmptyParent(file);
 									}
 								}
 							}
 							p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was deleted successfully.");
 							if (parentName != null) {
-								p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
+								p.sendMessage(ChatColor.RED + "Folder "
+											  + ChatColor.GREEN + parentName
+											  + ChatColor.RED + " was deleted successfully due to being empty.");
 							}
 						} else {
 							p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");

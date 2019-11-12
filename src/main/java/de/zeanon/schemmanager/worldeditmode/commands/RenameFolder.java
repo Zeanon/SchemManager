@@ -43,7 +43,8 @@ public class RenameFolder {
 							String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
 							for (File oldFile : FileUtils.listFiles(directory_old, extensions, true)) {
 								for (File newFile : FileUtils.listFiles(directory_new, extensions, true)) {
-									if (SMFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName())) && newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
+									if (SMFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName()))
+										&& newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
 										if (id == 0) {
 											p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
 										}
@@ -53,13 +54,21 @@ public class RenameFolder {
 										if (SMFileUtils.getExtension(newFile.getName()).equals("schem")) {
 											name = SMFileUtils.removeExtension(newFile.getName());
 											path = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
-											shortenedRelativePath = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
+											shortenedRelativePath = FilenameUtils.separatorsToUnix(
+													SMFileUtils.removeExtension(
+															schemPath.resolve(args[3])
+																	 .toRealPath()
+																	 .relativize(newFile.toPath().toRealPath())
+																	 .toString()));
 										} else {
 											name = newFile.getName();
 											path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());
 											shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString());
 										}
-										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ", ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard", "//schem load " + path, p);
+										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
+																		ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
+																		ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard",
+																		"//schem load " + path, p);
 										id++;
 									}
 								}
@@ -68,14 +77,18 @@ public class RenameFolder {
 							int i = 0;
 							for (File oldFolder : InternalFileUtils.getFolders(directory_old, true)) {
 								for (File newFolder : InternalFileUtils.getFolders(directory_new, true)) {
-									if (newFolder.getName().equalsIgnoreCase(oldFolder.getName()) && newFolder.toPath().relativize(directory_new.toPath()).equals(oldFolder.toPath().relativize(directory_old.toPath()))) {
+									if (newFolder.getName().equalsIgnoreCase(oldFolder.getName())
+										&& newFolder.toPath().relativize(directory_new.toPath()).equals(oldFolder.toPath().relativize(directory_old.toPath()))) {
 										if (i == 0) {
 											p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
 										}
 										String name = newFolder.getName();
 										String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
 										String shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
-										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ", ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]", ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path, "//schem list " + path, p);
+										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ",
+																		ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
+																		ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path,
+																		"//schem list " + path, p);
 										i++;
 									}
 								}
@@ -92,7 +105,9 @@ public class RenameFolder {
 											  + " folders with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
 							}
 						}
-						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?", "//schem renamefolder " + args[2] + " " + args[3] + " confirm", "//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
+						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?",
+														"//schem renamefolder " + args[2] + " " + args[3] + " confirm",
+														"//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
 						WorldEditModeRequestUtils.addRenameFolderRequest(p, args[2]);
 					} else if (args.length == 5 && WorldEditModeRequestUtils.checkRenameFolderRequest(p, args[2])) {
 						if (args[4].equalsIgnoreCase("confirm")) {
@@ -101,7 +116,8 @@ public class RenameFolder {
 								if (deepMerge(directory_old, directory_new)) {
 									try {
 										FileUtils.deleteDirectory(directory_old);
-										String parentName = Objects.requireNonNull(directory_old.getAbsoluteFile().getParentFile().listFiles()).length > 0 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(directory_old);
+										String parentName = Objects.requireNonNull(directory_old.getAbsoluteFile().getParentFile().listFiles()).length > 0
+															|| ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(directory_old);
 										p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was renamed successfully.");
 										if (parentName != null) {
 											p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");

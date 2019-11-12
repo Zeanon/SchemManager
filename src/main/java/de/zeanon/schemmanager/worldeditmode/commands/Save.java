@@ -23,7 +23,9 @@ public class Save {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				File file = schemPath != null ? (args[2].endsWith(".schem") ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile() : WorldEditModeSchemUtils.getSchemPath().resolve(args[2] + ".schem").toFile()) : null;
+				File file = schemPath != null ? (args[2].endsWith(".schem")
+												 ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()
+												 : WorldEditModeSchemUtils.getSchemPath().resolve(args[2] + ".schem").toFile()) : null;
 				final boolean fileExists = file != null && file.exists() && !file.isDirectory();
 
 				if (args.length == 3) {
@@ -32,7 +34,9 @@ public class Save {
 						WorldEditModeRequestUtils.addOverwriteRequest(p, args[2]);
 						if (fileExists) {
 							p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
-							MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?", "//schem save " + args[2] + " confirm", "//schem save " + args[2] + " deny", p);
+							MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
+															"//schem save " + args[2] + " confirm",
+															"//schem save " + args[2] + " deny", p);
 						} else {
 							new BukkitRunnable() {
 								@Override
