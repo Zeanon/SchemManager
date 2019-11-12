@@ -51,7 +51,7 @@ public class RenameFolder {
 										String name;
 										String path;
 										String shortenedRelativePath;
-										if (SMFileUtils.getExtension(newFile.getName()).equals("schem")) {
+										if (SMFileUtils.getExtension(newFile.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
 											name = SMFileUtils.removeExtension(newFile.getName());
 											path = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
 											shortenedRelativePath = FilenameUtils.separatorsToUnix(

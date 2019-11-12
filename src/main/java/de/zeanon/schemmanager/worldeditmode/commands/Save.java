@@ -2,6 +2,7 @@ package de.zeanon.schemmanager.worldeditmode.commands;
 
 import com.sk89q.worldedit.EmptyClipboardException;
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
@@ -23,9 +24,9 @@ public class Save {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				File file = schemPath != null ? (args[2].endsWith(".schem")
+				File file = schemPath != null ? (args[2].endsWith("." + ConfigUtils.getStringList("File Extensions").get(0))
 												 ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()
-												 : WorldEditModeSchemUtils.getSchemPath().resolve(args[2] + ".schem").toFile()) : null;
+												 : WorldEditModeSchemUtils.getSchemPath().resolve(args[2] + "." + ConfigUtils.getStringList("File Extensions").get(0)).toFile()) : null;
 				final boolean fileExists = file != null && file.exists() && !file.isDirectory();
 
 				if (args.length == 3) {

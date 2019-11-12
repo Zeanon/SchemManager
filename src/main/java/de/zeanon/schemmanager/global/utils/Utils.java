@@ -8,14 +8,18 @@ import de.zeanon.storage.StorageManager;
 import de.zeanon.storage.internal.data.config.ThunderConfig;
 import de.zeanon.storage.internal.data.raw.YamlFile;
 import de.zeanon.storage.internal.settings.Comment;
+import de.zeanon.storage.internal.settings.DataType;
 import de.zeanon.storage.internal.settings.Reload;
 import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.FileNotFoundException;
+import lombok.Getter;
 
 
 public class Utils {
 
+	@Getter
 	private static YamlFile weConfig;
+	@Getter
 	private static ThunderConfig config;
 
 	public static void initPlugin() {
@@ -55,19 +59,14 @@ public class Utils {
 		}
 	}
 
-	public static YamlFile getWeConfig() {
-		return weConfig;
-	}
-
-	static ThunderConfig getConfig() {
-		return config;
-	}
-
 	private static void loadConfigs() {
 		boolean failedToLoad = false;
 		try {
 			config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
 								   .fromResource("resources/config.tf")
+								   .reloadSetting(Reload.INTELLIGENT)
+								   .commentSetting(Comment.PRESERVE)
+								   .dataType(DataType.SORTED)
 								   .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
@@ -82,12 +81,10 @@ public class Utils {
 	}
 
 	private static void initWorldEditMode() {
-		WorldEditMode.initWorldEditPlugin();
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + ".");
 
 		try {
-			weConfig = StorageManager.yamlFile(Objects.notNull(
-					SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
+			weConfig = StorageManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
 									 .reloadSetting(Reload.AUTOMATICALLY)
 									 .commentSetting(Comment.SKIP)
 									 .create();

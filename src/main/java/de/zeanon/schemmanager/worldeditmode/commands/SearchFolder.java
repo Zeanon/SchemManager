@@ -5,7 +5,6 @@ import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utils.SMFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -310,20 +309,9 @@ public class SearchFolder {
 
 	private static boolean sendListLine(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
 		try {
-			String name;
-			String path;
-			String shortenedRelativePath;
-			if (SMFileUtils.getExtension(file.getName()).equals("schem")) {
-				name = SMFileUtils.removeExtension(file.getName());
-				path = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
-				shortenedRelativePath = deepSearch
-										? FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString()))
-										: null;
-			} else {
-				name = file.getName();
-				path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
-				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString()) : null;
-			}
+			String name = file.getName();
+			String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
+			String shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString()) : null;
 			if (deepSearch) {
 				MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
 												ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",

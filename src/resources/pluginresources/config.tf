@@ -16,6 +16,7 @@
 # You can perform a deep search or deep listing by using -d.                                                   #
 #                                                                                                              #
 # File Extensions: here you can specify the file-types the plugin recognizes as schematics.                    #
+# The first extension in the list will be used as the default one.                                             #
 # Listmax: The maximum amount of schematics per page to be shown.                                              #
 # Space Lists: Should there be a blank line before each schem or folder page?                                  #
 # Delete empty Folders: deletes a folder when it is empty after deleting a schematic in it                     #

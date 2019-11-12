@@ -314,7 +314,7 @@ public class Search {
 			String name;
 			String path;
 			String shortenedRelativePath;
-			if (SMFileUtils.getExtension(file.getName()).equals("schem")) {
+			if (SMFileUtils.getExtension(file.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
 				name = SMFileUtils.removeExtension(file.getName());
 				path = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
 				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;

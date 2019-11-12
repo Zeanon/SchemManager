@@ -6,12 +6,18 @@ import de.zeanon.schemmanager.worldeditmode.listener.CommandListener;
 import de.zeanon.schemmanager.worldeditmode.listener.EventListener;
 import de.zeanon.schemmanager.worldeditmode.listener.tabcompleter.PaperTabListener;
 import de.zeanon.schemmanager.worldeditmode.listener.tabcompleter.SpigotTabListener;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 
 
 public class WorldEditMode {
 
-	private static WorldEditPlugin we;
+	@Getter
+	private static final WorldEditPlugin worldEditPlugin;
+
+	static {
+		worldEditPlugin = (WorldEditPlugin) SchemManager.getPluginManager().getPlugin("WorldEdit");
+	}
 
 	public static void onEnable() {
 		SchemManager.getPluginManager().registerEvents(new CommandListener(), SchemManager.getInstance());
@@ -22,13 +28,5 @@ public class WorldEditMode {
 			SchemManager.getPluginManager().registerEvents(new SpigotTabListener(), SchemManager.getInstance());
 		}
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " launched successfully...");
-	}
-
-	public static void initWorldEditPlugin() {
-		we = (WorldEditPlugin) SchemManager.getPluginManager().getPlugin("WorldEdit");
-	}
-
-	public static WorldEditPlugin getWorldEditPlugin() {
-		return we;
 	}
 }

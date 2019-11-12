@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InternalFileUtils {
 
+	@Getter
 	private static final String pluginFolderPath;
 
 	static {
@@ -72,9 +74,5 @@ public class InternalFileUtils {
 			return deleteEmptyParent(file.getAbsoluteFile().getParentFile());
 		}
 		return file.getName();
-	}
-
-	static String getPluginFolderPath() {
-		return pluginFolderPath;
 	}
 }
