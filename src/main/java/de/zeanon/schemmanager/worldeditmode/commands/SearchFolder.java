@@ -2,9 +2,9 @@ package de.zeanon.schemmanager.worldeditmode.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
-import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
+import de.zeanon.storage.internal.utils.SMFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,7 +13,6 @@ import java.util.Arrays;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -293,7 +292,7 @@ public class SearchFolder {
 
 	private static File[] getFileArray(final File directory, final boolean deepSearch, final String regex) {
 		ArrayList<File> files = new ArrayList<>();
-		for (File file : InternalFileUtils.getFolders(directory, deepSearch)) {
+		for (File file : SMFileUtils.listFolders(directory, deepSearch)) {
 			if (file.getName().toLowerCase().contains(regex.toLowerCase())) {
 				files.add(file);
 			}
@@ -310,8 +309,8 @@ public class SearchFolder {
 	private static boolean sendListLine(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
 		try {
 			String name = file.getName();
-			String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
-			String shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString()) : null;
+			String path = SMFileUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
+			String shortenedRelativePath = deepSearch ? SMFileUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString()) : null;
 			if (deepSearch) {
 				MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
 												ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",

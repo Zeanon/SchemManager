@@ -58,6 +58,9 @@ public class Delete {
 												file.getAbsoluteFile().getParentFile().listFiles()).length > 0
 													 ? null
 													 : InternalFileUtils.deleteEmptyParent(file);
+										if (file.getName().equals(parentName)) {
+											parentName = null;
+										}
 									}
 								}
 							}

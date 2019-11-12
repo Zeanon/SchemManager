@@ -6,10 +6,10 @@ import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
@@ -31,7 +31,7 @@ public class DeleteFolder {
 
 				if (args.length == 3) {
 					if (fileExists) {
-						if (Objects.requireNonNull(file.listFiles()).length > 0) {
+						if (Objects.notNull(file.listFiles()).length > 0) {
 							MessageUtils.sendInvertedCommandMessage(ChatColor.RED + " still contains files.",
 																	ChatColor.GREEN + args[2],
 																	ChatColor.RED + "Open "
@@ -85,9 +85,12 @@ public class DeleteFolder {
 		String parentName = null;
 		if (ConfigUtils.getBoolean("Delete empty Folders")
 			&& !file.getAbsoluteFile().getParentFile().equals(WorldEditModeSchemUtils.getSchemFolder())) {
-			parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
+			parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
 						 ? null
 						 : InternalFileUtils.deleteEmptyParent(file);
+			if (file.getName().equals(parentName)) {
+				parentName = null;
+			}
 		}
 		return parentName;
 	}

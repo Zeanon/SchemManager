@@ -15,7 +15,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -40,9 +39,9 @@ public class RenameFolder {
 						} else if (directory_new.exists() && directory_new.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
-							String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
-							for (File oldFile : FileUtils.listFiles(directory_old, extensions, true)) {
-								for (File newFile : FileUtils.listFiles(directory_new, extensions, true)) {
+							List<String> extensions = ConfigUtils.getStringList("File Extensions");
+							for (File oldFile : SMFileUtils.listFiles(directory_old, extensions, true)) {
+								for (File newFile : SMFileUtils.listFiles(directory_new, extensions, true)) {
 									if (SMFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName()))
 										&& newFile.toPath().relativize(directory_new.toPath()).equals(oldFile.toPath().relativize(directory_old.toPath()))) {
 										if (id == 0) {
@@ -53,8 +52,8 @@ public class RenameFolder {
 										String shortenedRelativePath;
 										if (SMFileUtils.getExtension(newFile.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
 											name = SMFileUtils.removeExtension(newFile.getName());
-											path = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
-											shortenedRelativePath = FilenameUtils.separatorsToUnix(
+											path = SMFileUtils.separatorsToUnix(SMFileUtils.removeExtension(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString()));
+											shortenedRelativePath = SMFileUtils.separatorsToUnix(
 													SMFileUtils.removeExtension(
 															schemPath.resolve(args[3])
 																	 .toRealPath()
@@ -62,8 +61,8 @@ public class RenameFolder {
 																	 .toString()));
 										} else {
 											name = newFile.getName();
-											path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());
-											shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString());
+											path = SMFileUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());
+											shortenedRelativePath = SMFileUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFile.toPath().toRealPath()).toString());
 										}
 										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
 																		ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
@@ -75,16 +74,16 @@ public class RenameFolder {
 							}
 
 							int i = 0;
-							for (File oldFolder : InternalFileUtils.getFolders(directory_old, true)) {
-								for (File newFolder : InternalFileUtils.getFolders(directory_new, true)) {
+							for (File oldFolder : SMFileUtils.listFolders(directory_old, true)) {
+								for (File newFolder : SMFileUtils.listFolders(directory_new, true)) {
 									if (newFolder.getName().equalsIgnoreCase(oldFolder.getName())
 										&& newFolder.toPath().relativize(directory_new.toPath()).equals(oldFolder.toPath().relativize(directory_old.toPath()))) {
 										if (i == 0) {
 											p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
 										}
 										String name = newFolder.getName();
-										String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
-										String shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
+										String path = SMFileUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
+										String shortenedRelativePath = SMFileUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
 										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ",
 																		ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
 																		ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path,
@@ -116,8 +115,11 @@ public class RenameFolder {
 								if (deepMerge(directory_old, directory_new)) {
 									try {
 										FileUtils.deleteDirectory(directory_old);
-										String parentName = Objects.requireNonNull(directory_old.getAbsoluteFile().getParentFile().listFiles()).length > 0
+										String parentName = Objects.notNull(directory_old.getAbsoluteFile().getParentFile().listFiles()).length > 0
 															|| ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(directory_old);
+										if (file.getName().equals(parentName)) {
+											parentName = null;
+										}
 										p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was renamed successfully.");
 										if (parentName != null) {
 											p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
@@ -148,11 +150,11 @@ public class RenameFolder {
 
 
 	private static boolean deepMerge(final File oldFile, final File newFile) {
-		if (Objects.requireNonNull(oldFile.listFiles()).length == 0) {
+		if (Objects.notNull(oldFile.listFiles()).length == 0) {
 			return true;
 		} else {
 			try {
-				for (File tempFile : Objects.requireNonNull(oldFile.listFiles())) {
+				for (File tempFile : Objects.notNull(oldFile.listFiles())) {
 					if (new File(newFile, tempFile.getName()).exists()) {
 						if (tempFile.isDirectory()) {
 							if (!deepMerge(tempFile, new File(newFile, tempFile.getName()))) {

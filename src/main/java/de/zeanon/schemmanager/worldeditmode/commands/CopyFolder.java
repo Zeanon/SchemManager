@@ -2,7 +2,6 @@ package de.zeanon.schemmanager.worldeditmode.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
-import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
@@ -12,8 +11,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
 import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -39,9 +36,9 @@ public class CopyFolder {
 							p.sendMessage(ChatColor.GREEN + args[3]
 										  + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
-							String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
-							for (File oldFile : FileUtils.listFiles(directory_old, extensions, true)) {
-								for (File newFile : FileUtils.listFiles(directory_new, extensions, true)) {
+							List<String> extensions = ConfigUtils.getStringList("File Extensions");
+							for (File oldFile : SMFileUtils.listFiles(directory_old, extensions, true)) {
+								for (File newFile : SMFileUtils.listFiles(directory_new, extensions, true)) {
 									if (SMFileUtils.removeExtension(newFile.getName())
 												   .equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName()))
 										&& newFile.toPath().relativize(directory_new.toPath())
@@ -56,12 +53,12 @@ public class CopyFolder {
 										String shortenedRelativePath;
 										if (SMFileUtils.getExtension(newFile.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
 											name = SMFileUtils.removeExtension(newFile.getName());
-											path = FilenameUtils.separatorsToUnix(
+											path = SMFileUtils.separatorsToUnix(
 													SMFileUtils.removeExtension(
 															schemPath.toRealPath()
 																	 .relativize(newFile.toPath().toRealPath())
 																	 .toString()));
-											shortenedRelativePath = FilenameUtils.separatorsToUnix(
+											shortenedRelativePath = SMFileUtils.separatorsToUnix(
 													SMFileUtils.removeExtension(
 															schemPath.resolve(args[3])
 																	 .toRealPath()
@@ -69,11 +66,11 @@ public class CopyFolder {
 																	 .toString()));
 										} else {
 											name = newFile.getName();
-											path = FilenameUtils.separatorsToUnix(
+											path = SMFileUtils.separatorsToUnix(
 													schemPath.toRealPath()
 															 .relativize(newFile.toPath().toRealPath())
 															 .toString());
-											shortenedRelativePath = FilenameUtils.separatorsToUnix(
+											shortenedRelativePath = SMFileUtils.separatorsToUnix(
 													schemPath.resolve(args[3])
 															 .toRealPath()
 															 .relativize(newFile.toPath().toRealPath())
@@ -95,8 +92,8 @@ public class CopyFolder {
 							}
 
 							int i = 0;
-							for (File oldFolder : InternalFileUtils.getFolders(directory_old, true)) {
-								for (File newFolder : InternalFileUtils.getFolders(directory_new, true)) {
+							for (File oldFolder : SMFileUtils.listFolders(directory_old, true)) {
+								for (File newFolder : SMFileUtils.listFolders(directory_new, true)) {
 									if (newFolder.getName()
 												 .equalsIgnoreCase(oldFolder.getName())
 										&& newFolder.toPath().relativize(directory_new.toPath())
@@ -107,11 +104,11 @@ public class CopyFolder {
 														  + ChatColor.RED + ", they will be merged.");
 										}
 										String name = newFolder.getName();
-										String path = FilenameUtils.separatorsToUnix(
+										String path = SMFileUtils.separatorsToUnix(
 												schemPath.toRealPath()
 														 .relativize(newFolder.toPath().toRealPath())
 														 .toString());
-										String shortenedRelativePath = FilenameUtils.separatorsToUnix(
+										String shortenedRelativePath = SMFileUtils.separatorsToUnix(
 												schemPath.resolve(args[3])
 														 .toRealPath()
 														 .relativize(newFolder.toPath().toRealPath())
@@ -186,11 +183,11 @@ public class CopyFolder {
 
 
 	private static boolean deepMerge(final File oldFile, final File newFile) {
-		if (Objects.requireNonNull(oldFile.listFiles()).length == 0) {
+		if (Objects.notNull(oldFile.listFiles()).length == 0) {
 			return true;
 		} else {
 			try {
-				for (File tempFile : Objects.requireNonNull(oldFile.listFiles())) {
+				for (File tempFile : Objects.notNull(oldFile.listFiles())) {
 					if (new File(newFile, tempFile.getName()).exists()) {
 						if (tempFile.isDirectory()) {
 							if (!deepMerge(tempFile, new File(newFile, tempFile.getName()))) {

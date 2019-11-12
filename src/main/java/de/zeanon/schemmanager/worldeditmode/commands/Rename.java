@@ -7,11 +7,11 @@ import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.internal.utils.SMFileUtils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
@@ -78,12 +78,18 @@ public class Rename {
 			for (File file : oldFiles) {
 				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(SMFileUtils.getExtension(destPath)::equals)) {
 					FileUtils.moveFile(file, new File(destPath + SMFileUtils.getExtension(file)));
-					parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
+					parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
 								 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
+					if (file.getName().equals(parentName)) {
+						parentName = null;
+					}
 				} else {
 					FileUtils.moveFile(file, destPath.toFile());
-					parentName = Objects.requireNonNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
+					parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
 								 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
+					if (file.getName().equals(parentName)) {
+						parentName = null;
+					}
 				}
 			}
 			p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");

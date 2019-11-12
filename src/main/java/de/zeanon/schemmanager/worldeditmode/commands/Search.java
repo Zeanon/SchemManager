@@ -13,8 +13,6 @@ import java.util.Arrays;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -31,7 +29,7 @@ public class Search {
 				byte listmax = ConfigUtils.getByte("Listmax");
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
-				String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
+				java.util.List<String> extensions = ConfigUtils.getStringList("File Extensions");
 
 				String deep = "";
 				if (deepSearch) {
@@ -295,7 +293,7 @@ public class Search {
 
 	private static File[] getFileArray(final File directory, final String[] extensions, final boolean deepSearch, final String regex) {
 		ArrayList<File> files = new ArrayList<>();
-		for (File file : FileUtils.listFiles(directory, extensions, deepSearch)) {
+		for (File file : SMFileUtils.listFiles(directory, extensions, deepSearch)) {
 			if (SMFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
 				files.add(file);
 			}
@@ -316,13 +314,13 @@ public class Search {
 			String shortenedRelativePath;
 			if (SMFileUtils.getExtension(file.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
 				name = SMFileUtils.removeExtension(file.getName());
-				path = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
-				shortenedRelativePath = deepSearch ? FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
+				path = SMFileUtils.separatorsToUnix(SMFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+				shortenedRelativePath = deepSearch ? SMFileUtils.separatorsToUnix(SMFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString())) : null;
 			} else {
 				name = file.getName();
-				path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
+				path = SMFileUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
 				shortenedRelativePath = deepSearch
-										? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
+										? SMFileUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
 										: null;
 			}
 			if (deepSearch) {

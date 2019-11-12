@@ -13,8 +13,6 @@ import java.util.Collection;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -31,7 +29,7 @@ public class List {
 				byte listmax = ConfigUtils.getByte("Listmax");
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
-				String[] extensions = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
+				java.util.List<String> extensions = ConfigUtils.getStringList("File Extensions");
 
 				String deep = "";
 				if (deepSearch) {
@@ -45,7 +43,7 @@ public class List {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						} else {
-							Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
+							Collection<File> rawFiles = SMFileUtils.listFiles(directory, extensions, deepSearch);
 							File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -98,7 +96,7 @@ public class List {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 							} else {
-								Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
+								Collection<File> rawFiles = SMFileUtils.listFiles(directory, extensions, deepSearch);
 								File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -173,7 +171,7 @@ public class List {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 							} else {
-								Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
+								Collection<File> rawFiles = SMFileUtils.listFiles(directory, extensions, deepSearch);
 								File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -226,7 +224,7 @@ public class List {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						} else {
-							Collection<File> rawFiles = FileUtils.listFiles(directory, extensions, deepSearch);
+							Collection<File> rawFiles = SMFileUtils.listFiles(directory, extensions, deepSearch);
 							File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -311,15 +309,15 @@ public class List {
 			String shortenedRelativePath;
 			if (SMFileUtils.getExtension(file.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
 				name = SMFileUtils.removeExtension(file.getName());
-				path = FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
+				path = SMFileUtils.separatorsToUnix(SMFileUtils.removeExtension(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString()));
 				shortenedRelativePath = deepSearch
-										? FilenameUtils.separatorsToUnix(SMFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString()))
+										? SMFileUtils.separatorsToUnix(SMFileUtils.removeExtension(listPath.relativize(file.toPath().toRealPath()).toString()))
 										: null;
 			} else {
 				name = file.getName();
-				path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
+				path = SMFileUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
 				shortenedRelativePath = deepSearch
-										? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
+										? SMFileUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
 										: null;
 			}
 			if (deepSearch) {

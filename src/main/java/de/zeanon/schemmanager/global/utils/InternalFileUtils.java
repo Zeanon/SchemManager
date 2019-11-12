@@ -6,7 +6,6 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,29 +28,11 @@ public class InternalFileUtils {
 		pluginFolderPath = pathBuilder.toString();
 	}
 
-	/**
-	 * @param folder the folder to look into
-	 * @param deep   deepSearch
-	 * @return the files of the folder that are directories
-	 */
-	public static ArrayList<File> getFolders(final File folder, final Boolean deep) {
-		ArrayList<File> files = new ArrayList<>();
-		for (File file : Objects.requireNonNull(folder.listFiles())) {
-			if (file.isDirectory()) {
-				files.add(file);
-				if (deep) {
-					files.addAll(getFolders(file, true));
-				}
-			}
-		}
-		return files;
-	}
-
 	public static ArrayList<File> getExistingFiles(final Path path) {
 		ArrayList<File> tempFiles = new ArrayList<>();
 		if (ConfigUtils.getStringList("File Extensions")
 					   .stream()
-					   .anyMatch(SMFileUtils.getExtension(path.toString())::equalsIgnoreCase)) {
+					   .anyMatch(SMFileUtils.getExtension(path)::equalsIgnoreCase)) {
 			File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				return new ArrayList<>(Collections.singletonList(file));
