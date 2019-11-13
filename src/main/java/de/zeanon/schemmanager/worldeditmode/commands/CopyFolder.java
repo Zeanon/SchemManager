@@ -52,32 +52,19 @@ public class CopyFolder {
 														  + ChatColor.RED + ", they will be overwritten.");
 										}
 										String name;
-										String path;
-										String shortenedRelativePath;
+										String path = FilenameUtils.separatorsToUnix(
+												schemPath.toRealPath()
+														 .relativize(newFile.toPath().toRealPath())
+														 .toString());
+										String shortenedRelativePath = FilenameUtils.separatorsToUnix(
+												schemPath.resolve(args[3])
+														 .toRealPath()
+														 .relativize(newFile.toPath().toRealPath())
+														 .toString());
 										if (SMFileUtils.getExtension(newFile.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
 											name = SMFileUtils.removeExtension(newFile.getName());
-											path = FilenameUtils.separatorsToUnix(
-													SMFileUtils.removeExtension(
-															schemPath.toRealPath()
-																	 .relativize(newFile.toPath().toRealPath())
-																	 .toString()));
-											shortenedRelativePath = FilenameUtils.separatorsToUnix(
-													SMFileUtils.removeExtension(
-															schemPath.resolve(args[3])
-																	 .toRealPath()
-																	 .relativize(newFile.toPath().toRealPath())
-																	 .toString()));
 										} else {
 											name = newFile.getName();
-											path = FilenameUtils.separatorsToUnix(
-													schemPath.toRealPath()
-															 .relativize(newFile.toPath().toRealPath())
-															 .toString());
-											shortenedRelativePath = FilenameUtils.separatorsToUnix(
-													schemPath.resolve(args[3])
-															 .toRealPath()
-															 .relativize(newFile.toPath().toRealPath())
-															 .toString());
 										}
 										MessageUtils.sendCommandMessage(
 												ChatColor.RED + Integer.toString(id + 1) + ": ",

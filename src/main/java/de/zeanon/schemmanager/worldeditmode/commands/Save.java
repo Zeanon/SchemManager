@@ -7,6 +7,7 @@ import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
+import de.zeanon.storage.internal.utils.SMFileUtils;
 import java.io.File;
 import java.nio.file.Path;
 import lombok.AccessLevel;
@@ -24,9 +25,14 @@ public class Save {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				File file = schemPath != null ? (args[2].endsWith("." + ConfigUtils.getStringList("File Extensions").get(0))
-												 ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()
-												 : WorldEditModeSchemUtils.getSchemPath().resolve(args[2] + "." + ConfigUtils.getStringList("File Extensions").get(0)).toFile()) : null;
+				File file = schemPath != null
+							? (ConfigUtils.getStringList("File Extensions")
+										  .stream()
+										  .anyMatch(SMFileUtils.getExtension(args[2])::equalsIgnoreCase)
+							   ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()
+							   : WorldEditModeSchemUtils.getSchemPath().resolve(
+									   SMFileUtils.removeExtension(args[2])).toFile())
+							: null;
 				final boolean fileExists = file != null && file.exists() && !file.isDirectory();
 
 				if (args.length == 3) {

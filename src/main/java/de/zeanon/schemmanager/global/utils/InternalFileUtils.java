@@ -5,7 +5,6 @@ import de.zeanon.storage.internal.utils.SMFileUtils;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +34,10 @@ public class InternalFileUtils {
 					   .anyMatch(SMFileUtils.getExtension(path)::equalsIgnoreCase)) {
 			File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
-				return new ArrayList<>(Collections.singletonList(file));
+				tempFiles.add(file);
+				return tempFiles;
+			} else {
+				return tempFiles;
 			}
 		}
 		ConfigUtils.getStringList("File Extensions")
