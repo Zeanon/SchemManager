@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.4.2-Beta-v2.69</version>
+    <version>4.4.2-Beta-v2.70</version>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
     <url>https://github.com/Zeanon/SchemManager</url>
