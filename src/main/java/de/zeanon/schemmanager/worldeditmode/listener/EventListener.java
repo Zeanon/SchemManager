@@ -23,7 +23,7 @@ public class EventListener implements Listener {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
 		} else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
-			worldguardEnabled = false;
+			worldguardEnabled = false; //NOSONAR
 		}
 	}
 
@@ -33,7 +33,7 @@ public class EventListener implements Listener {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
 		} else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
-			worldguardEnabled = true;
+			worldguardEnabled = true; //NOSONAR
 		}
 	}
 

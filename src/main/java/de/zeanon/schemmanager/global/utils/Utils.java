@@ -12,9 +12,12 @@ import de.zeanon.storage.internal.settings.DataType;
 import de.zeanon.storage.internal.settings.Reload;
 import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.FileNotFoundException;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Utils {
 
 	@Getter

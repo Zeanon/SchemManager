@@ -26,7 +26,7 @@ public class Save {
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				File file = schemPath != null
-							? (ConfigUtils.getStringList("File Extensions")
+							? (ConfigUtils.getStringList("File Extensions") //NOSONAR
 										  .stream()
 										  .anyMatch(SMFileUtils.getExtension(args[2])::equalsIgnoreCase)
 							   ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()

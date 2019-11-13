@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class InternalFileUtils {
 
 	@Getter
-	private static final String pluginFolderPath;
+	private static final String pluginFolderPath; //NOSONAR
 
 	static {
 		String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
@@ -54,7 +54,7 @@ public class InternalFileUtils {
 	}
 
 	public static String deleteEmptyParent(final File file) {
-		if (file.getAbsoluteFile().getParentFile().delete()) {
+		if (file.getAbsoluteFile().getParentFile().delete()) { //NOSONAR
 			return deleteEmptyParent(file.getAbsoluteFile().getParentFile());
 		}
 		return file.getName();
