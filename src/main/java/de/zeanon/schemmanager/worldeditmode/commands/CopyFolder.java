@@ -9,8 +9,11 @@ import de.zeanon.storage.internal.utils.SMFileUtils;
 import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -18,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings("DuplicatedCode")
 public class CopyFolder {
 
@@ -27,25 +31,25 @@ public class CopyFolder {
 			public void run() {
 				try {
 					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-					File directory_old = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
-					File directory_new = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
+					File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+					File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
 
 					if (args.length == 4) {
-						if (directory_old == null || !directory_old.exists() || !directory_old.isDirectory()) {
+						if (directoryOld == null || !directoryOld.exists() || !directoryOld.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[2]
 										  + ChatColor.RED + " does not exist.");
 							return;
-						} else if (directory_new.exists() && directory_new.isDirectory()) {
+						} else if (directoryNew.exists() && directoryNew.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[3]
 										  + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
 							List<String> extensions = ConfigUtils.getStringList("File Extensions");
-							for (File oldFile : SMFileUtils.listFiles(directory_old, extensions, true)) {
-								for (File newFile : SMFileUtils.listFiles(directory_new, extensions, true)) {
+							for (File oldFile : SMFileUtils.listFiles(directoryOld, extensions, true)) {
+								for (File newFile : SMFileUtils.listFiles(directoryNew, extensions, true)) {
 									if (SMFileUtils.removeExtension(newFile.getName())
 												   .equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName()))
-										&& newFile.toPath().relativize(directory_new.toPath())
-												  .equals(oldFile.toPath().relativize(directory_old.toPath()))) {
+										&& newFile.toPath().relativize(directoryNew.toPath())
+												  .equals(oldFile.toPath().relativize(directoryOld.toPath()))) {
 										if (id == 0) {
 											p.sendMessage(ChatColor.RED + "These schematics already exist in "
 														  + ChatColor.GREEN + args[3]
@@ -82,12 +86,12 @@ public class CopyFolder {
 							}
 
 							int i = 0;
-							for (File oldFolder : SMFileUtils.listFolders(directory_old, true)) {
-								for (File newFolder : SMFileUtils.listFolders(directory_new, true)) {
+							for (File oldFolder : SMFileUtils.listFolders(directoryOld, true)) {
+								for (File newFolder : SMFileUtils.listFolders(directoryNew, true)) {
 									if (newFolder.getName()
 												 .equalsIgnoreCase(oldFolder.getName())
-										&& newFolder.toPath().relativize(directory_new.toPath())
-													.equals(oldFolder.toPath().relativize(directory_old.toPath()))) {
+										&& newFolder.toPath().relativize(directoryNew.toPath())
+													.equals(oldFolder.toPath().relativize(directoryOld.toPath()))) {
 										if (i == 0) {
 											p.sendMessage(ChatColor.RED + "These folders already exist in "
 														  + ChatColor.GREEN + args[3]
@@ -146,8 +150,8 @@ public class CopyFolder {
 					} else if (args.length == 5 && WorldEditModeRequestUtils.checkCopyFolderRequest(p, args[2])) {
 						if (args[4].equalsIgnoreCase("confirm")) {
 							WorldEditModeRequestUtils.removeCopyFolderRequest(p);
-							if (directory_old != null && directory_old.exists() && directory_old.isDirectory()) {
-								if (deepMerge(directory_old, directory_new)) {
+							if (directoryOld != null && directoryOld.exists() && directoryOld.isDirectory()) {
+								if (deepMerge(directoryOld, directoryNew)) {
 									p.sendMessage(ChatColor.GREEN + args[2]
 												  + ChatColor.RED + " was copied successfully.");
 								} else {
@@ -184,11 +188,8 @@ public class CopyFolder {
 								return false;
 							}
 						} else {
-							if (new File(newFile, tempFile.getName()).delete()) {
-								FileUtils.copyFileToDirectory(tempFile, newFile, true);
-							} else {
-								return false;
-							}
+							Files.delete(new File(newFile, tempFile.getName()).toPath());
+							FileUtils.copyFileToDirectory(tempFile, newFile, true);
 						}
 					} else {
 						if (tempFile.isDirectory()) {

@@ -101,9 +101,9 @@ public class ListFolder {
 								Arrays.sort(files);
 								double count = files.length;
 								int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
-								int side_number = Integer.parseInt(args[2]);
+								int sideNumber = Integer.parseInt(args[2]);
 
-								if (side_number > side) {
+								if (sideNumber > side) {
 									MessageUtils.sendHoverMessage("",
 																  ChatColor.RED + "There are only " + side + " pages of folders in this list",
 																  "",
@@ -120,13 +120,13 @@ public class ListFolder {
 																  ChatColor.GRAY + "Schematics", p);
 								} else {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-																  ChatColor.AQUA + "" + (int) count + " Folder | Page " + side_number + "/" + side,
+																  ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
 																  ChatColor.AQUA + " ===",
 																  ChatColor.GRAY + "Schematics", p);
 
-									int id = (side_number - 1) * listmax;
-									if (count < listmax * side_number) {
-										listmax = (byte) ((int) count - (listmax * (side_number - 1)));
+									int id = (sideNumber - 1) * listmax;
+									if (count < listmax * sideNumber) {
+										listmax = (byte) ((int) count - (listmax * (sideNumber - 1)));
 									}
 									for (byte i = 0; i < listmax; i++) {
 										if (sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
@@ -136,22 +136,22 @@ public class ListFolder {
 									}
 
 									if (side > 1) {
-										if (side_number > 1) {
-											if (side_number < side) {
-												MessageUtils.sendScrollMessage("//schem listfolder " + deep + (side_number + 1),
-																			   "//schem listfolder " + deep + (side_number - 1),
-																			   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
-																			   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+										if (sideNumber > 1) {
+											if (sideNumber < side) {
+												MessageUtils.sendScrollMessage("//schem listfolder " + deep + (sideNumber + 1),
+																			   "//schem listfolder " + deep + (sideNumber - 1),
+																			   ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
+																			   ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 											} else {
 												MessageUtils.sendScrollMessage("//schem listfolder " + deep + "1",
-																			   "//schem listfolder " + deep + (side_number - 1),
+																			   "//schem listfolder " + deep + (sideNumber - 1),
 																			   ChatColor.DARK_PURPLE + "Page 1",
-																			   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+																			   ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 											}
 										} else {
-											MessageUtils.sendScrollMessage("//schem listfolder " + deep + (side_number + 1),
+											MessageUtils.sendScrollMessage("//schem listfolder " + deep + (sideNumber + 1),
 																		   "//schem listfolder " + deep + side,
-																		   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
+																		   ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
 																		   ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 										}
 									} else {
@@ -229,9 +229,9 @@ public class ListFolder {
 							Arrays.sort(files);
 							double count = files.length;
 							int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
-							int side_number = Integer.parseInt(args[3]);
+							int sideNumber = Integer.parseInt(args[3]);
 
-							if (side_number > side) {
+							if (sideNumber > side) {
 								MessageUtils.sendHoverMessage("",
 															  ChatColor.RED + "There are only " + side + " pages of folders in this list",
 															  "",
@@ -248,13 +248,13 @@ public class ListFolder {
 															  ChatColor.GRAY + "Schematics/" + args[2], p);
 							} else {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-															  ChatColor.AQUA + "" + (int) count + " Folder | Page " + side_number + "/" + side,
+															  ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
 															  ChatColor.AQUA + " ===",
 															  ChatColor.GRAY + "Schematics/" + args[2], p);
 
-								int id = (side_number - 1) * listmax;
-								if (count < listmax * side_number) {
-									listmax = (byte) ((int) count - (listmax * (side_number - 1)));
+								int id = (sideNumber - 1) * listmax;
+								if (count < listmax * sideNumber) {
+									listmax = (byte) ((int) count - (listmax * (sideNumber - 1)));
 								}
 								for (byte i = 0; i < listmax; i++) {
 									if (sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
@@ -264,22 +264,22 @@ public class ListFolder {
 								}
 
 								if (side > 1) {
-									if (side_number > 1) {
-										if (side_number < side) {
-											MessageUtils.sendScrollMessage("//schem listfolder " + deep + args[2] + " " + (side_number + 1),
-																		   "//schem listfolder " + deep + args[2] + " " + (side_number - 1),
-																		   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
-																		   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+									if (sideNumber > 1) {
+										if (sideNumber < side) {
+											MessageUtils.sendScrollMessage("//schem listfolder " + deep + args[2] + " " + (sideNumber + 1),
+																		   "//schem listfolder " + deep + args[2] + " " + (sideNumber - 1),
+																		   ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
+																		   ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 										} else {
 											MessageUtils.sendScrollMessage("//schem listfolder " + deep + args[2] + " 1",
-																		   "//schem listfolder " + deep + args[2] + " " + (side_number - 1),
+																		   "//schem listfolder " + deep + args[2] + " " + (sideNumber - 1),
 																		   ChatColor.DARK_PURPLE + "Page 1",
-																		   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+																		   ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 										}
 									} else {
-										MessageUtils.sendScrollMessage("//schem listfolder " + deep + args[2] + " " + (side_number + 1),
+										MessageUtils.sendScrollMessage("//schem listfolder " + deep + args[2] + " " + (sideNumber + 1),
 																	   "//schem listfolder " + deep + args[2] + " " + side,
-																	   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
+																	   ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
 																	   ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 									}
 								} else {

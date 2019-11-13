@@ -20,7 +20,7 @@ public class CommandListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onCommand(final PlayerCommandPreprocessEvent event) {
 		Player p = event.getPlayer();
-		String[] args = event.getMessage().replaceAll("worldedit:", "/").split("\\s+");
+		String[] args = event.getMessage().replace("worldedit:", "/").split("\\s+");
 
 		if (args[0].equalsIgnoreCase("/schem")
 			|| args[0].equalsIgnoreCase("/schematic")
@@ -253,13 +253,10 @@ public class CommandListener implements Listener {
 					} else if (args[2].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
 						saveUsage(p, slash, schemAlias);
-					} else if (args.length > 4) {
-						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						saveUsage(p, slash, schemAlias);
-					} else if (args.length == 4
-							   && !WorldEditModeRequestUtils.checkOverWriteRequest(p, args[2])
-							   && !args[3].equalsIgnoreCase("confirm")
-							   && !args[3].equalsIgnoreCase("deny")) {
+					} else if (args.length > 4 || (args.length == 4
+												   && !WorldEditModeRequestUtils.checkOverWriteRequest(p, args[2])
+												   && !args[3].equalsIgnoreCase("confirm")
+												   && !args[3].equalsIgnoreCase("deny"))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						saveUsage(p, slash, schemAlias);
 					} else {
@@ -447,13 +444,12 @@ public class CommandListener implements Listener {
 			}
 		} else if (args[0].equalsIgnoreCase("/stoplag")
 				   && EventListener.worldguardEnabled
-				   && ConfigUtils.getBoolean("Stoplag Override")) {
-			if (args.length == 1
-				|| (!args[1].equalsIgnoreCase("confirm")
-					&& !args[1].equalsIgnoreCase("-c"))) {
-				event.setCancelled(true);
-				p.performCommand("stoplag confirm");
-			}
+				   && ConfigUtils.getBoolean("Stoplag Override")
+				   && (args.length == 1
+					   || (!args[1].equalsIgnoreCase("confirm")
+						   && !args[1].equalsIgnoreCase("-c")))) {
+			event.setCancelled(true);
+			p.performCommand("stoplag confirm");
 		}
 	}
 

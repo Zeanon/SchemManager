@@ -9,14 +9,18 @@ import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.internal.utils.SMFileUtils;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.List;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Copy {
 
 	public static void onCopy(final Player p, final String[] args) {
@@ -24,14 +28,14 @@ public class Copy {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				ArrayList<File> oldFiles = schemPath != null
-										   ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
-										   : null;
-				ArrayList<File> newFiles = schemPath != null
-										   ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3]))
-										   : null;
-				final boolean oldFileExists = oldFiles != null && oldFiles.size() > 0;
-				final boolean newFileExists = newFiles != null && newFiles.size() > 0;
+				List<File> oldFiles = schemPath != null
+									  ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
+									  : null;
+				List<File> newFiles = schemPath != null
+									  ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3]))
+									  : null;
+				final boolean oldFileExists = oldFiles != null && !oldFiles.isEmpty();
+				final boolean newFileExists = newFiles != null && !newFiles.isEmpty();
 
 				if (args.length == 4) {
 					if (oldFileExists) {
@@ -66,14 +70,11 @@ public class Copy {
 	}
 
 
-	private static void copyFile(final Player p, final String fileName, final ArrayList<File> oldFiles, final ArrayList<File> newFiles, final Path destPath) {
+	private static void copyFile(final Player p, final String fileName, final List<File> oldFiles, final List<File> newFiles, final Path destPath) {
 		try {
 			if (newFiles != null) {
 				for (File file : newFiles) {
-					if (!file.delete()) {
-						p.sendMessage(ChatColor.GOLD + fileName + ChatColor.RED + " could not be copied.");
-						return;
-					}
+					Files.delete(file.toPath());
 				}
 			}
 			for (File file : oldFiles) {

@@ -252,7 +252,7 @@ public class Help {
 			p.sendMessage("");
 		}
 		p.sendMessage(ChatColor.RED + "Available formats:");
-		if (ConfigUtils.getStringList("File Extensions").size() > 0) {
+		if (!ConfigUtils.getStringList("File Extensions").isEmpty()) {
 			String[] formats = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
 			StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&b, ");
 			for (byte i = 1; i < formats.length - 1; i++) {

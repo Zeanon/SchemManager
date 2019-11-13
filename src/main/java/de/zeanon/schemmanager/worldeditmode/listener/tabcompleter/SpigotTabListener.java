@@ -16,7 +16,7 @@ public class SpigotTabListener implements Listener {
 		String message = event.getBuffer();
 		message = message.replaceAll("\\s+", " ");
 		boolean argumentEnded = message.endsWith(" ");
-		String[] args = message.replaceAll("worldedit:", "/").split(" ");
+		String[] args = message.replace("worldedit:", "/").split(" ");
 		if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
 			if (message.contains("./")) {
 				event.setCompletions(new ArrayList<>());

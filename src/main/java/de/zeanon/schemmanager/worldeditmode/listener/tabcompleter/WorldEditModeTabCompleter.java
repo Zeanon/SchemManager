@@ -249,7 +249,7 @@ class WorldEditModeTabCompleter {
 
 	private static void addFileToCompletions(final String regex, final ArrayList<String> completions, final File file) {
 		try {
-			if (file.getName().toLowerCase().startsWith(regex.toLowerCase()) && !file.getName().toLowerCase().equals(regex.toLowerCase())) {
+			if (file.getName().toLowerCase().startsWith(regex.toLowerCase()) && !file.getName().equalsIgnoreCase(regex)) {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				if (schemPath != null) {
 					String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(file.toPath().toRealPath()).toString());

@@ -5,6 +5,7 @@ import de.zeanon.storage.internal.utils.SMFileUtils;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,7 @@ public class InternalFileUtils {
 		pluginFolderPath = pathBuilder.toString();
 	}
 
-	public static ArrayList<File> getExistingFiles(final Path path) {
+	public static List<File> getExistingFiles(final Path path) {
 		ArrayList<File> tempFiles = new ArrayList<>();
 		if (ConfigUtils.getStringList("File Extensions")
 					   .stream()

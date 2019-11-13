@@ -38,19 +38,15 @@ public class WorldEditModeSchemUtils {
 		if (tempPath.isAbsolute()) {
 			schemFolderPath = tempPath.normalize();
 			schemFolder = schemFolderPath.toFile();
-			if (!schemFolder.exists()) {
-				if (!schemFolder.mkdirs()) {
-					throw new FileNotFoundException();
-				}
+			if (!schemFolder.exists() && !schemFolder.mkdirs()) {
+				throw new FileNotFoundException();
 			}
 		} else {
 			schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit"))
 									 .getDataFolder().toPath().resolve(tempPath).normalize();
 			schemFolder = schemFolderPath.toFile();
-			if (!schemFolder.exists()) {
-				if (!schemFolder.mkdirs()) {
-					throw new FileNotFoundException();
-				}
+			if (!schemFolder.exists() && !schemFolder.mkdirs()) {
+				throw new FileNotFoundException();
 			}
 		}
 	}

@@ -23,7 +23,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SearchFolder {
 
-	public static void onSearchFolder(final Player p, final String[] args, final Boolean deepSearch) {
+	public static void onSearchFolder(final Player p, final String[] args, final boolean deepSearch) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -97,9 +97,9 @@ public class SearchFolder {
 								File[] files = getFileArray(directory, deepSearch, args[2]);
 								double count = files.length;
 								int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
-								int side_number = Integer.parseInt(args[3]);
+								int sideNumber = Integer.parseInt(args[3]);
 
-								if (side_number > side) {
+								if (sideNumber > side) {
 									MessageUtils.sendHoverMessage("",
 																  ChatColor.RED + "There are only " + side + " pages of folders in this list",
 																  "",
@@ -116,13 +116,13 @@ public class SearchFolder {
 																  ChatColor.GRAY + "Schematics", p);
 								} else {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-																  ChatColor.AQUA + "" + (int) count + " Folder | Page " + side_number + "/" + side,
+																  ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
 																  ChatColor.AQUA + " ===",
 																  ChatColor.GRAY + "Schematics", p);
 
-									int id = (side_number - 1) * listmax;
-									if (count < listmax * side_number) {
-										listmax = (byte) ((int) count - (listmax * (side_number - 1)));
+									int id = (sideNumber - 1) * listmax;
+									if (count < listmax * sideNumber) {
+										listmax = (byte) ((int) count - (listmax * (sideNumber - 1)));
 									}
 									for (byte i = 0; i < listmax; i++) {
 										if (sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
@@ -132,22 +132,22 @@ public class SearchFolder {
 									}
 
 									if (side > 1) {
-										if (side_number > 1) {
-											if (side_number < side) {
-												MessageUtils.sendScrollMessage("//schem searchfolder " + deep + args[2] + " " + (side_number + 1),
-																			   "//schem searchfolder " + deep + args[2] + " " + (side_number - 1),
-																			   ChatColor.RED + "Page " + (side_number + 1),
-																			   ChatColor.RED + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+										if (sideNumber > 1) {
+											if (sideNumber < side) {
+												MessageUtils.sendScrollMessage("//schem searchfolder " + deep + args[2] + " " + (sideNumber + 1),
+																			   "//schem searchfolder " + deep + args[2] + " " + (sideNumber - 1),
+																			   ChatColor.RED + "Page " + (sideNumber + 1),
+																			   ChatColor.RED + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 											} else {
 												MessageUtils.sendScrollMessage("//schem searchfolder " + deep + args[2] + " 1",
-																			   "//schem searchfolder " + deep + args[2] + " " + (side_number - 1),
+																			   "//schem searchfolder " + deep + args[2] + " " + (sideNumber - 1),
 																			   ChatColor.DARK_PURPLE + "Page 1",
-																			   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+																			   ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 											}
 										} else {
-											MessageUtils.sendScrollMessage("//schem searchfolder " + deep + args[2] + " " + (side_number + 1),
+											MessageUtils.sendScrollMessage("//schem searchfolder " + deep + args[2] + " " + (sideNumber + 1),
 																		   "//schem searchfolder " + deep + args[2] + " " + side,
-																		   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
+																		   ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
 																		   ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 										}
 									} else {
@@ -222,9 +222,9 @@ public class SearchFolder {
 							File[] files = getFileArray(directory, deepSearch, args[3]);
 							double count = files.length;
 							int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
-							int side_number = Integer.parseInt(args[4]);
+							int sideNumber = Integer.parseInt(args[4]);
 
-							if (side_number > side) {
+							if (sideNumber > side) {
 								MessageUtils.sendHoverMessage("",
 															  ChatColor.RED + "There are only " + side + " pages of folders in this list",
 															  "",
@@ -241,13 +241,13 @@ public class SearchFolder {
 															  ChatColor.GRAY + "Schematics/" + args[2], p);
 							} else {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-															  ChatColor.AQUA + "" + (int) count + " Folder | Page " + side_number + "/" + side,
+															  ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
 															  ChatColor.AQUA + " ===",
 															  ChatColor.GRAY + "Schematics/" + args[2], p);
 
-								int id = (side_number - 1) * listmax;
-								if (count < listmax * side_number) {
-									listmax = (byte) ((int) count - (listmax * (side_number - 1)));
+								int id = (sideNumber - 1) * listmax;
+								if (count < listmax * sideNumber) {
+									listmax = (byte) ((int) count - (listmax * (sideNumber - 1)));
 								}
 								for (byte i = 0; i < listmax; i++) {
 									if (sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
@@ -257,22 +257,22 @@ public class SearchFolder {
 								}
 
 								if (side > 1) {
-									if (side_number > 1) {
-										if (side_number < side) {
-											MessageUtils.sendScrollMessage("//schem searchfolder " + deep + args[2] + " " + args[3] + " " + (side_number + 1),
-																		   "//schem searchfolder " + deep + args[2] + " " + args[3] + " " + (side_number - 1),
-																		   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
-																		   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+									if (sideNumber > 1) {
+										if (sideNumber < side) {
+											MessageUtils.sendScrollMessage("//schem searchfolder " + deep + args[2] + " " + args[3] + " " + (sideNumber + 1),
+																		   "//schem searchfolder " + deep + args[2] + " " + args[3] + " " + (sideNumber - 1),
+																		   ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
+																		   ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 										} else {
 											MessageUtils.sendScrollMessage("//schem searchfolder " + deep + args[2] + " " + args[3] + " 1",
-																		   "//schem searchfolder " + deep + args[2] + " " + args[3] + " " + (side_number - 1),
+																		   "//schem searchfolder " + deep + args[2] + " " + args[3] + " " + (sideNumber - 1),
 																		   ChatColor.DARK_PURPLE + "Page 1",
-																		   ChatColor.DARK_PURPLE + "Page " + (side_number - 1), p, ChatColor.DARK_AQUA);
+																		   ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 										}
 									} else {
-										MessageUtils.sendScrollMessage("//schem searchfolder " + deep + args[2] + " " + args[3] + " " + (side_number + 1),
+										MessageUtils.sendScrollMessage("//schem searchfolder " + deep + args[2] + " " + args[3] + " " + (sideNumber + 1),
 																	   "//schem searchfolder " + deep + args[2] + " " + args[3] + " " + side,
-																	   ChatColor.DARK_PURPLE + "Page " + (side_number + 1),
+																	   ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
 																	   ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 									}
 								} else {

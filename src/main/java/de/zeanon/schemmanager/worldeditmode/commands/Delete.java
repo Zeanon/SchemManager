@@ -8,8 +8,10 @@ import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
@@ -25,10 +27,10 @@ public class Delete {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				ArrayList<File> files = schemPath != null
-										? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
-										: null;
-				final boolean fileExists = files != null && files.size() > 0;
+				List<File> files = schemPath != null
+								   ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
+								   : null;
+				final boolean fileExists = files != null && !files.isEmpty();
 
 				if (args.length == 3) {
 					if (fileExists) {
@@ -47,10 +49,8 @@ public class Delete {
 						if (fileExists) {
 							String parentName = null;
 							for (File file : files) {
-								if (!file.delete()) {
-									p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
-									return;
-								} else {
+								try {
+									Files.delete(file.toPath());
 									if (ConfigUtils.getBoolean("Delete empty Folders")
 										&& !file.getAbsoluteFile().getParentFile()
 												.equals(WorldEditModeSchemUtils.getSchemFolder())) {
@@ -62,6 +62,9 @@ public class Delete {
 											parentName = null;
 										}
 									}
+								} catch (IOException e) {
+									p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted.");
+									return;
 								}
 							}
 							p.sendMessage(ChatColor.GOLD + args[2] + ChatColor.RED + " was deleted successfully.");
