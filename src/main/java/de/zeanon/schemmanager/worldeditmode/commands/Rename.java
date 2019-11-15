@@ -19,12 +19,14 @@ import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Rename {
 
-	public static void onRename(final Player p, final String[] args) {
+	public static void onRename(@NotNull final Player p, @NotNull final String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -65,7 +67,7 @@ public class Rename {
 	}
 
 
-	private static void moveFile(final Player p, final String fileName, final List<File> oldFiles, final List<File> newFiles, final Path destPath) {
+	private static void moveFile(@NotNull final Player p, final String fileName, @NotNull final List<File> oldFiles, @Nullable final List<File> newFiles, @NotNull final Path destPath) {
 		try {
 			if (newFiles != null) {
 				for (File file : newFiles) {
@@ -74,7 +76,7 @@ public class Rename {
 			}
 			String parentName = null;
 			for (File file : oldFiles) {
-				if (ConfigUtils.getStringList("File Extensions").stream().noneMatch(SMFileUtils.getExtension(destPath)::equals)) {
+				if (Objects.notNull(ConfigUtils.getStringList("File Extensions")).stream().noneMatch(SMFileUtils.getExtension(destPath)::equals)) {
 					FileUtils.moveFile(file, new File(destPath + SMFileUtils.getExtension(file)));
 					parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
 								 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);

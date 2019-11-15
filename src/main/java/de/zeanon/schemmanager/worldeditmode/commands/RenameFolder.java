@@ -20,13 +20,14 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 
 @SuppressWarnings("DuplicatedCode")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RenameFolder {
 
-	public static void onRenameFolder(final Player p, final String[] args) {
+	public static void onRenameFolder(@NotNull final Player p, @NotNull final String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -43,7 +44,7 @@ public class RenameFolder {
 							p.sendMessage(ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
 							List<String> extensions = ConfigUtils.getStringList("File Extensions");
-							for (File oldFile : SMFileUtils.listFiles(directoryOld, extensions, true)) {
+							for (File oldFile : SMFileUtils.listFiles(directoryOld, Objects.notNull(extensions), true)) {
 								for (File newFile : SMFileUtils.listFiles(directoryNew, extensions, true)) {
 									if (SMFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName()))
 										&& newFile.toPath().relativize(directoryNew.toPath()).equals(oldFile.toPath().relativize(directoryOld.toPath()))) {
@@ -57,7 +58,7 @@ public class RenameFolder {
 														 .toRealPath()
 														 .relativize(newFile.toPath().toRealPath())
 														 .toString());
-										if (SMFileUtils.getExtension(newFile.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
+										if (SMFileUtils.getExtension(newFile.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
 											name = SMFileUtils.removeExtension(newFile.getName());
 										} else {
 											name = newFile.getName();
@@ -147,7 +148,7 @@ public class RenameFolder {
 	}
 
 
-	private static boolean deepMerge(final File oldFile, final File newFile) {
+	private static boolean deepMerge(@NotNull final File oldFile, @NotNull final File newFile) {
 		if (Objects.notNull(oldFile.listFiles()).length == 0) {
 			return true;
 		} else {

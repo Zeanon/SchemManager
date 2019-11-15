@@ -8,6 +8,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -22,11 +23,11 @@ public class MessageUtils {
 	 * @param command        the command to be executed when clicked
 	 * @param target         the player the message is sent to
 	 */
-	public static void sendCommandMessage(final String message,
-										  final String commandMessage,
+	public static void sendCommandMessage(@NotNull final String message,
+										  @NotNull final String commandMessage,
 										  final String hoverMessage,
 										  final String command,
-										  final Player target) {
+										  @NotNull final Player target) {
 		new TextComponent();
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
 		TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
@@ -46,7 +47,7 @@ public class MessageUtils {
 	 * @param command        the command to be executed when clicked
 	 * @param target         the player the message is sent to
 	 */
-	public static void sendInvertedCommandMessage(final String message, final String commandMessage, final String hoverMessage, final String command, final Player target) {
+	public static void sendInvertedCommandMessage(@NotNull final String message, @NotNull final String commandMessage, final String hoverMessage, final String command, @NotNull final Player target) {
 		new TextComponent();
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
 		TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
@@ -65,7 +66,7 @@ public class MessageUtils {
 	 * @param commandNo  the command to be executed when clicked on no
 	 * @param target     the player the message is sent to
 	 */
-	public static void sendBooleanMessage(final String message, final String commandYes, final String commandNo, final Player target) {
+	public static void sendBooleanMessage(@NotNull final String message, final String commandYes, final String commandNo, @NotNull final Player target) {
 		new TextComponent();
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
 		TextComponent separator = new TextComponent(TextComponent.fromLegacyText(ChatColor.BLACK + " "
@@ -105,7 +106,7 @@ public class MessageUtils {
 	 * @param target          the player the message is sent to
 	 * @param buttonColor     the color of the buttons
 	 */
-	public static void sendScrollMessage(final String commandForward, final String commandBackward, final String messageForward, final String messageBackward, final Player target, final ChatColor buttonColor) {
+	public static void sendScrollMessage(final String commandForward, final String commandBackward, @NotNull final String messageForward, @NotNull final String messageBackward, @NotNull final Player target, final ChatColor buttonColor) {
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
 		TextComponent commandPartBackward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[<<<]"));
 		TextComponent commandPartForward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[>>>]"));
@@ -135,7 +136,7 @@ public class MessageUtils {
 	 * @param command        the command to be suggested when clicked
 	 * @param target         the player the message is sent to
 	 */
-	public static void sendSuggestMessage(final String message, final String suggestMessage, final String hoverMessage, final String command, final Player target) {
+	public static void sendSuggestMessage(@NotNull final String message, @NotNull final String suggestMessage, @NotNull final String hoverMessage, final String command, @NotNull final Player target) {
 		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
 		TextComponent suggestPart = new TextComponent(TextComponent.fromLegacyText(suggestMessage));
 		suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
@@ -153,7 +154,7 @@ public class MessageUtils {
 	 * @param hoverMessage the message to be shown when hovering over message2
 	 * @param target       the player the message is sent to
 	 */
-	public static void sendHoverMessage(final String message1, final String message2, final String message3, final String hoverMessage, final Player target) {
+	public static void sendHoverMessage(@NotNull final String message1, @NotNull final String message2, @NotNull final String message3, @NotNull final String hoverMessage, @NotNull final Player target) {
 		TextComponent localMessage1 = new TextComponent(TextComponent.fromLegacyText(message1));
 		TextComponent hoverPart = new TextComponent(TextComponent.fromLegacyText(message2));
 		TextComponent localMessage2 = new TextComponent(TextComponent.fromLegacyText(message3));

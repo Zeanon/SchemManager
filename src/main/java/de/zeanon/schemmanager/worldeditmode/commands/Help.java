@@ -3,16 +3,18 @@ package de.zeanon.schemmanager.worldeditmode.commands;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Help {
 
-	public static void onHelp(final Player p, final String slash, final String schemAlias) {
+	public static void onHelp(@NotNull final Player p, final String slash, final String schemAlias) {
 		if (ConfigUtils.getBoolean("Space Lists")) {
 			p.sendMessage("");
 		}
@@ -247,13 +249,13 @@ public class Help {
 										"/schemmanager disable", p);
 	}
 
-	public static void onFormats(final Player p, final boolean suppressBlankLine) {
+	public static void onFormats(@NotNull final Player p, final boolean suppressBlankLine) {
 		if (ConfigUtils.getBoolean("Space Lists") && !suppressBlankLine) {
 			p.sendMessage("");
 		}
 		p.sendMessage(ChatColor.RED + "Available formats:");
-		if (!ConfigUtils.getStringList("File Extensions").isEmpty()) {
-			String[] formats = ConfigUtils.getStringList("File Extensions").toArray(new String[0]);
+		if (!Objects.notNull(ConfigUtils.getStringList("File Extensions")).isEmpty()) {
+			String[] formats = Objects.notNull(ConfigUtils.getStringList("File Extensions")).toArray(new String[0]);
 			StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&b, ");
 			for (byte i = 1; i < formats.length - 1; i++) {
 				pathBuilder.append("&d").append(formats[i]).append("&b").append(", ");

@@ -19,13 +19,14 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings("DuplicatedCode")
 public class CopyFolder {
 
-	public static void onCopyFolder(final Player p, final String[] args) {
+	public static void onCopyFolder(@NotNull final Player p, @NotNull final String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -44,7 +45,7 @@ public class CopyFolder {
 										  + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
 							List<String> extensions = ConfigUtils.getStringList("File Extensions");
-							for (File oldFile : SMFileUtils.listFiles(directoryOld, extensions, true)) {
+							for (File oldFile : SMFileUtils.listFiles(directoryOld, Objects.notNull(extensions), true)) {
 								for (File newFile : SMFileUtils.listFiles(directoryNew, extensions, true)) {
 									if (SMFileUtils.removeExtension(newFile.getName())
 												   .equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName()))
@@ -65,7 +66,7 @@ public class CopyFolder {
 														 .toRealPath()
 														 .relativize(newFile.toPath().toRealPath())
 														 .toString());
-										if (SMFileUtils.getExtension(newFile.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
+										if (SMFileUtils.getExtension(newFile.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
 											name = SMFileUtils.removeExtension(newFile.getName());
 										} else {
 											name = newFile.getName();
@@ -176,7 +177,7 @@ public class CopyFolder {
 	}
 
 
-	private static boolean deepMerge(final File oldFile, final File newFile) {
+	private static boolean deepMerge(@NotNull final File oldFile, @NotNull final File newFile) {
 		if (Objects.notNull(oldFile.listFiles()).length == 0) {
 			return true;
 		} else {

@@ -10,6 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 
 public class CommandHandler implements CommandExecutor {
@@ -19,7 +20,7 @@ public class CommandHandler implements CommandExecutor {
 	 */
 	@SuppressWarnings("NullableProblems")
 	@Override
-	public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
+	public boolean onCommand(final CommandSender sender, @NotNull final Command command, final String label, @NotNull final String[] args) {
 		if (command.getName().equalsIgnoreCase("schemmanager")) {
 			if (sender instanceof Player) {
 				Player p = (Player) sender;
@@ -109,7 +110,7 @@ public class CommandHandler implements CommandExecutor {
 		return true;
 	}
 
-	private void sendUpdateUsage(final Player p) {
+	private void sendUpdateUsage(@NotNull final Player p) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + "/schemmanager"
 										+ ChatColor.AQUA + " update",
@@ -120,7 +121,7 @@ public class CommandHandler implements CommandExecutor {
 										"/schemmanager update", p);
 	}
 
-	private void sendDisableUsage(final Player p) {
+	private void sendDisableUsage(@NotNull final Player p) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + "/schemmanager"
 										+ ChatColor.AQUA + " disable",

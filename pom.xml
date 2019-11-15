@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.4.2-Beta-v2.71</version>
+    <version>4.4.2-Beta-v2.72</version>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
     <url>https://github.com/Zeanon/SchemManager</url>
@@ -213,7 +213,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>storagemanager</artifactId>
-            <version>1.1.22</version>
+            <version>1.1.24</version>
             <scope>compile</scope>
         </dependency>
 
@@ -225,7 +225,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- PlugMan API -->
+        <!-- PlugMan -->
         <dependency>
             <groupId>com.rylinaux</groupId>
             <artifactId>plugman</artifactId>

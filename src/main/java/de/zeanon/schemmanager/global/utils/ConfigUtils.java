@@ -1,11 +1,14 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.util.Arrays;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -17,9 +20,9 @@ public class ConfigUtils {
 	 * @param key the Config key.
 	 * @return value.
 	 */
-	public static byte getByte(final String key) {
+	public static byte getByte(@NotNull final String key) {
 		try {
-			return Utils.getConfig().getByte(key);
+			return Objects.notNull(Utils.getConfig()).getByteUseArray(key);
 		} catch (IllegalStateException e) {
 			new BukkitRunnable() {
 				@Override
@@ -37,9 +40,9 @@ public class ConfigUtils {
 	 * @param key the Config key.
 	 * @return value.
 	 */
-	public static boolean getBoolean(final String key) {
+	public static boolean getBoolean(@NotNull final String key) {
 		try {
-			return Utils.getConfig().getBoolean(key);
+			return Objects.notNull(Utils.getConfig()).getBooleanUseArray(key);
 		} catch (IllegalStateException e) {
 			new BukkitRunnable() {
 				@Override
@@ -57,9 +60,10 @@ public class ConfigUtils {
 	 * @param key the Config key.
 	 * @return value.
 	 */
-	public static List<String> getStringList(final String key) {
+	@Nullable
+	public static List<String> getStringList(@NotNull final String key) {
 		try {
-			return Utils.getConfig().getStringList(key);
+			return Objects.notNull(Utils.getConfig()).getStringListUseArray(key);
 		} catch (IllegalStateException e) {
 			new BukkitRunnable() {
 				@Override
@@ -78,7 +82,8 @@ public class ConfigUtils {
 	 * @param key the Config key.
 	 * @return the default value.
 	 */
-	private static Object getDefaultValue(final String key) {
+	@Nullable
+	private static Object getDefaultValue(@NotNull final String key) {
 		switch (key) {
 			case "Space Lists":
 			case "Delete empty Folders":

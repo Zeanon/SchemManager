@@ -3,6 +3,7 @@ package de.zeanon.schemmanager.worldeditmode.listener.tabcompleter;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.internal.utils.SMFileUtils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,12 +14,14 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class WorldEditModeTabCompleter {
 
-	static List<String> onTab(final String[] args, final String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
+	@NotNull
+	static List<String> onTab(@NotNull final String[] args, @NotNull final String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
 		ArrayList<String> completions = new ArrayList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
@@ -160,7 +163,7 @@ class WorldEditModeTabCompleter {
 		} else if ((args.length == 4 && !argumentEnded) || args.length == 3) {
 			if (argumentEnded) {
 				if (args[1].equalsIgnoreCase("load")) {
-					completions.addAll(ConfigUtils.getStringList("File Extensions"));
+					completions.addAll(Objects.notNull(ConfigUtils.getStringList("File Extensions")));
 				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
 					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					File pathFile = schemPath != null ? schemPath.toFile() : null;
@@ -183,7 +186,7 @@ class WorldEditModeTabCompleter {
 				}
 			} else {
 				if (args[1].equalsIgnoreCase("load")) {
-					for (String extension : ConfigUtils.getStringList("File Extensions")) {
+					for (String extension : Objects.notNull(ConfigUtils.getStringList("File Extensions"))) {
 						if (extension.toLowerCase().startsWith(args[3]) && !extension.equals(args[3])) {
 							completions.add(extension);
 						}
@@ -241,13 +244,14 @@ class WorldEditModeTabCompleter {
 		return completions;
 	}
 
-	private static File[] getFileArray(final File directory) {
+	@NotNull
+	private static File[] getFileArray(@NotNull final File directory) {
 		List<String> extensions = ConfigUtils.getStringList("File Extensions");
-		Collection<File> rawFiles = SMFileUtils.listFiles(directory, extensions, false);
+		Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), false);
 		return rawFiles.toArray(new File[0]);
 	}
 
-	private static void addFileToCompletions(final String regex, final ArrayList<String> completions, final File file) {
+	private static void addFileToCompletions(@NotNull final String regex, @NotNull final ArrayList<String> completions, @NotNull final File file) {
 		try {
 			if (file.getName().toLowerCase().startsWith(regex.toLowerCase()) && !file.getName().equalsIgnoreCase(regex)) {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();

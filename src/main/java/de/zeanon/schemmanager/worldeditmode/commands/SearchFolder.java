@@ -17,13 +17,14 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 
 @SuppressWarnings("Duplicates")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SearchFolder {
 
-	public static void onSearchFolder(final Player p, final String[] args, final boolean deepSearch) {
+	public static void onSearchFolder(@NotNull final Player p, @NotNull final String[] args, final boolean deepSearch) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -291,7 +292,8 @@ public class SearchFolder {
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	private static File[] getFileArray(final File directory, final boolean deepSearch, final String regex) {
+	@NotNull
+	private static File[] getFileArray(@NotNull final File directory, final boolean deepSearch, @NotNull final String regex) {
 		ArrayList<File> files = new ArrayList<>();
 		for (File file : SMFileUtils.listFolders(directory, deepSearch)) {
 			if (file.getName().toLowerCase().contains(regex.toLowerCase())) {
@@ -303,11 +305,11 @@ public class SearchFolder {
 		return fileArray;
 	}
 
-	private static boolean sendListLineFailed(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
+	private static boolean sendListLineFailed(@NotNull final Player p, @NotNull final Path schemFolderPath, @NotNull final Path listPath, @NotNull final File file, final int id, final boolean deepSearch) {
 		return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
 	}
 
-	private static boolean sendListLine(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
+	private static boolean sendListLine(@NotNull final Player p, @NotNull final Path schemFolderPath, @NotNull final Path listPath, @NotNull final File file, final int id, final boolean deepSearch) {
 		try {
 			String name = file.getName();
 			String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());

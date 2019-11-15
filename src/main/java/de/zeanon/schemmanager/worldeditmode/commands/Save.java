@@ -8,6 +8,7 @@ import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.internal.utils.SMFileUtils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.nio.file.Path;
 import lombok.AccessLevel;
@@ -15,20 +16,21 @@ import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Save {
 
-	public static void onSave(final Player p, final String[] args) {
+	public static void onSave(@NotNull final Player p, @NotNull final String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				File file = schemPath != null
-							? (ConfigUtils.getStringList("File Extensions") //NOSONAR
-										  .stream()
-										  .anyMatch(SMFileUtils.getExtension(args[2])::equalsIgnoreCase)
+							? (Objects.notNull(ConfigUtils.getStringList("File Extensions")) //NOSONAR
+									  .stream()
+									  .anyMatch(SMFileUtils.getExtension(args[2])::equalsIgnoreCase)
 							   ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()
 							   : WorldEditModeSchemUtils.getSchemPath().resolve(
 									   SMFileUtils.removeExtension(args[2])).toFile())
@@ -37,7 +39,7 @@ public class Save {
 
 				if (args.length == 3) {
 					try {
-						WorldEditMode.getWorldEditPlugin().getSession(p).getClipboard();
+						Objects.notNull(WorldEditMode.getWorldEditPlugin()).getSession(p).getClipboard();
 						WorldEditModeRequestUtils.addOverwriteRequest(p, args[2]);
 						if (fileExists) {
 							p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");

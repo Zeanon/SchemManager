@@ -18,7 +18,7 @@ public class WorldEditModeSchemUtils {
 	private static Path schemFolderPath;
 
 	public static Path getSchemPath() {
-		if (!Utils.getWeConfig().hasChanged()) {
+		if (!Objects.notNull(Utils.getWeConfig()).hasChanged()) {
 			return schemFolderPath;
 		} else {
 			try {
@@ -33,7 +33,7 @@ public class WorldEditModeSchemUtils {
 	}
 
 	public static void initSchemPath() throws FileNotFoundException {
-		Path tempPath = Paths.get(Utils.getWeConfig().getString("saving.dir"));
+		Path tempPath = Paths.get(Objects.notNull(Utils.getWeConfig()).getStringUseArray("saving", "dir"));
 		Utils.getWeConfig().clearData();
 		if (tempPath.isAbsolute()) {
 			schemFolderPath = tempPath.normalize();
@@ -52,7 +52,7 @@ public class WorldEditModeSchemUtils {
 	}
 
 	public static File getSchemFolder() {
-		if (!Utils.getWeConfig().hasChanged()) {
+		if (!Objects.notNull(Utils.getWeConfig()).hasChanged()) {
 			return schemFolder;
 		} else {
 			try {

@@ -17,12 +17,13 @@ import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Delete {
 
-	public static void onDelete(final Player p, final String[] args) {
+	public static void onDelete(@NotNull final Player p, @NotNull final String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {

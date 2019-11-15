@@ -15,12 +15,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class DefaultUpdate {
 
-	static void updatePlugin(final boolean autoReload, final JavaPlugin instance) {
+	static void updatePlugin(final boolean autoReload, @NotNull final JavaPlugin instance) {
 		System.out.println(SchemManager.getInstance().getName() + " is updating...");
 		try {
 			SMFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
@@ -41,13 +42,13 @@ class DefaultUpdate {
 					}
 				}.runTask(instance);
 			}
-		} catch (IOException | URISyntaxException e) {
+		} catch (@NotNull IOException | URISyntaxException e) {
 			e.printStackTrace();
 			System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
 		}
 	}
 
-	static void updatePlugin(final Player p, final boolean autoReload, final JavaPlugin instance) {
+	static void updatePlugin(@NotNull final Player p, final boolean autoReload, @NotNull final JavaPlugin instance) {
 		p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
 		try {
 			SMFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
@@ -70,7 +71,7 @@ class DefaultUpdate {
 					}
 				}.runTask(instance);
 			}
-		} catch (IOException | URISyntaxException e) {
+		} catch (@NotNull IOException | URISyntaxException e) {
 			e.printStackTrace();
 			p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 						  + ChatColor.RED + " could not be updated.");

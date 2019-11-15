@@ -16,12 +16,14 @@ import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DeleteFolder {
 
-	public static void onDeleteFolder(final Player p, final String[] args) {
+	public static void onDeleteFolder(@NotNull final Player p, @NotNull final String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -80,7 +82,8 @@ public class DeleteFolder {
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	private static String getParentName(final File file) {
+	@Nullable
+	private static String getParentName(@NotNull final File file) {
 
 		String parentName = null;
 		if (ConfigUtils.getBoolean("Delete empty Folders")

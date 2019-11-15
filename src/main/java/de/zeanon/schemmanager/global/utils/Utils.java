@@ -15,13 +15,16 @@ import java.io.FileNotFoundException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.Nullable;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Utils {
 
+	@Nullable
 	@Getter
 	private static YamlFile weConfig;
+	@Nullable
 	@Getter
 	private static ThunderConfig config;
 
@@ -32,8 +35,8 @@ public class Utils {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are loaded successfully.");
 
 			try {
-				if (!Utils.getConfig().hasKey("Plugin Version")
-					|| !Utils.getConfig().getString("Plugin Version")
+				if (!Objects.notNull(Utils.getConfig()).hasKeyUseArray("Plugin Version")
+					|| !Utils.getConfig().getStringUseArray("Plugin Version")
 							 .equals(SchemManager.getInstance().getDescription().getVersion())) {
 					System.out.println("[" + SchemManager.getInstance().getName() + "] >> Updating Configs...");
 					Update.updateConfig(false);
@@ -84,7 +87,7 @@ public class Utils {
 	}
 
 	private static void initWorldEditMode() {
-		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + ".");
+		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + "...");
 
 		try {
 			weConfig = StorageManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")

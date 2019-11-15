@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -33,13 +34,13 @@ class PlugManEnabledUpdate {
 			if (autoReload) {
 				PluginUtil.reload(SchemManager.getInstance());
 			}
-		} catch (IOException | URISyntaxException e) {
+		} catch (@NotNull IOException | URISyntaxException e) {
 			e.printStackTrace();
 			System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
 		}
 	}
 
-	static void updatePlugin(final Player p, final boolean autoReload) {
+	static void updatePlugin(@NotNull final Player p, final boolean autoReload) {
 		p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
 		try {
 			SMFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
@@ -57,7 +58,7 @@ class PlugManEnabledUpdate {
 							  + ChatColor.RED + " is reloading.");
 				PluginUtil.reload(SchemManager.getInstance());
 			}
-		} catch (IOException | URISyntaxException e) {
+		} catch (@NotNull IOException | URISyntaxException e) {
 			e.printStackTrace();
 			p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 						  + ChatColor.RED + " could not be updated.");

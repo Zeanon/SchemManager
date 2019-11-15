@@ -5,6 +5,7 @@ import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.internal.utils.SMFileUtils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,13 +19,14 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 
 @SuppressWarnings("Duplicates")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Search {
 
-	public static void onSearch(final Player p, final String[] args, final boolean deepSearch) {
+	public static void onSearch(@NotNull final Player p, @NotNull final String[] args, final boolean deepSearch) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -45,7 +47,7 @@ public class Search {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						} else {
-							File[] files = getFileArray(directory, extensions, deepSearch, args[2]);
+							File[] files = getFileArray(directory, Objects.notNull(extensions), deepSearch, args[2]);
 							double count = files.length;
 							int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -96,7 +98,7 @@ public class Search {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 							} else {
-								File[] files = getFileArray(directory, extensions, deepSearch, args[2]);
+								File[] files = getFileArray(directory, Objects.notNull(extensions), deepSearch, args[2]);
 								double count = files.length;
 								int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 								int sideNumber = Integer.parseInt(args[3]);
@@ -170,7 +172,7 @@ public class Search {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 							} else {
-								File[] files = getFileArray(directory, extensions, deepSearch, args[3]);
+								File[] files = getFileArray(directory, Objects.notNull(extensions), deepSearch, args[3]);
 								double count = files.length;
 								int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -221,7 +223,7 @@ public class Search {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						} else {
-							File[] files = getFileArray(directory, extensions, deepSearch, args[3]);
+							File[] files = getFileArray(directory, Objects.notNull(extensions), deepSearch, args[3]);
 							double count = files.length;
 							int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 							int sideNumber = Integer.parseInt(args[4]);
@@ -293,7 +295,8 @@ public class Search {
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	private static File[] getFileArray(final File directory, final List<String> extensions, final boolean deepSearch, final String regex) {
+	@NotNull
+	private static File[] getFileArray(@NotNull final File directory, @NotNull final List<String> extensions, final boolean deepSearch, @NotNull final String regex) {
 		ArrayList<File> files = new ArrayList<>();
 		for (File file : SMFileUtils.listFiles(directory, extensions, deepSearch)) {
 			if (SMFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
@@ -305,18 +308,18 @@ public class Search {
 		return fileArray;
 	}
 
-	private static boolean sendListLineFailed(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
+	private static boolean sendListLineFailed(@NotNull final Player p, @NotNull final Path schemFolderPath, @NotNull final Path listPath, @NotNull final File file, final int id, final boolean deepSearch) {
 		return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
 	}
 
-	private static boolean sendListLine(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
+	private static boolean sendListLine(@NotNull final Player p, @NotNull final Path schemFolderPath, @NotNull final Path listPath, @NotNull final File file, final int id, final boolean deepSearch) {
 		try {
 			String name;
 			String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
 			String shortenedRelativePath = deepSearch
 										   ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
 										   : null;
-			if (SMFileUtils.getExtension(file.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
+			if (SMFileUtils.getExtension(file.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
 				name = SMFileUtils.removeExtension(file.getName());
 			} else {
 				name = file.getName();

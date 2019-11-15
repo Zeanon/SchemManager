@@ -5,6 +5,7 @@ import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.internal.utils.SMFileUtils;
+import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,13 +18,14 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 
 @SuppressWarnings("Duplicates")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class List {
 
-	public static void onList(final Player p, final String[] args, final boolean deepSearch) {
+	public static void onList(@NotNull final Player p, @NotNull final String[] args, final boolean deepSearch) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -44,7 +46,7 @@ public class List {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						} else {
-							Collection<File> rawFiles = SMFileUtils.listFiles(directory, extensions, deepSearch);
+							Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
 							File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -97,7 +99,7 @@ public class List {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 							} else {
-								Collection<File> rawFiles = SMFileUtils.listFiles(directory, extensions, deepSearch);
+								Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
 								File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -172,7 +174,7 @@ public class List {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 							} else {
-								Collection<File> rawFiles = SMFileUtils.listFiles(directory, extensions, deepSearch);
+								Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
 								File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -225,7 +227,7 @@ public class List {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						} else {
-							Collection<File> rawFiles = SMFileUtils.listFiles(directory, extensions, deepSearch);
+							Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
 							File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -299,18 +301,18 @@ public class List {
 	}
 
 
-	private static boolean sendListLineFailed(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
+	private static boolean sendListLineFailed(@NotNull final Player p, @NotNull final Path schemFolderPath, @NotNull final Path listPath, @NotNull final File file, final int id, final boolean deepSearch) {
 		return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
 	}
 
-	private static boolean sendListLine(final Player p, final Path schemFolderPath, final Path listPath, final File file, final int id, final boolean deepSearch) {
+	private static boolean sendListLine(@NotNull final Player p, @NotNull final Path schemFolderPath, @NotNull final Path listPath, @NotNull final File file, final int id, final boolean deepSearch) {
 		try {
 			String name;
 			String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
 			String shortenedRelativePath = deepSearch
 										   ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
 										   : null;
-			if (SMFileUtils.getExtension(file.getName()).equals(ConfigUtils.getStringList("File Extensions").get(0))) {
+			if (SMFileUtils.getExtension(file.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
 				name = SMFileUtils.removeExtension(file.getName());
 			} else {
 				name = file.getName();

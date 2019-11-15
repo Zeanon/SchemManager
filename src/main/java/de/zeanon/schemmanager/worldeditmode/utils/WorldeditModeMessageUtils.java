@@ -8,13 +8,14 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WorldeditModeMessageUtils {
 
 	@SuppressWarnings("Duplicates")
-	public static void sendInvalidSubCommand(final Player target, final String slash, final String schemAlias) {
+	public static void sendInvalidSubCommand(@NotNull final Player target, final String slash, final String schemAlias) {
 		TextComponent base = new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "Usage: "));
 		TextComponent schem = new TextComponent(TextComponent.fromLegacyText(ChatColor.GRAY + slash + "schem"));
 		TextComponent help = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "help"));
