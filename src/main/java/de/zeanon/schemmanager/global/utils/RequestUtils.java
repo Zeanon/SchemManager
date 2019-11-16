@@ -10,7 +10,9 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RequestUtils {
 
+	@NotNull
 	private static final ArrayList<String> disableRequests = new ArrayList<>();
+	@NotNull
 	private static final ArrayList<String> updateRequests = new ArrayList<>();
 
 	public static void removeDisableRequest(@NotNull final Player p) {

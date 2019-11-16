@@ -10,12 +10,19 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WorldEditModeRequestUtils {
 
+	@NotNull
 	private static final HashMap<String, String> deleteRequests = new HashMap<>();
+	@NotNull
 	private static final HashMap<String, String> deleteFolderRequests = new HashMap<>();
+	@NotNull
 	private static final HashMap<String, String> renameRequests = new HashMap<>();
+	@NotNull
 	private static final HashMap<String, String> renameFolderRequests = new HashMap<>();
+	@NotNull
 	private static final HashMap<String, String> overwriteRequests = new HashMap<>();
+	@NotNull
 	private static final HashMap<String, String> copyRequest = new HashMap<>();
+	@NotNull
 	private static final HashMap<String, String> copyFolderRequest = new HashMap<>();
 
 
