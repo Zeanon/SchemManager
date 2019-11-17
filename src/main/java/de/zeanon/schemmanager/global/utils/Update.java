@@ -43,14 +43,11 @@ public class Update {
 				SchemManager.getLocalConfig().set("Automatic Reload", autoReload);
 
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + SchemManager.getLocalConfig().getFile().getName() + " updated");
-				return true;
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> " + SchemManager.getLocalConfig().getFile().getName() + " could not be updated");
 				return false;
 			}
-		} else {
-			return true;
 		}
 	}
 
