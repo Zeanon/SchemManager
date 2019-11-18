@@ -19,7 +19,7 @@ public class InternalFileUtils {
 
 	@NotNull
 	@Getter
-	private static final String pluginFolderPath; //NOSONAR
+	private static final String PLUGIN_FOLDER_PATH;
 
 	static {
 		@NotNull String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
@@ -28,7 +28,7 @@ public class InternalFileUtils {
 		for (byte i = 1; i < parts.length - 1; i++) {
 			pathBuilder.append(parts[i]).append(slash);
 		}
-		pluginFolderPath = pathBuilder.toString();
+		PLUGIN_FOLDER_PATH = pathBuilder.toString();
 	}
 
 	@NotNull

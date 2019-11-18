@@ -19,13 +19,11 @@ public class SchemManager extends JavaPlugin {
 	@SuppressWarnings("CanBeFinal")
 	private static PluginManager pluginManager;
 
-	{
-		instance = this;
-		pluginManager = Bukkit.getPluginManager();
-	}
 
 	@Override
 	public void onEnable() {
+		instance = this;
+		pluginManager = Bukkit.getPluginManager();
 		Objects.notNull(this.getCommand("schemmanager")).setExecutor(new CommandHandler());
 		Objects.notNull(this.getCommand("schemmanager")).setTabCompleter(new InternalTabCompleter());
 		Utils.initPlugin();

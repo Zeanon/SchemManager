@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.storage.internal.base.exceptions.ObjectNullException;
 import de.zeanon.storage.internal.utils.basic.Objects;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ConfigUtils {
 	public static byte getByte(@NotNull final String key) {
 		try {
 			return Objects.notNull(Utils.getConfig()).getByteUseArray(key);
-		} catch (IllegalStateException e) {
+		} catch (ObjectNullException e) {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
@@ -43,7 +44,7 @@ public class ConfigUtils {
 	public static boolean getBoolean(@NotNull final String key) {
 		try {
 			return Objects.notNull(Utils.getConfig()).getBooleanUseArray(key);
-		} catch (IllegalStateException e) {
+		} catch (ObjectNullException e) {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
@@ -64,7 +65,7 @@ public class ConfigUtils {
 	public static List<String> getStringList(@NotNull final String key) {
 		try {
 			return Objects.notNull(Utils.getConfig()).getStringListUseArray(key);
-		} catch (IllegalStateException e) {
+		} catch (ObjectNullException e) {
 			new BukkitRunnable() {
 				@Override
 				public void run() {

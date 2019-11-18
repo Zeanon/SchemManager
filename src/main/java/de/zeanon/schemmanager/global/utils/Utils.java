@@ -15,17 +15,15 @@ import java.io.FileNotFoundException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Utils {
 
-	@Nullable
-	@Getter
+	@Getter(onMethod = @__({@NotNull}))
 	private static YamlFile weConfig;
-	@Nullable
-	@Getter
+	@Getter(onMethod = @__({@NotNull}))
 	private static ThunderConfig config;
 
 	public static void initPlugin() {
@@ -43,9 +41,9 @@ public class Utils {
 					System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
 				}
 
-				/*if (pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.isPluginEnabled("FastAsyncWorldEdit"))) {
-				//TODO
-				} else */
+				/*if (pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.isPluginEnabled("FastAsyncWorldEdit"))) { //NOSONAR
+				//TODO //NOSONAR
+				} else */ //NOSONAR
 				if (SchemManager.getPluginManager().getPlugin("WorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("WorldEdit")) {
 					initWorldEditMode();
 				} else {
