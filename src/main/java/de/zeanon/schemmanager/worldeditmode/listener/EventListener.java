@@ -3,6 +3,8 @@ package de.zeanon.schemmanager.worldeditmode.listener;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.RequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
+import lombok.AccessLevel;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class EventListener implements Listener {
 
+	@Setter(AccessLevel.PRIVATE)
 	static boolean worldguardEnabled = SchemManager.getPluginManager().getPlugin("WorldGuard") != null
 									   && SchemManager.getPluginManager().isPluginEnabled("WorldGuard");
 
@@ -24,7 +27,7 @@ public class EventListener implements Listener {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
 		} else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
-			worldguardEnabled = false;
+			setWorldguardEnabled(false);
 		}
 	}
 
@@ -34,7 +37,7 @@ public class EventListener implements Listener {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
 		} else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
-			worldguardEnabled = true;
+			setWorldguardEnabled(true);
 		}
 	}
 
