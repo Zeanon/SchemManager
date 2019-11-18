@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -33,7 +34,7 @@ public class WorldEditModeSchemUtils {
 	}
 
 	public static void initSchemPath() throws FileNotFoundException {
-		Path tempPath = Paths.get(Objects.notNull(Utils.getWeConfig()).getStringUseArray("saving", "dir"));
+		@NotNull Path tempPath = Paths.get(Objects.notNull(Utils.getWeConfig()).getStringUseArray("saving", "dir"));
 		Utils.getWeConfig().clearData();
 		if (tempPath.isAbsolute()) {
 			schemFolderPath = tempPath.normalize();

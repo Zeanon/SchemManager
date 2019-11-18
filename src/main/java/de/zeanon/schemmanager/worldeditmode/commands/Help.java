@@ -255,8 +255,8 @@ public class Help {
 		}
 		p.sendMessage(ChatColor.RED + "Available formats:");
 		if (!Objects.notNull(ConfigUtils.getStringList("File Extensions")).isEmpty()) {
-			String[] formats = Objects.notNull(ConfigUtils.getStringList("File Extensions")).toArray(new String[0]);
-			StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&b, ");
+			@NotNull String[] formats = Objects.notNull(ConfigUtils.getStringList("File Extensions")).toArray(new String[0]);
+			@NotNull StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&b, ");
 			for (byte i = 1; i < formats.length - 1; i++) {
 				pathBuilder.append("&d").append(formats[i]).append("&b").append(", ");
 			}

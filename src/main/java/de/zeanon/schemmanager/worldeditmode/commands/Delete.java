@@ -18,6 +18,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -28,9 +29,9 @@ public class Delete {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				List<File> files = schemPath != null
-								   ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
-								   : null;
+				@Nullable List<File> files = schemPath != null
+											 ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
+											 : null;
 				final boolean fileExists = files != null && !files.isEmpty();
 
 				if (args.length == 3) {
@@ -48,8 +49,8 @@ public class Delete {
 					if (args[3].equalsIgnoreCase("confirm")) {
 						WorldEditModeRequestUtils.removeDeleteRequest(p);
 						if (fileExists) {
-							String parentName = null;
-							for (File file : files) {
+							@Nullable String parentName = null;
+							for (@NotNull File file : files) {
 								try {
 									Files.delete(file.toPath());
 									if (ConfigUtils.getBoolean("Delete empty Folders")

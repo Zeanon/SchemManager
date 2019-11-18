@@ -28,11 +28,12 @@ public class Rename {
 
 	public static void onRename(@NotNull final Player p, @NotNull final String[] args) {
 		new BukkitRunnable() {
+			@SuppressWarnings("DuplicatedCode")
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				List<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
-				List<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
+				@Nullable List<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
+				@Nullable List<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
 				final boolean oldFileExists = oldFiles != null && !oldFiles.isEmpty();
 				final boolean newFileExists = newFiles != null && !newFiles.isEmpty();
 
@@ -70,12 +71,12 @@ public class Rename {
 	private static void moveFile(@NotNull final Player p, final String fileName, @NotNull final List<File> oldFiles, @Nullable final List<File> newFiles, @NotNull final Path destPath) {
 		try {
 			if (newFiles != null) {
-				for (File file : newFiles) {
+				for (@NotNull File file : newFiles) {
 					Files.delete(file.toPath());
 				}
 			}
-			String parentName = null;
-			for (File file : oldFiles) {
+			@Nullable String parentName = null;
+			for (@NotNull File file : oldFiles) {
 				if (Objects.notNull(ConfigUtils.getStringList("File Extensions")).stream().noneMatch(SMFileUtils.getExtension(destPath)::equals)) {
 					FileUtils.moveFile(file, new File(destPath + SMFileUtils.getExtension(file)));
 					parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0

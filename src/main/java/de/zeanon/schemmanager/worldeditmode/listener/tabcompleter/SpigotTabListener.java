@@ -14,10 +14,10 @@ public class SpigotTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onTab(@NotNull final TabCompleteEvent event) {
-		String message = event.getBuffer();
+		@NotNull String message = event.getBuffer();
 		message = message.replaceAll("\\s+", " ");
 		boolean argumentEnded = message.endsWith(" ");
-		String[] args = message.replace("worldedit:", "/").split(" ");
+		@NotNull String[] args = message.replace("worldedit:", "/").split(" ");
 		if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
 			if (message.contains("./")) {
 				event.setCompletions(new ArrayList<>());

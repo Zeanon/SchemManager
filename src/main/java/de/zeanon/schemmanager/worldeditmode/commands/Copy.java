@@ -28,15 +28,16 @@ public class Copy {
 
 	public static void onCopy(@NotNull final Player p, @NotNull final String[] args) {
 		new BukkitRunnable() {
+			@SuppressWarnings("DuplicatedCode")
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				List<File> oldFiles = schemPath != null
-									  ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
-									  : null;
-				List<File> newFiles = schemPath != null
-									  ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3]))
-									  : null;
+				@Nullable List<File> oldFiles = schemPath != null
+												? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
+												: null;
+				@Nullable List<File> newFiles = schemPath != null
+												? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3]))
+												: null;
 				final boolean oldFileExists = oldFiles != null && !oldFiles.isEmpty();
 				final boolean newFileExists = newFiles != null && !newFiles.isEmpty();
 
@@ -76,11 +77,11 @@ public class Copy {
 	private static void copyFile(@NotNull final Player p, final String fileName, @NotNull final List<File> oldFiles, @Nullable final List<File> newFiles, @NotNull final Path destPath) {
 		try {
 			if (newFiles != null) {
-				for (File file : newFiles) {
+				for (@NotNull File file : newFiles) {
 					Files.delete(file.toPath());
 				}
 			}
-			for (File file : oldFiles) {
+			for (@NotNull File file : oldFiles) {
 				if (Objects.notNull(ConfigUtils.getStringList("File Extensions"))
 						   .stream()
 						   .noneMatch(SMFileUtils.getExtension(destPath.toString())::equals)) {

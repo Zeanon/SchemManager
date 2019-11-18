@@ -21,6 +21,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @SuppressWarnings("DuplicatedCode")
@@ -33,8 +34,8 @@ public class RenameFolder {
 			public void run() {
 				try {
 					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-					File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
-					File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
+					@Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+					@Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
 
 					if (args.length == 4) {
 						if (directoryOld == null || !directoryOld.exists() || !directoryOld.isDirectory()) {
@@ -43,9 +44,9 @@ public class RenameFolder {
 						} else if (directoryNew.exists() && directoryNew.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
-							List<String> extensions = ConfigUtils.getStringList("File Extensions");
-							for (File oldFile : SMFileUtils.listFiles(directoryOld, Objects.notNull(extensions), true)) {
-								for (File newFile : SMFileUtils.listFiles(directoryNew, extensions, true)) {
+							@Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
+							for (@NotNull File oldFile : SMFileUtils.listFiles(directoryOld, Objects.notNull(extensions), true)) {
+								for (@NotNull File newFile : SMFileUtils.listFiles(directoryNew, extensions, true)) {
 									if (SMFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName()))
 										&& newFile.toPath().relativize(directoryNew.toPath()).equals(oldFile.toPath().relativize(directoryOld.toPath()))) {
 										if (id == 0) {
@@ -73,14 +74,14 @@ public class RenameFolder {
 							}
 
 							int i = 0;
-							for (File oldFolder : SMFileUtils.listFolders(directoryOld, true)) {
-								for (File newFolder : SMFileUtils.listFolders(directoryNew, true)) {
+							for (@NotNull File oldFolder : SMFileUtils.listFolders(directoryOld, true)) {
+								for (@NotNull File newFolder : SMFileUtils.listFolders(directoryNew, true)) {
 									if (newFolder.getName().equalsIgnoreCase(oldFolder.getName())
 										&& newFolder.toPath().relativize(directoryNew.toPath()).equals(oldFolder.toPath().relativize(directoryOld.toPath()))) {
 										if (i == 0) {
 											p.sendMessage(ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
 										}
-										String name = newFolder.getName();
+										@NotNull String name = newFolder.getName();
 										String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
 										String shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
 										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ",
@@ -114,8 +115,8 @@ public class RenameFolder {
 								if (deepMerge(directoryOld, directoryNew)) {
 									try {
 										FileUtils.deleteDirectory(directoryOld);
-										String parentName = Objects.notNull(directoryOld.getAbsoluteFile().getParentFile().listFiles()).length > 0
-															|| ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(directoryOld);
+										@Nullable String parentName = Objects.notNull(directoryOld.getAbsoluteFile().getParentFile().listFiles()).length > 0
+																	  || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(directoryOld);
 										if (directoryOld.getName().equals(parentName)) {
 											parentName = null;
 										}
@@ -153,7 +154,7 @@ public class RenameFolder {
 			return true;
 		} else {
 			try {
-				for (File tempFile : Objects.notNull(oldFile.listFiles())) {
+				for (@NotNull File tempFile : Objects.notNull(oldFile.listFiles())) {
 					if (new File(newFile, tempFile.getName()).exists()) {
 						if (tempFile.isDirectory()) {
 							if (!deepMerge(tempFile, new File(newFile, tempFile.getName()))) {

@@ -48,9 +48,9 @@ public class Update {
 					 .equals(SchemManager.getInstance().getDescription().getVersion())) {
 
 			try {
-				List<String> fileExtensions = Objects.notNull(Utils.getConfig()).hasKeyUseArray("File Extensions")
-											  ? Utils.getConfig().getStringListUseArray("File Extensions")
-											  : Arrays.asList("schem", "schematic");
+				@NotNull List<String> fileExtensions = Objects.notNull(Utils.getConfig()).hasKeyUseArray("File Extensions")
+													   ? Utils.getConfig().getStringListUseArray("File Extensions")
+													   : Arrays.asList("schem", "schematic");
 				int listmax = Utils.getConfig().hasKeyUseArray("Listmax")
 							  ? Utils.getConfig().getIntUseArray("Listmax")
 							  : 10;
@@ -67,7 +67,7 @@ public class Update {
 
 				Utils.getConfig().setDataFromResource("resources/config.tf");
 
-				LinkedHashMap<String[], Object> dataMap = new LinkedHashMap<String[], Object>() {{
+				@NotNull LinkedHashMap<String[], Object> dataMap = new LinkedHashMap<String[], Object>() {{
 					put(new String[]{"Plugin Version"}, SchemManager.getInstance().getDescription().getVersion());
 					put(new String[]{"File Extensions"}, fileExtensions);
 					put(new String[]{"Listmax"}, listmax);

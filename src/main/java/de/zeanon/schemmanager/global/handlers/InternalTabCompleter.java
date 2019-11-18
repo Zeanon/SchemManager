@@ -14,7 +14,7 @@ public class InternalTabCompleter implements TabCompleter {
 	@Override
 	public List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, @NotNull final String[] args) {
 		if (args.length == 1) {
-			ArrayList<String> completions = new ArrayList<>();
+			@NotNull ArrayList<String> completions = new ArrayList<>();
 			if ("update".startsWith(args[0].toLowerCase())) {
 				completions.add("update");
 			}

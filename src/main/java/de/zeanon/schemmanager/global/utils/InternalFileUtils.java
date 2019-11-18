@@ -22,9 +22,9 @@ public class InternalFileUtils {
 	private static final String pluginFolderPath; //NOSONAR
 
 	static {
-		String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
-		String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
-		StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
+		@NotNull String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
+		@NotNull String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
+		@NotNull StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
 		for (byte i = 1; i < parts.length - 1; i++) {
 			pathBuilder.append(parts[i]).append(slash);
 		}
@@ -33,11 +33,11 @@ public class InternalFileUtils {
 
 	@NotNull
 	public static List<File> getExistingFiles(@NotNull final Path path) {
-		ArrayList<File> tempFiles = new ArrayList<>();
+		@NotNull ArrayList<File> tempFiles = new ArrayList<>();
 		if (Objects.notNull(ConfigUtils.getStringList("File Extensions"))
 				   .stream()
 				   .anyMatch(SMFileUtils.getExtension(path)::equalsIgnoreCase)) {
-			File file = path.toFile();
+			@NotNull File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				tempFiles.add(file);
 				return tempFiles;
@@ -48,8 +48,8 @@ public class InternalFileUtils {
 		Objects.notNull(ConfigUtils.getStringList("File Extensions"))
 			   .iterator()
 			   .forEachRemaining(extension -> tempFiles.add(new File(path + "." + extension)));
-		ArrayList<File> files = new ArrayList<>();
-		for (File file : tempFiles) {
+		@NotNull ArrayList<File> files = new ArrayList<>();
+		for (@NotNull File file : tempFiles) {
 			if (file.exists() && !file.isDirectory()) {
 				files.add(file);
 			}

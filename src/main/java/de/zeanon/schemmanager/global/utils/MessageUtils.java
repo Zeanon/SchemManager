@@ -29,8 +29,8 @@ public class MessageUtils {
 										  final String command,
 										  @NotNull final Player target) {
 		new TextComponent();
-		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
-		TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
+		@NotNull TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
+		@NotNull TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
 		commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
 		commandPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												 new ComponentBuilder(hoverMessage).create()));
@@ -49,8 +49,8 @@ public class MessageUtils {
 	 */
 	public static void sendInvertedCommandMessage(@NotNull final String message, @NotNull final String commandMessage, final String hoverMessage, final String command, @NotNull final Player target) {
 		new TextComponent();
-		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
-		TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
+		@NotNull TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
+		@NotNull TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
 		commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
 		commandPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												 new ComponentBuilder(hoverMessage).create()));
@@ -68,13 +68,13 @@ public class MessageUtils {
 	 */
 	public static void sendBooleanMessage(@NotNull final String message, final String commandYes, final String commandNo, @NotNull final Player target) {
 		new TextComponent();
-		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
-		TextComponent separator = new TextComponent(TextComponent.fromLegacyText(ChatColor.BLACK + " "
-																				 + ChatColor.BOLD + "| "));
-		TextComponent commandPartYes = new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_GREEN + ""
-																					  + ChatColor.BOLD + "[Y]"));
-		TextComponent commandPartNo = new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_RED + ""
-																					 + ChatColor.BOLD + "[N]"));
+		@NotNull TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
+		@NotNull TextComponent separator = new TextComponent(TextComponent.fromLegacyText(ChatColor.BLACK + " "
+																						  + ChatColor.BOLD + "| "));
+		@NotNull TextComponent commandPartYes = new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_GREEN + ""
+																							   + ChatColor.BOLD + "[Y]"));
+		@NotNull TextComponent commandPartNo = new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_RED + ""
+																							  + ChatColor.BOLD + "[N]"));
 		commandPartYes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandYes));
 		commandPartYes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 													new ComponentBuilder(new TextComponent(
@@ -107,9 +107,9 @@ public class MessageUtils {
 	 * @param buttonColor     the color of the buttons
 	 */
 	public static void sendScrollMessage(final String commandForward, final String commandBackward, @NotNull final String messageForward, @NotNull final String messageBackward, @NotNull final Player target, final ChatColor buttonColor) {
-		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
-		TextComponent commandPartBackward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[<<<]"));
-		TextComponent commandPartForward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[>>>]"));
+		@NotNull TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
+		@NotNull TextComponent commandPartBackward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[<<<]"));
+		@NotNull TextComponent commandPartForward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[>>>]"));
 		commandPartBackward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandBackward));
 		commandPartBackward.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 														 new ComponentBuilder(new TextComponent(
@@ -137,8 +137,8 @@ public class MessageUtils {
 	 * @param target         the player the message is sent to
 	 */
 	public static void sendSuggestMessage(@NotNull final String message, @NotNull final String suggestMessage, @NotNull final String hoverMessage, final String command, @NotNull final Player target) {
-		TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
-		TextComponent suggestPart = new TextComponent(TextComponent.fromLegacyText(suggestMessage));
+		@NotNull TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
+		@NotNull TextComponent suggestPart = new TextComponent(TextComponent.fromLegacyText(suggestMessage));
 		suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
 		suggestPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												 new ComponentBuilder(new TextComponent(
@@ -155,9 +155,9 @@ public class MessageUtils {
 	 * @param target       the player the message is sent to
 	 */
 	public static void sendHoverMessage(@NotNull final String message1, @NotNull final String message2, @NotNull final String message3, @NotNull final String hoverMessage, @NotNull final Player target) {
-		TextComponent localMessage1 = new TextComponent(TextComponent.fromLegacyText(message1));
-		TextComponent hoverPart = new TextComponent(TextComponent.fromLegacyText(message2));
-		TextComponent localMessage2 = new TextComponent(TextComponent.fromLegacyText(message3));
+		@NotNull TextComponent localMessage1 = new TextComponent(TextComponent.fromLegacyText(message1));
+		@NotNull TextComponent hoverPart = new TextComponent(TextComponent.fromLegacyText(message2));
+		@NotNull TextComponent localMessage2 = new TextComponent(TextComponent.fromLegacyText(message3));
 		hoverPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 											   new ComponentBuilder(new TextComponent(
 													   TextComponent.fromLegacyText(hoverMessage))).create()));

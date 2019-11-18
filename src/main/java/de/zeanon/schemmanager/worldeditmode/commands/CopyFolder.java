@@ -20,6 +20,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -32,8 +33,8 @@ public class CopyFolder {
 			public void run() {
 				try {
 					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-					File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
-					File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
+					@Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+					@Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
 
 					if (args.length == 4) {
 						if (directoryOld == null || !directoryOld.exists() || !directoryOld.isDirectory()) {
@@ -44,9 +45,9 @@ public class CopyFolder {
 							p.sendMessage(ChatColor.GREEN + args[3]
 										  + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
-							List<String> extensions = ConfigUtils.getStringList("File Extensions");
-							for (File oldFile : SMFileUtils.listFiles(directoryOld, Objects.notNull(extensions), true)) {
-								for (File newFile : SMFileUtils.listFiles(directoryNew, extensions, true)) {
+							@Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
+							for (@NotNull File oldFile : SMFileUtils.listFiles(directoryOld, Objects.notNull(extensions), true)) {
+								for (@NotNull File newFile : SMFileUtils.listFiles(directoryNew, extensions, true)) {
 									if (SMFileUtils.removeExtension(newFile.getName())
 												   .equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName()))
 										&& newFile.toPath().relativize(directoryNew.toPath())
@@ -87,8 +88,8 @@ public class CopyFolder {
 							}
 
 							int i = 0;
-							for (File oldFolder : SMFileUtils.listFolders(directoryOld, true)) {
-								for (File newFolder : SMFileUtils.listFolders(directoryNew, true)) {
+							for (@NotNull File oldFolder : SMFileUtils.listFolders(directoryOld, true)) {
+								for (@NotNull File newFolder : SMFileUtils.listFolders(directoryNew, true)) {
 									if (newFolder.getName()
 												 .equalsIgnoreCase(oldFolder.getName())
 										&& newFolder.toPath().relativize(directoryNew.toPath())
@@ -98,7 +99,7 @@ public class CopyFolder {
 														  + ChatColor.GREEN + args[3]
 														  + ChatColor.RED + ", they will be merged.");
 										}
-										String name = newFolder.getName();
+										@NotNull String name = newFolder.getName();
 										String path = FilenameUtils.separatorsToUnix(
 												schemPath.toRealPath()
 														 .relativize(newFolder.toPath().toRealPath())
@@ -182,7 +183,7 @@ public class CopyFolder {
 			return true;
 		} else {
 			try {
-				for (File tempFile : Objects.notNull(oldFile.listFiles())) {
+				for (@NotNull File tempFile : Objects.notNull(oldFile.listFiles())) {
 					if (new File(newFile, tempFile.getName()).exists()) {
 						if (tempFile.isDirectory()) {
 							if (!deepMerge(tempFile, new File(newFile, tempFile.getName()))) {

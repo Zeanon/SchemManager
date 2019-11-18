@@ -28,7 +28,7 @@ public class DeleteFolder {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				File file = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+				@Nullable File file = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
 				final boolean fileExists = file != null && file.exists() && file.isDirectory();
 
 				if (args.length == 3) {
@@ -55,7 +55,7 @@ public class DeleteFolder {
 						if (fileExists) {
 							try {
 								FileUtils.deleteDirectory(file);
-								String parentName = getParentName(file);
+								@Nullable String parentName = getParentName(file);
 								p.sendMessage(ChatColor.GREEN + args[2]
 											  + ChatColor.RED + " was deleted successfully.");
 								if (parentName != null) {
@@ -85,7 +85,7 @@ public class DeleteFolder {
 	@Nullable
 	private static String getParentName(@NotNull final File file) {
 
-		String parentName = null;
+		@Nullable String parentName = null;
 		if (ConfigUtils.getBoolean("Delete empty Folders")
 			&& !file.getAbsoluteFile().getParentFile().equals(WorldEditModeSchemUtils.getSchemFolder())) {
 			parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0

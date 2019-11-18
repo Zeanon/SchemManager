@@ -17,6 +17,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -27,14 +28,14 @@ public class Save {
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				File file = schemPath != null
-							? (Objects.notNull(ConfigUtils.getStringList("File Extensions")) //NOSONAR
-									  .stream()
-									  .anyMatch(SMFileUtils.getExtension(args[2])::equalsIgnoreCase)
-							   ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()
-							   : WorldEditModeSchemUtils.getSchemPath().resolve(
-									   SMFileUtils.removeExtension(args[2])).toFile())
-							: null;
+				@Nullable File file = schemPath != null
+									  ? (Objects.notNull(ConfigUtils.getStringList("File Extensions")) //NOSONAR
+												.stream()
+												.anyMatch(SMFileUtils.getExtension(args[2])::equalsIgnoreCase)
+										 ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()
+										 : WorldEditModeSchemUtils.getSchemPath().resolve(
+												 SMFileUtils.removeExtension(args[2])).toFile())
+									  : null;
 				final boolean fileExists = file != null && file.exists() && !file.isDirectory();
 
 				if (args.length == 3) {

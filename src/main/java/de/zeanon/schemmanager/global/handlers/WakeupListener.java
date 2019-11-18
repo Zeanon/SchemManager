@@ -23,7 +23,7 @@ public class WakeupListener implements Listener {
 
 	@EventHandler
 	public void onQuit(@NotNull final PlayerQuitEvent event) {
-		Player p = event.getPlayer();
+		@NotNull Player p = event.getPlayer();
 		RequestUtils.removeDisableRequest(p);
 		RequestUtils.removeUpdateRequest(p);
 	}

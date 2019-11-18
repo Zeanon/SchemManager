@@ -21,18 +21,18 @@ public class CommandListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onCommand(@NotNull final PlayerCommandPreprocessEvent event) {
-		Player p = event.getPlayer();
-		String[] args = event.getMessage().replace("worldedit:", "/").split("\\s+");
+		@NotNull Player p = event.getPlayer();
+		@NotNull String[] args = event.getMessage().replace("worldedit:", "/").split("\\s+");
 
 		if (args[0].equalsIgnoreCase("/schem")
 			|| args[0].equalsIgnoreCase("/schematic")
 			|| args[0].equalsIgnoreCase("//schem")
 			|| args[0].equalsIgnoreCase("//schematic")) {
 
-			String slash = args[0].equalsIgnoreCase("//schem")
-						   || args[0].equalsIgnoreCase("//schematic") ? "//" : "/";
-			String schemAlias = args[0].equalsIgnoreCase("/schematic")
-								|| args[0].equalsIgnoreCase("//schematic") ? "schematic" : "schem";
+			@NotNull String slash = args[0].equalsIgnoreCase("//schem")
+									|| args[0].equalsIgnoreCase("//schematic") ? "//" : "/";
+			@NotNull String schemAlias = args[0].equalsIgnoreCase("/schematic")
+										 || args[0].equalsIgnoreCase("//schematic") ? "schematic" : "schem";
 
 			if (args.length == 1) {
 				event.setCancelled(true);
