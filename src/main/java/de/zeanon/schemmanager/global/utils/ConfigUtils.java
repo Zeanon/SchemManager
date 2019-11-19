@@ -28,7 +28,7 @@ public class ConfigUtils {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					Update.updateConfig(true);
+					Update.updateConfig();
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
 			return (byte) getDefaultValue(key);
@@ -48,7 +48,7 @@ public class ConfigUtils {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					Update.updateConfig(true);
+					Update.updateConfig();
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
 			return (boolean) getDefaultValue(key);
@@ -69,7 +69,7 @@ public class ConfigUtils {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					Update.updateConfig(true);
+					Update.updateConfig();
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
 			//noinspection unchecked

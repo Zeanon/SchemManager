@@ -113,22 +113,7 @@ public class RenameFolder {
 							WorldEditModeRequestUtils.removeRenameFolderRequest(p);
 							if (directoryOld != null && directoryOld.exists() && directoryOld.isDirectory()) {
 								if (deepMerge(directoryOld, directoryNew)) {
-									try {
-										FileUtils.deleteDirectory(directoryOld);
-										@Nullable String parentName = Objects.notNull(directoryOld.getAbsoluteFile().getParentFile().listFiles()).length > 0
-																	  || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(directoryOld);
-										if (directoryOld.getName().equals(parentName)) {
-											parentName = null;
-										}
-										p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was renamed successfully.");
-										if (parentName != null) {
-											p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
-										}
-									} catch (IOException e) {
-										e.printStackTrace();
-										p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " could not be renamed.");
-										WorldEditModeRequestUtils.removeRenameFolderRequest(p);
-									}
+									deleteParents(directoryOld, args[2], p);
 								} else {
 									p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " could not be renamed.");
 								}
@@ -146,6 +131,25 @@ public class RenameFolder {
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
+	}
+
+	private static void deleteParents(final @NotNull File directory, final @NotNull String arg, final @NotNull Player p) {
+		try {
+			FileUtils.deleteDirectory(directory);
+			@Nullable String parentName = Objects.notNull(directory.getAbsoluteFile().getParentFile().listFiles()).length > 0
+										  || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(directory);
+			if (directory.getName().equals(parentName)) {
+				parentName = null;
+			}
+			p.sendMessage(ChatColor.GREEN + arg + ChatColor.RED + " was renamed successfully.");
+			if (parentName != null) {
+				p.sendMessage(ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			p.sendMessage(ChatColor.GREEN + arg + ChatColor.RED + " could not be renamed.");
+			WorldEditModeRequestUtils.removeRenameFolderRequest(p);
+		}
 	}
 
 

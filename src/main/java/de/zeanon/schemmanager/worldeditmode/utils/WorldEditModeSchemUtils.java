@@ -2,6 +2,7 @@ package de.zeanon.schemmanager.worldeditmode.utils;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.Utils;
+import de.zeanon.storage.internal.base.exceptions.RuntimeIOException;
 import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +29,7 @@ public class WorldEditModeSchemUtils {
 			} catch (FileNotFoundException e) {
 				System.err.println("Could not initialize Schematic folder");
 				e.printStackTrace();
-				throw new IllegalStateException();
+				throw new RuntimeIOException();
 			}
 		}
 	}
@@ -62,7 +63,7 @@ public class WorldEditModeSchemUtils {
 			} catch (FileNotFoundException e) {
 				System.err.println("Could not initialize Schematic folder");
 				e.printStackTrace();
-				throw new IllegalStateException();
+				throw new RuntimeIOException();
 			}
 		}
 	}

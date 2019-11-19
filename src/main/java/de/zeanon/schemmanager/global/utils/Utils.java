@@ -5,10 +5,11 @@ import de.zeanon.schemmanager.global.handlers.WakeupListener;
 import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.StorageManager;
+import de.zeanon.storage.internal.base.exceptions.FileParseException;
+import de.zeanon.storage.internal.base.exceptions.RuntimeIOException;
 import de.zeanon.storage.internal.data.config.ThunderConfig;
 import de.zeanon.storage.internal.data.raw.YamlFile;
 import de.zeanon.storage.internal.settings.Comment;
-import de.zeanon.storage.internal.settings.DataType;
 import de.zeanon.storage.internal.settings.Reload;
 import de.zeanon.storage.internal.utils.basic.Objects;
 import java.io.FileNotFoundException;
@@ -32,30 +33,8 @@ public class Utils {
 			loadConfigs();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are loaded successfully.");
 
-			try {
-				if (!Objects.notNull(Utils.getConfig()).hasKeyUseArray("Plugin Version")
-					|| !Utils.getConfig().getStringUseArray("Plugin Version")
-							 .equals(SchemManager.getInstance().getDescription().getVersion())) {
-					System.out.println("[" + SchemManager.getInstance().getName() + "] >> Updating Configs...");
-					Update.updateConfig(false);
-					System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
-				}
-
-				/*if (pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.isPluginEnabled("FastAsyncWorldEdit"))) { //NOSONAR
-				//TODO //NOSONAR
-				} else */ //NOSONAR
-				if (SchemManager.getPluginManager().getPlugin("WorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("WorldEdit")) {
-					initWorldEditMode();
-				} else {
-					enableSleepMode();
-				}
-			} catch (IllegalStateException e) {
-				System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not update config files.");
-				System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the Config File and reload the plugin.");
-				System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
-				SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
-			}
-		} catch (IllegalStateException e) {
+			initVersion();
+		} catch (RuntimeIOException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load config files.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the Config File and reload the plugin.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
@@ -63,24 +42,49 @@ public class Utils {
 		}
 	}
 
+	private static void initVersion() {
+		try {
+			if (!Objects.notNull(Utils.getConfig()).hasKeyUseArray("Plugin Version")
+				|| !Utils.getConfig().getStringUseArray("Plugin Version")
+						 .equals(SchemManager.getInstance().getDescription().getVersion())) {
+				System.out.println("[" + SchemManager.getInstance().getName() + "] >> Updating Configs...");
+				Update.checkConfigUpdate();
+				System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
+			}
+
+			/*if (pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.isPluginEnabled("FastAsyncWorldEdit"))) { //NOSONAR
+			//TODO //NOSONAR
+			} else */
+			if (SchemManager.getPluginManager().getPlugin("WorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("WorldEdit")) {
+				initWorldEditMode();
+			} else {
+				enableSleepMode();
+			}
+		} catch (RuntimeIOException e) {
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not update config files.");
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the Config File and reload the plugin.");
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
+			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+		}
+	}
+
 	private static void loadConfigs() {
-		boolean failedToLoad = false;
+		Throwable cause = null;
 		try {
 			config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
 								   .fromResource("resources/config.tf")
 								   .reloadSetting(Reload.INTELLIGENT)
 								   .commentSetting(Comment.PRESERVE)
-								   .dataType(DataType.SORTED)
 								   .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
-		} catch (IllegalStateException e) {
+		} catch (@NotNull RuntimeIOException | FileParseException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be loaded.");
 			e.printStackTrace();
-			failedToLoad = true;
+			cause = e;
 		}
-		if (failedToLoad) {
-			throw new IllegalStateException();
+		if (cause != null) {
+			throw new RuntimeIOException(cause);
 		}
 	}
 
@@ -94,18 +98,22 @@ public class Utils {
 									 .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
-			try {
-				WorldEditModeSchemUtils.initSchemPath();
-				System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Schematic folder is loaded successfully.");
-				WorldEditMode.onEnable();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder.");
-				enableSleepMode();
-			}
-		} catch (IllegalStateException e) {
+			initWorldEditPlugin();
+		} catch (@NotNull RuntimeIOException | FileParseException e) {
 			e.printStackTrace();
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file.");
+			enableSleepMode();
+		}
+	}
+
+	private static void initWorldEditPlugin() {
+		try {
+			WorldEditModeSchemUtils.initSchemPath();
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Schematic folder is loaded successfully.");
+			WorldEditMode.onEnable();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder.");
 			enableSleepMode();
 		}
 	}
