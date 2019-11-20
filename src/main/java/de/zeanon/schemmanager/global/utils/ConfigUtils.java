@@ -19,6 +19,7 @@ public class ConfigUtils {
 	 * get an int from the config.
 	 *
 	 * @param key the Config key.
+	 *
 	 * @return value.
 	 */
 	public static byte getByte(@NotNull final String key) {
@@ -39,6 +40,7 @@ public class ConfigUtils {
 	 * get a boolean from the config.
 	 *
 	 * @param key the Config key.
+	 *
 	 * @return value.
 	 */
 	public static boolean getBoolean(@NotNull final String key) {
@@ -59,6 +61,7 @@ public class ConfigUtils {
 	 * get a StringList from the config.
 	 *
 	 * @param key the Config key.
+	 *
 	 * @return value.
 	 */
 	@Nullable
@@ -81,6 +84,7 @@ public class ConfigUtils {
 	 * Get the default values of the different Config keys.
 	 *
 	 * @param key the Config key.
+	 *
 	 * @return the default value.
 	 */
 	@Nullable
