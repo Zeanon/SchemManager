@@ -9,7 +9,8 @@
 ################################################################################################################
 #                                                                                                              #
 ################################################################################################################
-# For Syntax-Highlighting for the config file, please visit https://github.com/Zeanon/StorageManager           #
+# For Syntax-Highlighting for the config file or information about the syntax, please visit                    #
+# https://github.com/Zeanon/StorageManager                                                                     #
 #                                                                                                              #
 # To get information about the custom commands, just type /schem or //schem.                                   #
 # The plugin will reload the config on it's own when the config file gets updated                              #
