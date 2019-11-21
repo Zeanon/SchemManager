@@ -3,7 +3,7 @@ package de.zeanon.schemmanager.global.utils;
 import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
-import de.zeanon.storage.internal.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.SMFileUtils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;

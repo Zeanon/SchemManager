@@ -4,7 +4,7 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.SMFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;

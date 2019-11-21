@@ -3,7 +3,7 @@ package de.zeanon.schemmanager.worldeditmode.commands;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
-import de.zeanon.storage.internal.utils.basic.Objects;
+import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.md_5.bungee.api.ChatColor;

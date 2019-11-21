@@ -2,8 +2,8 @@ package de.zeanon.schemmanager.worldeditmode.utils;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.Utils;
-import de.zeanon.storage.internal.base.exceptions.RuntimeIOException;
-import de.zeanon.storage.internal.utils.basic.Objects;
+import de.zeanon.storage.internal.basic.exceptions.RuntimeIOException;
+import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
