@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.4.2-Beta-v2.79</version>
+    <version>4.4.2-Beta-v2.80</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
@@ -243,7 +243,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>storagemanager</artifactId>
-            <version>1.1.36</version>
+            <version>1.1.37</version>
             <scope>compile</scope>
         </dependency>
 
