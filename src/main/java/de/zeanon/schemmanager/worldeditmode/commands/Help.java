@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Help {
 
-	public static void onHelp(@NotNull final Player p, final String slash, final String schemAlias) {
+	public static void onHelp(final @NotNull Player p, final String slash, final String schemAlias) {
 		if (ConfigUtils.getBoolean("Space Lists")) {
 			p.sendMessage("");
 		}
@@ -249,7 +249,7 @@ public class Help {
 										"/schemmanager disable", p);
 	}
 
-	public static void onFormats(@NotNull final Player p, final boolean suppressBlankLine) {
+	public static void onFormats(final @NotNull Player p, final boolean suppressBlankLine) {
 		if (ConfigUtils.getBoolean("Space Lists") && !suppressBlankLine) {
 			p.sendMessage("");
 		}

@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class WorldeditModeMessageUtils {
 
 	@SuppressWarnings("Duplicates")
-	public static void sendInvalidSubCommand(@NotNull final Player target, final String slash, final String schemAlias) {
+	public static void sendInvalidSubCommand(final @NotNull Player target, final String slash, final String schemAlias) {
 		@NotNull TextComponent base = new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "Usage: "));
 		@NotNull TextComponent schem = new TextComponent(TextComponent.fromLegacyText(ChatColor.GRAY + slash + "schem"));
 		@NotNull TextComponent help = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "help"));

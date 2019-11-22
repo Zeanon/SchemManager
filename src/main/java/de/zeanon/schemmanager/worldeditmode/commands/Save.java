@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Save {
 
-	public static void onSave(@NotNull final Player p, @NotNull final String[] args) {
+	public static void onSave(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {

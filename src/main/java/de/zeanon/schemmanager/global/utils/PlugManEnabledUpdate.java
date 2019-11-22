@@ -40,7 +40,7 @@ class PlugManEnabledUpdate {
 		}
 	}
 
-	static void updatePlugin(@NotNull final Player p, final boolean autoReload) {
+	static void updatePlugin(final @NotNull Player p, final boolean autoReload) {
 		p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
 		try {
 			SMFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()

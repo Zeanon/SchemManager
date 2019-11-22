@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 class WorldEditModeTabCompleter {
 
 	@NotNull
-	static List<String> onTab(@NotNull final String[] args, @NotNull final String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
+	static List<String> onTab(final @NotNull String[] args, final @NotNull String buffer, final boolean alreadyDeep, final boolean argumentEnded) {
 		@NotNull ArrayList<String> completions = new ArrayList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
@@ -246,13 +246,13 @@ class WorldEditModeTabCompleter {
 	}
 
 	@NotNull
-	private static File[] getFileArray(@NotNull final File directory) {
+	private static File[] getFileArray(final @NotNull File directory) {
 		@Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
 		@NotNull Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), false);
 		return rawFiles.toArray(new File[0]);
 	}
 
-	private static void addFileToCompletions(@NotNull final String regex, @NotNull final ArrayList<String> completions, @NotNull final File file) {
+	private static void addFileToCompletions(final @NotNull String regex, final @NotNull ArrayList<String> completions, final @NotNull File file) {
 		try {
 			if (file.getName().toLowerCase().startsWith(regex.toLowerCase()) && !file.getName().equalsIgnoreCase(regex)) {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();

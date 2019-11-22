@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class DefaultUpdate {
 
-	static void updatePlugin(final boolean autoReload, @NotNull final JavaPlugin instance) {
+	static void updatePlugin(final boolean autoReload, final @NotNull JavaPlugin instance) {
 		System.out.println(SchemManager.getInstance().getName() + " is updating...");
 		try {
 			SMFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
@@ -48,7 +48,7 @@ class DefaultUpdate {
 		}
 	}
 
-	static void updatePlugin(@NotNull final Player p, final boolean autoReload, @NotNull final JavaPlugin instance) {
+	static void updatePlugin(final @NotNull Player p, final boolean autoReload, final @NotNull JavaPlugin instance) {
 		p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
 		try {
 			SMFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()

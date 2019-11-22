@@ -20,7 +20,7 @@ public class CommandHandler implements CommandExecutor {
 	 */
 	@SuppressWarnings("NullableProblems")
 	@Override
-	public boolean onCommand(final CommandSender sender, @NotNull final Command command, final String label, @NotNull final String[] args) {
+	public boolean onCommand(final CommandSender sender, final @NotNull Command command, final String label, final @NotNull String[] args) {
 		if (command.getName().equalsIgnoreCase("schemmanager")) {
 			if (sender instanceof Player) {
 				@NotNull Player p = (Player) sender;
@@ -110,7 +110,7 @@ public class CommandHandler implements CommandExecutor {
 		return true;
 	}
 
-	private void sendUpdateUsage(@NotNull final Player p) {
+	private void sendUpdateUsage(final @NotNull Player p) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + "/schemmanager"
 										+ ChatColor.AQUA + " update",
@@ -121,7 +121,7 @@ public class CommandHandler implements CommandExecutor {
 										"/schemmanager update", p);
 	}
 
-	private void sendDisableUsage(@NotNull final Player p) {
+	private void sendDisableUsage(final @NotNull Player p) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + "/schemmanager"
 										+ ChatColor.AQUA + " disable",

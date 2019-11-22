@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 public class CommandListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onCommand(@NotNull final PlayerCommandPreprocessEvent event) {
+	public void onCommand(final @NotNull PlayerCommandPreprocessEvent event) {
 		@NotNull Player p = event.getPlayer();
 		@NotNull String[] args = event.getMessage().replace("worldedit:", "/").split("\\s+");
 
@@ -455,7 +455,7 @@ public class CommandListener implements Listener {
 		}
 	}
 
-	private void deleteUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void deleteUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " delete "
@@ -469,7 +469,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " delete ", p);
 	}
 
-	private void deleteFolderUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void deleteFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " deletefolder "
@@ -483,7 +483,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " deletefolder ", p);
 	}
 
-	private void renameUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void renameUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " rename "
@@ -499,7 +499,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " rename ", p);
 	}
 
-	private void renameFolderUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void renameFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " renamefolder "
@@ -515,7 +515,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " renamefolder ", p);
 	}
 
-	private void copyUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void copyUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " copy "
@@ -531,7 +531,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " copy ", p);
 	}
 
-	private void copyFolderUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void copyFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " copyfolder "
@@ -547,7 +547,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " copyfolder ", p);
 	}
 
-	private void loadUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void loadUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " load "
@@ -566,7 +566,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " load ", p);
 	}
 
-	private void defaultSaveUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void defaultSaveUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " save "
@@ -583,7 +583,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " save ", p);
 	}
 
-	private void saveUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void saveUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " save "
@@ -597,7 +597,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " save ", p);
 	}
 
-	private void listUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void listUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " list "
@@ -621,7 +621,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " list ", p);
 	}
 
-	private void listFolderUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void listFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " listfolder "
@@ -645,7 +645,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " listfolder ", p);
 	}
 
-	private void searchUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void searchUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " search "
@@ -673,7 +673,7 @@ public class CommandListener implements Listener {
 										slash + schemAlias + " search ", p);
 	}
 
-	private void searchFolderUsage(@NotNull final Player p, final String slash, final String schemAlias) {
+	private void searchFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
 										+ ChatColor.AQUA + " searchfolder "

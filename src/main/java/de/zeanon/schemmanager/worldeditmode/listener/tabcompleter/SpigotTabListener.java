@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class SpigotTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onTab(@NotNull final TabCompleteEvent event) {
+	public void onTab(final @NotNull TabCompleteEvent event) {
 		@NotNull String message = event.getBuffer();
 		message = message.replaceAll("\\s+", " ");
 		boolean argumentEnded = message.endsWith(" ");

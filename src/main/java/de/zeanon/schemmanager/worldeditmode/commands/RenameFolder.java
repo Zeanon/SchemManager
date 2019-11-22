@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RenameFolder {
 
-	public static void onRenameFolder(@NotNull final Player p, @NotNull final String[] args) {
+	public static void onRenameFolder(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -153,7 +153,7 @@ public class RenameFolder {
 	}
 
 
-	private static boolean deepMerge(@NotNull final File oldFile, @NotNull final File newFile) {
+	private static boolean deepMerge(final @NotNull File oldFile, final @NotNull File newFile) {
 		if (Objects.notNull(oldFile.listFiles()).length == 0) {
 			return true;
 		} else {

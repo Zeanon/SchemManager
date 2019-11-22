@@ -26,7 +26,7 @@ public class Update {
 		}
 	}
 
-	public static void updatePlugin(@NotNull final Player p) {
+	public static void updatePlugin(final @NotNull Player p) {
 		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
 			&& SchemManager.getPluginManager()
 						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {

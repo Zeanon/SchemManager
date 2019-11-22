@@ -32,7 +32,7 @@ public class InternalFileUtils {
 	}
 
 	@NotNull
-	public static List<File> getExistingFiles(@NotNull final Path path) {
+	public static List<File> getExistingFiles(final @NotNull Path path) {
 		@NotNull ArrayList<File> tempFiles = new ArrayList<>();
 		if (Objects.notNull(ConfigUtils.getStringList("File Extensions"))
 				   .stream()
@@ -58,7 +58,7 @@ public class InternalFileUtils {
 	}
 
 	@NotNull
-	public static String deleteEmptyParent(@NotNull final File file) {
+	public static String deleteEmptyParent(final @NotNull File file) {
 		if (file.getAbsoluteFile().getParentFile().delete()) { //NOSONAR
 			return deleteEmptyParent(file.getAbsoluteFile().getParentFile());
 		}

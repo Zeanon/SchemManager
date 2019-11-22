@@ -23,17 +23,20 @@ public class MessageUtils {
 	 * @param command        the command to be executed when clicked
 	 * @param target         the player the message is sent to
 	 */
-	public static void sendCommandMessage(@NotNull final String message,
-										  @NotNull final String commandMessage,
-										  final String hoverMessage,
-										  final String command,
-										  @NotNull final Player target) {
-		new TextComponent();
-		@NotNull TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
-		@NotNull TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
-		commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
+	public static void sendCommandMessage(final @NotNull String message,
+										  final @NotNull String commandMessage,
+										  final @NotNull String hoverMessage,
+										  final @NotNull String command,
+										  final @NotNull Player target) {
+		final @NotNull TextComponent localMessage = new TextComponent(
+				TextComponent.fromLegacyText(message));
+		final @NotNull TextComponent commandPart = new TextComponent(
+				TextComponent.fromLegacyText(commandMessage));
+		commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+												 command));
 		commandPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												 new ComponentBuilder(hoverMessage).create()));
+
 		localMessage.addExtra(commandPart);
 		target.spigot().sendMessage(localMessage);
 	}
@@ -47,13 +50,21 @@ public class MessageUtils {
 	 * @param command        the command to be executed when clicked
 	 * @param target         the player the message is sent to
 	 */
-	public static void sendInvertedCommandMessage(@NotNull final String message, @NotNull final String commandMessage, final String hoverMessage, final String command, @NotNull final Player target) {
-		new TextComponent();
-		@NotNull TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
-		@NotNull TextComponent commandPart = new TextComponent(TextComponent.fromLegacyText(commandMessage));
-		commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
+	public static void sendInvertedCommandMessage(final @NotNull String message,
+												  final @NotNull String commandMessage,
+												  final @NotNull String hoverMessage,
+												  final @NotNull String command,
+												  final @NotNull Player target) {
+		final @NotNull TextComponent localMessage = new TextComponent(
+				TextComponent.fromLegacyText(message));
+		final @NotNull TextComponent commandPart = new TextComponent(
+				TextComponent.fromLegacyText(commandMessage));
+
+		commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+												 command));
 		commandPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												 new ComponentBuilder(hoverMessage).create()));
+
 		commandPart.addExtra(localMessage);
 		target.spigot().sendMessage(commandPart);
 	}
@@ -66,15 +77,19 @@ public class MessageUtils {
 	 * @param commandNo  the command to be executed when clicked on no
 	 * @param target     the player the message is sent to
 	 */
-	public static void sendBooleanMessage(@NotNull final String message, final String commandYes, final String commandNo, @NotNull final Player target) {
-		new TextComponent();
-		@NotNull TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
-		@NotNull TextComponent separator = new TextComponent(TextComponent.fromLegacyText(ChatColor.BLACK + " "
-																						  + ChatColor.BOLD + "| "));
-		@NotNull TextComponent commandPartYes = new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_GREEN + ""
-																							   + ChatColor.BOLD + "[Y]"));
-		@NotNull TextComponent commandPartNo = new TextComponent(TextComponent.fromLegacyText(ChatColor.DARK_RED + ""
-																							  + ChatColor.BOLD + "[N]"));
+	public static void sendBooleanMessage(final @NotNull String message,
+										  final @NotNull String commandYes,
+										  final @NotNull String commandNo,
+										  final @NotNull Player target) {
+		final @NotNull TextComponent localMessage = new TextComponent(
+				TextComponent.fromLegacyText(message));
+		final @NotNull TextComponent separator = new TextComponent(
+				TextComponent.fromLegacyText(ChatColor.BLACK + " " + ChatColor.BOLD + "| "));
+		final @NotNull TextComponent commandPartYes = new TextComponent(
+				TextComponent.fromLegacyText(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "[Y]"));
+		final @NotNull TextComponent commandPartNo = new TextComponent(
+				TextComponent.fromLegacyText(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[N]"));
+
 		commandPartYes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandYes));
 		commandPartYes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 													new ComponentBuilder(new TextComponent(
@@ -106,11 +121,21 @@ public class MessageUtils {
 	 * @param target          the player the message is sent to
 	 * @param buttonColor     the color of the buttons
 	 */
-	public static void sendScrollMessage(final String commandForward, final String commandBackward, @NotNull final String messageForward, @NotNull final String messageBackward, @NotNull final Player target, final ChatColor buttonColor) {
-		@NotNull TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
-		@NotNull TextComponent commandPartBackward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[<<<]"));
-		@NotNull TextComponent commandPartForward = new TextComponent(TextComponent.fromLegacyText(buttonColor + "[>>>]"));
-		commandPartBackward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandBackward));
+	public static void sendScrollMessage(final @NotNull String commandForward,
+										 final @NotNull String commandBackward,
+										 final @NotNull String messageForward,
+										 final @NotNull String messageBackward,
+										 final @NotNull Player target,
+										 final @NotNull ChatColor buttonColor) {
+		final @NotNull TextComponent localMessage = new TextComponent(
+				TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
+		final @NotNull TextComponent commandPartBackward = new TextComponent(
+				TextComponent.fromLegacyText(buttonColor + "[<<<]"));
+		final @NotNull TextComponent commandPartForward = new TextComponent(
+				TextComponent.fromLegacyText(buttonColor + "[>>>]"));
+
+		commandPartBackward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+														 commandBackward));
 		commandPartBackward.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 														 new ComponentBuilder(new TextComponent(
 																 TextComponent.fromLegacyText(
@@ -120,6 +145,7 @@ public class MessageUtils {
 														new ComponentBuilder(new TextComponent(
 																TextComponent.fromLegacyText(
 																		messageForward))).create()));
+
 		localMessage.addExtra(commandPartBackward);
 		localMessage.addExtra(ChatColor.AQUA + " " + ChatColor.BOLD + "| ");
 		localMessage.addExtra(commandPartForward);
@@ -136,13 +162,24 @@ public class MessageUtils {
 	 * @param command        the command to be suggested when clicked
 	 * @param target         the player the message is sent to
 	 */
-	public static void sendSuggestMessage(@NotNull final String message, @NotNull final String suggestMessage, @NotNull final String hoverMessage, final String command, @NotNull final Player target) {
-		@NotNull TextComponent localMessage = new TextComponent(TextComponent.fromLegacyText(message));
-		@NotNull TextComponent suggestPart = new TextComponent(TextComponent.fromLegacyText(suggestMessage));
-		suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
+	public static void sendSuggestMessage(final @NotNull String message,
+										  final @NotNull String suggestMessage,
+										  final @NotNull String hoverMessage,
+										  final @NotNull String command,
+										  final @NotNull Player target) {
+		final @NotNull TextComponent localMessage = new TextComponent(
+				TextComponent.fromLegacyText(message));
+		final @NotNull TextComponent suggestPart = new TextComponent(
+				TextComponent.fromLegacyText(suggestMessage));
+
+		suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,
+												 command));
 		suggestPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-												 new ComponentBuilder(new TextComponent(
-														 TextComponent.fromLegacyText(hoverMessage))).create()));
+												 new ComponentBuilder(
+														 new TextComponent(
+																 TextComponent.fromLegacyText(hoverMessage)))
+														 .create()));
+
 		localMessage.addExtra(suggestPart);
 		target.spigot().sendMessage(localMessage);
 	}
@@ -154,13 +191,22 @@ public class MessageUtils {
 	 * @param hoverMessage the message to be shown when hovering over message2
 	 * @param target       the player the message is sent to
 	 */
-	public static void sendHoverMessage(@NotNull final String message1, @NotNull final String message2, @NotNull final String message3, @NotNull final String hoverMessage, @NotNull final Player target) {
-		@NotNull TextComponent localMessage1 = new TextComponent(TextComponent.fromLegacyText(message1));
-		@NotNull TextComponent hoverPart = new TextComponent(TextComponent.fromLegacyText(message2));
-		@NotNull TextComponent localMessage2 = new TextComponent(TextComponent.fromLegacyText(message3));
+	public static void sendHoverMessage(final @NotNull String message1,
+										final @NotNull String message2,
+										final @NotNull String message3,
+										final @NotNull String hoverMessage,
+										final @NotNull Player target) {
+		final @NotNull TextComponent localMessage1 = new TextComponent(
+				TextComponent.fromLegacyText(message1));
+		final @NotNull TextComponent hoverPart = new TextComponent(
+				TextComponent.fromLegacyText(message2));
+		final @NotNull TextComponent localMessage2 = new TextComponent(
+				TextComponent.fromLegacyText(message3));
+
 		hoverPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 											   new ComponentBuilder(new TextComponent(
 													   TextComponent.fromLegacyText(hoverMessage))).create()));
+
 		localMessage1.addExtra(hoverPart);
 		localMessage1.addExtra(localMessage2);
 		target.spigot().sendMessage(localMessage1);

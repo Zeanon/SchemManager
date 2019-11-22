@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class PaperTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onTab(@NotNull final AsyncTabCompleteEvent event) {
+	public void onTab(final @NotNull AsyncTabCompleteEvent event) {
 		@NotNull String message = event.getBuffer();
 		message = message.replaceAll("\\s+", " ");
 		boolean argumentEnded = message.endsWith(" ");

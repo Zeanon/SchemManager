@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Search {
 
-	public static void onSearch(@NotNull final Player p, @NotNull final String[] args, final boolean deepSearch) {
+	public static void onSearch(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -297,7 +297,7 @@ public class Search {
 	}
 
 	@NotNull
-	private static File[] getFileArray(@NotNull final File directory, @NotNull final List<String> extensions, final boolean deepSearch, @NotNull final String regex) {
+	private static File[] getFileArray(final @NotNull File directory, final @NotNull List<String> extensions, final boolean deepSearch, final @NotNull String regex) {
 		@NotNull ArrayList<File> files = new ArrayList<>();
 		for (@NotNull File file : SMFileUtils.listFiles(directory, extensions, deepSearch)) {
 			if (SMFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
@@ -309,11 +309,11 @@ public class Search {
 		return fileArray;
 	}
 
-	private static boolean sendListLineFailed(@NotNull final Player p, @NotNull final Path schemFolderPath, @NotNull final Path listPath, @NotNull final File file, final int id, final boolean deepSearch) {
+	private static boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
 		return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
 	}
 
-	private static boolean sendListLine(@NotNull final Player p, @NotNull final Path schemFolderPath, @NotNull final Path listPath, @NotNull final File file, final int id, final boolean deepSearch) {
+	private static boolean sendListLine(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
 		try {
 			String name;
 			String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());

@@ -22,7 +22,7 @@ public class EventListener implements Listener {
 
 
 	@EventHandler
-	public void onPluginDisable(@NotNull final PluginDisableEvent event) {
+	public void onPluginDisable(final @NotNull PluginDisableEvent event) {
 		if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldEdit")) {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
@@ -32,7 +32,7 @@ public class EventListener implements Listener {
 	}
 
 	@EventHandler
-	public void onPluginEnable(@NotNull final PluginEnableEvent event) {
+	public void onPluginEnable(final @NotNull PluginEnableEvent event) {
 		if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit")) {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
@@ -43,7 +43,7 @@ public class EventListener implements Listener {
 
 
 	@EventHandler
-	public void onQuit(@NotNull final PlayerQuitEvent event) {
+	public void onQuit(final @NotNull PlayerQuitEvent event) {
 		@NotNull Player p = event.getPlayer();
 		RequestUtils.removeDisableRequest(p);
 		RequestUtils.removeUpdateRequest(p);

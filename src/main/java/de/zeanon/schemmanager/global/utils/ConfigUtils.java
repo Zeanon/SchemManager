@@ -22,7 +22,7 @@ public class ConfigUtils {
 	 *
 	 * @return value.
 	 */
-	public static byte getByte(@NotNull final String key) {
+	public static byte getByte(final @NotNull String key) {
 		try {
 			return Objects.notNull(Utils.getConfig()).getByteUseArray(key);
 		} catch (ObjectNullException e) {
@@ -43,7 +43,7 @@ public class ConfigUtils {
 	 *
 	 * @return value.
 	 */
-	public static boolean getBoolean(@NotNull final String key) {
+	public static boolean getBoolean(final @NotNull String key) {
 		try {
 			return Objects.notNull(Utils.getConfig()).getBooleanUseArray(key);
 		} catch (ObjectNullException e) {
@@ -65,7 +65,7 @@ public class ConfigUtils {
 	 * @return value.
 	 */
 	@Nullable
-	public static List<String> getStringList(@NotNull final String key) {
+	public static List<String> getStringList(final @NotNull String key) {
 		try {
 			return Objects.notNull(Utils.getConfig()).getStringListUseArray(key);
 		} catch (ObjectNullException e) {
@@ -88,7 +88,7 @@ public class ConfigUtils {
 	 * @return the default value.
 	 */
 	@Nullable
-	private static Object getDefaultValue(@NotNull final String key) {
+	private static Object getDefaultValue(final @NotNull String key) {
 		switch (key) {
 			case "Space Lists":
 			case "Delete empty Folders":

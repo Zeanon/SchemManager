@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DeleteFolder {
 
-	public static void onDeleteFolder(@NotNull final Player p, @NotNull final String[] args) {
+	public static void onDeleteFolder(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -83,7 +83,7 @@ public class DeleteFolder {
 	}
 
 	@Nullable
-	private static String getParentName(@NotNull final File file) {
+	private static String getParentName(final @NotNull File file) {
 
 		@Nullable String parentName = null;
 		if (ConfigUtils.getBoolean("Delete empty Folders")

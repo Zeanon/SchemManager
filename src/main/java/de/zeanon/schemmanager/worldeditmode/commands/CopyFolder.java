@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("DuplicatedCode")
 public class CopyFolder {
 
-	public static void onCopyFolder(@NotNull final Player p, @NotNull final String[] args) {
+	public static void onCopyFolder(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -178,7 +178,7 @@ public class CopyFolder {
 	}
 
 
-	private static boolean deepMerge(@NotNull final File oldFile, @NotNull final File newFile) {
+	private static boolean deepMerge(final @NotNull File oldFile, final @NotNull File newFile) {
 		if (Objects.notNull(oldFile.listFiles()).length == 0) {
 			return true;
 		} else {

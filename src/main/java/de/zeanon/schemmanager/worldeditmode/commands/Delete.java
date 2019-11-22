@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Delete {
 
-	public static void onDelete(@NotNull final Player p, @NotNull final String[] args) {
+	public static void onDelete(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {

@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Copy {
 
-	public static void onCopy(@NotNull final Player p, @NotNull final String[] args) {
+	public static void onCopy(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@SuppressWarnings("DuplicatedCode")
 			@Override
@@ -74,7 +74,7 @@ public class Copy {
 	}
 
 
-	private static void copyFile(@NotNull final Player p, final String fileName, @NotNull final List<File> oldFiles, @Nullable final List<File> newFiles, @NotNull final Path destPath) {
+	private static void copyFile(final @NotNull Player p, final String fileName, final @NotNull List<File> oldFiles, @Nullable final List<File> newFiles, final @NotNull Path destPath) {
 		try {
 			if (newFiles != null) {
 				for (@NotNull File file : newFiles) {
