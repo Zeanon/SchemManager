@@ -6,7 +6,7 @@ import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utility.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
 import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
@@ -77,8 +77,8 @@ public class Rename {
 			}
 			@Nullable String parentName = null;
 			for (@NotNull File file : oldFiles) {
-				if (Objects.notNull(ConfigUtils.getStringList("File Extensions")).stream().noneMatch(SMFileUtils.getExtension(destPath)::equals)) {
-					FileUtils.moveFile(file, new File(destPath + SMFileUtils.getExtension(file)));
+				if (Objects.notNull(ConfigUtils.getStringList("File Extensions")).stream().noneMatch(BaseFileUtils.getExtension(destPath)::equals)) {
+					FileUtils.moveFile(file, new File(destPath + BaseFileUtils.getExtension(file)));
 					parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
 								 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
 					if (file.getName().equals(parentName)) {

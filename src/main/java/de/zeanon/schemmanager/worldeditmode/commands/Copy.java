@@ -6,7 +6,7 @@ import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utility.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
 import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
@@ -84,8 +84,8 @@ public class Copy {
 			for (@NotNull File file : oldFiles) {
 				if (Objects.notNull(ConfigUtils.getStringList("File Extensions"))
 						   .stream()
-						   .noneMatch(SMFileUtils.getExtension(destPath.toString())::equals)) {
-					FileUtils.copyFile(file, new File(destPath.toString() + SMFileUtils.getExtension(file.getName())));
+						   .noneMatch(BaseFileUtils.getExtension(destPath.toString())::equals)) {
+					FileUtils.copyFile(file, new File(destPath.toString() + BaseFileUtils.getExtension(file.getName())));
 				} else {
 					FileUtils.copyFile(file, destPath.toFile());
 				}

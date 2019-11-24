@@ -4,7 +4,7 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utility.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -45,7 +45,7 @@ public class ListFolder {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						} else {
-							@NotNull Collection<File> rawFiles = SMFileUtils.listFolders(directory, deepSearch);
+							@NotNull Collection<File> rawFiles = BaseFileUtils.listFolders(directory, deepSearch);
 							@NotNull File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -98,7 +98,7 @@ public class ListFolder {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 							} else {
-								@NotNull Collection<File> rawFiles = SMFileUtils.listFolders(directory, deepSearch);
+								@NotNull Collection<File> rawFiles = BaseFileUtils.listFolders(directory, deepSearch);
 								@NotNull File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -174,7 +174,7 @@ public class ListFolder {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 							} else {
-								@NotNull Collection<File> rawFiles = SMFileUtils.listFolders(directory, deepSearch);
+								@NotNull Collection<File> rawFiles = BaseFileUtils.listFolders(directory, deepSearch);
 								@NotNull File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -226,7 +226,7 @@ public class ListFolder {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						} else {
-							@NotNull Collection<File> rawFiles = SMFileUtils.listFolders(directory, deepSearch);
+							@NotNull Collection<File> rawFiles = BaseFileUtils.listFolders(directory, deepSearch);
 							@NotNull File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;

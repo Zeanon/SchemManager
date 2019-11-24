@@ -6,7 +6,7 @@ import de.zeanon.schemmanager.global.utils.InternalFileUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utility.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
 import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
@@ -45,9 +45,9 @@ public class RenameFolder {
 							p.sendMessage(ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
 							@Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
-							for (@NotNull File oldFile : SMFileUtils.listFiles(directoryOld, Objects.notNull(extensions), true)) {
-								for (@NotNull File newFile : SMFileUtils.listFiles(directoryNew, extensions, true)) {
-									if (SMFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(SMFileUtils.removeExtension(oldFile.getName()))
+							for (@NotNull File oldFile : BaseFileUtils.listFiles(directoryOld, Objects.notNull(extensions), true)) {
+								for (@NotNull File newFile : BaseFileUtils.listFiles(directoryNew, extensions, true)) {
+									if (BaseFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.getName()))
 										&& newFile.toPath().relativize(directoryNew.toPath()).equals(oldFile.toPath().relativize(directoryOld.toPath()))) {
 										if (id == 0) {
 											p.sendMessage(ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
@@ -59,8 +59,8 @@ public class RenameFolder {
 														 .toRealPath()
 														 .relativize(newFile.toPath().toRealPath())
 														 .toString());
-										if (SMFileUtils.getExtension(newFile.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
-											name = SMFileUtils.removeExtension(newFile.getName());
+										if (BaseFileUtils.getExtension(newFile.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
+											name = BaseFileUtils.removeExtension(newFile.getName());
 										} else {
 											name = newFile.getName();
 										}
@@ -74,8 +74,8 @@ public class RenameFolder {
 							}
 
 							int i = 0;
-							for (@NotNull File oldFolder : SMFileUtils.listFolders(directoryOld, true)) {
-								for (@NotNull File newFolder : SMFileUtils.listFolders(directoryNew, true)) {
+							for (@NotNull File oldFolder : BaseFileUtils.listFolders(directoryOld, true)) {
+								for (@NotNull File newFolder : BaseFileUtils.listFolders(directoryNew, true)) {
 									if (newFolder.getName().equalsIgnoreCase(oldFolder.getName())
 										&& newFolder.toPath().relativize(directoryNew.toPath()).equals(oldFolder.toPath().relativize(directoryOld.toPath()))) {
 										if (i == 0) {

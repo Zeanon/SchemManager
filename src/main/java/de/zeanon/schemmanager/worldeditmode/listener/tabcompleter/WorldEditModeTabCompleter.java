@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.worldeditmode.listener.tabcompleter;
 
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utility.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
 import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
@@ -90,7 +90,7 @@ class WorldEditModeTabCompleter {
 						for (@NotNull File file : getFileArray(pathFile)) {
 							completions.add(file.getName());
 						}
-						for (@NotNull File file : SMFileUtils.listFolders(pathFile, false)) {
+						for (@NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
 							completions.add(file.getName());
 						}
 					}
@@ -98,7 +98,7 @@ class WorldEditModeTabCompleter {
 					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					@Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-						for (@NotNull File file : SMFileUtils.listFolders(pathFile, false)) {
+						for (@NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
 							completions.add(file.getName());
 						}
 					}
@@ -132,7 +132,7 @@ class WorldEditModeTabCompleter {
 							for (@NotNull File file : getFileArray(pathFile)) {
 								addFileToCompletions(regex, completions, file);
 							}
-							for (@NotNull File file : SMFileUtils.listFolders(pathFile, false)) {
+							for (@NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
 								addFileToCompletions(regex, completions, file);
 							}
 						}
@@ -153,7 +153,7 @@ class WorldEditModeTabCompleter {
 
 						@NotNull File pathFile = tempDirectory.toFile();
 						if (pathFile.exists() && pathFile.isDirectory()) {
-							for (@NotNull File file : SMFileUtils.listFolders(pathFile, false)) {
+							for (@NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
 								@NotNull String regex = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
 								addFileToCompletions(regex, completions, file);
 							}
@@ -172,7 +172,7 @@ class WorldEditModeTabCompleter {
 						for (@NotNull File file : getFileArray(pathFile)) {
 							completions.add(file.getName());
 						}
-						for (@NotNull File file : SMFileUtils.listFolders(pathFile, false)) {
+						for (@NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
 							completions.add(file.getName());
 						}
 					}
@@ -180,7 +180,7 @@ class WorldEditModeTabCompleter {
 					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					@Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
-						for (@NotNull File file : SMFileUtils.listFolders(pathFile, false)) {
+						for (@NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
 							completions.add(file.getName());
 						}
 					}
@@ -212,7 +212,7 @@ class WorldEditModeTabCompleter {
 							for (@NotNull File file : getFileArray(pathFile)) {
 								addFileToCompletions(regex, completions, file);
 							}
-							for (@NotNull File file : SMFileUtils.listFolders(pathFile, false)) {
+							for (@NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
 								addFileToCompletions(regex, completions, file);
 							}
 						}
@@ -233,7 +233,7 @@ class WorldEditModeTabCompleter {
 
 						@NotNull File pathFile = tempDirectory.toFile();
 						if (pathFile.exists() && pathFile.isDirectory()) {
-							for (@NotNull File file : SMFileUtils.listFolders(pathFile, false)) {
+							for (@NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
 								@NotNull String regex = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
 								addFileToCompletions(regex, completions, file);
 							}
@@ -248,7 +248,7 @@ class WorldEditModeTabCompleter {
 	@NotNull
 	private static File[] getFileArray(final @NotNull File directory) {
 		@Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
-		@NotNull Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), false);
+		@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, Objects.notNull(extensions), false);
 		return rawFiles.toArray(new File[0]);
 	}
 

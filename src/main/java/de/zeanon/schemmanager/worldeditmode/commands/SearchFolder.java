@@ -4,7 +4,7 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utility.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -296,7 +296,7 @@ public class SearchFolder {
 	@NotNull
 	private static File[] getFileArray(final @NotNull File directory, final boolean deepSearch, final @NotNull String regex) {
 		@NotNull ArrayList<File> files = new ArrayList<>();
-		for (@NotNull File file : SMFileUtils.listFolders(directory, deepSearch)) {
+		for (@NotNull File file : BaseFileUtils.listFolders(directory, deepSearch)) {
 			if (file.getName().toLowerCase().contains(regex.toLowerCase())) {
 				files.add(file);
 			}

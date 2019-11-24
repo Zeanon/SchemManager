@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.utils.basic.BaseFileUtils;
-import de.zeanon.utils.basic.Objects;
+import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
+import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;

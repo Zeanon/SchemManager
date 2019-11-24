@@ -4,7 +4,7 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utility.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
 import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
@@ -299,8 +299,8 @@ public class Search {
 	@NotNull
 	private static File[] getFileArray(final @NotNull File directory, final @NotNull List<String> extensions, final boolean deepSearch, final @NotNull String regex) {
 		@NotNull ArrayList<File> files = new ArrayList<>();
-		for (@NotNull File file : SMFileUtils.listFiles(directory, extensions, deepSearch)) {
-			if (SMFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
+		for (@NotNull File file : BaseFileUtils.listFiles(directory, extensions, deepSearch)) {
+			if (BaseFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
 				files.add(file);
 			}
 		}
@@ -320,8 +320,8 @@ public class Search {
 			@Nullable String shortenedRelativePath = deepSearch
 													 ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
 													 : null;
-			if (SMFileUtils.getExtension(file.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
-				name = SMFileUtils.removeExtension(file.getName());
+			if (BaseFileUtils.getExtension(file.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
+				name = BaseFileUtils.removeExtension(file.getName());
 			} else {
 				name = file.getName();
 			}

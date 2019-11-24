@@ -3,7 +3,7 @@ package de.zeanon.schemmanager.global.utils;
 import com.rylinaux.plugman.util.PluginUtil;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
-import de.zeanon.storage.internal.utility.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -22,12 +22,12 @@ class PlugManEnabledUpdate {
 	static void updatePlugin(final boolean autoReload) {
 		System.out.println(SchemManager.getInstance().getName() + " is updating...");
 		try {
-			SMFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
-																.getCodeSource()
-																.getLocation()
-																.toURI()
-																.getPath())
-											.getCanonicalFile(), new BufferedInputStream(
+			BaseFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
+																  .getCodeSource()
+																  .getLocation()
+																  .toURI()
+																  .getPath())
+											  .getCanonicalFile(), new BufferedInputStream(
 					new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar")
 							.openStream()));
 			System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
@@ -43,12 +43,12 @@ class PlugManEnabledUpdate {
 	static void updatePlugin(final @NotNull Player p, final boolean autoReload) {
 		p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is updating...");
 		try {
-			SMFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
-																.getCodeSource()
-																.getLocation()
-																.toURI()
-																.getPath())
-											.getCanonicalFile(), new BufferedInputStream(
+			BaseFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
+																  .getCodeSource()
+																  .getLocation()
+																  .toURI()
+																  .getPath())
+											  .getCanonicalFile(), new BufferedInputStream(
 					new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar")
 							.openStream()));
 			p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()

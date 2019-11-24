@@ -4,7 +4,7 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utility.utils.SMFileUtils;
+import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
 import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +47,7 @@ public class List {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						} else {
-							@NotNull Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
+							@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
 							@NotNull File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -100,7 +100,7 @@ public class List {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 							} else {
-								@NotNull Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
+								@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
 								@NotNull File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -175,7 +175,7 @@ public class List {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 							} else {
-								@NotNull Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
+								@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
 								@NotNull File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -228,7 +228,7 @@ public class List {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						} else {
-							@NotNull Collection<File> rawFiles = SMFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
+							@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
 							@NotNull File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -313,8 +313,8 @@ public class List {
 			@Nullable String shortenedRelativePath = deepSearch
 													 ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
 													 : null;
-			if (SMFileUtils.getExtension(file.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
-				name = SMFileUtils.removeExtension(file.getName());
+			if (BaseFileUtils.getExtension(file.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
+				name = BaseFileUtils.removeExtension(file.getName());
 			} else {
 				name = file.getName();
 			}

@@ -10,9 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class InternalTabCompleter implements TabCompleter {
 
-	@SuppressWarnings("NullableProblems")
 	@Override
-	public List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, final @NotNull String[] args) {
+	public List<String> onTabComplete(@NotNull final CommandSender sender, @NotNull final Command command, @NotNull final String alias, final @NotNull String[] args) {
 		if (args.length == 1) {
 			@NotNull ArrayList<String> completions = new ArrayList<>();
 			if ("update".startsWith(args[0].toLowerCase())) {

@@ -18,9 +18,8 @@ public class CommandHandler implements CommandExecutor {
 	/**
 	 * Gets the user commands and processes them("/schemmanager")
 	 */
-	@SuppressWarnings("NullableProblems")
 	@Override
-	public boolean onCommand(final CommandSender sender, final @NotNull Command command, final String label, final @NotNull String[] args) {
+	public boolean onCommand(@NotNull final CommandSender sender, final @NotNull Command command, @NotNull final String label, final @NotNull String[] args) {
 		if (command.getName().equalsIgnoreCase("schemmanager")) {
 			if (sender instanceof Player) {
 				@NotNull Player p = (Player) sender;
