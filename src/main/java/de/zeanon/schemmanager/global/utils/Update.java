@@ -1,9 +1,9 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.storage.internal.base.exceptions.ObjectNullException;
-import de.zeanon.storage.internal.base.exceptions.RuntimeIOException;
-import de.zeanon.storage.internal.utility.utils.basic.Objects;
+import de.zeanon.utils.basic.Objects;
+import de.zeanon.utils.exceptions.ObjectNullException;
+import de.zeanon.utils.exceptions.RuntimeIOException;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;

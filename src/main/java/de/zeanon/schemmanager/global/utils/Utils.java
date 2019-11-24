@@ -5,18 +5,19 @@ import de.zeanon.schemmanager.global.handlers.WakeupListener;
 import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.StorageManager;
-import de.zeanon.storage.internal.base.exceptions.FileParseException;
-import de.zeanon.storage.internal.base.exceptions.RuntimeIOException;
 import de.zeanon.storage.internal.base.settings.Comment;
 import de.zeanon.storage.internal.base.settings.Reload;
 import de.zeanon.storage.internal.files.config.ThunderConfig;
 import de.zeanon.storage.internal.files.raw.YamlFile;
-import de.zeanon.storage.internal.utility.utils.basic.Objects;
+import de.zeanon.utils.basic.Objects;
+import de.zeanon.utils.exceptions.FileParseException;
+import de.zeanon.utils.exceptions.RuntimeIOException;
 import java.io.FileNotFoundException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -69,7 +70,7 @@ public class Utils {
 	}
 
 	private static void loadConfigs() {
-		Throwable cause = null;
+		@Nullable Throwable cause = null;
 		try {
 			config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
 								   .fromResource("resources/config.tf")

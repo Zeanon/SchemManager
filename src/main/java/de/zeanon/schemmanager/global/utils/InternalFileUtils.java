@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.storage.internal.utility.utils.SMFileUtils;
-import de.zeanon.storage.internal.utility.utils.basic.Objects;
+import de.zeanon.utils.basic.BaseFileUtils;
+import de.zeanon.utils.basic.Objects;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class InternalFileUtils {
 		@NotNull ArrayList<File> tempFiles = new ArrayList<>();
 		if (Objects.notNull(ConfigUtils.getStringList("File Extensions"))
 				   .stream()
-				   .anyMatch(SMFileUtils.getExtension(path)::equalsIgnoreCase)) {
+				   .anyMatch(BaseFileUtils.getExtension(path)::equalsIgnoreCase)) {
 			@NotNull File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				tempFiles.add(file);
@@ -60,7 +60,7 @@ public class InternalFileUtils {
 	@NotNull
 	public static String deleteEmptyParent(final @NotNull File file) {
 		if (file.getAbsoluteFile().getParentFile().delete()) { //NOSONAR
-			return deleteEmptyParent(file.getAbsoluteFile().getParentFile());
+			return InternalFileUtils.deleteEmptyParent(file.getAbsoluteFile().getParentFile());
 		}
 		return file.getName();
 	}
