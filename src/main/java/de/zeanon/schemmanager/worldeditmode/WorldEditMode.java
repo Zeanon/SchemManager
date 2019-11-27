@@ -6,14 +6,13 @@ import de.zeanon.schemmanager.worldeditmode.listener.CommandListener;
 import de.zeanon.schemmanager.worldeditmode.listener.EventListener;
 import de.zeanon.schemmanager.worldeditmode.listener.tabcompleter.PaperTabListener;
 import de.zeanon.schemmanager.worldeditmode.listener.tabcompleter.SpigotTabListener;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.Nullable;
 
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class WorldEditMode {
 
 	@Nullable

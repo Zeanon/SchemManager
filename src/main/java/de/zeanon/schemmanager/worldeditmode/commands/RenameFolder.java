@@ -13,8 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -24,8 +23,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
+@UtilityClass
 @SuppressWarnings("DuplicatedCode")
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RenameFolder {
 
 	public static void onRenameFolder(final @NotNull Player p, final @NotNull String[] args) {

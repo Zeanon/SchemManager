@@ -7,13 +7,12 @@ import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class Update {
 
 	public static void updatePlugin() {

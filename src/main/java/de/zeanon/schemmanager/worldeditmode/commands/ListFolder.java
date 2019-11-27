@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
@@ -21,8 +20,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
+@UtilityClass
 @SuppressWarnings("Duplicates")
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ListFolder {
 
 	public static void onListFolder(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch) {

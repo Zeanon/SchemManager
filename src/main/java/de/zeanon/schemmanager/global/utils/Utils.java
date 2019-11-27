@@ -13,14 +13,13 @@ import de.zeanon.storage.internal.files.config.ThunderConfig;
 import de.zeanon.storage.internal.files.raw.YamlFile;
 import de.zeanon.storage.internal.utility.utils.basic.Objects;
 import java.io.FileNotFoundException;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class Utils {
 
 	@Getter(onMethod = @__({@NotNull}))

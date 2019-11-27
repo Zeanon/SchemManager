@@ -1,13 +1,12 @@
 package de.zeanon.schemmanager.global.utils;
 
 import java.util.ArrayList;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class RequestUtils {
 
 	@NotNull

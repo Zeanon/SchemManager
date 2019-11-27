@@ -7,14 +7,13 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 
 
+@UtilityClass
 @SuppressWarnings("unused")
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InternalFileUtils {
 
 	@NotNull

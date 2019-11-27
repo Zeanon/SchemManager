@@ -1,13 +1,12 @@
 package de.zeanon.schemmanager.worldeditmode.utils;
 
 import java.util.HashMap;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class WorldEditModeRequestUtils {
 
 	@NotNull
