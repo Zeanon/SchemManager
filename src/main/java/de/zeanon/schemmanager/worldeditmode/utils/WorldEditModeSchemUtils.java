@@ -2,8 +2,9 @@ package de.zeanon.schemmanager.worldeditmode.utils;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.Utils;
+import de.zeanon.storage.internal.base.exceptions.ObjectNullException;
 import de.zeanon.storage.internal.base.exceptions.RuntimeIOException;
-import de.zeanon.storage.internal.utility.utils.basic.Objects;
+import de.zeanon.storage.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -25,7 +26,7 @@ public class WorldEditModeSchemUtils {
 			try {
 				initSchemPath();
 				return schemFolderPath;
-			} catch (FileNotFoundException e) {
+			} catch (@NotNull FileNotFoundException | ObjectNullException e) {
 				System.err.println("Could not initialize Schematic folder");
 				e.printStackTrace();
 				throw new RuntimeIOException();
@@ -33,8 +34,8 @@ public class WorldEditModeSchemUtils {
 		}
 	}
 
-	public static void initSchemPath() throws FileNotFoundException {
-		@NotNull Path tempPath = Paths.get(Objects.notNull(Utils.getWeConfig()).getStringUseArray("saving", "dir"));
+	public static void initSchemPath() throws FileNotFoundException, ObjectNullException {
+		final @NotNull Path tempPath = Paths.get(Objects.notNull(Utils.getWeConfig().getStringUseArray("saving", "dir")));
 		Utils.getWeConfig().clearData();
 		if (tempPath.isAbsolute()) {
 			schemFolderPath = tempPath.normalize();
@@ -59,7 +60,7 @@ public class WorldEditModeSchemUtils {
 			try {
 				initSchemPath();
 				return schemFolder;
-			} catch (FileNotFoundException e) {
+			} catch (@NotNull FileNotFoundException | ObjectNullException e) {
 				System.err.println("Could not initialize Schematic folder");
 				e.printStackTrace();
 				throw new RuntimeIOException();

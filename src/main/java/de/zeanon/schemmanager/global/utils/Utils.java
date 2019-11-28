@@ -6,12 +6,13 @@ import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storage.StorageManager;
 import de.zeanon.storage.internal.base.exceptions.FileParseException;
+import de.zeanon.storage.internal.base.exceptions.ObjectNullException;
 import de.zeanon.storage.internal.base.exceptions.RuntimeIOException;
 import de.zeanon.storage.internal.base.settings.Comment;
 import de.zeanon.storage.internal.base.settings.Reload;
 import de.zeanon.storage.internal.files.config.ThunderConfig;
 import de.zeanon.storage.internal.files.raw.YamlFile;
-import de.zeanon.storage.internal.utility.utils.basic.Objects;
+import de.zeanon.storage.internal.utility.basic.Objects;
 import java.io.FileNotFoundException;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
@@ -22,9 +23,9 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Utils {
 
-	@Getter(onMethod = @__({@NotNull}))
+	@Getter(onMethod_ = {@NotNull})
 	private static YamlFile weConfig;
-	@Getter(onMethod = @__({@NotNull}))
+	@Getter(onMethod_ = {@NotNull})
 	private static ThunderConfig config;
 
 	public static void initPlugin() {
@@ -44,9 +45,9 @@ public class Utils {
 
 	private static void initVersion() {
 		try {
-			if (!Objects.notNull(Utils.getConfig()).hasKeyUseArray("Plugin Version")
-				|| !Utils.getConfig().getStringUseArray("Plugin Version")
-						 .equals(SchemManager.getInstance().getDescription().getVersion())) {
+			if (!Utils.getConfig().hasKeyUseArray("Plugin Version")
+				|| !Objects.notNull(Utils.getConfig().getStringUseArray("Plugin Version"))
+						   .equals(SchemManager.getInstance().getDescription().getVersion())) {
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> Updating Configs...");
 				Update.checkConfigUpdate();
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
@@ -111,7 +112,7 @@ public class Utils {
 			WorldEditModeSchemUtils.initSchemPath();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Schematic folder is loaded successfully.");
 			WorldEditMode.onEnable();
-		} catch (FileNotFoundException e) {
+		} catch (@NotNull FileNotFoundException | ObjectNullException e) {
 			e.printStackTrace();
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder.");
 			enableSleepMode();

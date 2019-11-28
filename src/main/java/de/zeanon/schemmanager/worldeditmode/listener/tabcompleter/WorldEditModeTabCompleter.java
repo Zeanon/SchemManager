@@ -2,8 +2,8 @@ package de.zeanon.schemmanager.worldeditmode.listener.tabcompleter;
 
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storage.internal.utility.utils.basic.BaseFileUtils;
-import de.zeanon.storage.internal.utility.utils.basic.Objects;
+import de.zeanon.storage.internal.utility.basic.BaseFileUtils;
+import de.zeanon.storage.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;

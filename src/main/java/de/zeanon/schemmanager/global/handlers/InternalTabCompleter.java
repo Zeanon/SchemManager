@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.global.handlers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -22,7 +23,7 @@ public class InternalTabCompleter implements TabCompleter {
 			}
 			return completions;
 		} else {
-			return new ArrayList<>();
+			return Collections.emptyList();
 		}
 	}
 }
