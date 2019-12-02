@@ -27,7 +27,6 @@ public class Copy {
 
 	public static void onCopy(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
-			@SuppressWarnings("DuplicatedCode")
 			@Override
 			public void run() {
 				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
@@ -73,7 +72,7 @@ public class Copy {
 	}
 
 
-	private static void copyFile(final @NotNull Player p, final String fileName, final @NotNull List<File> oldFiles, @Nullable final List<File> newFiles, final @NotNull Path destPath) {
+	private static void copyFile(final @NotNull Player p, final String fileName, final @NotNull List<File> oldFiles, final @Nullable List<File> newFiles, final @NotNull Path destPath) {
 		try {
 			if (newFiles != null) {
 				for (@NotNull File file : newFiles) {
