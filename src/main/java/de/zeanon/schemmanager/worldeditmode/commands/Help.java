@@ -252,10 +252,10 @@ public class Help {
 		if (ConfigUtils.getBoolean("Space Lists") && !suppressBlankLine) {
 			p.sendMessage("");
 		}
-		p.sendMessage(ChatColor.RED + "Available formats:");
+		p.sendMessage(ChatColor.RED + "Available clipboard formats:");
 		if (!Objects.notNull(ConfigUtils.getStringList("File Extensions")).isEmpty()) {
-			@NotNull String[] formats = Objects.notNull(ConfigUtils.getStringList("File Extensions")).toArray(new String[0]);
-			@NotNull StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&b, ");
+			final @NotNull String[] formats = Objects.notNull(ConfigUtils.getStringList("File Extensions")).toArray(new String[0]);
+			final @NotNull StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&b, ");
 			for (byte i = 1; i < formats.length - 1; i++) {
 				pathBuilder.append("&d").append(formats[i]).append("&b").append(", ");
 			}
