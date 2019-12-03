@@ -255,12 +255,12 @@ public class Help {
 		p.sendMessage(ChatColor.RED + "Available clipboard formats:");
 		if (!Objects.notNull(ConfigUtils.getStringList("File Extensions")).isEmpty()) {
 			final @NotNull String[] formats = Objects.notNull(ConfigUtils.getStringList("File Extensions")).toArray(new String[0]);
-			final @NotNull StringBuilder pathBuilder = new StringBuilder("&d" + formats[0] + "&b, ");
+			final @NotNull StringBuilder pathBuilder = new StringBuilder(ChatColor.LIGHT_PURPLE + formats[0] + ChatColor.AQUA + ", ");
 			for (byte i = 1; i < formats.length - 1; i++) {
-				pathBuilder.append("&d").append(formats[i]).append("&b").append(", ");
+				pathBuilder.append(ChatColor.LIGHT_PURPLE).append(formats[i]).append(ChatColor.AQUA).append(", ");
 			}
-			pathBuilder.append("&d").append(formats[formats.length - 1]);
-			p.sendMessage(ChatColor.translateAlternateColorCodes('&', pathBuilder.toString()));
+			pathBuilder.append(ChatColor.LIGHT_PURPLE).append(formats[formats.length - 1]);
+			p.sendMessage(pathBuilder.toString());
 		} else {
 			p.sendMessage(ChatColor.LIGHT_PURPLE + "schem"
 						  + ChatColor.AQUA + ", "
