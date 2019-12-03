@@ -34,7 +34,7 @@ public class WorldEditModeSchemUtils {
 		}
 	}
 
-	public static void initSchemPath() throws FileNotFoundException, ObjectNullException {
+	public static void initSchemPath() throws FileNotFoundException {
 		final @NotNull Path tempPath = Paths.get(Objects.notNull(Utils.getWeConfig().getStringUseArray("saving", "dir")));
 		Utils.getWeConfig().clearData();
 		if (tempPath.isAbsolute()) {
