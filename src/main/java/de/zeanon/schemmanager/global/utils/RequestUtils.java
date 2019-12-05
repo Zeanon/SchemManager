@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.global.utils;
 
-import java.util.ArrayList;
+import de.zeanon.storage.external.lists.GapList;
+import java.util.List;
 import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -10,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 public class RequestUtils {
 
 	@NotNull
-	private static final ArrayList<String> disableRequests = new ArrayList<>();
+	private static final List<String> disableRequests = new GapList<>();
 	@NotNull
-	private static final ArrayList<String> updateRequests = new ArrayList<>();
+	private static final List<String> updateRequests = new GapList<>();
 
 	public static void removeDisableRequest(final @NotNull Player p) {
 		disableRequests.remove(p.getUniqueId().toString());

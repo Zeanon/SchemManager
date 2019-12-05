@@ -1,11 +1,11 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.storage.external.lists.GapList;
 import de.zeanon.storage.internal.utility.basic.BaseFileUtils;
 import de.zeanon.storage.internal.utility.basic.Objects;
 import java.io.File;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
@@ -32,7 +32,7 @@ public class InternalFileUtils {
 
 	@NotNull
 	public static List<File> getExistingFiles(final @NotNull Path path) {
-		@NotNull ArrayList<File> tempFiles = new ArrayList<>();
+		@NotNull List<File> tempFiles = new GapList<>();
 		if (Objects.notNull(ConfigUtils.getStringList("File Extensions"))
 				   .stream()
 				   .anyMatch(BaseFileUtils.getExtension(path)::equalsIgnoreCase)) {
@@ -47,8 +47,8 @@ public class InternalFileUtils {
 		Objects.notNull(ConfigUtils.getStringList("File Extensions"))
 			   .iterator()
 			   .forEachRemaining(extension -> tempFiles.add(new File(path + "." + extension)));
-		@NotNull ArrayList<File> files = new ArrayList<>();
-		for (@NotNull File file : tempFiles) {
+		final @NotNull List<File> files = new GapList<>();
+		for (final @NotNull File file : tempFiles) {
 			if (file.exists() && !file.isDirectory()) {
 				files.add(file);
 			}

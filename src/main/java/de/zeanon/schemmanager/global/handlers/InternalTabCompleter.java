@@ -1,6 +1,6 @@
 package de.zeanon.schemmanager.global.handlers;
 
-import java.util.ArrayList;
+import de.zeanon.storage.external.lists.GapList;
 import java.util.Collections;
 import java.util.List;
 import org.bukkit.command.Command;
@@ -14,7 +14,7 @@ public class InternalTabCompleter implements TabCompleter {
 	@Override
 	public List<String> onTabComplete(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String alias, final @NotNull String[] args) {
 		if (args.length == 1) {
-			@NotNull ArrayList<String> completions = new ArrayList<>();
+			final @NotNull List<String> completions = new GapList<>();
 			if ("update".startsWith(args[0].toLowerCase())) {
 				completions.add("update");
 			}

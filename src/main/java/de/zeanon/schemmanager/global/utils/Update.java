@@ -7,6 +7,7 @@ import de.zeanon.storage.internal.utility.basic.Objects;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -75,7 +76,7 @@ public class Update {
 
 			Utils.getConfig().setDataFromResource("resources/config.tf");
 
-			@NotNull LinkedHashMap<String[], Object> dataMap = new LinkedHashMap<>();
+			final @NotNull Map<String[], Object> dataMap = new LinkedHashMap<>();
 			dataMap.put(new String[]{"Plugin Version"}, SchemManager.getInstance().getDescription().getVersion());
 			dataMap.put(new String[]{"File Extensions"}, fileExtensions);
 			dataMap.put(new String[]{"Listmax"}, listmax);

@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager.worldeditmode.listener.tabcompleter;
 
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang.ArrayUtils;
@@ -14,14 +14,14 @@ import org.jetbrains.annotations.NotNull;
 public class PaperTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onTab(final @NotNull AsyncTabCompleteEvent event) {
+	public void onTab(final @NotNull AsyncTabCompleteEvent event) throws IOException {
 		@NotNull String message = event.getBuffer();
 		message = message.replaceAll("\\s+", " ");
 		boolean argumentEnded = message.endsWith(" ");
 		@NotNull String[] args = message.replace("worldedit:", "/").split(" ");
 		if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
 			if (message.contains("./")) {
-				event.setCompletions(new ArrayList<>());
+				event.setCompletions(Collections.emptyList());
 			} else {
 				boolean deep = false;
 				if (((args.length == 3 && argumentEnded) || args.length > 3) && args[2].equalsIgnoreCase("-deep")) {

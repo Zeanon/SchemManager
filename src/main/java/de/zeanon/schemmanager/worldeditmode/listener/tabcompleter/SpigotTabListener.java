@@ -1,6 +1,6 @@
 package de.zeanon.schemmanager.worldeditmode.listener.tabcompleter;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Collections;
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.event.EventHandler;
@@ -13,14 +13,14 @@ import org.jetbrains.annotations.NotNull;
 public class SpigotTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onTab(final @NotNull TabCompleteEvent event) {
+	public void onTab(final @NotNull TabCompleteEvent event) throws IOException {
 		@NotNull String message = event.getBuffer();
 		message = message.replaceAll("\\s+", " ");
 		boolean argumentEnded = message.endsWith(" ");
 		@NotNull String[] args = message.replace("worldedit:", "/").split(" ");
 		if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
 			if (message.contains("./")) {
-				event.setCompletions(new ArrayList<>());
+				event.setCompletions(Collections.emptyList());
 			} else {
 				boolean deep = false;
 				if (((args.length == 3 && argumentEnded) || args.length > 3) && args[2].equalsIgnoreCase("-deep")) {
@@ -37,7 +37,7 @@ public class SpigotTabListener implements Listener {
 			if (args.length == 1 || (args.length == 2 && !message.endsWith(" "))) {
 				event.setCompletions(Collections.singletonList("-c"));
 			} else {
-				event.setCompletions(new ArrayList<>());
+				event.setCompletions(Collections.emptyList());
 			}
 		}
 	}

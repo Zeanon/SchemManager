@@ -4,11 +4,11 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
+import de.zeanon.storage.external.lists.GapList;
 import de.zeanon.storage.internal.utility.basic.BaseFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
@@ -293,9 +293,9 @@ public class SearchFolder {
 	}
 
 	@NotNull
-	private static File[] getFileArray(final @NotNull File directory, final boolean deepSearch, final @NotNull String regex) {
-		@NotNull ArrayList<File> files = new ArrayList<>();
-		for (@NotNull File file : BaseFileUtils.listFolders(directory, deepSearch)) {
+	private static File[] getFileArray(final @NotNull File directory, final boolean deepSearch, final @NotNull String regex) throws IOException {
+		final @NotNull java.util.List<File> files = new GapList<>();
+		for (final @NotNull File file : BaseFileUtils.listFolders(directory, deepSearch)) {
 			if (file.getName().toLowerCase().contains(regex.toLowerCase())) {
 				files.add(file);
 			}

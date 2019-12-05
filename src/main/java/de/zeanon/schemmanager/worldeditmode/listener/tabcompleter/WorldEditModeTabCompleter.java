@@ -2,12 +2,12 @@ package de.zeanon.schemmanager.worldeditmode.listener.tabcompleter;
 
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
+import de.zeanon.storage.external.lists.GapList;
 import de.zeanon.storage.internal.utility.basic.BaseFileUtils;
 import de.zeanon.storage.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -22,7 +22,7 @@ class WorldEditModeTabCompleter {
 
 	@NotNull
 	static List<String> onTab(final @NotNull String[] args, final @NotNull String buffer, final boolean alreadyDeep, final boolean argumentEnded) throws IOException {
-		@NotNull ArrayList<String> completions = new ArrayList<>();
+		final @NotNull List<String> completions = new GapList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
 				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder");
@@ -251,7 +251,7 @@ class WorldEditModeTabCompleter {
 		return rawFiles.toArray(new File[0]);
 	}
 
-	private static void addFileToCompletions(final @NotNull String regex, final @NotNull ArrayList<String> completions, final @NotNull File file) {
+	private static void addFileToCompletions(final @NotNull String regex, final @NotNull List<String> completions, final @NotNull File file) {
 		try {
 			if (file.getName().toLowerCase().startsWith(regex.toLowerCase()) && !file.getName().equalsIgnoreCase(regex)) {
 				final @NotNull Path schemPath = WorldEditModeSchemUtils.getSchemPath();
