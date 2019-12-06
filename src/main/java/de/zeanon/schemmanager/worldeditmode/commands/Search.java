@@ -23,7 +23,6 @@ import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
-@SuppressWarnings("Duplicates")
 public class Search {
 
 	public static void onSearch(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch) {

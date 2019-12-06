@@ -21,7 +21,6 @@ import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
-@SuppressWarnings("Duplicates")
 public class ListFolder {
 
 	public static void onListFolder(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch) {
