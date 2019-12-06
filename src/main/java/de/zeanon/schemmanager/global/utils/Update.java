@@ -5,9 +5,8 @@ import de.zeanon.storage.internal.base.exceptions.ObjectNullException;
 import de.zeanon.storage.internal.base.exceptions.RuntimeIOException;
 import de.zeanon.storage.internal.utility.basic.Objects;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import javafx.util.Pair;
 import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -76,16 +75,15 @@ public class Update {
 
 			Utils.getConfig().setDataFromResource("resources/config.tf");
 
-			final @NotNull Map<String[], Object> dataMap = new LinkedHashMap<>();
-			dataMap.put(new String[]{"Plugin Version"}, SchemManager.getInstance().getDescription().getVersion());
-			dataMap.put(new String[]{"File Extensions"}, fileExtensions);
-			dataMap.put(new String[]{"Listmax"}, listmax);
-			dataMap.put(new String[]{"Space Lists"}, spaceLists);
-			dataMap.put(new String[]{"Delete empty Folders"}, deleteEmptyFolders);
-			dataMap.put(new String[]{"Save Function Override"}, saveOverride);
-			dataMap.put(new String[]{"Stoplag Override"}, stoplagOverride);
-			dataMap.put(new String[]{"Automatic Reload"}, autoReload);
-			Utils.getConfig().setAllUseArray(dataMap);
+			//noinspection unchecked
+			Utils.getConfig().setAllUseArray(new Pair<>(new String[]{"Plugin Version"}, SchemManager.getInstance().getDescription().getVersion()),
+											 new Pair<>(new String[]{"File Extensions"}, fileExtensions),
+											 new Pair<>(new String[]{"Listmax"}, listmax),
+											 new Pair<>(new String[]{"Space Lists"}, spaceLists),
+											 new Pair<>(new String[]{"Delete empty Folders"}, deleteEmptyFolders),
+											 new Pair<>(new String[]{"Save Function Override"}, saveOverride),
+											 new Pair<>(new String[]{"Stoplag Override"}, stoplagOverride),
+											 new Pair<>(new String[]{"Automatic Reload"}, autoReload));
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' updated.");
 		} catch (RuntimeIOException e) {
