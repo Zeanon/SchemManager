@@ -297,7 +297,7 @@ public class Search {
 	@NotNull
 	private static File[] getFileArray(final @NotNull File directory, final @NotNull List<String> extensions, final boolean deepSearch, final @NotNull String regex) throws IOException {
 		final @NotNull java.util.List<File> files = new GapList<>();
-		for (@NotNull File file : BaseFileUtils.listFiles(directory, extensions, deepSearch)) {
+		for (@NotNull File file : BaseFileUtils.listFiles(directory, deepSearch, extensions)) {
 			if (BaseFileUtils.removeExtension(file.getName()).toLowerCase().contains(regex.toLowerCase())) {
 				files.add(file);
 			}

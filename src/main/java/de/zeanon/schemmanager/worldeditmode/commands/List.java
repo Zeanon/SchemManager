@@ -45,7 +45,7 @@ public class List {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						} else {
-							@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
+							@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
 							@NotNull File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;
@@ -98,7 +98,7 @@ public class List {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 							} else {
-								@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
+								@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
 								@NotNull File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -173,7 +173,7 @@ public class List {
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 							} else {
-								@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
+								@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
 								@NotNull File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
 								double count = files.length;
@@ -226,7 +226,7 @@ public class List {
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						} else {
-							@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, Objects.notNull(extensions), deepSearch);
+							@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
 							@NotNull File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
 							double count = files.length;

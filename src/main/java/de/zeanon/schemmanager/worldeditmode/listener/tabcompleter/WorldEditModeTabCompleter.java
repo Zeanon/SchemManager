@@ -247,7 +247,7 @@ class WorldEditModeTabCompleter {
 	@NotNull
 	private static File[] getFileArray(final @NotNull File directory) throws IOException {
 		final @Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
-		final @NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, Objects.notNull(extensions), false);
+		final @NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, false, Objects.notNull(extensions));
 		return rawFiles.toArray(new File[0]);
 	}
 

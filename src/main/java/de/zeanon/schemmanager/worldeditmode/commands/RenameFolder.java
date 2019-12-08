@@ -44,8 +44,8 @@ public class RenameFolder {
 							p.sendMessage(ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
 							@Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
-							for (@NotNull File oldFile : BaseFileUtils.listFiles(directoryOld, Objects.notNull(extensions), true)) {
-								for (@NotNull File newFile : BaseFileUtils.listFiles(directoryNew, extensions, true)) {
+							for (@NotNull File oldFile : BaseFileUtils.listFiles(directoryOld, true, Objects.notNull(extensions))) {
+								for (@NotNull File newFile : BaseFileUtils.listFiles(directoryNew, true, extensions)) {
 									if (BaseFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.getName()))
 										&& newFile.toPath().relativize(directoryNew.toPath()).equals(oldFile.toPath().relativize(directoryOld.toPath()))) {
 										if (id == 0) {
