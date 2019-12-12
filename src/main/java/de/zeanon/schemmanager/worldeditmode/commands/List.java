@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
+@SuppressWarnings("DuplicatedCode")
 @UtilityClass
 public class List {
 
@@ -29,9 +30,9 @@ public class List {
 			@Override
 			public void run() {
 				byte listmax = ConfigUtils.getByte("Listmax");
-				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
-				@Nullable java.util.List<String> extensions = ConfigUtils.getStringList("File Extensions");
+				final Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+				final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
+				@Nullable final java.util.List<String> extensions = ConfigUtils.getStringList("File Extensions");
 
 				@NotNull String deep = "";
 				if (deepSearch) {
@@ -40,16 +41,16 @@ public class List {
 
 				if (args.length == 2) {
 					try {
-						@Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
-						@Nullable File directory = listPath != null ? listPath.toFile() : null;
+						@Nullable final Path listPath = schemPath != null ? schemPath.toRealPath() : null;
+						@Nullable final File directory = listPath != null ? listPath.toFile() : null;
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						} else {
-							@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
-							@NotNull File[] files = rawFiles.toArray(new File[0]);
+							@NotNull final Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
+							@NotNull final File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
-							double count = files.length;
-							int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
+							final double count = files.length;
+							final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
 							if (spaceLists) {
 								p.sendMessage("");
@@ -69,7 +70,7 @@ public class List {
 									listmax = (byte) count;
 								}
 								for (byte i = 0; i < listmax; i++) {
-									if (sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
+									if (List.sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 										return;
 									}
 								}
@@ -87,23 +88,23 @@ public class List {
 								}
 							}
 						}
-					} catch (IOException e) {
+					} catch (@NotNull final IOException e) {
 						p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 					}
 				} else if (args.length == 3) {
 					if (StringUtils.isNumeric(args[2])) {
 						try {
-							@Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
-							@Nullable File directory = listPath != null ? listPath.toFile() : null;
+							@Nullable final Path listPath = schemPath != null ? schemPath.toRealPath() : null;
+							@Nullable final File directory = listPath != null ? listPath.toFile() : null;
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 							} else {
-								@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
-								@NotNull File[] files = rawFiles.toArray(new File[0]);
+								@NotNull final Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
+								@NotNull final File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
-								double count = files.length;
-								int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
-								int sideNumber = Integer.parseInt(args[2]);
+								final double count = files.length;
+								final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
+								final int sideNumber = Integer.parseInt(args[2]);
 
 								if (sideNumber > side) {
 									MessageUtils.sendHoverMessage("",
@@ -130,7 +131,7 @@ public class List {
 										listmax = (byte) ((int) count - (listmax * (sideNumber - 1)));
 									}
 									for (byte i = 0; i < listmax; i++) {
-										if (sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
+										if (List.sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 											return;
 										}
 										id++;
@@ -163,21 +164,21 @@ public class List {
 									}
 								}
 							}
-						} catch (IOException e) {
+						} catch (@NotNull final IOException e) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						}
 					} else {
 						try {
-							@Nullable Path listPath = schemPath != null ? schemPath.resolve(args[2]).toRealPath() : null;
-							@Nullable File directory = listPath != null ? listPath.toFile() : null;
+							@Nullable final Path listPath = schemPath != null ? schemPath.resolve(args[2]).toRealPath() : null;
+							@Nullable final File directory = listPath != null ? listPath.toFile() : null;
 							if (directory == null || !directory.isDirectory()) {
 								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 							} else {
-								@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
-								@NotNull File[] files = rawFiles.toArray(new File[0]);
+								@NotNull final Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
+								@NotNull final File[] files = rawFiles.toArray(new File[0]);
 								Arrays.sort(files);
-								double count = files.length;
-								int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
+								final double count = files.length;
+								final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
 								if (spaceLists) {
 									p.sendMessage("");
@@ -197,7 +198,7 @@ public class List {
 										listmax = (byte) count;
 									}
 									for (byte i = 0; i < listmax; i++) {
-										if (sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
+										if (List.sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 											return;
 										}
 									}
@@ -215,23 +216,23 @@ public class List {
 									}
 								}
 							}
-						} catch (IOException e) {
+						} catch (@NotNull final IOException e) {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						}
 					}
 				} else {
 					try {
-						@Nullable Path listPath = schemPath != null ? schemPath.resolve(args[2]).toRealPath() : null;
-						@Nullable File directory = listPath != null ? listPath.toFile() : null;
+						@Nullable final Path listPath = schemPath != null ? schemPath.resolve(args[2]).toRealPath() : null;
+						@Nullable final File directory = listPath != null ? listPath.toFile() : null;
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						} else {
-							@NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
-							@NotNull File[] files = rawFiles.toArray(new File[0]);
+							@NotNull final Collection<File> rawFiles = BaseFileUtils.listFiles(directory, deepSearch, Objects.notNull(extensions));
+							@NotNull final File[] files = rawFiles.toArray(new File[0]);
 							Arrays.sort(files);
-							double count = files.length;
-							int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
-							int sideNumber = Integer.parseInt(args[3]);
+							final double count = files.length;
+							final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
+							final int sideNumber = Integer.parseInt(args[3]);
 
 							if (sideNumber > side) {
 								MessageUtils.sendHoverMessage("",
@@ -258,7 +259,7 @@ public class List {
 									listmax = (byte) ((int) count - (listmax * (sideNumber - 1)));
 								}
 								for (byte i = 0; i < listmax; i++) {
-									if (sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
+									if (List.sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 										return;
 									}
 									id++;
@@ -291,7 +292,7 @@ public class List {
 								}
 							}
 						}
-					} catch (IOException e) {
+					} catch (@NotNull final IOException e) {
 						p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 					}
 				}
@@ -301,16 +302,16 @@ public class List {
 
 
 	private static boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
-		return (!sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
+		return (!List.sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
 	}
 
 	private static boolean sendListLine(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
 		try {
-			String name;
-			String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
-			@Nullable String shortenedRelativePath = deepSearch
-													 ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
-													 : null;
+			@NotNull final String name;
+			final String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
+			@Nullable final String shortenedRelativePath = deepSearch
+														   ? FilenameUtils.separatorsToUnix(listPath.relativize(file.toPath().toRealPath()).toString())
+														   : null;
 			if (BaseFileUtils.getExtension(file.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
 				name = BaseFileUtils.removeExtension(file.getName());
 			} else {
@@ -329,7 +330,7 @@ public class List {
 												"//schem load " + path, p);
 				return true;
 			}
-		} catch (IOException e) {
+		} catch (@NotNull final IOException e) {
 			e.printStackTrace();
 			p.sendMessage(ChatColor.RED + "An Error occurred while getting the filepaths for the schematics, please see console for further information.");
 			return false;
