@@ -1,6 +1,6 @@
 package de.zeanon.schemmanager.global.utils;
 
-import de.zeanon.storage.external.lists.GapList;
+import de.zeanon.storage.external.browniescollections.GapList;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;

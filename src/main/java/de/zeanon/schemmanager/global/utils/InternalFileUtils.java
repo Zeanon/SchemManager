@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.storage.external.lists.GapList;
+import de.zeanon.storage.external.browniescollections.GapList;
 import de.zeanon.storage.internal.utility.basic.BaseFileUtils;
 import de.zeanon.storage.internal.utility.basic.Objects;
 import java.io.File;
