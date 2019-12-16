@@ -123,8 +123,8 @@
                 <configuration>
                     <relocations>
                         <relocation>
-                            <pattern>de.zeanon.storage</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.shaded.storage</shadedPattern>
+                            <pattern>de.zeanon.storagemanager</pattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
                         </relocation>
                     </relocations>
                     <createDependencyReducedPom>false</createDependencyReducedPom>

@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.worldeditmode.WorldEditMode;
-import de.zeanon.storage.internal.utility.basic.BaseFileUtils;
+import de.zeanon.storagemanager.internal.utility.basic.BaseFileUtils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;

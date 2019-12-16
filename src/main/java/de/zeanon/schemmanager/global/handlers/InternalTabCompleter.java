@@ -1,6 +1,6 @@
 package de.zeanon.schemmanager.global.handlers;
 
-import de.zeanon.storage.external.browniescollections.GapList;
+import de.zeanon.storagemanager.external.browniescollections.GapList;
 import java.util.Collections;
 import java.util.List;
 import org.bukkit.command.Command;

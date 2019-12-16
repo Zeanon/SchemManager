@@ -5,7 +5,7 @@ import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.commands.*;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeRequestUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldeditModeMessageUtils;
-import de.zeanon.storage.internal.utility.basic.Objects;
+import de.zeanon.storagemanager.internal.utility.basic.Objects;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;

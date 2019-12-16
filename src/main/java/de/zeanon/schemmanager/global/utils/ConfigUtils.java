@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.storage.internal.base.exceptions.ObjectNullException;
-import de.zeanon.storage.internal.utility.basic.Objects;
+import de.zeanon.storagemanager.internal.base.exceptions.ObjectNullException;
+import de.zeanon.storagemanager.internal.utility.basic.Objects;
 import java.util.Arrays;
 import java.util.List;
 import lombok.experimental.UtilityClass;
