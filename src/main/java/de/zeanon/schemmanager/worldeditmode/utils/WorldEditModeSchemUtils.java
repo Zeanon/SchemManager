@@ -21,11 +21,13 @@ public class WorldEditModeSchemUtils {
 
 	public static Path getSchemPath() {
 		if (!Objects.notNull(Utils.getWeConfig()).hasChanged()) {
-			return schemFolderPath;
+			System.out.println(WorldEditModeSchemUtils.schemFolder.getAbsolutePath());
+			return WorldEditModeSchemUtils.schemFolderPath;
 		} else {
 			try {
-				initSchemPath();
-				return schemFolderPath;
+				WorldEditModeSchemUtils.initSchemPath();
+				System.out.println(WorldEditModeSchemUtils.schemFolder.getAbsolutePath());
+				return WorldEditModeSchemUtils.schemFolderPath;
 			} catch (@NotNull FileNotFoundException | ObjectNullException e) {
 				System.err.println("Could not initialize Schematic folder");
 				e.printStackTrace();
@@ -38,16 +40,16 @@ public class WorldEditModeSchemUtils {
 		final @NotNull Path tempPath = Paths.get(Objects.notNull(Utils.getWeConfig().getStringUseArray("saving", "dir")));
 		Utils.getWeConfig().clearData();
 		if (tempPath.isAbsolute()) {
-			schemFolderPath = tempPath.normalize();
-			schemFolder = schemFolderPath.toFile();
-			if (!schemFolder.exists() && !schemFolder.mkdirs()) {
+			WorldEditModeSchemUtils.schemFolderPath = tempPath.normalize();
+			WorldEditModeSchemUtils.schemFolder = WorldEditModeSchemUtils.schemFolderPath.toFile();
+			if (!WorldEditModeSchemUtils.schemFolder.exists() && !WorldEditModeSchemUtils.schemFolder.mkdirs()) {
 				throw new FileNotFoundException();
 			}
 		} else {
-			schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit"))
-									 .getDataFolder().toPath().resolve(tempPath).normalize();
-			schemFolder = schemFolderPath.toFile();
-			if (!schemFolder.exists() && !schemFolder.mkdirs()) {
+			WorldEditModeSchemUtils.schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit"))
+															 .getDataFolder().toPath().resolve(tempPath).normalize();
+			WorldEditModeSchemUtils.schemFolder = WorldEditModeSchemUtils.schemFolderPath.toFile();
+			if (!WorldEditModeSchemUtils.schemFolder.exists() && !WorldEditModeSchemUtils.schemFolder.mkdirs()) {
 				throw new FileNotFoundException();
 			}
 		}
@@ -55,11 +57,11 @@ public class WorldEditModeSchemUtils {
 
 	public static File getSchemFolder() {
 		if (!Objects.notNull(Utils.getWeConfig()).hasChanged()) {
-			return schemFolder;
+			return WorldEditModeSchemUtils.schemFolder;
 		} else {
 			try {
-				initSchemPath();
-				return schemFolder;
+				WorldEditModeSchemUtils.initSchemPath();
+				return WorldEditModeSchemUtils.schemFolder;
 			} catch (@NotNull FileNotFoundException | ObjectNullException e) {
 				System.err.println("Could not initialize Schematic folder");
 				e.printStackTrace();

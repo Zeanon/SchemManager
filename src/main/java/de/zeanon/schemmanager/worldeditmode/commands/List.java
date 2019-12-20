@@ -43,6 +43,7 @@ public class List {
 					try {
 						@Nullable final Path listPath = schemPath != null ? schemPath.toRealPath() : null;
 						@Nullable final File directory = listPath != null ? listPath.toFile() : null;
+						System.out.println(directory == null || !directory.isDirectory());
 						if (directory == null || !directory.isDirectory()) {
 							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
 						} else {
@@ -90,6 +91,7 @@ public class List {
 						}
 					} catch (@NotNull final IOException e) {
 						p.sendMessage(ChatColor.RED + "There is no schematic folder.");
+						e.printStackTrace();
 					}
 				} else if (args.length == 3) {
 					if (StringUtils.isNumeric(args[2])) {
