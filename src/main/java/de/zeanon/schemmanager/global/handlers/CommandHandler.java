@@ -28,8 +28,8 @@ public class CommandHandler implements CommandExecutor {
 								  + ChatColor.YELLOW + "<"
 								  + ChatColor.GOLD + "argument"
 								  + ChatColor.YELLOW + ">");
-					sendUpdateUsage(p);
-					sendDisableUsage(p);
+					this.sendUpdateUsage(p);
+					this.sendDisableUsage(p);
 				} else if (args[0].equalsIgnoreCase("disable")
 						   && p.hasPermission("schemmanager.disable")) {
 					if (args.length == 1) {
@@ -56,7 +56,7 @@ public class CommandHandler implements CommandExecutor {
 						}
 					} else {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						sendDisableUsage(p);
+						this.sendDisableUsage(p);
 					}
 				} else if (args[0].equalsIgnoreCase("update")
 						   && p.hasPermission("schemmanager.update")) {
@@ -85,13 +85,13 @@ public class CommandHandler implements CommandExecutor {
 						}
 					} else {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						sendUpdateUsage(p);
+						this.sendUpdateUsage(p);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Invalid sub-command '"
 								  + ChatColor.GOLD + "" + args[0] + ChatColor.RED + ".");
-					sendUpdateUsage(p);
-					sendDisableUsage(p);
+					this.sendUpdateUsage(p);
+					this.sendDisableUsage(p);
 				}
 			} else {
 				if (args.length == 1 && args[0].equalsIgnoreCase("disable")) {

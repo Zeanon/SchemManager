@@ -315,7 +315,7 @@ public class CommandListener implements Listener {
 						p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
 						listFolderUsage(p, slash, schemAlias);
 					} else {
-						ListFolder.onListFolder(p, args, deep);
+						ListFolders.onListFolder(p, args, deep);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -624,7 +624,7 @@ public class CommandListener implements Listener {
 	private void listFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 										ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " listfolder "
+										+ ChatColor.AQUA + " listfolders "
 										+ ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d"
 										+ ChatColor.YELLOW + "] ["
@@ -634,7 +634,7 @@ public class CommandListener implements Listener {
 										+ ChatColor.YELLOW + "]",
 										ChatColor.RED + "e.g. "
 										+ ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " listfolder "
+										+ ChatColor.AQUA + " listfolders "
 										+ ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d"
 										+ ChatColor.YELLOW + "] ["
@@ -642,7 +642,7 @@ public class CommandListener implements Listener {
 										+ ChatColor.YELLOW + "] ["
 										+ ChatColor.DARK_PURPLE + "page"
 										+ ChatColor.YELLOW + "]",
-										slash + schemAlias + " listfolder ", p);
+										slash + schemAlias + " listfolders ", p);
 	}
 
 	private void searchUsage(final @NotNull Player p, final String slash, final String schemAlias) {

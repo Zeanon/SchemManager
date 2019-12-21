@@ -31,7 +31,7 @@ public class ConfigUtils {
 					Update.updateConfig();
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
-			return (byte) getDefaultValue(key);
+			return (byte) ConfigUtils.getDefaultValue(key);
 		}
 	}
 
@@ -52,7 +52,7 @@ public class ConfigUtils {
 					Update.updateConfig();
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
-			return (boolean) getDefaultValue(key);
+			return (boolean) ConfigUtils.getDefaultValue(key);
 		}
 	}
 
@@ -75,7 +75,7 @@ public class ConfigUtils {
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
 			//noinspection unchecked
-			return (List<String>) getDefaultValue(key);
+			return (List<String>) ConfigUtils.getDefaultValue(key);
 		}
 	}
 

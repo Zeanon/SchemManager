@@ -42,7 +42,8 @@ public class SearchFolder {
 						@Nullable final Path listPath = schemPath != null ? schemPath.toRealPath() : null;
 						@Nullable final File directory = listPath != null ? listPath.toFile() : null;
 						if (directory == null || !directory.isDirectory()) {
-							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+										  ChatColor.RED + "There is no schematic folder.");
 						} else {
 							@NotNull final File[] files = SearchFolder.getFileArray(directory, deepSearch, args[2]);
 							final double count = files.length;
@@ -85,7 +86,9 @@ public class SearchFolder {
 							}
 						}
 					} catch (@NotNull final IOException e) {
-						p.sendMessage(ChatColor.RED + "There is no schematic folder.");
+						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+									  ChatColor.RED + "Could not access schematic folder, for further information please see [console].");
+						e.printStackTrace();
 					}
 				} else if (args.length == 4) {
 					if (StringUtils.isNumeric(args[3])) {
@@ -93,7 +96,8 @@ public class SearchFolder {
 							@Nullable final Path listPath = schemPath != null ? schemPath.toRealPath() : null;
 							@Nullable final File directory = listPath != null ? listPath.toFile() : null;
 							if (directory == null || !directory.isDirectory()) {
-								p.sendMessage(ChatColor.RED + "There is no schematic folder.");
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+											  ChatColor.RED + "There is no schematic folder.");
 							} else {
 								@NotNull final File[] files = SearchFolder.getFileArray(directory, deepSearch, args[2]);
 								final double count = files.length;
@@ -101,7 +105,7 @@ public class SearchFolder {
 								final int sideNumber = Integer.parseInt(args[3]);
 
 								if (sideNumber > side) {
-									MessageUtils.sendHoverMessage("",
+									MessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
 																  ChatColor.RED + "There are only " + side + " pages of folders in this list",
 																  "",
 																  ChatColor.GRAY + "Schematics", p);
@@ -160,14 +164,17 @@ public class SearchFolder {
 								}
 							}
 						} catch (@NotNull final IOException e) {
-							p.sendMessage(ChatColor.RED + "There is no schematic folder.");
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+										  ChatColor.RED + "Could not access schematic folder, for further information please see [console].");
+							e.printStackTrace();
 						}
 					} else {
 						try {
 							@Nullable final Path listPath = schemPath != null ? schemPath.resolve(args[2]).toRealPath() : null;
 							@Nullable final File directory = listPath != null ? listPath.toFile() : null;
 							if (directory == null || !directory.isDirectory()) {
-								p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+											  ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 							} else {
 								@NotNull final File[] files = SearchFolder.getFileArray(directory, deepSearch, args[3]);
 								final double count = files.length;
@@ -210,7 +217,9 @@ public class SearchFolder {
 								}
 							}
 						} catch (@NotNull final IOException e) {
-							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+										  ChatColor.GREEN + args[2] + ChatColor.RED + " could not be accessed, for further information please see [console].");
+							e.printStackTrace();
 						}
 					}
 				} else {
@@ -218,7 +227,8 @@ public class SearchFolder {
 						@Nullable final Path listPath = schemPath != null ? schemPath.resolve(args[2]).toRealPath() : null;
 						@Nullable final File directory = listPath != null ? listPath.toFile() : null;
 						if (directory == null || !directory.isDirectory()) {
-							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+										  ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
 						} else {
 							@NotNull final File[] files = SearchFolder.getFileArray(directory, deepSearch, args[3]);
 							final double count = files.length;
@@ -226,7 +236,7 @@ public class SearchFolder {
 							final int sideNumber = Integer.parseInt(args[4]);
 
 							if (sideNumber > side) {
-								MessageUtils.sendHoverMessage("",
+								MessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
 															  ChatColor.RED + "There are only " + side + " pages of folders in this list",
 															  "",
 															  ChatColor.GRAY + "Schematics/" + args[2], p);
@@ -285,7 +295,9 @@ public class SearchFolder {
 							}
 						}
 					} catch (@NotNull final IOException e) {
-						p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " is no folder.");
+						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+									  ChatColor.GREEN + args[2] + ChatColor.RED + " could not be accessed, for further information please see [console].");
+						e.printStackTrace();
 					}
 				}
 			}
@@ -329,7 +341,8 @@ public class SearchFolder {
 			}
 		} catch (@NotNull final IOException e) {
 			e.printStackTrace();
-			p.sendMessage(ChatColor.RED + "An Error occurred while getting the filepaths for the folders, please see console for further information.");
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+						  ChatColor.RED + "An Error occurred while getting the filepaths for the folders, for further information please see [console].");
 			return false;
 		}
 	}

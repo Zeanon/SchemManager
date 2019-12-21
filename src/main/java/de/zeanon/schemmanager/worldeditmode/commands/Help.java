@@ -161,7 +161,7 @@ public class Help {
 										slash + schemAlias + " list ", p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "List folders: ",
 										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "listfolder "
+										+ ChatColor.AQUA + "listfolders "
 										+ ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d"
 										+ ChatColor.YELLOW + "] ["
@@ -171,7 +171,7 @@ public class Help {
 										+ ChatColor.YELLOW + "]",
 										ChatColor.RED + "e.g. "
 										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "listfolder "
+										+ ChatColor.AQUA + "listfolders "
 										+ ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d"
 										+ ChatColor.YELLOW + "] ["
@@ -179,7 +179,7 @@ public class Help {
 										+ ChatColor.YELLOW + "] ["
 										+ ChatColor.DARK_PURPLE + "page"
 										+ ChatColor.YELLOW + "]",
-										slash + schemAlias + " listfolder ", p);
+										slash + schemAlias + " listfolders ", p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Search for a schematic: ",
 										ChatColor.GRAY + slash + schemAlias + " "
 										+ ChatColor.AQUA + "search "

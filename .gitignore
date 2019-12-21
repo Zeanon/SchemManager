@@ -207,3 +207,4 @@ TODO.txt
 .github
 LICENSE
 README.md
+!/src/main/resources/pluginresources/*.jar
