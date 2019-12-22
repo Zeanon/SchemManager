@@ -33,14 +33,14 @@ public class DeleteFolder {
 				if (args.length == 3) {
 					if (fileExists) {
 						if (Objects.notNull(file.listFiles()).length > 0) {
-							MessageUtils.sendInvertedCommandMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+							MessageUtils.sendInvertedCommandMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 																	ChatColor.RED + " still contains files.",
 																	ChatColor.GREEN + args[2],
 																	ChatColor.RED + "Open "
 																	+ ChatColor.GREEN + args[2],
 																	"//schem list " + args[2], p);
 						}
-						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 														ChatColor.RED + "Do you really want to delete "
 														+ ChatColor.GREEN + args[2]
 														+ ChatColor.RED + "?",
@@ -48,7 +48,7 @@ public class DeleteFolder {
 														"//schem delfolder " + args[2] + " deny", p);
 						WorldEditModeRequestUtils.addDeleteFolderRequest(p, args[2]);
 					} else {
-						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 									  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 					}
 				} else if (args.length == 4 && WorldEditModeRequestUtils.checkDeleteFolderRequest(p, args[2])) {
@@ -58,25 +58,25 @@ public class DeleteFolder {
 							try {
 								FileUtils.deleteDirectory(file);
 								@Nullable String parentName = DeleteFolder.getParentName(file);
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 											  ChatColor.GREEN + args[2] +
 											  ChatColor.RED + " was deleted successfully.");
 								if (parentName != null) {
-									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 												  ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
 								}
 							} catch (IOException e) {
 								e.printStackTrace();
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 											  ChatColor.GREEN + args[2] + ChatColor.RED + " could not be deleted, for further information please see [console].");
 							}
 						} else {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 										  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 						}
 					} else if (args[3].equalsIgnoreCase("deny")) {
 						WorldEditModeRequestUtils.removeDeleteFolderRequest(p);
-						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 									  ChatColor.GREEN + args[2] + ChatColor.RED + " was not deleted.");
 					}
 				}

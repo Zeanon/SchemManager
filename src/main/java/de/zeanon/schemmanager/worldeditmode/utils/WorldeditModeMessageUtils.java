@@ -26,7 +26,7 @@ public class WorldeditModeMessageUtils {
 		@NotNull final TextComponent delete = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "delete"));
 		@NotNull final TextComponent deletefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "deletefolder"));
 		@NotNull final TextComponent list = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "list"));
-		@NotNull final TextComponent listfolders = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "listfolder"));
+		@NotNull final TextComponent listfolders = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "listfolders"));
 		@NotNull final TextComponent search = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "search"));
 		@NotNull final TextComponent searchfolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "searchfolder"));
 		schem.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + schemAlias + " "));

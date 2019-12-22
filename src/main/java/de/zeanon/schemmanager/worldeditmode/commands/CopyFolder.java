@@ -37,11 +37,11 @@ public class CopyFolder {
 
 					if (args.length == 4) {
 						if (directoryOld == null || !directoryOld.exists() || !directoryOld.isDirectory()) {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 										  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 							return;
 						} else if (directoryNew.exists() && directoryNew.isDirectory()) {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 										  ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
 							final @Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
@@ -52,7 +52,7 @@ public class CopyFolder {
 										&& newFile.toPath().relativize(directoryNew.toPath())
 												  .equals(oldFile.toPath().relativize(directoryOld.toPath()))) {
 										if (id == 0) {
-											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 														  ChatColor.RED + "These schematics already exist in " +
 														  ChatColor.GREEN + args[3] +
 														  ChatColor.RED + ", they will be overwritten.");
@@ -95,7 +95,7 @@ public class CopyFolder {
 										&& newFolder.toPath().relativize(directoryNew.toPath())
 													.equals(oldFolder.toPath().relativize(directoryOld.toPath()))) {
 										if (i == 0) {
-											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 														  ChatColor.RED + "These folders already exist in " +
 														  ChatColor.GREEN + args[3] +
 														  ChatColor.RED + ", they will be merged.");
@@ -123,7 +123,7 @@ public class CopyFolder {
 								}
 							}
 							if (id > 0 && i > 0) {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 											  ChatColor.RED + "There are already "
 											  + ChatColor.DARK_PURPLE + id
 											  + ChatColor.RED + " schematics and "
@@ -132,14 +132,14 @@ public class CopyFolder {
 											  + ChatColor.GREEN + args[3]
 											  + ChatColor.RED + ".");
 							} else if (id > 0) {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 											  ChatColor.RED + "There are already "
 											  + ChatColor.DARK_PURPLE + id
 											  + ChatColor.RED + " schematics with the same name in "
 											  + ChatColor.GREEN + args[3]
 											  + ChatColor.RED + ".");
 							} else if (i > 0) {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 											  ChatColor.RED + "There are already "
 											  + ChatColor.DARK_PURPLE + i
 											  + ChatColor.RED + " folders with the same name in "
@@ -147,7 +147,7 @@ public class CopyFolder {
 											  + ChatColor.RED + ".");
 							}
 						}
-						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 														ChatColor.RED + "Do you really want to copy "
 														+ ChatColor.GREEN + args[2]
 														+ ChatColor.RED + "?",
@@ -159,14 +159,14 @@ public class CopyFolder {
 							WorldEditModeRequestUtils.removeCopyFolderRequest(p);
 							if (directoryOld != null && directoryOld.exists() && directoryOld.isDirectory()) {
 								if (CopyFolder.deepMerge(directoryOld, directoryNew)) {
-									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 												  ChatColor.GREEN + args[2] + ChatColor.RED + " was copied successfully.");
 								} else {
-									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 												  ChatColor.GREEN + args[2] + ChatColor.RED + " could not be copied, for further information please see [console].");
 								}
 							} else {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 											  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 							}
 						} else if (args[4].equalsIgnoreCase("deny")) {
@@ -175,7 +175,7 @@ public class CopyFolder {
 						}
 					}
 				} catch (IOException e) {
-					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
 								  ChatColor.RED + "An Error occurred while getting the filepaths for the schematics and folders, for further information please see [console].");
 					e.printStackTrace();
 				}
