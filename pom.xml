@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.4.2-Beta-v2.93</version>
+    <version>4.4.2-Beta-v2.94</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
@@ -78,9 +78,9 @@
                 <filtering>true</filtering>
                 <targetPath>resources</targetPath>
                 <directory>src/main/resources/pluginresources/</directory>
-                <includes>
-                    <include>**/*.tf</include>
-                </includes>
+                <excludes>
+                    <exclude>**/*.jar</exclude>
+                </excludes>
             </resource>
         </resources>
 
