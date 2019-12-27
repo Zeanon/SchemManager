@@ -40,7 +40,7 @@ class PlugManEnabledUpdate {
 	}
 
 	static void updatePlugin(final @NotNull Player p, final boolean autoReload) {
-		p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+		p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 					  ChatColor.RED + "updating plugin...");
 		try {
 			BaseFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
@@ -51,16 +51,16 @@ class PlugManEnabledUpdate {
 											  .getCanonicalFile(), new BufferedInputStream(
 					new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar")
 							.openStream()));
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + " update successful.");
 			if (autoReload) {
-				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + " reloading plugin.");
 				PluginUtil.reload(SchemManager.getInstance());
 			}
 		} catch (@NotNull IOException | URISyntaxException e) {
 			e.printStackTrace();
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + " could not update.");
 		}
 	}

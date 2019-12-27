@@ -42,11 +42,11 @@ public class Copy {
 				if (args.length == 4) {
 					if (oldFileExists) {
 						if (newFileExists) {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 										  ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
 						}
 
-						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 														ChatColor.RED + "Do you really want to copy " +
 														ChatColor.GOLD + args[2] +
 														ChatColor.RED + "?",
@@ -54,7 +54,7 @@ public class Copy {
 														"//schem copy " + args[2] + " " + args[3] + " deny", p);
 						WorldEditModeRequestUtils.addCopyRequest(p, args[2]);
 					} else {
-						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 									  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 					}
 				} else if (args.length == 5 && WorldEditModeRequestUtils.checkCopyRequest(p, args[2])) {
@@ -63,12 +63,12 @@ public class Copy {
 						if (oldFileExists) {
 							Copy.copyFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
 						} else {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 										  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 						}
 					} else if (args[4].equalsIgnoreCase("deny")) {
 						WorldEditModeRequestUtils.removeCopyRequest(p);
-						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 									  ChatColor.GOLD + args[2] + ChatColor.RED + " was not copied.");
 					}
 				}
@@ -93,10 +93,10 @@ public class Copy {
 					FileUtils.copyFile(file, destPath.toFile());
 				}
 			}
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GOLD + fileName + ChatColor.RED + " was copied successfully.");
 		} catch (IOException e) {
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GOLD + fileName + ChatColor.RED + " could not be copied, for further information please see [console].");
 			e.printStackTrace();
 		}

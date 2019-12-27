@@ -38,11 +38,11 @@ public class RenameFolder {
 
 					if (args.length == 4) {
 						if (directoryOld == null || !directoryOld.exists() || !directoryOld.isDirectory()) {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 										  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 							return;
 						} else if (directoryNew.exists() && directoryNew.isDirectory()) {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 										  ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
 							@Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
@@ -51,7 +51,7 @@ public class RenameFolder {
 									if (BaseFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.getName()))
 										&& newFile.toPath().relativize(directoryNew.toPath()).equals(oldFile.toPath().relativize(directoryOld.toPath()))) {
 										if (id == 0) {
-											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 														  ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
 										}
 										String name;
@@ -81,7 +81,7 @@ public class RenameFolder {
 									if (newFolder.getName().equalsIgnoreCase(oldFolder.getName())
 										&& newFolder.toPath().relativize(directoryNew.toPath()).equals(oldFolder.toPath().relativize(directoryOld.toPath()))) {
 										if (i == 0) {
-											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 														  ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
 										}
 										@NotNull String name = newFolder.getName();
@@ -96,21 +96,21 @@ public class RenameFolder {
 								}
 							}
 							if (id > 0 && i > 0) {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 											  ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + id + ChatColor.RED
 											  + " schematics and " + ChatColor.DARK_PURPLE + i + ChatColor.RED
 											  + " folders with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
 							} else if (id > 0) {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 											  ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + id + ChatColor.RED
 											  + " schematics with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
 							} else if (i > 0) {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 											  ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + i + ChatColor.RED
 											  + " folders with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
 							}
 						}
-						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 														ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?",
 														"//schem renamefolder " + args[2] + " " + args[3] + " confirm",
 														"//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
@@ -122,22 +122,22 @@ public class RenameFolder {
 								if (RenameFolder.deepMerge(directoryOld, directoryNew)) {
 									RenameFolder.deleteParents(directoryOld, args[2], p);
 								} else {
-									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 												  ChatColor.GREEN + args[2] + ChatColor.RED + " could not be renamed, for further information please see [console].");
 								}
 							} else {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 											  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 							}
 						} else if (args[4].equalsIgnoreCase("deny")) {
 							WorldEditModeRequestUtils.removeRenameFolderRequest(p);
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 										  ChatColor.GREEN + args[2] + ChatColor.RED + " was not renamed");
 						}
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
-					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.RED + "An Error occurred while getting the filepaths for the schematics and folders, for further information please see [console].");
 				}
 			}
@@ -152,14 +152,14 @@ public class RenameFolder {
 			if (directory.getName().equals(parentName)) {
 				parentName = null;
 			}
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GREEN + arg + ChatColor.RED + " was renamed successfully.");
 			if (parentName != null) {
-				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
 			}
 		} catch (IOException e) {
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]  " +
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GREEN + arg + ChatColor.RED + " could not be renamed, for further information please see [console].");
 			e.printStackTrace();
 			WorldEditModeRequestUtils.removeRenameFolderRequest(p);
