@@ -105,6 +105,21 @@
                             <goal>install-file</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>install-storagemanager</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>de.zeanon</groupId>
+                            <artifactId>storagemanager</artifactId>
+                            <version>1.1.65</version>
+                            <file>src/main/resources/pluginresources/StorageManager.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
 
@@ -182,6 +197,7 @@
             </plugin>
         </plugins>
     </build>
+
     <repositories>
         <!-- Spigot Repo -->
         <repository>
@@ -205,12 +221,6 @@
         <repository>
             <id>enginehub-maven</id>
             <url>http://maven.enginehub.org/repo/</url>
-        </repository>
-
-        <!-- TheWarKing Repo -->
-        <repository>
-            <id>thewarking-public</id>
-            <url>http://thewarking.de:8081/repository/PluginUtils/</url>
         </repository>
     </repositories>
 
@@ -243,7 +253,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>storagemanager</artifactId>
-            <version>1.1.63</version>
+            <version>1.1.65</version>
             <scope>compile</scope>
         </dependency>
 
