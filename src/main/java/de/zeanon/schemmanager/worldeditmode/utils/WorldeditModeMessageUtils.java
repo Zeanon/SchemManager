@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 
-@SuppressWarnings("DuplicatedCode")
 @UtilityClass
 public class WorldeditModeMessageUtils {
 

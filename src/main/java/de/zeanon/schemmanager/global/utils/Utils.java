@@ -31,10 +31,10 @@ public class Utils {
 	public static void initPlugin() {
 		try {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Loading Configs...");
-			loadConfigs();
+			Utils.loadConfigs();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are loaded successfully.");
 
-			initVersion();
+			Utils.initVersion();
 		} catch (RuntimeIOException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load config files.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the Config File and reload the plugin.");
@@ -57,9 +57,9 @@ public class Utils {
 			//TODO //NOSONAR
 			} else */
 			if (SchemManager.getPluginManager().getPlugin("WorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("WorldEdit")) {
-				initWorldEditMode();
+				Utils.initWorldEditMode();
 			} else {
-				enableSleepMode();
+				Utils.enableSleepMode();
 			}
 		} catch (RuntimeIOException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not update config files.");
@@ -72,11 +72,11 @@ public class Utils {
 	private static void loadConfigs() {
 		@Nullable Throwable cause = null;
 		try {
-			config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
-								   .fromResource("resources/config.tf")
-								   .reloadSetting(Reload.INTELLIGENT)
-								   .commentSetting(Comment.PRESERVE)
-								   .create();
+			Utils.config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
+										 .fromResource("resources/config.tf")
+										 .reloadSetting(Reload.INTELLIGENT)
+										 .commentSetting(Comment.PRESERVE)
+										 .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
 		} catch (@NotNull RuntimeIOException | FileParseException e) {
@@ -93,29 +93,29 @@ public class Utils {
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + "...");
 
 		try {
-			weConfig = StorageManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
-									 .reloadSetting(Reload.AUTOMATICALLY)
-									 .commentSetting(Comment.SKIP)
-									 .create();
+			Utils.weConfig = StorageManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
+										   .reloadSetting(Reload.AUTOMATICALLY)
+										   .commentSetting(Comment.SKIP)
+										   .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
-			initWorldEditPlugin();
+			Utils.initWorldEditPlugin();
 		} catch (@NotNull RuntimeIOException | FileParseException e) {
 			e.printStackTrace();
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file.");
-			enableSleepMode();
+			Utils.enableSleepMode();
 		}
 	}
 
 	private static void initWorldEditPlugin() {
 		try {
 			WorldEditModeSchemUtils.initSchemPath();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Schematic folder is loaded successfully.");
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Schematic-Folder is loaded successfully.");
 			WorldEditMode.onEnable();
 		} catch (@NotNull FileNotFoundException | ObjectNullException e) {
 			e.printStackTrace();
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder.");
-			enableSleepMode();
+			Utils.enableSleepMode();
 		}
 	}
 
