@@ -169,7 +169,7 @@ public class CommandListener implements Listener {
 					loadUsage(p, slash, schemAlias);
 				} else if (args[2].contains("./")) {
 					event.setCancelled(true);
-					p.sendMessage(ChatColor.RED + "File \'" + args[2] + "\'resolution error: Path is not allowed.");
+					p.sendMessage(ChatColor.RED + "File '" + args[2] + "' resolution error: Path is not allowed.");
 					loadUsage(p, slash, schemAlias);
 				} else if (args.length > 4) {
 					event.setCancelled(true);
