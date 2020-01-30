@@ -61,7 +61,7 @@ class DefaultUpdate {
 											  new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar")
 													  .openStream()));
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-						  ChatColor.RED + " update successful.");
+						  ChatColor.RED + "update successful.");
 			if (autoReload) {
 				new BukkitRunnable() {
 					@Override
@@ -75,7 +75,7 @@ class DefaultUpdate {
 		} catch (@NotNull IOException | URISyntaxException e) {
 			e.printStackTrace();
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-						  ChatColor.RED + " could not update.");
+						  ChatColor.RED + "could not update.");
 		}
 	}
 }
