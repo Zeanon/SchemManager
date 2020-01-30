@@ -39,6 +39,7 @@ public class Utils {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load config files.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the Config File and reload the plugin.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
+
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 		}
 	}
