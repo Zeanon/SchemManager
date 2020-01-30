@@ -21,12 +21,10 @@ public class WorldEditModeSchemUtils {
 
 	public static Path getSchemPath() {
 		if (!Objects.notNull(Utils.getWeConfig()).hasChanged()) {
-			System.out.println(WorldEditModeSchemUtils.schemFolder.getAbsolutePath());
 			return WorldEditModeSchemUtils.schemFolderPath;
 		} else {
 			try {
 				WorldEditModeSchemUtils.initSchemPath();
-				System.out.println(WorldEditModeSchemUtils.schemFolder.getAbsolutePath());
 				return WorldEditModeSchemUtils.schemFolderPath;
 			} catch (@NotNull FileNotFoundException | ObjectNullException e) {
 				System.err.println("Could not initialize Schematic folder");
