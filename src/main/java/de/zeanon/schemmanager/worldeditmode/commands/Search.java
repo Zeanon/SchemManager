@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-@SuppressWarnings("DuplicatedCode")
 @UtilityClass
 public class Search {
 
@@ -68,12 +67,12 @@ public class Search {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															  ChatColor.AQUA + "No schematics found",
 															  ChatColor.AQUA + " ===",
-															  ChatColor.GRAY + "Schematics", p);
+															  ChatColor.GRAY + (caseSensitive ? "Schematics [-c]" : "Schematics"), p);
 							} else {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															  ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side,
 															  ChatColor.AQUA + " ===",
-															  ChatColor.GRAY + "Schematics", p);
+															  ChatColor.GRAY + (caseSensitive ? "Schematics [-c]" : "Schematics"), p);
 
 								if (count < listmax) {
 									listmax = (byte) count;
@@ -120,7 +119,7 @@ public class Search {
 									MessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
 																  ChatColor.RED + "There are only " + side + " schematics in this list",
 																  "",
-																  ChatColor.GRAY + "Schematics", p);
+																  ChatColor.GRAY + (caseSensitive ? "Schematics [-c]" : "Schematics"), p);
 									return;
 								}
 								if (spaceLists) {
@@ -130,12 +129,12 @@ public class Search {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 																  ChatColor.AQUA + "No schematics found",
 																  ChatColor.AQUA + " ===",
-																  ChatColor.GRAY + "Schematics", p);
+																  ChatColor.GRAY + (caseSensitive ? "Schematics [-c]" : "Schematics"), p);
 								} else {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 																  ChatColor.AQUA + "" + (int) count + " Schematics | Page " + sideNumber + "/" + side,
 																  ChatColor.AQUA + " ===",
-																  ChatColor.GRAY + "Schematics", p);
+																  ChatColor.GRAY + (caseSensitive ? "Schematics [-c]" : "Schematics"), p);
 
 									int id = (sideNumber - 1) * listmax;
 									if (count < listmax * sideNumber) {
@@ -199,12 +198,12 @@ public class Search {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 																  ChatColor.AQUA + "No schematics found",
 																  ChatColor.AQUA + " ===",
-																  ChatColor.GRAY + "Schematics/" + args[2 + modifierCount], p);
+																  ChatColor.GRAY + (caseSensitive ? "Schematics/" + args[2 + modifierCount] + " [-c]" : "Schematics/" + args[2 + modifierCount]), p);
 								} else {
 									MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 																  ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side,
 																  ChatColor.AQUA + " ===",
-																  ChatColor.GRAY + "Schematics/" + args[2 + modifierCount], p);
+																  ChatColor.GRAY + (caseSensitive ? "Schematics/" + args[2 + modifierCount] + " [-c]" : "Schematics/" + args[2 + modifierCount]), p);
 
 									if (count < listmax) {
 										listmax = (byte) count;
@@ -251,7 +250,7 @@ public class Search {
 								MessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
 															  ChatColor.RED + "There are only " + side + " schematics in this list",
 															  "",
-															  ChatColor.GRAY + "Schematics/" + args[2 + modifierCount], p);
+															  ChatColor.GRAY + (caseSensitive ? "Schematics/" + args[2 + modifierCount] + " [-c]" : "Schematics/" + args[2 + modifierCount]), p);
 								return;
 							}
 							if (spaceLists) {
@@ -261,12 +260,12 @@ public class Search {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															  ChatColor.AQUA + "No schematics found",
 															  ChatColor.AQUA + " ===",
-															  ChatColor.GRAY + "Schematics/" + args[2 + modifierCount], p);
+															  ChatColor.GRAY + (caseSensitive ? "Schematics/" + args[2 + modifierCount] + " [-c]" : "Schematics/" + args[2 + modifierCount]), p);
 							} else {
 								MessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															  ChatColor.AQUA + "" + (int) count + " Schematics | Page " + sideNumber + "/" + side,
 															  ChatColor.AQUA + " ===",
-															  ChatColor.GRAY + "Schematics/" + args[2 + modifierCount], p);
+															  ChatColor.GRAY + (caseSensitive ? "Schematics/" + args[2 + modifierCount] + " [-c]" : "Schematics/" + args[2 + modifierCount]), p);
 
 								int id = (sideNumber - 1) * listmax;
 								if (count < listmax * sideNumber) {

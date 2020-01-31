@@ -24,7 +24,6 @@ import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
-@SuppressWarnings("DuplicatedCode")
 public class RenameFolder {
 
 	public static void onRenameFolder(final @NotNull Player p, final @NotNull String[] args) {

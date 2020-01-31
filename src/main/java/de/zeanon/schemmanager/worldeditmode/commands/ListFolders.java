@@ -20,7 +20,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-@SuppressWarnings("DuplicatedCode")
 @UtilityClass
 public class ListFolders {
 

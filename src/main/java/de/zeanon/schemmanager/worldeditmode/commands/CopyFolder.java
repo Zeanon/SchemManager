@@ -23,7 +23,6 @@ import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
-@SuppressWarnings("DuplicatedCode")
 public class CopyFolder {
 
 	public static void onCopyFolder(final @NotNull Player p, final @NotNull String[] args) {

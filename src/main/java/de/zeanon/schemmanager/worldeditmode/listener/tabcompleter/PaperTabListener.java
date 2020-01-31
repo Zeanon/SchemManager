@@ -3,7 +3,6 @@ package de.zeanon.schemmanager.worldeditmode.listener.tabcompleter;
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -40,12 +39,11 @@ public class PaperTabListener implements Listener {
 					modifierCount++;
 				}
 
-				final @NotNull List<String> tempList = WorldEditModeTabCompleter.onTab(args, event.getBuffer(), deep, caseSensitive, modifierCount, argumentEnded);
-				if (!tempList.isEmpty()) {
-					event.setCompletions(tempList);
-				} else {
-					event.setCancelled(true);
+				if (modifierCount > 0 && !argumentEnded && args.length == 2 + modifierCount) {
+					modifierCount--;
 				}
+
+				event.setCompletions(WorldEditModeTabCompleter.onTab(args, deep, caseSensitive, modifierCount, argumentEnded));
 			}
 		} else if (args[0].equalsIgnoreCase("/stoplag")) {
 			if (args.length == 1 || (args.length == 2 && !args[1].equals("-c") && !message.endsWith(" "))) {

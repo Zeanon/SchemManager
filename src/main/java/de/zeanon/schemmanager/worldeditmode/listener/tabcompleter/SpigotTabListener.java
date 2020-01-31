@@ -39,7 +39,11 @@ public class SpigotTabListener implements Listener {
 					modifierCount++;
 				}
 
-				event.setCompletions(WorldEditModeTabCompleter.onTab(args, event.getBuffer(), deep, caseSensitive, modifierCount, argumentEnded));
+				if (modifierCount > 0 && !argumentEnded && args.length == 2 + modifierCount) {
+					modifierCount--;
+				}
+
+				event.setCompletions(WorldEditModeTabCompleter.onTab(args, deep, caseSensitive, modifierCount, argumentEnded));
 			}
 		} else if (args[0].equalsIgnoreCase("/stoplag")) {
 			if (args.length == 1 || (args.length == 2 && !message.endsWith(" "))) {
