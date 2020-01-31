@@ -8,6 +8,7 @@
     <version>4.4.2-Beta-v2.99</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
+
     <description>Manage your schematics properly</description>
     <url>https://github.com/Zeanon/SchemManager</url>
 
