@@ -31,8 +31,11 @@ public class MessageUtils {
 				TextComponent.fromLegacyText(message));
 		final @NotNull TextComponent commandPart = new TextComponent(
 				TextComponent.fromLegacyText(commandMessage));
-		commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-												 command));
+
+		if (!command.isEmpty()) {
+			commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+													 command));
+		}
 		commandPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												 new ComponentBuilder(hoverMessage).create()));
 
@@ -59,8 +62,10 @@ public class MessageUtils {
 		final @NotNull TextComponent commandPart = new TextComponent(
 				TextComponent.fromLegacyText(commandMessage));
 
-		commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-												 command));
+		if (!command.isEmpty()) {
+			commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+													 command));
+		}
 		commandPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												 new ComponentBuilder(hoverMessage).create()));
 
@@ -89,14 +94,18 @@ public class MessageUtils {
 		final @NotNull TextComponent commandPartNo = new TextComponent(
 				TextComponent.fromLegacyText(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[N]"));
 
-		commandPartYes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandYes));
+		if (!commandYes.isEmpty()) {
+			commandPartYes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandYes));
+		}
 		commandPartYes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 													new ComponentBuilder(new TextComponent(
 															TextComponent.fromLegacyText(
 																	ChatColor.DARK_GREEN + ""
 																	+ ChatColor.BOLD + "[YES]")))
 															.create()));
-		commandPartNo.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandNo));
+		if (!commandNo.isEmpty()) {
+			commandPartNo.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandNo));
+		}
 		commandPartNo.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												   new ComponentBuilder(new TextComponent(
 														   TextComponent.fromLegacyText(
@@ -133,13 +142,16 @@ public class MessageUtils {
 		final @NotNull TextComponent commandPartForward = new TextComponent(
 				TextComponent.fromLegacyText(buttonColor + "[>>>]"));
 
-		commandPartBackward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-														 commandBackward));
+		if (!commandBackward.isEmpty()) {
+			commandPartBackward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandBackward));
+		}
 		commandPartBackward.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 														 new ComponentBuilder(new TextComponent(
 																 TextComponent.fromLegacyText(
 																		 messageBackward))).create()));
-		commandPartForward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandForward));
+		if (!commandForward.isEmpty()) {
+			commandPartForward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandForward));
+		}
 		commandPartForward.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 														new ComponentBuilder(new TextComponent(
 																TextComponent.fromLegacyText(
@@ -171,8 +183,10 @@ public class MessageUtils {
 		final @NotNull TextComponent suggestPart = new TextComponent(
 				TextComponent.fromLegacyText(suggestMessage));
 
-		suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,
-												 command));
+		if (!command.isEmpty()) {
+			suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,
+													 command));
+		}
 		suggestPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												 new ComponentBuilder(
 														 new TextComponent(

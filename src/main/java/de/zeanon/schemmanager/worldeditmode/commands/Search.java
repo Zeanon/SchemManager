@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Search {
 
-	public static void onSearch(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final boolean caseSensitiveSearch, final int modifierCount) {
+	public void onSearch(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final boolean caseSensitiveSearch, final int modifierCount) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -62,7 +62,7 @@ public class Search {
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	private static @NotNull File[] getFileArray(final @NotNull File directory, final @NotNull List<String> extensions, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
+	private @NotNull File[] getFileArray(final @NotNull File directory, final @NotNull List<String> extensions, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
 		final @NotNull java.util.List<File> files = new GapList<>();
 		for (final @NotNull File file : BaseFileUtils.listFiles(directory, deepSearch, extensions)) {
 			if ((!caseSensitive && BaseFileUtils.removeExtension(file.getName()).toLowerCase().contains(sequence.toLowerCase())) || (caseSensitive && BaseFileUtils.removeExtension(file.getName()).contains(sequence))) {
@@ -73,11 +73,11 @@ public class Search {
 		return fileArray;
 	}
 
-	private static boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
+	private boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
 		return (!Search.sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
 	}
 
-	private static boolean sendListLine(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
+	private boolean sendListLine(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
 		try {
 			final @NotNull String name;
 			final @NotNull String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());

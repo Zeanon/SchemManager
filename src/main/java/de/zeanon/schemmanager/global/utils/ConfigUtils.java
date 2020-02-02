@@ -86,7 +86,8 @@ public class ConfigUtils {
 	 *
 	 * @return the default value.
 	 */
-	private @Nullable Object getDefaultValue(final @NotNull String key) {
+	private @Nullable
+	Object getDefaultValue(final @NotNull String key) {
 		switch (key) {
 			case "Space Lists":
 			case "Delete empty Folders":

@@ -17,7 +17,6 @@ public class SpigotTabListener implements Listener {
 		final boolean argumentEnded = message.endsWith(" ");
 		final @NotNull String[] args = message.replace("worldedit:", "/").split(" ");
 		if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
-			//noinspection DuplicatedCode
 			if (message.contains("./")) {
 				event.setCompletions(Collections.emptyList());
 			} else {

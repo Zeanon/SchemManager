@@ -30,9 +30,9 @@ public class CopyFolder {
 			@Override
 			public void run() {
 				try {
-					@Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-					@Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
-					@Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
+					final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+					final @Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+					final @Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
 
 					if (args.length == 4) {
 						if (directoryOld == null || !directoryOld.exists() || !directoryOld.isDirectory()) {
@@ -44,8 +44,8 @@ public class CopyFolder {
 										  ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
 							int id = 0;
 							final @Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
-							for (@NotNull File oldFile : BaseFileUtils.listFiles(directoryOld, true, Objects.notNull(extensions))) {
-								for (@NotNull File newFile : BaseFileUtils.listFiles(directoryNew, true, extensions)) {
+							for (final @NotNull File oldFile : BaseFileUtils.listFiles(directoryOld, true, Objects.notNull(extensions))) {
+								for (final @NotNull File newFile : BaseFileUtils.listFiles(directoryNew, true, extensions)) {
 									if (BaseFileUtils.removeExtension(newFile.getName())
 													 .equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.getName()))
 										&& newFile.toPath().relativize(directoryNew.toPath())
@@ -54,23 +54,26 @@ public class CopyFolder {
 											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 														  ChatColor.RED + "These schematics already exist in " +
 														  ChatColor.GREEN + args[3] +
-														  ChatColor.RED + ", they will be overwritten.");
+														  ChatColor.RED + ", they will be overwritten:");
 										}
-										String name;
-										final String path = FilenameUtils.separatorsToUnix(
+
+										final @NotNull String path = FilenameUtils.separatorsToUnix(
 												schemPath.toRealPath()
 														 .relativize(newFile.toPath().toRealPath())
 														 .toString());
-										final String shortenedRelativePath = FilenameUtils.separatorsToUnix(
+										final @NotNull String shortenedRelativePath = FilenameUtils.separatorsToUnix(
 												schemPath.resolve(args[3])
 														 .toRealPath()
 														 .relativize(newFile.toPath().toRealPath())
 														 .toString());
+
+										final @NotNull String name;
 										if (BaseFileUtils.getExtension(newFile.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
 											name = BaseFileUtils.removeExtension(newFile.getName());
 										} else {
 											name = newFile.getName();
 										}
+
 										MessageUtils.sendCommandMessage(
 												ChatColor.RED + Integer.toString(id + 1) + ": ",
 												ChatColor.GOLD + name
@@ -87,24 +90,26 @@ public class CopyFolder {
 							}
 
 							int i = 0;
-							for (@NotNull File oldFolder : BaseFileUtils.listFolders(directoryOld, true)) {
-								for (@NotNull File newFolder : BaseFileUtils.listFolders(directoryNew, true)) {
+							for (final @NotNull File oldFolder : BaseFileUtils.listFolders(directoryOld, true)) {
+								for (final @NotNull File newFolder : BaseFileUtils.listFolders(directoryNew, true)) {
 									if (newFolder.getName()
 												 .equalsIgnoreCase(oldFolder.getName())
 										&& newFolder.toPath().relativize(directoryNew.toPath())
 													.equals(oldFolder.toPath().relativize(directoryOld.toPath()))) {
+
 										if (i == 0) {
 											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 														  ChatColor.RED + "These folders already exist in " +
 														  ChatColor.GREEN + args[3] +
-														  ChatColor.RED + ", they will be merged.");
+														  ChatColor.RED + ", they will be merged:");
 										}
+
 										final @NotNull String name = newFolder.getName();
-										String path = FilenameUtils.separatorsToUnix(
+										final @NotNull String path = FilenameUtils.separatorsToUnix(
 												schemPath.toRealPath()
 														 .relativize(newFolder.toPath().toRealPath())
 														 .toString());
-										String shortenedRelativePath = FilenameUtils.separatorsToUnix(
+										final @NotNull String shortenedRelativePath = FilenameUtils.separatorsToUnix(
 												schemPath.resolve(args[3])
 														 .toRealPath()
 														 .relativize(newFolder.toPath().toRealPath())
@@ -121,6 +126,7 @@ public class CopyFolder {
 									}
 								}
 							}
+
 							if (id > 0 && i > 0) {
 								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 											  ChatColor.RED + "There are already "
@@ -146,6 +152,7 @@ public class CopyFolder {
 											  + ChatColor.RED + ".");
 							}
 						}
+
 						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 														ChatColor.RED + "Do you really want to copy "
 														+ ChatColor.GREEN + args[2]
@@ -173,7 +180,7 @@ public class CopyFolder {
 							p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not copied");
 						}
 					}
-				} catch (IOException e) {
+				} catch (final @NotNull IOException e) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.RED + "An Error occurred while getting the filepaths for the schematics and folders, for further information please see [console].");
 					e.printStackTrace();
@@ -184,11 +191,9 @@ public class CopyFolder {
 
 
 	private boolean deepMerge(final @NotNull File oldFile, final @NotNull File newFile) {
-		if (Objects.notNull(oldFile.listFiles()).length == 0) {
-			return true;
-		} else {
+		if (Objects.notNull(oldFile.listFiles()).length != 0) {
 			try {
-				for (@NotNull File tempFile : Objects.notNull(oldFile.listFiles())) {
+				for (final @NotNull File tempFile : Objects.notNull(oldFile.listFiles())) {
 					if (new File(newFile, tempFile.getName()).exists()) {
 						if (tempFile.isDirectory()) {
 							if (!CopyFolder.deepMerge(tempFile, new File(newFile, tempFile.getName()))) {
@@ -206,11 +211,11 @@ public class CopyFolder {
 						}
 					}
 				}
-			} catch (IOException e) {
+			} catch (final @NotNull IOException e) {
 				e.printStackTrace();
 				return false;
 			}
-			return true;
 		}
+		return true;
 	}
 }
