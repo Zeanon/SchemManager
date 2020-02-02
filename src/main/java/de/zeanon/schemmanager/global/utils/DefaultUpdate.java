@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 class DefaultUpdate {
 
-	static void updatePlugin(final boolean autoReload, final @NotNull JavaPlugin instance) {
+	void updatePlugin(final boolean autoReload, final @NotNull JavaPlugin instance) {
 		System.out.println(SchemManager.getInstance().getName() + " is updating...");
 		try {
 			BaseFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
@@ -47,7 +47,7 @@ class DefaultUpdate {
 		}
 	}
 
-	static void updatePlugin(final @NotNull Player p, final boolean autoReload, final @NotNull JavaPlugin instance) {
+	void updatePlugin(final @NotNull Player p, final boolean autoReload, final @NotNull JavaPlugin instance) {
 		p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 					  ChatColor.RED + "updating plugin...");
 		try {

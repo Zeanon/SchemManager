@@ -26,14 +26,14 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class RenameFolder {
 
-	public static void onRenameFolder(final @NotNull Player p, final @NotNull String[] args) {
+	public void onRenameFolder(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				try {
-					final @NotNull Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-					@Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
-					@Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
+					final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+					final @Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+					final @Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
 
 					if (args.length == 4) {
 						if (directoryOld == null || !directoryOld.exists() || !directoryOld.isDirectory()) {
@@ -143,7 +143,7 @@ public class RenameFolder {
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	private static void deleteParents(final @NotNull File directory, final @NotNull String arg, final @NotNull Player p) {
+	private void deleteParents(final @NotNull File directory, final @NotNull String arg, final @NotNull Player p) {
 		try {
 			FileUtils.deleteDirectory(directory);
 			@Nullable String parentName = Objects.notNull(directory.getAbsoluteFile().getParentFile().listFiles()).length > 0
@@ -166,12 +166,10 @@ public class RenameFolder {
 	}
 
 
-	private static boolean deepMerge(final @NotNull File oldFile, final @NotNull File newFile) {
-		if (Objects.notNull(oldFile.listFiles()).length == 0) {
-			return true;
-		} else {
+	private boolean deepMerge(final @NotNull File oldFile, final @NotNull File newFile) {
+		if (Objects.notNull(oldFile.listFiles()).length != 0) {
 			try {
-				for (@NotNull File tempFile : Objects.notNull(oldFile.listFiles())) {
+				for (final @NotNull File tempFile : Objects.notNull(oldFile.listFiles())) {
 					if (new File(newFile, tempFile.getName()).exists()) {
 						if (tempFile.isDirectory()) {
 							if (!RenameFolder.deepMerge(tempFile, new File(newFile, tempFile.getName()))) {
@@ -189,7 +187,7 @@ public class RenameFolder {
 				e.printStackTrace();
 				return false;
 			}
-			return true;
 		}
+		return true;
 	}
 }

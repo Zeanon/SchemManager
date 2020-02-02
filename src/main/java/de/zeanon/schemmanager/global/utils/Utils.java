@@ -24,11 +24,11 @@ import org.jetbrains.annotations.Nullable;
 public class Utils {
 
 	@Getter(onMethod_ = {@NotNull})
-	private static YamlFile weConfig;
+	private YamlFile weConfig;
 	@Getter(onMethod_ = {@NotNull})
-	private static ThunderConfig config;
+	private ThunderConfig config;
 
-	public static void initPlugin() {
+	public void initPlugin() {
 		try {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Loading Configs...");
 			Utils.loadConfigs();
@@ -44,7 +44,7 @@ public class Utils {
 		}
 	}
 
-	private static void initVersion() {
+	private void initVersion() {
 		try {
 			if (!Utils.getConfig().hasKeyUseArray("Plugin Version")
 				|| !Objects.notNull(Utils.getConfig().getStringUseArray("Plugin Version"))
@@ -70,7 +70,7 @@ public class Utils {
 		}
 	}
 
-	private static void loadConfigs() {
+	private void loadConfigs() {
 		@Nullable Throwable cause = null;
 		try {
 			Utils.config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
@@ -90,7 +90,7 @@ public class Utils {
 		}
 	}
 
-	private static void initWorldEditMode() {
+	private void initWorldEditMode() {
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + "...");
 
 		try {
@@ -108,7 +108,7 @@ public class Utils {
 		}
 	}
 
-	private static void initWorldEditPlugin() {
+	private void initWorldEditPlugin() {
 		try {
 			WorldEditModeSchemUtils.initSchemPath();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Schematic-Folder is loaded successfully.");
@@ -120,7 +120,7 @@ public class Utils {
 		}
 	}
 
-	private static void enableSleepMode() {
+	private void enableSleepMode() {
 		SchemManager.getPluginManager().registerEvents(new WakeupListener(), SchemManager.getInstance());
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work.");
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance().getName() + " will automatically activate when one of the above gets enabled.");

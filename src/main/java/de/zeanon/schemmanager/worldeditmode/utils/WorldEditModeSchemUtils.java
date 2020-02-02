@@ -11,15 +11,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
 public class WorldEditModeSchemUtils {
 
-	private static File schemFolder;
-	private static Path schemFolderPath;
+	private @Nullable File schemFolder;
+	private @Nullable Path schemFolderPath;
 
-	public static Path getSchemPath() {
+	public @Nullable Path getSchemPath() {
 		if (!Objects.notNull(Utils.getWeConfig()).hasChanged()) {
 			return WorldEditModeSchemUtils.schemFolderPath;
 		} else {
@@ -34,26 +35,22 @@ public class WorldEditModeSchemUtils {
 		}
 	}
 
-	public static void initSchemPath() throws FileNotFoundException {
+	public void initSchemPath() throws FileNotFoundException {
 		final @NotNull Path tempPath = Paths.get(Objects.notNull(Utils.getWeConfig().getStringUseArray("saving", "dir")));
 		Utils.getWeConfig().clearData();
 		if (tempPath.isAbsolute()) {
 			WorldEditModeSchemUtils.schemFolderPath = tempPath.normalize();
-			WorldEditModeSchemUtils.schemFolder = WorldEditModeSchemUtils.schemFolderPath.toFile();
-			if (!WorldEditModeSchemUtils.schemFolder.exists() && !WorldEditModeSchemUtils.schemFolder.mkdirs()) {
-				throw new FileNotFoundException();
-			}
 		} else {
 			WorldEditModeSchemUtils.schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit"))
 															 .getDataFolder().toPath().resolve(tempPath).normalize();
-			WorldEditModeSchemUtils.schemFolder = WorldEditModeSchemUtils.schemFolderPath.toFile();
-			if (!WorldEditModeSchemUtils.schemFolder.exists() && !WorldEditModeSchemUtils.schemFolder.mkdirs()) {
-				throw new FileNotFoundException();
-			}
+		}
+		WorldEditModeSchemUtils.schemFolder = WorldEditModeSchemUtils.schemFolderPath.toFile();
+		if (!WorldEditModeSchemUtils.schemFolder.exists() && !WorldEditModeSchemUtils.schemFolder.mkdirs()) {
+			throw new FileNotFoundException();
 		}
 	}
 
-	public static File getSchemFolder() {
+	public @Nullable File getSchemFolder() {
 		if (!Objects.notNull(Utils.getWeConfig()).hasChanged()) {
 			return WorldEditModeSchemUtils.schemFolder;
 		} else {

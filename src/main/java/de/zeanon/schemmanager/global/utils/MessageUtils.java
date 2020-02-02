@@ -22,11 +22,11 @@ public class MessageUtils {
 	 * @param command        the command to be executed when clicked
 	 * @param target         the player the message is sent to
 	 */
-	public static void sendCommandMessage(final @NotNull String message,
-										  final @NotNull String commandMessage,
-										  final @NotNull String hoverMessage,
-										  final @NotNull String command,
-										  final @NotNull Player target) {
+	public void sendCommandMessage(final @NotNull String message,
+								   final @NotNull String commandMessage,
+								   final @NotNull String hoverMessage,
+								   final @NotNull String command,
+								   final @NotNull Player target) {
 		final @NotNull TextComponent localMessage = new TextComponent(
 				TextComponent.fromLegacyText(message));
 		final @NotNull TextComponent commandPart = new TextComponent(
@@ -49,11 +49,11 @@ public class MessageUtils {
 	 * @param command        the command to be executed when clicked
 	 * @param target         the player the message is sent to
 	 */
-	public static void sendInvertedCommandMessage(final @NotNull String message,
-												  final @NotNull String commandMessage,
-												  final @NotNull String hoverMessage,
-												  final @NotNull String command,
-												  final @NotNull Player target) {
+	public void sendInvertedCommandMessage(final @NotNull String message,
+										   final @NotNull String commandMessage,
+										   final @NotNull String hoverMessage,
+										   final @NotNull String command,
+										   final @NotNull Player target) {
 		final @NotNull TextComponent localMessage = new TextComponent(
 				TextComponent.fromLegacyText(message));
 		final @NotNull TextComponent commandPart = new TextComponent(
@@ -76,10 +76,10 @@ public class MessageUtils {
 	 * @param commandNo  the command to be executed when clicked on no
 	 * @param target     the player the message is sent to
 	 */
-	public static void sendBooleanMessage(final @NotNull String message,
-										  final @NotNull String commandYes,
-										  final @NotNull String commandNo,
-										  final @NotNull Player target) {
+	public void sendBooleanMessage(final @NotNull String message,
+								   final @NotNull String commandYes,
+								   final @NotNull String commandNo,
+								   final @NotNull Player target) {
 		final @NotNull TextComponent localMessage = new TextComponent(
 				TextComponent.fromLegacyText(message));
 		final @NotNull TextComponent separator = new TextComponent(
@@ -120,12 +120,12 @@ public class MessageUtils {
 	 * @param target          the player the message is sent to
 	 * @param buttonColor     the color of the buttons
 	 */
-	public static void sendScrollMessage(final @NotNull String commandForward,
-										 final @NotNull String commandBackward,
-										 final @NotNull String messageForward,
-										 final @NotNull String messageBackward,
-										 final @NotNull Player target,
-										 final @NotNull ChatColor buttonColor) {
+	public void sendScrollMessage(final @NotNull String commandForward,
+								  final @NotNull String commandBackward,
+								  final @NotNull String messageForward,
+								  final @NotNull String messageBackward,
+								  final @NotNull Player target,
+								  final @NotNull ChatColor buttonColor) {
 		final @NotNull TextComponent localMessage = new TextComponent(
 				TextComponent.fromLegacyText(ChatColor.AQUA + "=== "));
 		final @NotNull TextComponent commandPartBackward = new TextComponent(
@@ -161,11 +161,11 @@ public class MessageUtils {
 	 * @param command        the command to be suggested when clicked
 	 * @param target         the player the message is sent to
 	 */
-	public static void sendSuggestMessage(final @NotNull String message,
-										  final @NotNull String suggestMessage,
-										  final @NotNull String hoverMessage,
-										  final @NotNull String command,
-										  final @NotNull Player target) {
+	public void sendSuggestMessage(final @NotNull String message,
+								   final @NotNull String suggestMessage,
+								   final @NotNull String hoverMessage,
+								   final @NotNull String command,
+								   final @NotNull Player target) {
 		final @NotNull TextComponent localMessage = new TextComponent(
 				TextComponent.fromLegacyText(message));
 		final @NotNull TextComponent suggestPart = new TextComponent(
@@ -190,11 +190,11 @@ public class MessageUtils {
 	 * @param hoverMessage the message to be shown when hovering over message2
 	 * @param target       the player the message is sent to
 	 */
-	public static void sendHoverMessage(final @NotNull String message1,
-										final @NotNull String message2,
-										final @NotNull String message3,
-										final @NotNull String hoverMessage,
-										final @NotNull Player target) {
+	public void sendHoverMessage(final @NotNull String message1,
+								 final @NotNull String message2,
+								 final @NotNull String message3,
+								 final @NotNull String hoverMessage,
+								 final @NotNull Player target) {
 		final @NotNull TextComponent localMessage1 = new TextComponent(
 				TextComponent.fromLegacyText(message1));
 		final @NotNull TextComponent hoverPart = new TextComponent(

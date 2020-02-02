@@ -16,33 +16,29 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings("unused")
 public class InternalFileUtils {
 
-	@NotNull
 	@Getter
-	private static final String PLUGIN_FOLDER_PATH;
+	private final @NotNull String PLUGIN_FOLDER_PATH;
 
 	static {
-		@NotNull String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
-		@NotNull String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
-		@NotNull StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
+		final @NotNull String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
+		final @NotNull String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
+		final @NotNull StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
 		for (byte i = 1; i < parts.length - 1; i++) {
 			pathBuilder.append(parts[i]).append(slash);
 		}
 		PLUGIN_FOLDER_PATH = pathBuilder.toString();
 	}
 
-	@NotNull
-	public static List<File> getExistingFiles(final @NotNull Path path) {
-		@NotNull List<File> tempFiles = new GapList<>();
+	public @NotNull List<File> getExistingFiles(final @NotNull Path path) {
+		final @NotNull List<File> tempFiles = new GapList<>();
 		if (Objects.notNull(ConfigUtils.getStringList("File Extensions"))
 				   .stream()
 				   .anyMatch(BaseFileUtils.getExtension(path)::equalsIgnoreCase)) {
 			@NotNull File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				tempFiles.add(file);
-				return tempFiles;
-			} else {
-				return tempFiles;
 			}
+			return tempFiles;
 		}
 		Objects.notNull(ConfigUtils.getStringList("File Extensions"))
 			   .iterator()
@@ -56,8 +52,7 @@ public class InternalFileUtils {
 		return files;
 	}
 
-	@NotNull
-	public static String deleteEmptyParent(final @NotNull File file) {
+	public @NotNull String deleteEmptyParent(final @NotNull File file) {
 		if (file.getAbsoluteFile().getParentFile().delete()) { //NOSONAR
 			return InternalFileUtils.deleteEmptyParent(file.getAbsoluteFile().getParentFile());
 		}

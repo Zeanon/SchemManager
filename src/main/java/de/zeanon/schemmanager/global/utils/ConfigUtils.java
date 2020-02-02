@@ -21,7 +21,7 @@ public class ConfigUtils {
 	 *
 	 * @return value.
 	 */
-	public static byte getByte(final @NotNull String key) {
+	public byte getByte(final @NotNull String key) {
 		try {
 			return Objects.notNull(Utils.getConfig()).getByteUseArray(key);
 		} catch (ObjectNullException e) {
@@ -42,7 +42,7 @@ public class ConfigUtils {
 	 *
 	 * @return value.
 	 */
-	public static boolean getBoolean(final @NotNull String key) {
+	public boolean getBoolean(final @NotNull String key) {
 		try {
 			return Objects.notNull(Utils.getConfig()).getBooleanUseArray(key);
 		} catch (ObjectNullException e) {
@@ -64,9 +64,9 @@ public class ConfigUtils {
 	 * @return value.
 	 */
 	@Nullable
-	public static List<String> getStringList(final @NotNull String key) {
+	public List<String> getStringList(final @NotNull String key) {
 		try {
-			return Objects.notNull(Utils.getConfig()).getStringListUseArray(key);
+			return Objects.notNull(Utils.getConfig()).getListUseArray(key);
 		} catch (ObjectNullException e) {
 			new BukkitRunnable() {
 				@Override
@@ -86,7 +86,7 @@ public class ConfigUtils {
 	 *
 	 * @return the default value.
 	 */
-	private static @Nullable Object getDefaultValue(final @NotNull String key) {
+	private @Nullable Object getDefaultValue(final @NotNull String key) {
 		switch (key) {
 			case "Space Lists":
 			case "Delete empty Folders":

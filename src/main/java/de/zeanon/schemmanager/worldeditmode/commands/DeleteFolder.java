@@ -22,11 +22,11 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class DeleteFolder {
 
-	public static void onDeleteFolder(final @NotNull Player p, final @NotNull String[] args) {
+	public void onDeleteFolder(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+				@Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				@Nullable File file = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
 				final boolean fileExists = file != null && file.exists() && file.isDirectory();
 
@@ -85,7 +85,7 @@ public class DeleteFolder {
 	}
 
 	@Nullable
-	private static String getParentName(final @NotNull File file) {
+	private String getParentName(final @NotNull File file) {
 
 		@Nullable String parentName = null;
 		if (ConfigUtils.getBoolean("Delete empty Folders")

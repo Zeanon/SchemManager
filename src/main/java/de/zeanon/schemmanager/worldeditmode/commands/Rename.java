@@ -25,13 +25,13 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Rename {
 
-	public static void onRename(final @NotNull Player p, final @NotNull String[] args) {
+	public void onRename(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				final @NotNull Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				@Nullable List<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
-				@Nullable List<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
+				final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+				final @Nullable List<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
+				final @Nullable List<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
 				final boolean oldFileExists = oldFiles != null && !oldFiles.isEmpty();
 				final boolean newFileExists = newFiles != null && !newFiles.isEmpty();
 
@@ -71,33 +71,33 @@ public class Rename {
 	}
 
 
-	private static void moveFile(final @NotNull Player p, final String fileName, final @NotNull List<File> oldFiles, final @Nullable List<File> newFiles, final @NotNull Path destPath) {
+	private void moveFile(final @NotNull Player p, final String fileName, final @NotNull List<File> oldFiles, final @Nullable List<File> newFiles, final @NotNull Path destPath) {
 		try {
 			if (newFiles != null) {
 				for (@NotNull File file : newFiles) {
 					Files.delete(file.toPath());
 				}
 			}
+
 			@Nullable String parentName = null;
 			for (@NotNull File file : oldFiles) {
 				if (Objects.notNull(ConfigUtils.getStringList("File Extensions")).stream().noneMatch(BaseFileUtils.getExtension(destPath)::equals)) {
 					FileUtils.moveFile(file, new File(destPath + BaseFileUtils.getExtension(file)));
-					parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
-								 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
-					if (file.getName().equals(parentName)) {
-						parentName = null;
-					}
 				} else {
 					FileUtils.moveFile(file, destPath.toFile());
-					parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
-								 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
-					if (file.getName().equals(parentName)) {
-						parentName = null;
-					}
+				}
+
+				parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
+							 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
+
+				if (file.getName().equals(parentName)) {
+					parentName = null;
 				}
 			}
+
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GOLD + fileName + ChatColor.RED + " was renamed successfully.");
+
 			if (parentName != null) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");

@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class Update {
 
-	public static void updatePlugin() {
+	public void updatePlugin() {
 		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
 			&& SchemManager.getPluginManager()
 						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
@@ -25,7 +25,7 @@ public class Update {
 		}
 	}
 
-	public static void updatePlugin(final @NotNull Player p) {
+	public void updatePlugin(final @NotNull Player p) {
 		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
 			&& SchemManager.getPluginManager()
 						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
@@ -35,7 +35,7 @@ public class Update {
 		}
 	}
 
-	static void checkConfigUpdate() {
+	void checkConfigUpdate() {
 		try {
 			if (!Objects.notNull(Utils.getConfig().getStringUseArray("Plugin Version"))
 						.equals(SchemManager.getInstance().getDescription().getVersion())
@@ -47,17 +47,17 @@ public class Update {
 				|| !Utils.getConfig().hasKeyUseArray("Stoplag Override")
 				|| !Utils.getConfig().hasKeyUseArray("Automatic Reload")) {
 
-				updateConfig();
+				Update.updateConfig();
 			}
 		} catch (ObjectNullException e) {
-			updateConfig();
+			Update.updateConfig();
 		}
 	}
 
-	static void updateConfig() {
+	void updateConfig() {
 		try {
 			final @NotNull List<String> fileExtensions = Utils.getConfig().hasKeyUseArray("File Extensions")
-														 ? Objects.notNull(Utils.getConfig().getStringListUseArray("File Extensions"))
+														 ? Objects.notNull(Utils.getConfig().getListUseArray("File Extensions"))
 														 : Arrays.asList("schem", "schematic");
 			final int listmax = Utils.getConfig().hasKeyUseArray("Listmax")
 								? Utils.getConfig().getIntUseArray("Listmax")

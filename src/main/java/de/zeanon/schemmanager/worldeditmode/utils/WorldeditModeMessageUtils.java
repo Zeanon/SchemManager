@@ -13,21 +13,21 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class WorldeditModeMessageUtils {
 
-	public static void sendInvalidSubCommand(final @NotNull Player target, final String slash, final String schemAlias) {
-		@NotNull final TextComponent base = new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "Usage: "));
-		@NotNull final TextComponent schem = new TextComponent(TextComponent.fromLegacyText(ChatColor.GRAY + slash + "schem"));
-		@NotNull final TextComponent help = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "help"));
-		@NotNull final TextComponent formats = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "formats"));
-		@NotNull final TextComponent load = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "load"));
-		@NotNull final TextComponent save = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "save"));
-		@NotNull final TextComponent rename = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "rename"));
-		@NotNull final TextComponent renamefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "renamefolder"));
-		@NotNull final TextComponent delete = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "delete"));
-		@NotNull final TextComponent deletefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "deletefolder"));
-		@NotNull final TextComponent list = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "list"));
-		@NotNull final TextComponent listfolders = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "listfolders"));
-		@NotNull final TextComponent search = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "search"));
-		@NotNull final TextComponent searchfolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "searchfolder"));
+	public void sendInvalidSubCommand(final @NotNull Player target, final String slash, final String schemAlias) {
+		final @NotNull TextComponent base = new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "Usage: "));
+		final @NotNull TextComponent schem = new TextComponent(TextComponent.fromLegacyText(ChatColor.GRAY + slash + "schem"));
+		final @NotNull TextComponent help = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "help"));
+		final @NotNull TextComponent formats = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "formats"));
+		final @NotNull TextComponent load = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "load"));
+		final @NotNull TextComponent save = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "save"));
+		final @NotNull TextComponent rename = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "rename"));
+		final @NotNull TextComponent renamefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "renamefolder"));
+		final @NotNull TextComponent delete = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "delete"));
+		final @NotNull TextComponent deletefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "deletefolder"));
+		final @NotNull TextComponent list = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "list"));
+		final @NotNull TextComponent listfolders = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "listfolders"));
+		final @NotNull TextComponent search = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "search"));
+		final @NotNull TextComponent searchfolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "searchfolder"));
 		schem.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + schemAlias + " "));
 		schem.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 										   new ComponentBuilder(new TextComponent(

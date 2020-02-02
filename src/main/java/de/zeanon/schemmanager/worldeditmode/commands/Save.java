@@ -22,11 +22,11 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Save {
 
-	public static void onSave(final @NotNull Player p, final @NotNull String[] args) {
+	public void onSave(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+				@Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				@Nullable File file = schemPath != null
 									  ? (Objects.notNull(ConfigUtils.getStringList("File Extensions")) //NOSONAR
 												.stream()

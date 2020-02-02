@@ -25,12 +25,12 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class CopyFolder {
 
-	public static void onCopyFolder(final @NotNull Player p, final @NotNull String[] args) {
+	public void onCopyFolder(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				try {
-					Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+					@Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					@Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
 					@Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
 
@@ -183,7 +183,7 @@ public class CopyFolder {
 	}
 
 
-	private static boolean deepMerge(final @NotNull File oldFile, final @NotNull File newFile) {
+	private boolean deepMerge(final @NotNull File oldFile, final @NotNull File newFile) {
 		if (Objects.notNull(oldFile.listFiles()).length == 0) {
 			return true;
 		} else {

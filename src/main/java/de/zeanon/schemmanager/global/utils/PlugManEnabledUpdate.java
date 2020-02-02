@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 class PlugManEnabledUpdate {
 
-	static void updatePlugin(final boolean autoReload) {
+	void updatePlugin(final boolean autoReload) {
 		System.out.println(SchemManager.getInstance().getName() + " is updating...");
 		try {
 			BaseFileUtils.writeToFile(new File(WorldEditMode.class.getProtectionDomain()
@@ -39,7 +39,7 @@ class PlugManEnabledUpdate {
 		}
 	}
 
-	static void updatePlugin(final @NotNull Player p, final boolean autoReload) {
+	void updatePlugin(final @NotNull Player p, final boolean autoReload) {
 		p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 					  ChatColor.RED + "updating plugin...");
 		try {

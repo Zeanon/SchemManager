@@ -23,11 +23,11 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Delete {
 
-	public static void onDelete(final @NotNull Player p, final @NotNull String[] args) {
+	public void onDelete(final @NotNull Player p, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+				@Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				@Nullable List<File> files = schemPath != null
 											 ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
 											 : null;

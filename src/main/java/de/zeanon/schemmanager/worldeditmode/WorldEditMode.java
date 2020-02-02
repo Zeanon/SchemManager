@@ -15,15 +15,14 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class WorldEditMode {
 
-	@Nullable
 	@Getter
-	private static final WorldEditPlugin worldEditPlugin;
+	private final @Nullable WorldEditPlugin worldEditPlugin;
 
 	static {
 		worldEditPlugin = (WorldEditPlugin) SchemManager.getPluginManager().getPlugin("WorldEdit");
 	}
 
-	public static void onEnable() {
+	public void onEnable() {
 		SchemManager.getPluginManager().registerEvents(new CommandListener(), SchemManager.getInstance());
 		SchemManager.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
 		if (Bukkit.getVersion().contains("git-Paper")) {

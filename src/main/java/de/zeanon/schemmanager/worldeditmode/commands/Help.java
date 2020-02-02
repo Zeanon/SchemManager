@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class Help {
 
-	public static void onHelp(final @NotNull Player p, final String slash, final String schemAlias) {
+	public void onHelp(final @NotNull Player p, final String slash, final String schemAlias) {
 		if (ConfigUtils.getBoolean("Space Lists")) {
 			p.sendMessage("");
 		}
@@ -248,7 +248,7 @@ public class Help {
 										"/schemmanager disable", p);
 	}
 
-	public static void onFormats(final @NotNull Player p, final boolean suppressBlankLine) {
+	public void onFormats(final @NotNull Player p, final boolean suppressBlankLine) {
 		if (ConfigUtils.getBoolean("Space Lists") && !suppressBlankLine) {
 			p.sendMessage("");
 		}
