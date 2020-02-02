@@ -23,7 +23,6 @@ public class SchemManager extends JavaPlugin {
 	@SuppressWarnings("CanBeFinal")
 	private static PluginManager pluginManager;
 
-
 	@Override
 	public void onEnable() {
 		SchemManager.setInstance(this);
