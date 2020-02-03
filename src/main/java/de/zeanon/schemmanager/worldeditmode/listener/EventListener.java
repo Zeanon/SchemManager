@@ -27,7 +27,7 @@ public class EventListener implements Listener {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
 		} else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
-			setWorldguardEnabled(false);
+			EventListener.setWorldguardEnabled(false);
 		}
 	}
 
@@ -37,14 +37,14 @@ public class EventListener implements Listener {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
 		} else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
-			setWorldguardEnabled(true);
+			EventListener.setWorldguardEnabled(true);
 		}
 	}
 
 
 	@EventHandler
 	public void onQuit(final @NotNull PlayerQuitEvent event) {
-		@NotNull Player p = event.getPlayer();
+		final @NotNull Player p = event.getPlayer();
 		RequestUtils.removeDisableRequest(p);
 		RequestUtils.removeUpdateRequest(p);
 		WorldEditModeRequestUtils.removeDeleteRequest(p);

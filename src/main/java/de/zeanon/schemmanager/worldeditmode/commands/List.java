@@ -24,34 +24,63 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class List {
 
-	public void onList(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final int modifierCount) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				final byte listmax = ConfigUtils.getByte("Listmax");
-				final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
-				final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				final @Nullable java.util.List<String> extensions = ConfigUtils.getStringList("File Extensions");
+				final boolean deep;
+				final int modifierCount;
 
-				final @NotNull String deep;
-				if (deepSearch) {
-					deep = "-d ";
+				if (args.length > 2 && (args[2].equalsIgnoreCase("-deep") || args[2].equalsIgnoreCase("-d"))) {
+					deep = true;
+					modifierCount = 1;
 				} else {
-					deep = "";
+					deep = false;
+					modifierCount = 0;
 				}
 
-				switch (args.length - modifierCount) {
-					case 2:
-						List.twoArgs(schemPath, p, deep, extensions, deepSearch, spaceLists, listmax);
-						break;
-					case 3:
-						List.threeArgs(args[2 + modifierCount], schemPath, p, deep, extensions, deepSearch, spaceLists, listmax);
-						break;
-					default:
-						List.defaultCase(args[2 + modifierCount], args[3 + modifierCount], schemPath, p, deep, extensions, deepSearch, spaceLists, listmax);
+				if (args.length <= 4 + modifierCount) {
+					if (args.length == 4 + modifierCount && (StringUtils.isNumeric(args[2 + modifierCount]) || !StringUtils.isNumeric(args[3 + modifierCount]))) {
+						p.sendMessage(ChatColor.RED + "Too many arguments.");
+						List.listUsage(p, slash, schemAlias);
+					} else if (args.length >= 3 + modifierCount && args[2 + modifierCount].contains("./")) {
+						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "'resolution error: Path is not allowed.");
+						List.listUsage(p, slash, schemAlias);
+					} else {
+						List.onList(p, args, deep, modifierCount);
+					}
+				} else {
+					p.sendMessage(ChatColor.RED + "Too many arguments.");
+					List.listUsage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
+	}
+
+	private void onList(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final int modifierCount) {
+
+		final byte listmax = ConfigUtils.getByte("Listmax");
+		final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
+		final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+		final @Nullable java.util.List<String> extensions = ConfigUtils.getStringList("File Extensions");
+
+		final @NotNull String deep;
+		if (deepSearch) {
+			deep = "-d ";
+		} else {
+			deep = "";
+		}
+
+		switch (args.length - modifierCount) {
+			case 2:
+				List.twoArgs(schemPath, p, deep, extensions, deepSearch, spaceLists, listmax);
+				break;
+			case 3:
+				List.threeArgs(args[2 + modifierCount], schemPath, p, deep, extensions, deepSearch, spaceLists, listmax);
+				break;
+			default:
+				List.defaultCase(args[2 + modifierCount], args[3 + modifierCount], schemPath, p, deep, extensions, deepSearch, spaceLists, listmax);
+		}
 	}
 
 	private boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
@@ -139,8 +168,8 @@ public class List {
 					} else {
 						MessageUtils.sendScrollMessage("",
 													   "",
-													   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
-													   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+													   ChatColor.DARK_PURPLE + "There is only one page of schematics in List list",
+													   ChatColor.DARK_PURPLE + "There is only one page of schematics in List list", p, ChatColor.BLUE);
 					}
 				}
 			}
@@ -168,7 +197,7 @@ public class List {
 
 					if (sideNumber > side) {
 						MessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-													  ChatColor.RED + "There are only " + side + " schematics in this list",
+													  ChatColor.RED + "There are only " + side + " schematics in List list",
 													  "",
 													  ChatColor.GRAY + "Schematics", p);
 						return;
@@ -223,8 +252,8 @@ public class List {
 						} else {
 							MessageUtils.sendScrollMessage("",
 														   "",
-														   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
-														   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+														   ChatColor.DARK_PURPLE + "There is only one page of schematics in List list",
+														   ChatColor.DARK_PURPLE + "There is only one page of schematics in List list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -280,8 +309,8 @@ public class List {
 						} else {
 							MessageUtils.sendScrollMessage("",
 														   "",
-														   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
-														   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+														   ChatColor.DARK_PURPLE + "There is only one page of schematics in List list",
+														   ChatColor.DARK_PURPLE + "There is only one page of schematics in List list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -310,7 +339,7 @@ public class List {
 
 				if (sideNumber > side) {
 					MessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-												  ChatColor.RED + "There are only " + side + " schematics in this list",
+												  ChatColor.RED + "There are only " + side + " schematics in List list",
 												  "",
 												  ChatColor.GRAY + "Schematics/" + argTwo, p);
 					return;
@@ -365,8 +394,8 @@ public class List {
 					} else {
 						MessageUtils.sendScrollMessage("",
 													   "",
-													   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
-													   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+													   ChatColor.DARK_PURPLE + "There is only one page of schematics in List list",
+													   ChatColor.DARK_PURPLE + "There is only one page of schematics in List list", p, ChatColor.BLUE);
 					}
 				}
 			}
@@ -375,5 +404,29 @@ public class List {
 						  ChatColor.GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
 			e.printStackTrace();
 		}
+	}
+
+	private void listUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
+										ChatColor.GRAY + slash + schemAlias
+										+ ChatColor.AQUA + " list "
+										+ ChatColor.YELLOW + "["
+										+ ChatColor.DARK_PURPLE + "-d"
+										+ ChatColor.YELLOW + "] ["
+										+ ChatColor.GREEN + "folder"
+										+ ChatColor.YELLOW + "] ["
+										+ ChatColor.DARK_PURPLE + "page"
+										+ ChatColor.YELLOW + "]",
+										ChatColor.RED + "e.g. "
+										+ ChatColor.GRAY + slash + schemAlias
+										+ ChatColor.AQUA + " list "
+										+ ChatColor.YELLOW + "["
+										+ ChatColor.DARK_PURPLE + "-d"
+										+ ChatColor.YELLOW + "] ["
+										+ ChatColor.GREEN + "folder"
+										+ ChatColor.YELLOW + "] ["
+										+ ChatColor.DARK_PURPLE + "page"
+										+ ChatColor.YELLOW + "]",
+										slash + schemAlias + " list ", p);
 	}
 }

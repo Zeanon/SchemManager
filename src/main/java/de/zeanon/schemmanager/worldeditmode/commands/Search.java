@@ -25,7 +25,63 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Search {
 
-	public void onSearch(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final boolean caseSensitiveSearch, final int modifierCount) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+		final int modifierCount;
+		final boolean deep;
+		final boolean caseSensitive;
+
+		if (args.length > 2 && (args[2].equalsIgnoreCase("-deep") || args[2].equalsIgnoreCase("-d"))) {
+			deep = true;
+
+			if (args.length > 3 && (args[3].equalsIgnoreCase("-casesensitive") || args[3].equalsIgnoreCase("-c"))) {
+				modifierCount = 2;
+				caseSensitive = true;
+			} else {
+				modifierCount = 1;
+				caseSensitive = false;
+			}
+		} else if (args.length > 2 && (args[2].equalsIgnoreCase("-casesensitive") || args[2].equalsIgnoreCase("-c"))) {
+			caseSensitive = true;
+
+			if (args.length > 3 && (args[3].equalsIgnoreCase("-deep") || args[3].equalsIgnoreCase("-d"))) {
+				modifierCount = 2;
+				deep = true;
+			} else {
+				modifierCount = 1;
+				deep = false;
+			}
+		} else {
+			modifierCount = 0;
+			deep = false;
+			caseSensitive = false;
+		}
+
+		if (args.length <= 5 + modifierCount) {
+			if (args.length < 3 + modifierCount) {
+				p.sendMessage(ChatColor.RED + "Missing argument for "
+							  + ChatColor.YELLOW + "<"
+							  + ChatColor.GOLD + "filename"
+							  + ChatColor.YELLOW + ">");
+				Search.searchUsage(p, slash, schemAlias);
+			} else if (args[2 + modifierCount].contains("./")) {
+				p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "'resolution error: Path is not allowed.");
+				Search.searchUsage(p, slash, schemAlias);
+			} else if (args.length == 5 + modifierCount
+					   && (StringUtils.isNumeric(args[2 + modifierCount])
+						   || StringUtils.isNumeric(args[3 + modifierCount])
+						   || !StringUtils.isNumeric(args[4 + modifierCount]))) {
+				p.sendMessage(ChatColor.RED + "Too many arguments.");
+				Search.searchUsage(p, slash, schemAlias);
+			} else {
+				Search.onSearch(p, args, deep, caseSensitive, modifierCount);
+			}
+		} else {
+			p.sendMessage(ChatColor.RED + "Too many arguments.");
+			Search.searchUsage(p, slash, schemAlias);
+		}
+	}
+
+	private void onSearch(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final boolean caseSensitiveSearch, final int modifierCount) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -157,8 +213,8 @@ public class Search {
 					} else {
 						MessageUtils.sendScrollMessage("",
 													   "",
-													   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
-													   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+													   ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list",
+													   ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list", p, ChatColor.BLUE);
 					}
 				}
 			}
@@ -185,7 +241,7 @@ public class Search {
 
 					if (sideNumber > side) {
 						MessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-													  ChatColor.RED + "There are only " + side + " schematics in this list",
+													  ChatColor.RED + "There are only " + side + " schematics in Search list",
 													  "",
 													  ChatColor.GRAY + (caseSensitiveSearch ? "Schematics [-c]" : "Schematics"), p);
 						return;
@@ -239,8 +295,8 @@ public class Search {
 						} else {
 							MessageUtils.sendScrollMessage("",
 														   "",
-														   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
-														   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+														   ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list",
+														   ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -294,8 +350,8 @@ public class Search {
 						} else {
 							MessageUtils.sendScrollMessage("",
 														   "",
-														   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
-														   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+														   ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list",
+														   ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -322,7 +378,7 @@ public class Search {
 
 				if (sideNumber > side) {
 					MessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-												  ChatColor.RED + "There are only " + side + " schematics in this list",
+												  ChatColor.RED + "There are only " + side + " schematics in Search list",
 												  "",
 												  ChatColor.GRAY + (caseSensitiveSearch ? "Schematics/" + argTwo + " [-c]" : "Schematics/" + argTwo), p);
 					return;
@@ -378,8 +434,8 @@ public class Search {
 					} else {
 						MessageUtils.sendScrollMessage("",
 													   "",
-													   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
-													   ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
+													   ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list",
+													   ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list", p, ChatColor.BLUE);
 					}
 				}
 			}
@@ -388,5 +444,33 @@ public class Search {
 						  ChatColor.GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
 			e.printStackTrace();
 		}
+	}
+
+	private void searchUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
+										ChatColor.GRAY + slash + schemAlias
+										+ ChatColor.AQUA + " search "
+										+ ChatColor.YELLOW + "["
+										+ ChatColor.DARK_PURPLE + "-d"
+										+ ChatColor.YELLOW + "] ["
+										+ ChatColor.GREEN + "folder"
+										+ ChatColor.YELLOW + "] <"
+										+ ChatColor.GOLD + "filename"
+										+ ChatColor.YELLOW + "> ["
+										+ ChatColor.DARK_PURPLE + "page"
+										+ ChatColor.YELLOW + "]",
+										ChatColor.RED + "e.g. "
+										+ ChatColor.GRAY + slash + schemAlias
+										+ ChatColor.AQUA + " search "
+										+ ChatColor.YELLOW + "["
+										+ ChatColor.DARK_PURPLE + "-d"
+										+ ChatColor.YELLOW + "] ["
+										+ ChatColor.GREEN + "folder"
+										+ ChatColor.YELLOW + "] "
+										+ ChatColor.GOLD + "example"
+										+ ChatColor.YELLOW + " ["
+										+ ChatColor.DARK_PURPLE + "page"
+										+ ChatColor.YELLOW + "]",
+										slash + schemAlias + " search ", p);
 	}
 }

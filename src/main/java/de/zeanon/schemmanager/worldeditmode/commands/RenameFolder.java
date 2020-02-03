@@ -26,121 +26,148 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class RenameFolder {
 
-	public void onRenameFolder(final @NotNull Player p, final @NotNull String[] args) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				try {
-					final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-					final @Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
-					final @Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
-
-					if (args.length == 4) {
-						if (directoryOld == null || !directoryOld.exists() || !directoryOld.isDirectory()) {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-										  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
-							return;
-						} else if (directoryNew.exists() && directoryNew.isDirectory()) {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-										  ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
-							int id = 0;
-							@Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
-							for (@NotNull File oldFile : BaseFileUtils.listFiles(directoryOld, true, Objects.notNull(extensions))) {
-								for (@NotNull File newFile : BaseFileUtils.listFiles(directoryNew, true, extensions)) {
-									if (BaseFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.getName()))
-										&& newFile.toPath().relativize(directoryNew.toPath()).equals(oldFile.toPath().relativize(directoryOld.toPath()))) {
-										if (id == 0) {
-											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-														  ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
-										}
-										String name;
-										String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());
-										String shortenedRelativePath = FilenameUtils.separatorsToUnix(
-												schemPath.resolve(args[3])
-														 .toRealPath()
-														 .relativize(newFile.toPath().toRealPath())
-														 .toString());
-										if (BaseFileUtils.getExtension(newFile.getName()).equalsIgnoreCase(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
-											name = BaseFileUtils.removeExtension(newFile.getName());
-										} else {
-											name = newFile.getName();
-										}
-										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
-																		ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
-																		ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard",
-																		"//schem load " + path, p);
-										id++;
-									}
-								}
-							}
-
-							int i = 0;
-							for (@NotNull File oldFolder : BaseFileUtils.listFolders(directoryOld, true)) {
-								for (@NotNull File newFolder : BaseFileUtils.listFolders(directoryNew, true)) {
-									if (newFolder.getName().equalsIgnoreCase(oldFolder.getName())
-										&& newFolder.toPath().relativize(directoryNew.toPath()).equals(oldFolder.toPath().relativize(directoryOld.toPath()))) {
-										if (i == 0) {
-											p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-														  ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
-										}
-										@NotNull String name = newFolder.getName();
-										String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
-										String shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
-										MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ",
-																		ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
-																		ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path,
-																		"//schem list " + path, p);
-										i++;
-									}
-								}
-							}
-							if (id > 0 && i > 0) {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-											  ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + id + ChatColor.RED
-											  + " schematics and " + ChatColor.DARK_PURPLE + i + ChatColor.RED
-											  + " folders with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
-							} else if (id > 0) {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-											  ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + id + ChatColor.RED
-											  + " schematics with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
-							} else if (i > 0) {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-											  ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + i + ChatColor.RED
-											  + " folders with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
-							}
-						}
-						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-														ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?",
-														"//schem renamefolder " + args[2] + " " + args[3] + " confirm",
-														"//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
-						WorldEditModeRequestUtils.addRenameFolderRequest(p, args[2]);
-					} else if (args.length == 5 && WorldEditModeRequestUtils.checkRenameFolderRequest(p, args[2])) {
-						if (args[4].equalsIgnoreCase("confirm")) {
-							WorldEditModeRequestUtils.removeRenameFolderRequest(p);
-							if (directoryOld != null && directoryOld.exists() && directoryOld.isDirectory()) {
-								if (RenameFolder.deepMerge(directoryOld, directoryNew)) {
-									RenameFolder.deleteParents(directoryOld, args[2], p);
-								} else {
-									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-												  ChatColor.GREEN + args[2] + ChatColor.RED + " could not be renamed, for further information please see [console].");
-								}
-							} else {
-								p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-											  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
-							}
-						} else if (args[4].equalsIgnoreCase("deny")) {
-							WorldEditModeRequestUtils.removeRenameFolderRequest(p);
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-										  ChatColor.GREEN + args[2] + ChatColor.RED + " was not renamed");
-						}
+				if (args.length <= 5) {
+					if (args.length < 3) {
+						p.sendMessage(ChatColor.RED + "Missing argument for "
+									  + ChatColor.YELLOW + "<"
+									  + ChatColor.GREEN + "filename"
+									  + ChatColor.YELLOW + ">");
+						RenameFolder.renameFolderUsage(p, slash, schemAlias);
+					} else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
+						String name = args[2].contains("./") ? args[2] : args[3];
+						p.sendMessage(ChatColor.RED + "File '" + name + "'resolution error: Path is not allowed.");
+						RenameFolder.renameFolderUsage(p, slash, schemAlias);
+					} else if (args.length == 5
+							   && !args[4].equalsIgnoreCase("confirm")
+							   && !args[4].equalsIgnoreCase("deny")
+							   && !WorldEditModeRequestUtils.checkRenameFolderRequest(p, args[2])) {
+						p.sendMessage(ChatColor.RED + "Too many arguments.");
+						RenameFolder.renameFolderUsage(p, slash, schemAlias);
+					} else {
+						RenameFolder.onRenameFolder(p, args);
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
-					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-								  ChatColor.RED + "An Error occurred while getting the filepaths for the schematics and folders, for further information please see [console].");
+				} else {
+					p.sendMessage(ChatColor.RED + "Too many arguments.");
+					RenameFolder.renameFolderUsage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
+	}
+
+	private void onRenameFolder(final @NotNull Player p, final @NotNull String[] args) {
+		try {
+			final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+			final @Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+			final @Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
+
+			if (args.length == 4) {
+				if (directoryOld == null || !directoryOld.exists() || !directoryOld.isDirectory()) {
+					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
+					return;
+				} else if (directoryNew.exists() && directoryNew.isDirectory()) {
+					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								  ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
+					int id = 0;
+					@Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
+					for (@NotNull File oldFile : BaseFileUtils.listFiles(directoryOld, true, Objects.notNull(extensions))) {
+						for (@NotNull File newFile : BaseFileUtils.listFiles(directoryNew, true, extensions)) {
+							if (BaseFileUtils.removeExtension(newFile.getName()).equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.getName()))
+								&& newFile.toPath().relativize(directoryNew.toPath()).equals(oldFile.toPath().relativize(directoryOld.toPath()))) {
+								if (id == 0) {
+									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+												  ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
+								}
+								String name;
+								String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFile.toPath().toRealPath()).toString());
+								String shortenedRelativePath = FilenameUtils.separatorsToUnix(
+										schemPath.resolve(args[3])
+												 .toRealPath()
+												 .relativize(newFile.toPath().toRealPath())
+												 .toString());
+								if (BaseFileUtils.getExtension(newFile.getName()).equalsIgnoreCase(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
+									name = BaseFileUtils.removeExtension(newFile.getName());
+								} else {
+									name = newFile.getName();
+								}
+								MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
+																ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
+																ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard",
+																"//schem load " + path, p);
+								id++;
+							}
+						}
+					}
+
+					int i = 0;
+					for (@NotNull File oldFolder : BaseFileUtils.listFolders(directoryOld, true)) {
+						for (@NotNull File newFolder : BaseFileUtils.listFolders(directoryNew, true)) {
+							if (newFolder.getName().equalsIgnoreCase(oldFolder.getName())
+								&& newFolder.toPath().relativize(directoryNew.toPath()).equals(oldFolder.toPath().relativize(directoryOld.toPath()))) {
+								if (i == 0) {
+									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+												  ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
+								}
+								@NotNull String name = newFolder.getName();
+								String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
+								String shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
+								MessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ",
+																ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
+																ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path,
+																"//schem list " + path, p);
+								i++;
+							}
+						}
+					}
+					if (id > 0 && i > 0) {
+						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+									  ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + id + ChatColor.RED
+									  + " schematics and " + ChatColor.DARK_PURPLE + i + ChatColor.RED
+									  + " folders with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
+					} else if (id > 0) {
+						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+									  ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + id + ChatColor.RED
+									  + " schematics with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
+					} else if (i > 0) {
+						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+									  ChatColor.RED + "There are already " + ChatColor.DARK_PURPLE + i + ChatColor.RED
+									  + " folders with the same name in " + ChatColor.GREEN + args[3] + ChatColor.RED + ".");
+					}
+				}
+				MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+												ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?",
+												"//schem renamefolder " + args[2] + " " + args[3] + " confirm",
+												"//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
+				WorldEditModeRequestUtils.addRenameFolderRequest(p, args[2]);
+			} else if (args.length == 5 && WorldEditModeRequestUtils.checkRenameFolderRequest(p, args[2])) {
+				if (args[4].equalsIgnoreCase("confirm")) {
+					WorldEditModeRequestUtils.removeRenameFolderRequest(p);
+					if (directoryOld != null && directoryOld.exists() && directoryOld.isDirectory()) {
+						if (RenameFolder.deepMerge(directoryOld, directoryNew)) {
+							RenameFolder.deleteParents(directoryOld, args[2], p);
+						} else {
+							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+										  ChatColor.GREEN + args[2] + ChatColor.RED + " could not be renamed, for further information please see [console].");
+						}
+					} else {
+						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+									  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
+					}
+				} else if (args[4].equalsIgnoreCase("deny")) {
+					WorldEditModeRequestUtils.removeRenameFolderRequest(p);
+					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								  ChatColor.GREEN + args[2] + ChatColor.RED + " was not renamed");
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+						  ChatColor.RED + "An Error occurred while getting the filepaths for the schematics and folders, for further information please see [console].");
+		}
 	}
 
 	private void deleteParents(final @NotNull File directory, final @NotNull String arg, final @NotNull Player p) {
@@ -165,7 +192,6 @@ public class RenameFolder {
 		}
 	}
 
-
 	private boolean deepMerge(final @NotNull File oldFile, final @NotNull File newFile) {
 		if (Objects.notNull(oldFile.listFiles()).length != 0) {
 			try {
@@ -189,5 +215,21 @@ public class RenameFolder {
 			}
 		}
 		return true;
+	}
+
+	private void renameFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
+										ChatColor.GRAY + slash + schemAlias
+										+ ChatColor.AQUA + " renamefolder "
+										+ ChatColor.YELLOW + "<"
+										+ ChatColor.GREEN + "filename"
+										+ ChatColor.YELLOW + "> <"
+										+ ChatColor.GREEN + "newname"
+										+ ChatColor.YELLOW + ">",
+										ChatColor.RED + "e.g. "
+										+ ChatColor.GRAY + slash + schemAlias
+										+ ChatColor.AQUA + " renamefolder "
+										+ ChatColor.GREEN + "example newname",
+										slash + schemAlias + " renamefolder ", p);
 	}
 }

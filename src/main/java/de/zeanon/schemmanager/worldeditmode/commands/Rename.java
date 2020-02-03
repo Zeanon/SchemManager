@@ -25,56 +25,79 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Rename {
 
-	public void onRename(final @NotNull Player p, final @NotNull String[] args) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				final @Nullable List<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
-				final @Nullable List<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
-				final boolean oldFileExists = oldFiles != null && !oldFiles.isEmpty();
-				final boolean newFileExists = newFiles != null && !newFiles.isEmpty();
-
-				if (args.length == 4) {
-					if (oldFileExists) {
-						if (newFileExists) {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-										  ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
-						}
-
-						MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-														ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
-														"//schem rename " + args[2] + " " + args[3] + " confirm",
-														"//schem rename " + args[2] + " " + args[3] + " deny", p);
-						WorldEditModeRequestUtils.addRenameRequest(p, args[2]);
+				if (args.length <= 5) {
+					if (args.length < 3) {
+						p.sendMessage(ChatColor.RED + "Missing argument for "
+									  + ChatColor.YELLOW + "<"
+									  + ChatColor.GOLD + "filename"
+									  + ChatColor.YELLOW + ">");
+						Rename.renameUsage(p, slash, schemAlias);
+					} else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
+						String name = args[2].contains("./") ? args[2] : args[3];
+						p.sendMessage(ChatColor.RED + "File '" + name + "'resolution error: Path is not allowed.");
+						Rename.renameUsage(p, slash, schemAlias);
+					} else if (args.length == 5 && !WorldEditModeRequestUtils.checkRenameRequest(p, args[2])
+							   && !args[3].equalsIgnoreCase("confirm")
+							   && !args[3].equalsIgnoreCase("deny")) {
+						p.sendMessage(ChatColor.RED + "Too many arguments.");
+						Rename.renameUsage(p, slash, schemAlias);
 					} else {
-						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-									  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
+						Rename.onRename(p, args);
 					}
-				} else if (args.length == 5 && WorldEditModeRequestUtils.checkRenameRequest(p, args[2])) {
-					if (args[4].equalsIgnoreCase("confirm")) {
-						WorldEditModeRequestUtils.removeRenameRequest(p);
-						if (oldFileExists) {
-							Rename.moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
-						} else {
-							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-										  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
-						}
-					} else if (args[4].equalsIgnoreCase("deny")) {
-						WorldEditModeRequestUtils.removeRenameRequest(p);
-						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-									  ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed.");
-					}
+				} else {
+					p.sendMessage(ChatColor.RED + "Too many arguments.");
+					Rename.renameUsage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
+	private void onRename(final @NotNull Player p, final @NotNull String[] args) {
+		final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+		final @Nullable List<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
+		final @Nullable List<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
+
+		if (args.length == 4) {
+			if (schemPath != null && !oldFiles.isEmpty()) {
+				if (!newFiles.isEmpty()) {
+					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								  ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
+				}
+
+				MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+												ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
+												"//schem rename " + args[2] + " " + args[3] + " confirm",
+												"//schem rename " + args[2] + " " + args[3] + " deny", p);
+				WorldEditModeRequestUtils.addRenameRequest(p, args[2]);
+			} else {
+				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+							  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
+			}
+		} else if (args.length == 5 && WorldEditModeRequestUtils.checkRenameRequest(p, args[2])) {
+			if (args[4].equalsIgnoreCase("confirm")) {
+				WorldEditModeRequestUtils.removeRenameRequest(p);
+				if (schemPath != null && !oldFiles.isEmpty()) {
+					Rename.moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
+				} else {
+					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
+				}
+			} else if (args[4].equalsIgnoreCase("deny")) {
+				WorldEditModeRequestUtils.removeRenameRequest(p);
+				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+							  ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed.");
+			}
+		}
+	}
 
 	private void moveFile(final @NotNull Player p, final String fileName, final @NotNull List<File> oldFiles, final @Nullable List<File> newFiles, final @NotNull Path destPath) {
 		try {
 			if (newFiles != null) {
-				for (@NotNull File file : newFiles) {
+				for (final @NotNull File file : newFiles) {
 					Files.delete(file.toPath());
 				}
 			}
@@ -107,5 +130,21 @@ public class Rename {
 						  ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed, for further information please see [console].");
 			e.printStackTrace();
 		}
+	}
+
+	private void renameUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
+										ChatColor.GRAY + slash + schemAlias
+										+ ChatColor.AQUA + " rename "
+										+ ChatColor.YELLOW + "<"
+										+ ChatColor.GOLD + "filename"
+										+ ChatColor.YELLOW + "> <"
+										+ ChatColor.GOLD + "newname"
+										+ ChatColor.YELLOW + ">",
+										ChatColor.RED + "e.g. "
+										+ ChatColor.GRAY + slash + schemAlias
+										+ ChatColor.AQUA + " rename "
+										+ ChatColor.GOLD + "example newname",
+										slash + schemAlias + " rename ", p);
 	}
 }

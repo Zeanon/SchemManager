@@ -77,10 +77,11 @@ public class Utils {
 										 .fromResource("resources/config.tf")
 										 .reloadSetting(Reload.INTELLIGENT)
 										 .commentSetting(Comment.PRESERVE)
+										 .concurrentData(true)
 										 .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
-		} catch (@NotNull RuntimeIOException | FileParseException e) {
+		} catch (final @NotNull RuntimeIOException | FileParseException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be loaded.");
 			e.printStackTrace();
 			cause = e;
@@ -97,6 +98,7 @@ public class Utils {
 			Utils.weConfig = StorageManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
 										   .reloadSetting(Reload.AUTOMATICALLY)
 										   .commentSetting(Comment.SKIP)
+										   .concurrentData(false)
 										   .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");

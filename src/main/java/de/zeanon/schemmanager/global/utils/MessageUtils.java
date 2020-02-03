@@ -8,6 +8,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
@@ -25,14 +26,14 @@ public class MessageUtils {
 	public void sendCommandMessage(final @NotNull String message,
 								   final @NotNull String commandMessage,
 								   final @NotNull String hoverMessage,
-								   final @NotNull String command,
+								   final @Nullable String command,
 								   final @NotNull Player target) {
 		final @NotNull TextComponent localMessage = new TextComponent(
 				TextComponent.fromLegacyText(message));
 		final @NotNull TextComponent commandPart = new TextComponent(
 				TextComponent.fromLegacyText(commandMessage));
 
-		if (!command.isEmpty()) {
+		if (command != null && !command.isEmpty()) {
 			commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 													 command));
 		}
@@ -55,14 +56,14 @@ public class MessageUtils {
 	public void sendInvertedCommandMessage(final @NotNull String message,
 										   final @NotNull String commandMessage,
 										   final @NotNull String hoverMessage,
-										   final @NotNull String command,
+										   final @Nullable String command,
 										   final @NotNull Player target) {
 		final @NotNull TextComponent localMessage = new TextComponent(
 				TextComponent.fromLegacyText(message));
 		final @NotNull TextComponent commandPart = new TextComponent(
 				TextComponent.fromLegacyText(commandMessage));
 
-		if (!command.isEmpty()) {
+		if (command != null && !command.isEmpty()) {
 			commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 													 command));
 		}
@@ -82,8 +83,8 @@ public class MessageUtils {
 	 * @param target     the player the message is sent to
 	 */
 	public void sendBooleanMessage(final @NotNull String message,
-								   final @NotNull String commandYes,
-								   final @NotNull String commandNo,
+								   final @Nullable String commandYes,
+								   final @Nullable String commandNo,
 								   final @NotNull Player target) {
 		final @NotNull TextComponent localMessage = new TextComponent(
 				TextComponent.fromLegacyText(message));
@@ -94,7 +95,7 @@ public class MessageUtils {
 		final @NotNull TextComponent commandPartNo = new TextComponent(
 				TextComponent.fromLegacyText(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[N]"));
 
-		if (!commandYes.isEmpty()) {
+		if (commandYes != null && commandYes.isEmpty()) {
 			commandPartYes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandYes));
 		}
 		commandPartYes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
@@ -103,7 +104,7 @@ public class MessageUtils {
 																	ChatColor.DARK_GREEN + ""
 																	+ ChatColor.BOLD + "[YES]")))
 															.create()));
-		if (!commandNo.isEmpty()) {
+		if (commandNo != null && !commandNo.isEmpty()) {
 			commandPartNo.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandNo));
 		}
 		commandPartNo.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
@@ -129,8 +130,8 @@ public class MessageUtils {
 	 * @param target          the player the message is sent to
 	 * @param buttonColor     the color of the buttons
 	 */
-	public void sendScrollMessage(final @NotNull String commandForward,
-								  final @NotNull String commandBackward,
+	public void sendScrollMessage(final @Nullable String commandForward,
+								  final @Nullable String commandBackward,
 								  final @NotNull String messageForward,
 								  final @NotNull String messageBackward,
 								  final @NotNull Player target,
@@ -142,14 +143,14 @@ public class MessageUtils {
 		final @NotNull TextComponent commandPartForward = new TextComponent(
 				TextComponent.fromLegacyText(buttonColor + "[>>>]"));
 
-		if (!commandBackward.isEmpty()) {
+		if (commandBackward != null && !commandBackward.isEmpty()) {
 			commandPartBackward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandBackward));
 		}
 		commandPartBackward.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 														 new ComponentBuilder(new TextComponent(
 																 TextComponent.fromLegacyText(
 																		 messageBackward))).create()));
-		if (!commandForward.isEmpty()) {
+		if (commandForward != null && !commandForward.isEmpty()) {
 			commandPartForward.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandForward));
 		}
 		commandPartForward.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
@@ -176,14 +177,14 @@ public class MessageUtils {
 	public void sendSuggestMessage(final @NotNull String message,
 								   final @NotNull String suggestMessage,
 								   final @NotNull String hoverMessage,
-								   final @NotNull String command,
+								   final @Nullable String command,
 								   final @NotNull Player target) {
 		final @NotNull TextComponent localMessage = new TextComponent(
 				TextComponent.fromLegacyText(message));
 		final @NotNull TextComponent suggestPart = new TextComponent(
 				TextComponent.fromLegacyText(suggestMessage));
 
-		if (!command.isEmpty()) {
+		if (command != null && !command.isEmpty()) {
 			suggestPart.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,
 													 command));
 		}
