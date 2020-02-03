@@ -22,7 +22,7 @@ public class CommandHandler implements CommandExecutor {
 	public boolean onCommand(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String label, final @NotNull String[] args) {
 		if (command.getName().equalsIgnoreCase("schemmanager")) {
 			if (sender instanceof Player) {
-				@NotNull Player p = (Player) sender;
+				final @NotNull Player p = (Player) sender;
 				if (args.length == 0) {
 					p.sendMessage(ChatColor.RED + "Missing argument for "
 								  + ChatColor.YELLOW + "<"

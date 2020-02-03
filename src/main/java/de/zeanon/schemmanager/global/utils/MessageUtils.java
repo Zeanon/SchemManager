@@ -95,7 +95,7 @@ public class MessageUtils {
 		final @NotNull TextComponent commandPartNo = new TextComponent(
 				TextComponent.fromLegacyText(ChatColor.DARK_RED + "" + ChatColor.BOLD + "[N]"));
 
-		if (commandYes != null && commandYes.isEmpty()) {
+		if (commandYes != null && !commandYes.isEmpty()) {
 			commandPartYes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, commandYes));
 		}
 		commandPartYes.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
