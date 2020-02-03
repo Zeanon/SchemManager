@@ -85,9 +85,7 @@ public class Copy {
 				}
 			}
 			for (final @NotNull File file : oldFiles) {
-				if (Objects.notNull(ConfigUtils.getStringList("File Extensions"))
-						   .stream()
-						   .noneMatch(BaseFileUtils.getExtension(destPath.toString())::equals)) {
+				if (!Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(destPath))) {
 					FileUtils.copyFile(file, new File(destPath.toString() + BaseFileUtils.getExtension(file.getName())));
 				} else {
 					FileUtils.copyFile(file, destPath.toFile());

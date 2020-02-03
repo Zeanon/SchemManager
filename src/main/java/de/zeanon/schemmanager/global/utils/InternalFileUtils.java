@@ -31,10 +31,8 @@ public class InternalFileUtils {
 
 	public @NotNull List<File> getExistingFiles(final @NotNull Path path) {
 		final @NotNull List<File> tempFiles = new GapList<>();
-		if (Objects.notNull(ConfigUtils.getStringList("File Extensions"))
-				   .stream()
-				   .anyMatch(BaseFileUtils.getExtension(path)::equalsIgnoreCase)) {
-			@NotNull File file = path.toFile();
+		if (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(path))) {
+			final @NotNull File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
 				tempFiles.add(file);
 			}

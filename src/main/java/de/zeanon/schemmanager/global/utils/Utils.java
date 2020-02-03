@@ -101,7 +101,7 @@ public class Utils {
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
 			Utils.initWorldEditPlugin();
-		} catch (@NotNull RuntimeIOException | FileParseException e) {
+		} catch (final @NotNull RuntimeIOException | FileParseException e) {
 			e.printStackTrace();
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file.");
 			Utils.enableSleepMode();

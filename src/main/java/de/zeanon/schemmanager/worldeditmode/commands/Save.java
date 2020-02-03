@@ -28,9 +28,7 @@ public class Save {
 			public void run() {
 				@Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 				@Nullable File file = schemPath != null
-									  ? (Objects.notNull(ConfigUtils.getStringList("File Extensions")) //NOSONAR
-												.stream()
-												.anyMatch(BaseFileUtils.getExtension(args[2])::equalsIgnoreCase)
+									  ? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[2])) //NOSONAR
 										 ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()
 										 : WorldEditModeSchemUtils.getSchemPath().resolve(
 												 BaseFileUtils.removeExtension(args[2])).toFile())

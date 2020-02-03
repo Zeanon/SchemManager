@@ -68,7 +68,7 @@ public class CopyFolder {
 														 .toString());
 
 										final @NotNull String name;
-										if (BaseFileUtils.getExtension(newFile.getName()).equals(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
+										if (BaseFileUtils.getExtension(newFile.getName()).equalsIgnoreCase(Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0))) {
 											name = BaseFileUtils.removeExtension(newFile.getName());
 										} else {
 											name = newFile.getName();

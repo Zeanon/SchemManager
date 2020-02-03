@@ -80,8 +80,8 @@ public class Rename {
 			}
 
 			@Nullable String parentName = null;
-			for (@NotNull File file : oldFiles) {
-				if (Objects.notNull(ConfigUtils.getStringList("File Extensions")).stream().noneMatch(BaseFileUtils.getExtension(destPath)::equals)) {
+			for (final @NotNull File file : oldFiles) {
+				if (!Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(destPath))) {
 					FileUtils.moveFile(file, new File(destPath + BaseFileUtils.getExtension(file)));
 				} else {
 					FileUtils.moveFile(file, destPath.toFile());
