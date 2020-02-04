@@ -17,10 +17,13 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class WorldEditModeSchemUtils {
 
-	private @Nullable File schemFolder;
-	private @Nullable Path schemFolderPath;
+	private @Nullable
+	File schemFolder;
+	private @Nullable
+	Path schemFolderPath;
 
-	public @Nullable Path getSchemPath() {
+	public @Nullable
+	Path getSchemPath() {
 		if (!Objects.notNull(Utils.getWeConfig()).hasChanged()) {
 			return WorldEditModeSchemUtils.schemFolderPath;
 		} else {
@@ -50,7 +53,8 @@ public class WorldEditModeSchemUtils {
 		}
 	}
 
-	public @Nullable File getSchemFolder() {
+	public @Nullable
+	File getSchemFolder() {
 		if (!Objects.notNull(Utils.getWeConfig()).hasChanged()) {
 			return WorldEditModeSchemUtils.schemFolder;
 		} else {

@@ -39,18 +39,18 @@ public class CommandHandler implements CommandExecutor {
 								, "/schemmanager disable confirm"
 								, "/schemmanager disable deny"
 								, p);
-						RequestUtils.addDisableRequest(p);
+						RequestUtils.addDisableRequest(p.getUniqueId());
 					} else if (args.length == 2
 							   && (args[1].equalsIgnoreCase("confirm")
 								   || args[1].equalsIgnoreCase("deny"))) {
 						if (args[1].equalsIgnoreCase("confirm")
-							&& RequestUtils.checkDisableRequest(p)) {
+							&& RequestUtils.checkDisableRequest(p.getUniqueId())) {
 							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 										  + ChatColor.RED + " is being disabled.");
 							SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 						} else if (args[1].equalsIgnoreCase("deny")
-								   && RequestUtils.checkDisableRequest(p)) {
-							RequestUtils.removeDisableRequest(p);
+								   && RequestUtils.checkDisableRequest(p.getUniqueId())) {
+							RequestUtils.removeDisableRequest(p.getUniqueId());
 							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 										  + ChatColor.RED + " will not be disabled.");
 						}
@@ -65,12 +65,12 @@ public class CommandHandler implements CommandExecutor {
 								, "/schemmanager update confirm"
 								, "/schemmanager update deny"
 								, p);
-						RequestUtils.addUpdateRequest(p);
+						RequestUtils.addUpdateRequest(p.getUniqueId());
 					} else if (args.length == 2
 							   && (args[1].equalsIgnoreCase("confirm")
 								   || args[1].equalsIgnoreCase("deny"))) {
-						if (args[1].equalsIgnoreCase("confirm") && RequestUtils.checkUpdateRequest(p)) {
-							RequestUtils.removeUpdateRequest(p);
+						if (args[1].equalsIgnoreCase("confirm") && RequestUtils.checkUpdateRequest(p.getUniqueId())) {
+							RequestUtils.removeUpdateRequest(p.getUniqueId());
 							new BukkitRunnable() {
 								@Override
 								public void run() {
@@ -78,8 +78,8 @@ public class CommandHandler implements CommandExecutor {
 								}
 							}.runTaskAsynchronously(SchemManager.getInstance());
 						} else if (args[1].equalsIgnoreCase("deny")
-								   && RequestUtils.checkUpdateRequest(p)) {
-							RequestUtils.removeUpdateRequest(p);
+								   && RequestUtils.checkUpdateRequest(p.getUniqueId())) {
+							RequestUtils.removeUpdateRequest(p.getUniqueId());
 							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 										  + ChatColor.RED + " will not be updated.");
 						}

@@ -45,12 +45,12 @@ public class EventListener implements Listener {
 	@EventHandler
 	public void onQuit(final @NotNull PlayerQuitEvent event) {
 		final @NotNull Player p = event.getPlayer();
-		RequestUtils.removeDisableRequest(p);
-		RequestUtils.removeUpdateRequest(p);
-		WorldEditModeRequestUtils.removeDeleteRequest(p);
-		WorldEditModeRequestUtils.removeDeleteFolderRequest(p);
-		WorldEditModeRequestUtils.removeRenameRequest(p);
-		WorldEditModeRequestUtils.removeRenameFolderRequest(p);
-		WorldEditModeRequestUtils.removeOverWriteRequest(p);
+		RequestUtils.removeDisableRequest(p.getUniqueId());
+		RequestUtils.removeUpdateRequest(p.getUniqueId());
+		WorldEditModeRequestUtils.removeDeleteRequest(p.getUniqueId());
+		WorldEditModeRequestUtils.removeDeleteFolderRequest(p.getUniqueId());
+		WorldEditModeRequestUtils.removeRenameRequest(p.getUniqueId());
+		WorldEditModeRequestUtils.removeRenameFolderRequest(p.getUniqueId());
+		WorldEditModeRequestUtils.removeOverWriteRequest(p.getUniqueId());
 	}
 }

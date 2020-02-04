@@ -40,7 +40,7 @@ public class Copy {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "'resolution error: Path is not allowed.");
 						Copy.copyUsage(p, slash, schemAlias);
-					} else if (args.length == 5 && !WorldEditModeRequestUtils.checkRenameRequest(p, args[2])
+					} else if (args.length == 5 && !WorldEditModeRequestUtils.checkRenameRequest(p.getUniqueId(), args[2])
 							   && !args[3].equalsIgnoreCase("confirm")
 							   && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -80,14 +80,14 @@ public class Copy {
 												ChatColor.RED + "?",
 												"//schem copy " + args[2] + " " + args[3] + " confirm",
 												"//schem copy " + args[2] + " " + args[3] + " deny", p);
-				WorldEditModeRequestUtils.addCopyRequest(p, args[2]);
+				WorldEditModeRequestUtils.addCopyRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 			}
-		} else if (args.length == 5 && WorldEditModeRequestUtils.checkCopyRequest(p, args[2])) {
+		} else if (args.length == 5 && WorldEditModeRequestUtils.checkCopyRequest(p.getUniqueId(), args[2])) {
 			if (args[4].equalsIgnoreCase("confirm")) {
-				WorldEditModeRequestUtils.removeCopyRequest(p);
+				WorldEditModeRequestUtils.removeCopyRequest(p.getUniqueId());
 				if (oldFileExists) {
 					Copy.copyFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
 				} else {
@@ -95,7 +95,7 @@ public class Copy {
 								  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				}
 			} else if (args[4].equalsIgnoreCase("deny")) {
-				WorldEditModeRequestUtils.removeCopyRequest(p);
+				WorldEditModeRequestUtils.removeCopyRequest(p.getUniqueId());
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " was not copied.");
 			}

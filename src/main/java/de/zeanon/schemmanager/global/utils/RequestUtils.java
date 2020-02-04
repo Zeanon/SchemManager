@@ -2,42 +2,44 @@ package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.storagemanager.external.browniescollections.GapList;
 import java.util.List;
+import java.util.UUID;
 import lombok.experimental.UtilityClass;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 
 @UtilityClass
 public class RequestUtils {
 
-	private final @NotNull List<String> disableRequests = new GapList<>();
-	private final @NotNull List<String> updateRequests = new GapList<>();
+	private final @NotNull
+	List<UUID> disableRequests = new GapList<>();
+	private final @NotNull
+	List<UUID> updateRequests = new GapList<>();
 
-	public void removeDisableRequest(final @NotNull Player p) {
-		RequestUtils.disableRequests.remove(p.getUniqueId().toString());
+	public void removeDisableRequest(final @NotNull UUID uuid) {
+		RequestUtils.disableRequests.remove(uuid);
 	}
 
-	public void removeUpdateRequest(final @NotNull Player p) {
-		RequestUtils.updateRequests.remove(p.getUniqueId().toString());
+	public void removeUpdateRequest(final @NotNull UUID uuid) {
+		RequestUtils.updateRequests.remove(uuid);
 	}
 
-	public void addDisableRequest(final @NotNull Player p) {
-		if (!RequestUtils.checkDisableRequest(p)) {
-			RequestUtils.disableRequests.add(p.getUniqueId().toString());
+	public void addDisableRequest(final @NotNull UUID uuid) {
+		if (!RequestUtils.checkDisableRequest(uuid)) {
+			RequestUtils.disableRequests.add(uuid);
 		}
 	}
 
-	public boolean checkDisableRequest(final @NotNull Player p) {
-		return RequestUtils.disableRequests.contains(p.getUniqueId().toString());
+	public boolean checkDisableRequest(final @NotNull UUID uuid) {
+		return RequestUtils.disableRequests.contains(uuid);
 	}
 
-	public void addUpdateRequest(final @NotNull Player p) {
-		if (!RequestUtils.checkUpdateRequest(p)) {
-			RequestUtils.updateRequests.add(p.getUniqueId().toString());
+	public void addUpdateRequest(final @NotNull UUID uuid) {
+		if (!RequestUtils.checkUpdateRequest(uuid)) {
+			RequestUtils.updateRequests.add(uuid);
 		}
 	}
 
-	public boolean checkUpdateRequest(final @NotNull Player p) {
-		return RequestUtils.updateRequests.contains(p.getUniqueId().toString());
+	public boolean checkUpdateRequest(final @NotNull UUID uuid) {
+		return RequestUtils.updateRequests.contains(uuid);
 	}
 }

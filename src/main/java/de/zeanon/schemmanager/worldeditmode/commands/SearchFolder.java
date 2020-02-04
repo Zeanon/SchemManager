@@ -4,7 +4,6 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storagemanager.external.browniescollections.GapList;
 import de.zeanon.storagemanager.internal.utility.basic.BaseFileUtils;
 import java.io.File;
 import java.io.IOException;
@@ -36,26 +35,26 @@ public class SearchFolder {
 					deep = true;
 
 					if (args.length > 3 && (args[3].equalsIgnoreCase("-casesensitive") || args[3].equalsIgnoreCase("-c"))) {
-						modifierCount = 2;
 						caseSensitive = true;
+						modifierCount = 2;
 					} else {
-						modifierCount = 1;
 						caseSensitive = false;
+						modifierCount = 1;
 					}
 				} else if (args.length > 2 && (args[2].equalsIgnoreCase("-casesensitive") || args[2].equalsIgnoreCase("-c"))) {
 					caseSensitive = true;
 
 					if (args.length > 3 && (args[3].equalsIgnoreCase("-deep") || args[3].equalsIgnoreCase("-d"))) {
-						modifierCount = 2;
 						deep = true;
+						modifierCount = 2;
 					} else {
-						modifierCount = 1;
 						deep = false;
+						modifierCount = 1;
 					}
 				} else {
-					modifierCount = 0;
 					deep = false;
 					caseSensitive = false;
+					modifierCount = 0;
 				}
 
 				if (args.length <= 5 + modifierCount) {
@@ -116,16 +115,13 @@ public class SearchFolder {
 		}
 	}
 
-	@NotNull
-	private File[] getFileArray(final @NotNull File directory, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
-		final @NotNull java.util.List<File> files = new GapList<>();
-		for (final @NotNull File file : BaseFileUtils.listFolders(directory, deepSearch)) {
-			if ((!caseSensitive && file.getName().toLowerCase().contains(sequence.toLowerCase())) || (caseSensitive && file.getName().contains(sequence))) {
-				files.add(file);
-			}
-		}
-		final @NotNull File[] fileArray = files.toArray(new File[0]);
-		return fileArray;
+	private @NotNull
+	File[] getFileArray(final @NotNull File directory, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
+		return BaseFileUtils.listFiles(directory, deepSearch)
+							.parallelStream()
+							.filter(file -> (!caseSensitive && file.getName().toLowerCase().contains(sequence.toLowerCase()))
+											|| (caseSensitive && file.getName().contains(sequence)))
+							.toArray(File[]::new);
 	}
 
 	private boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {

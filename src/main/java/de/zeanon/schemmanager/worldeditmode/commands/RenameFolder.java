@@ -44,7 +44,7 @@ public class RenameFolder {
 					} else if (args.length == 5
 							   && !args[4].equalsIgnoreCase("confirm")
 							   && !args[4].equalsIgnoreCase("deny")
-							   && !WorldEditModeRequestUtils.checkRenameFolderRequest(p, args[2])) {
+							   && !WorldEditModeRequestUtils.checkRenameFolderRequest(p.getUniqueId(), args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						RenameFolder.renameFolderUsage(p, slash, schemAlias);
 					} else {
@@ -142,10 +142,10 @@ public class RenameFolder {
 												ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?",
 												"//schem renamefolder " + args[2] + " " + args[3] + " confirm",
 												"//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
-				WorldEditModeRequestUtils.addRenameFolderRequest(p, args[2]);
-			} else if (args.length == 5 && WorldEditModeRequestUtils.checkRenameFolderRequest(p, args[2])) {
+				WorldEditModeRequestUtils.addRenameFolderRequest(p.getUniqueId(), args[2]);
+			} else if (args.length == 5 && WorldEditModeRequestUtils.checkRenameFolderRequest(p.getUniqueId(), args[2])) {
 				if (args[4].equalsIgnoreCase("confirm")) {
-					WorldEditModeRequestUtils.removeRenameFolderRequest(p);
+					WorldEditModeRequestUtils.removeRenameFolderRequest(p.getUniqueId());
 					if (directoryOld != null && directoryOld.exists() && directoryOld.isDirectory()) {
 						if (RenameFolder.deepMerge(directoryOld, directoryNew)) {
 							RenameFolder.deleteParents(directoryOld, args[2], p);
@@ -158,7 +158,7 @@ public class RenameFolder {
 									  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 					}
 				} else if (args[4].equalsIgnoreCase("deny")) {
-					WorldEditModeRequestUtils.removeRenameFolderRequest(p);
+					WorldEditModeRequestUtils.removeRenameFolderRequest(p.getUniqueId());
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GREEN + args[2] + ChatColor.RED + " was not renamed");
 				}
@@ -188,7 +188,7 @@ public class RenameFolder {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GREEN + arg + ChatColor.RED + " could not be renamed, for further information please see [console].");
 			e.printStackTrace();
-			WorldEditModeRequestUtils.removeRenameFolderRequest(p);
+			WorldEditModeRequestUtils.removeRenameFolderRequest(p.getUniqueId());
 		}
 	}
 

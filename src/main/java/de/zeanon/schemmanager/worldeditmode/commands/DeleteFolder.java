@@ -37,7 +37,7 @@ public class DeleteFolder {
 						p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
 						DeleteFolder.deleteFolderUsage(p, slash, schemAlias);
 					} else if (args.length == 4
-							   && !WorldEditModeRequestUtils.checkDeleteFolderRequest(p, args[2])
+							   && !WorldEditModeRequestUtils.checkDeleteFolderRequest(p.getUniqueId(), args[2])
 							   && !args[3].equalsIgnoreCase("confirm")
 							   && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -74,14 +74,14 @@ public class DeleteFolder {
 												+ ChatColor.RED + "?",
 												"//schem delfolder " + args[2] + " confirm",
 												"//schem delfolder " + args[2] + " deny", p);
-				WorldEditModeRequestUtils.addDeleteFolderRequest(p, args[2]);
+				WorldEditModeRequestUtils.addDeleteFolderRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 			}
-		} else if (args.length == 4 && WorldEditModeRequestUtils.checkDeleteFolderRequest(p, args[2])) {
+		} else if (args.length == 4 && WorldEditModeRequestUtils.checkDeleteFolderRequest(p.getUniqueId(), args[2])) {
 			if (args[3].equalsIgnoreCase("confirm")) {
-				WorldEditModeRequestUtils.removeDeleteFolderRequest(p);
+				WorldEditModeRequestUtils.removeDeleteFolderRequest(p.getUniqueId());
 				if (fileExists) {
 					try {
 						FileUtils.deleteDirectory(file);
@@ -103,14 +103,15 @@ public class DeleteFolder {
 								  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 				}
 			} else if (args[3].equalsIgnoreCase("deny")) {
-				WorldEditModeRequestUtils.removeDeleteFolderRequest(p);
+				WorldEditModeRequestUtils.removeDeleteFolderRequest(p.getUniqueId());
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GREEN + args[2] + ChatColor.RED + " was not deleted.");
 			}
 		}
 	}
 
-	private @Nullable String getParentName(final @NotNull File file) {
+	private @Nullable
+	String getParentName(final @NotNull File file) {
 		@Nullable String parentName = null;
 		if (ConfigUtils.getBoolean("Delete empty Folders")
 			&& !file.getAbsoluteFile().getParentFile().equals(WorldEditModeSchemUtils.getSchemFolder())) {

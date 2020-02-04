@@ -4,7 +4,6 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
-import de.zeanon.storagemanager.external.browniescollections.GapList;
 import de.zeanon.storagemanager.internal.utility.basic.BaseFileUtils;
 import de.zeanon.storagemanager.internal.utility.basic.Objects;
 import java.io.File;
@@ -38,26 +37,26 @@ public class Search {
 					deep = true;
 
 					if (args.length > 3 && (args[3].equalsIgnoreCase("-casesensitive") || args[3].equalsIgnoreCase("-c"))) {
-						modifierCount = 2;
 						caseSensitive = true;
+						modifierCount = 2;
 					} else {
-						modifierCount = 1;
 						caseSensitive = false;
+						modifierCount = 1;
 					}
 				} else if (args.length > 2 && (args[2].equalsIgnoreCase("-casesensitive") || args[2].equalsIgnoreCase("-c"))) {
 					caseSensitive = true;
 
 					if (args.length > 3 && (args[3].equalsIgnoreCase("-deep") || args[3].equalsIgnoreCase("-d"))) {
-						modifierCount = 2;
 						deep = true;
+						modifierCount = 2;
 					} else {
-						modifierCount = 1;
 						deep = false;
+						modifierCount = 1;
 					}
 				} else {
-					modifierCount = 0;
 					deep = false;
 					caseSensitive = false;
+					modifierCount = 0;
 				}
 
 				if (args.length <= 5 + modifierCount) {
@@ -91,7 +90,7 @@ public class Search {
 		final byte listmax = ConfigUtils.getByte("Listmax");
 		final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
 		final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-		final @Nullable java.util.List<String> extensions = ConfigUtils.getStringList("File Extensions");
+		final @NotNull java.util.List<String> extensions = Objects.notNull(ConfigUtils.getStringList("File Extensions"));
 
 		final @NotNull String deep;
 		if (deepSearch) {
@@ -122,14 +121,11 @@ public class Search {
 
 	private @NotNull
 	File[] getFileArray(final @NotNull File directory, final @NotNull List<String> extensions, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
-		final @NotNull java.util.List<File> files = new GapList<>();
-		for (final @NotNull File file : BaseFileUtils.listFiles(directory, deepSearch, extensions)) {
-			if ((!caseSensitive && BaseFileUtils.removeExtension(file.getName()).toLowerCase().contains(sequence.toLowerCase())) || (caseSensitive && BaseFileUtils.removeExtension(file.getName()).contains(sequence))) {
-				files.add(file);
-			}
-		}
-		final @NotNull File[] fileArray = files.toArray(new File[0]);
-		return fileArray;
+		return BaseFileUtils.listFiles(directory, deepSearch, extensions)
+							.parallelStream()
+							.filter(file -> (!caseSensitive && BaseFileUtils.removeExtension(file.getName()).toLowerCase().contains(sequence.toLowerCase()))
+											|| (caseSensitive && BaseFileUtils.removeExtension(file.getName()).contains(sequence)))
+							.toArray(File[]::new);
 	}
 
 	private boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
@@ -170,7 +166,7 @@ public class Search {
 		}
 	}
 
-	private void threeArgs(final @NotNull String arg, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, byte listmax) {
+	private void threeArgs(final @NotNull String arg, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final @NotNull java.util.List<String> extensions, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, byte listmax) {
 		try {
 			final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
@@ -179,7 +175,7 @@ public class Search {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + "There is no schematic folder.");
 			} else {
-				final @NotNull File[] files = Search.getFileArray(directory, Objects.notNull(extensions), deepSearch, caseSensitiveSearch, arg);
+				final @NotNull File[] files = Search.getFileArray(directory, extensions, deepSearch, caseSensitiveSearch, arg);
 				final double count = files.length;
 				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -228,7 +224,7 @@ public class Search {
 		}
 	}
 
-	private void fourArgs(final @NotNull String argTwo, final @NotNull String argThree, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, byte listmax) {
+	private void fourArgs(final @NotNull String argTwo, final @NotNull String argThree, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final @NotNull java.util.List<String> extensions, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, byte listmax) {
 		if (StringUtils.isNumeric(argThree)) {
 			try {
 				final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
@@ -237,7 +233,7 @@ public class Search {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.RED + "There is no schematic folder.");
 				} else {
-					final @NotNull File[] files = Search.getFileArray(directory, Objects.notNull(extensions), deepSearch, caseSensitiveSearch, argTwo);
+					final @NotNull File[] files = Search.getFileArray(directory, extensions, deepSearch, caseSensitiveSearch, argTwo);
 					final double count = files.length;
 					final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 					final int sideNumber = Integer.parseInt(argThree);
@@ -316,7 +312,7 @@ public class Search {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GREEN + argTwo + ChatColor.RED + " is no folder.");
 				} else {
-					final @NotNull File[] files = Search.getFileArray(directory, Objects.notNull(extensions), deepSearch, caseSensitiveSearch, argThree);
+					final @NotNull File[] files = Search.getFileArray(directory, extensions, deepSearch, caseSensitiveSearch, argThree);
 					final double count = files.length;
 					final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -366,7 +362,7 @@ public class Search {
 		}
 	}
 
-	private void defaultCase(final @NotNull String argTwo, final @NotNull String argThree, final @NotNull String argFour, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, byte listmax) {
+	private void defaultCase(final @NotNull String argTwo, final @NotNull String argThree, final @NotNull String argFour, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final @NotNull java.util.List<String> extensions, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, byte listmax) {
 		try {
 			final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toRealPath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
@@ -374,7 +370,7 @@ public class Search {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GREEN + argTwo + ChatColor.RED + " is no folder.");
 			} else {
-				final @NotNull File[] files = Search.getFileArray(directory, Objects.notNull(extensions), deepSearch, caseSensitiveSearch, argThree);
+				final @NotNull File[] files = Search.getFileArray(directory, extensions, deepSearch, caseSensitiveSearch, argThree);
 				final double count = files.length;
 				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 				final int sideNumber = Integer.parseInt(argFour);

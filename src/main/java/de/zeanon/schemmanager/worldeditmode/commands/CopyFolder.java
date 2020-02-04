@@ -43,7 +43,7 @@ public class CopyFolder {
 					} else if (args.length == 5
 							   && !args[4].equalsIgnoreCase("confirm")
 							   && !args[4].equalsIgnoreCase("deny")
-							   && !WorldEditModeRequestUtils.checkRenameFolderRequest(p, args[2])) {
+							   && !WorldEditModeRequestUtils.checkRenameFolderRequest(p.getUniqueId(), args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						CopyFolder.copyFolderUsage(p, slash, schemAlias);
 					} else {
@@ -188,10 +188,10 @@ public class CopyFolder {
 												+ ChatColor.RED + "?",
 												"//schem copyfolder " + args[2] + " " + args[3] + " confirm",
 												"//schem copyfolder " + args[2] + " " + args[3] + " deny", p);
-				WorldEditModeRequestUtils.addCopyFolderRequest(p, args[2]);
-			} else if (args.length == 5 && WorldEditModeRequestUtils.checkCopyFolderRequest(p, args[2])) {
+				WorldEditModeRequestUtils.addCopyFolderRequest(p.getUniqueId(), args[2]);
+			} else if (args.length == 5 && WorldEditModeRequestUtils.checkCopyFolderRequest(p.getUniqueId(), args[2])) {
 				if (args[4].equalsIgnoreCase("confirm")) {
-					WorldEditModeRequestUtils.removeCopyFolderRequest(p);
+					WorldEditModeRequestUtils.removeCopyFolderRequest(p.getUniqueId());
 					if (directoryOld != null && directoryOld.exists() && directoryOld.isDirectory()) {
 						if (CopyFolder.deepMerge(directoryOld, directoryNew)) {
 							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
@@ -205,7 +205,7 @@ public class CopyFolder {
 									  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 					}
 				} else if (args[4].equalsIgnoreCase("deny")) {
-					WorldEditModeRequestUtils.removeCopyFolderRequest(p);
+					WorldEditModeRequestUtils.removeCopyFolderRequest(p.getUniqueId());
 					p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not copied");
 				}
 			}

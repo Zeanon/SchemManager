@@ -21,7 +21,8 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 class WorldEditModeTabCompleter {
 
-	@Nullable List<String> execute(final @NotNull String message) throws IOException {
+	@Nullable
+	List<String> execute(final @NotNull String message) throws IOException {
 		final @NotNull String[] args = message.replace("worldedit:", "/").split(" ");
 		final boolean argumentEnded = message.endsWith(" ");
 		if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
@@ -64,7 +65,8 @@ class WorldEditModeTabCompleter {
 		}
 	}
 
-	private @NotNull List<String> onTab(final @NotNull String[] args, final boolean alreadyDeep, final boolean alreadyCaseSensitive, final int modifierCount, final boolean argumentEnded) throws IOException {
+	private @NotNull
+	List<String> onTab(final @NotNull String[] args, final boolean alreadyDeep, final boolean alreadyCaseSensitive, final int modifierCount, final boolean argumentEnded) throws IOException {
 		final @NotNull List<String> completions = new GapList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
@@ -302,7 +304,8 @@ class WorldEditModeTabCompleter {
 		return completions;
 	}
 
-	private @NotNull File[] getFileArray(final @NotNull File directory) throws IOException {
+	private @NotNull
+	File[] getFileArray(final @NotNull File directory) throws IOException {
 		final @Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
 		final @NotNull Collection<File> rawFiles = BaseFileUtils.listFiles(directory, false, Objects.notNull(extensions));
 		return rawFiles.toArray(new File[0]);

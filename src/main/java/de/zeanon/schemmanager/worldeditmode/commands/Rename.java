@@ -40,7 +40,7 @@ public class Rename {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "'resolution error: Path is not allowed.");
 						Rename.renameUsage(p, slash, schemAlias);
-					} else if (args.length == 5 && !WorldEditModeRequestUtils.checkRenameRequest(p, args[2])
+					} else if (args.length == 5 && !WorldEditModeRequestUtils.checkRenameRequest(p.getUniqueId(), args[2])
 							   && !args[3].equalsIgnoreCase("confirm")
 							   && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -72,14 +72,14 @@ public class Rename {
 												ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
 												"//schem rename " + args[2] + " " + args[3] + " confirm",
 												"//schem rename " + args[2] + " " + args[3] + " deny", p);
-				WorldEditModeRequestUtils.addRenameRequest(p, args[2]);
+				WorldEditModeRequestUtils.addRenameRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 			}
-		} else if (args.length == 5 && WorldEditModeRequestUtils.checkRenameRequest(p, args[2])) {
+		} else if (args.length == 5 && WorldEditModeRequestUtils.checkRenameRequest(p.getUniqueId(), args[2])) {
 			if (args[4].equalsIgnoreCase("confirm")) {
-				WorldEditModeRequestUtils.removeRenameRequest(p);
+				WorldEditModeRequestUtils.removeRenameRequest(p.getUniqueId());
 				if (schemPath != null && !oldFiles.isEmpty()) {
 					Rename.moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
 				} else {
@@ -87,7 +87,7 @@ public class Rename {
 								  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				}
 			} else if (args[4].equalsIgnoreCase("deny")) {
-				WorldEditModeRequestUtils.removeRenameRequest(p);
+				WorldEditModeRequestUtils.removeRenameRequest(p.getUniqueId());
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed.");
 			}

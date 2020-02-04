@@ -16,7 +16,8 @@ import org.jetbrains.annotations.Nullable;
 public class WorldEditMode {
 
 	@Getter
-	private final @Nullable WorldEditPlugin worldEditPlugin;
+	private final @Nullable
+	WorldEditPlugin worldEditPlugin;
 
 	static {
 		worldEditPlugin = (WorldEditPlugin) SchemManager.getPluginManager().getPlugin("WorldEdit");

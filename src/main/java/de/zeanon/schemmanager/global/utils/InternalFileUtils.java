@@ -17,7 +17,8 @@ import org.jetbrains.annotations.NotNull;
 public class InternalFileUtils {
 
 	@Getter
-	private final @NotNull String PLUGIN_FOLDER_PATH;
+	private final @NotNull
+	String PLUGIN_FOLDER_PATH;
 
 	static {
 		final @NotNull String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
@@ -29,7 +30,8 @@ public class InternalFileUtils {
 		PLUGIN_FOLDER_PATH = pathBuilder.toString();
 	}
 
-	public @NotNull List<File> getExistingFiles(final @NotNull Path path) {
+	public @NotNull
+	List<File> getExistingFiles(final @NotNull Path path) {
 		final @NotNull List<File> tempFiles = new GapList<>();
 		if (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(path))) {
 			final @NotNull File file = path.toFile();
@@ -50,7 +52,8 @@ public class InternalFileUtils {
 		return files;
 	}
 
-	public @NotNull String deleteEmptyParent(final @NotNull File file) {
+	public @NotNull
+	String deleteEmptyParent(final @NotNull File file) {
 		if (file.getAbsoluteFile().getParentFile().delete()) { //NOSONAR
 			return InternalFileUtils.deleteEmptyParent(file.getAbsoluteFile().getParentFile());
 		}

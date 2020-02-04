@@ -37,7 +37,7 @@ public class Delete {
 					} else if (args[2].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
 						Delete.deleteUsage(p, slash, schemAlias);
-					} else if (args.length == 4 && !WorldEditModeRequestUtils.checkDeleteFolderRequest(p, args[2])
+					} else if (args.length == 4 && !WorldEditModeRequestUtils.checkDeleteFolderRequest(p.getUniqueId(), args[2])
 							   && !args[3].equalsIgnoreCase("confirm")
 							   && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -68,14 +68,14 @@ public class Delete {
 												+ ChatColor.RED + "?",
 												"//schem del " + args[2] + " confirm",
 												"//schem del " + args[2] + " deny", p);
-				WorldEditModeRequestUtils.addDeleteRequest(p, args[2]);
+				WorldEditModeRequestUtils.addDeleteRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 			}
-		} else if (args.length == 4 && WorldEditModeRequestUtils.checkDeleteRequest(p, args[2])) {
+		} else if (args.length == 4 && WorldEditModeRequestUtils.checkDeleteRequest(p.getUniqueId(), args[2])) {
 			if (args[3].equalsIgnoreCase("confirm")) {
-				WorldEditModeRequestUtils.removeDeleteRequest(p);
+				WorldEditModeRequestUtils.removeDeleteRequest(p.getUniqueId());
 				if (fileExists) {
 					@Nullable String parentName = null;
 					for (final @NotNull File file : files) {
@@ -112,7 +112,7 @@ public class Delete {
 								  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				}
 			} else if (args[3].equalsIgnoreCase("deny")) {
-				WorldEditModeRequestUtils.removeDeleteRequest(p);
+				WorldEditModeRequestUtils.removeDeleteRequest(p.getUniqueId());
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " was not deleted.");
 			}
