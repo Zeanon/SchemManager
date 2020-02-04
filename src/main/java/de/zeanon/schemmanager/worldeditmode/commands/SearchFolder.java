@@ -25,6 +25,7 @@ public class SearchFolder {
 
 	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
+			@SuppressWarnings("DuplicatedCode")
 			@Override
 			public void run() {
 				final int modifierCount;
@@ -434,6 +435,8 @@ public class SearchFolder {
 										+ ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d"
 										+ ChatColor.YELLOW + "] ["
+										+ ChatColor.DARK_PURPLE + "-c"
+										+ ChatColor.YELLOW + "] ["
 										+ ChatColor.GREEN + "folder"
 										+ ChatColor.YELLOW + "] <"
 										+ ChatColor.GOLD + "filename"
@@ -445,6 +448,8 @@ public class SearchFolder {
 										+ ChatColor.AQUA + " searchfolder "
 										+ ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d"
+										+ ChatColor.YELLOW + "] ["
+										+ ChatColor.DARK_PURPLE + "-c"
 										+ ChatColor.YELLOW + "] ["
 										+ ChatColor.GREEN + "folder"
 										+ ChatColor.YELLOW + "] "

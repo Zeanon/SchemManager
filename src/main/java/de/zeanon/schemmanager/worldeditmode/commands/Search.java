@@ -26,99 +26,102 @@ import org.jetbrains.annotations.Nullable;
 public class Search {
 
 	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
-		final int modifierCount;
-		final boolean deep;
-		final boolean caseSensitive;
-
-		if (args.length > 2 && (args[2].equalsIgnoreCase("-deep") || args[2].equalsIgnoreCase("-d"))) {
-			deep = true;
-
-			if (args.length > 3 && (args[3].equalsIgnoreCase("-casesensitive") || args[3].equalsIgnoreCase("-c"))) {
-				modifierCount = 2;
-				caseSensitive = true;
-			} else {
-				modifierCount = 1;
-				caseSensitive = false;
-			}
-		} else if (args.length > 2 && (args[2].equalsIgnoreCase("-casesensitive") || args[2].equalsIgnoreCase("-c"))) {
-			caseSensitive = true;
-
-			if (args.length > 3 && (args[3].equalsIgnoreCase("-deep") || args[3].equalsIgnoreCase("-d"))) {
-				modifierCount = 2;
-				deep = true;
-			} else {
-				modifierCount = 1;
-				deep = false;
-			}
-		} else {
-			modifierCount = 0;
-			deep = false;
-			caseSensitive = false;
-		}
-
-		if (args.length <= 5 + modifierCount) {
-			if (args.length < 3 + modifierCount) {
-				p.sendMessage(ChatColor.RED + "Missing argument for "
-							  + ChatColor.YELLOW + "<"
-							  + ChatColor.GOLD + "filename"
-							  + ChatColor.YELLOW + ">");
-				Search.searchUsage(p, slash, schemAlias);
-			} else if (args[2 + modifierCount].contains("./")) {
-				p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "'resolution error: Path is not allowed.");
-				Search.searchUsage(p, slash, schemAlias);
-			} else if (args.length == 5 + modifierCount
-					   && (StringUtils.isNumeric(args[2 + modifierCount])
-						   || StringUtils.isNumeric(args[3 + modifierCount])
-						   || !StringUtils.isNumeric(args[4 + modifierCount]))) {
-				p.sendMessage(ChatColor.RED + "Too many arguments.");
-				Search.searchUsage(p, slash, schemAlias);
-			} else {
-				Search.onSearch(p, args, deep, caseSensitive, modifierCount);
-			}
-		} else {
-			p.sendMessage(ChatColor.RED + "Too many arguments.");
-			Search.searchUsage(p, slash, schemAlias);
-		}
-	}
-
-	private void onSearch(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final boolean caseSensitiveSearch, final int modifierCount) {
 		new BukkitRunnable() {
+			@SuppressWarnings("DuplicatedCode")
 			@Override
 			public void run() {
-				final byte listmax = ConfigUtils.getByte("Listmax");
-				final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
-				final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-				final @Nullable java.util.List<String> extensions = ConfigUtils.getStringList("File Extensions");
+				final int modifierCount;
+				final boolean deep;
+				final boolean caseSensitive;
 
-				final @NotNull String deep;
-				if (deepSearch) {
-					deep = "-d ";
+				if (args.length > 2 && (args[2].equalsIgnoreCase("-deep") || args[2].equalsIgnoreCase("-d"))) {
+					deep = true;
+
+					if (args.length > 3 && (args[3].equalsIgnoreCase("-casesensitive") || args[3].equalsIgnoreCase("-c"))) {
+						modifierCount = 2;
+						caseSensitive = true;
+					} else {
+						modifierCount = 1;
+						caseSensitive = false;
+					}
+				} else if (args.length > 2 && (args[2].equalsIgnoreCase("-casesensitive") || args[2].equalsIgnoreCase("-c"))) {
+					caseSensitive = true;
+
+					if (args.length > 3 && (args[3].equalsIgnoreCase("-deep") || args[3].equalsIgnoreCase("-d"))) {
+						modifierCount = 2;
+						deep = true;
+					} else {
+						modifierCount = 1;
+						deep = false;
+					}
 				} else {
-					deep = "";
+					modifierCount = 0;
+					deep = false;
+					caseSensitive = false;
 				}
 
-				final @NotNull String caseSensitive;
-				if (caseSensitiveSearch) {
-					caseSensitive = "-c ";
+				if (args.length <= 5 + modifierCount) {
+					if (args.length < 3 + modifierCount) {
+						p.sendMessage(ChatColor.RED + "Missing argument for "
+									  + ChatColor.YELLOW + "<"
+									  + ChatColor.GOLD + "filename"
+									  + ChatColor.YELLOW + ">");
+						Search.searchUsage(p, slash, schemAlias);
+					} else if (args[2 + modifierCount].contains("./")) {
+						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "'resolution error: Path is not allowed.");
+						Search.searchUsage(p, slash, schemAlias);
+					} else if (args.length == 5 + modifierCount
+							   && (StringUtils.isNumeric(args[2 + modifierCount])
+								   || StringUtils.isNumeric(args[3 + modifierCount])
+								   || !StringUtils.isNumeric(args[4 + modifierCount]))) {
+						p.sendMessage(ChatColor.RED + "Too many arguments.");
+						Search.searchUsage(p, slash, schemAlias);
+					} else {
+						Search.onSearch(p, args, deep, caseSensitive, modifierCount);
+					}
 				} else {
-					caseSensitive = "";
-				}
-
-				switch (args.length - modifierCount) {
-					case 3:
-						Search.threeArgs(args[2 + modifierCount], schemPath, p, deep, caseSensitive, extensions, deepSearch, caseSensitiveSearch, spaceLists, listmax);
-						break;
-					case 4:
-						Search.fourArgs(args[2 + modifierCount], args[3 + modifierCount], schemPath, p, deep, caseSensitive, extensions, deepSearch, caseSensitiveSearch, spaceLists, listmax);
-						break;
-					default:
-						Search.defaultCase(args[2 + modifierCount], args[3 + modifierCount], args[4 + modifierCount], schemPath, p, deep, caseSensitive, extensions, deepSearch, caseSensitiveSearch, spaceLists, listmax);
+					p.sendMessage(ChatColor.RED + "Too many arguments.");
+					Search.searchUsage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	private @NotNull File[] getFileArray(final @NotNull File directory, final @NotNull List<String> extensions, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
+	private void onSearch(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final boolean caseSensitiveSearch, final int modifierCount) {
+		final byte listmax = ConfigUtils.getByte("Listmax");
+		final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
+		final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+		final @Nullable java.util.List<String> extensions = ConfigUtils.getStringList("File Extensions");
+
+		final @NotNull String deep;
+		if (deepSearch) {
+			deep = "-d ";
+		} else {
+			deep = "";
+		}
+
+		final @NotNull String caseSensitive;
+		if (caseSensitiveSearch) {
+			caseSensitive = "-c ";
+		} else {
+			caseSensitive = "";
+		}
+
+		switch (args.length - modifierCount) {
+			case 3:
+				Search.threeArgs(args[2 + modifierCount], schemPath, p, deep, caseSensitive, extensions, deepSearch, caseSensitiveSearch, spaceLists, listmax);
+				break;
+			case 4:
+				Search.fourArgs(args[2 + modifierCount], args[3 + modifierCount], schemPath, p, deep, caseSensitive, extensions, deepSearch, caseSensitiveSearch, spaceLists, listmax);
+				break;
+			default:
+				Search.defaultCase(args[2 + modifierCount], args[3 + modifierCount], args[4 + modifierCount], schemPath, p, deep, caseSensitive, extensions, deepSearch, caseSensitiveSearch, spaceLists, listmax);
+		}
+	}
+
+
+	private @NotNull
+	File[] getFileArray(final @NotNull File directory, final @NotNull List<String> extensions, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
 		final @NotNull java.util.List<File> files = new GapList<>();
 		for (final @NotNull File file : BaseFileUtils.listFiles(directory, deepSearch, extensions)) {
 			if ((!caseSensitive && BaseFileUtils.removeExtension(file.getName()).toLowerCase().contains(sequence.toLowerCase())) || (caseSensitive && BaseFileUtils.removeExtension(file.getName()).contains(sequence))) {
@@ -453,6 +456,8 @@ public class Search {
 										+ ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d"
 										+ ChatColor.YELLOW + "] ["
+										+ ChatColor.DARK_PURPLE + "-c"
+										+ ChatColor.YELLOW + "] ["
 										+ ChatColor.GREEN + "folder"
 										+ ChatColor.YELLOW + "] <"
 										+ ChatColor.GOLD + "filename"
@@ -464,6 +469,8 @@ public class Search {
 										+ ChatColor.AQUA + " search "
 										+ ChatColor.YELLOW + "["
 										+ ChatColor.DARK_PURPLE + "-d"
+										+ ChatColor.YELLOW + "] ["
+										+ ChatColor.DARK_PURPLE + "-c"
 										+ ChatColor.YELLOW + "] ["
 										+ ChatColor.GREEN + "folder"
 										+ ChatColor.YELLOW + "] "

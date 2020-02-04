@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.io.FilenameUtils;
@@ -20,7 +21,50 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 class WorldEditModeTabCompleter {
 
-	@NotNull List<String> onTab(final @NotNull String[] args, final boolean alreadyDeep, final boolean alreadyCaseSensitive, final int modifierCount, final boolean argumentEnded) throws IOException {
+	@Nullable List<String> execute(final @NotNull String message) throws IOException {
+		final @NotNull String[] args = message.replace("worldedit:", "/").split(" ");
+		final boolean argumentEnded = message.endsWith(" ");
+		if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
+			if (message.contains("./")) {
+				return Collections.emptyList();
+			} else {
+				boolean deep = false;
+				boolean caseSensitive = false;
+				int modifierCount = 0;
+
+				if (args.length > 2 && (args[2].equalsIgnoreCase("-deep") || args[2].equalsIgnoreCase("-d"))) {
+					deep = true;
+					modifierCount++;
+				}
+
+				if (args.length > 2 + modifierCount && (args[2 + modifierCount].equalsIgnoreCase("-casesensitive") || args[2 + modifierCount].equalsIgnoreCase("-c"))) {
+					caseSensitive = true;
+					modifierCount++;
+				}
+
+				if (!deep && (args.length > 2 + modifierCount && (args[2 + modifierCount].equalsIgnoreCase("-deep") || args[2 + modifierCount].equalsIgnoreCase("-d")))) {
+					deep = true;
+					modifierCount++;
+				}
+
+				if (modifierCount > 0 && !argumentEnded && args.length == 2 + modifierCount) {
+					modifierCount--;
+				}
+
+				return WorldEditModeTabCompleter.onTab(args, deep, caseSensitive, modifierCount, argumentEnded);
+			}
+		} else if (args[0].equalsIgnoreCase("/stoplag")) {
+			if (args.length == 1 || (args.length == 2 && !message.endsWith(" "))) {
+				return Collections.singletonList("-c");
+			} else {
+				return Collections.emptyList();
+			}
+		} else {
+			return null;
+		}
+	}
+
+	private @NotNull List<String> onTab(final @NotNull String[] args, final boolean alreadyDeep, final boolean alreadyCaseSensitive, final int modifierCount, final boolean argumentEnded) throws IOException {
 		final @NotNull List<String> completions = new GapList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
@@ -87,7 +131,7 @@ class WorldEditModeTabCompleter {
 				}
 
 				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					@Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+					final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 					final @Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null) {
 						for (final @NotNull File file : WorldEditModeTabCompleter.getFileArray(pathFile)) {

@@ -79,9 +79,6 @@
                 <filtering>true</filtering>
                 <targetPath>resources</targetPath>
                 <directory>src/main/resources/pluginresources/</directory>
-                <excludes>
-                    <exclude>**/*.jar</exclude>
-                </excludes>
             </resource>
         </resources>
 
@@ -98,7 +95,7 @@
                             <groupId>com.rylinaux</groupId>
                             <artifactId>plugman</artifactId>
                             <version>2.1.6</version>
-                            <file>src/main/resources/pluginresources/PlugMan.jar</file>
+                            <file>src/main/resources/dependencies/PlugMan.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
                         </configuration>
@@ -113,7 +110,7 @@
                             <groupId>de.zeanon</groupId>
                             <artifactId>storagemanager</artifactId>
                             <version>1.1.71</version>
-                            <file>src/main/resources/pluginresources/StorageManager.jar</file>
+                            <file>src/main/resources/dependencies/StorageManager.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
                         </configuration>
