@@ -44,22 +44,34 @@ public class Load {
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	private void loadUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " load "
+			   + ChatColor.YELLOW + "<"
+			   + ChatColor.GOLD + "filename"
+			   + ChatColor.YELLOW + "> ["
+			   + ChatColor.DARK_PURPLE + "format"
+			   + ChatColor.YELLOW + "]";
+	}
+
+	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.RED + "e.g. "
+			   + ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " load "
+			   + ChatColor.GOLD + "example "
+			   + ChatColor.YELLOW + "["
+			   + ChatColor.DARK_PURPLE + "format"
+			   + ChatColor.YELLOW + "]";
+	}
+
+	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+		return slash + schemAlias + " load ";
+	}
+
+	private void loadUsage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " load "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + "> ["
-										+ ChatColor.DARK_PURPLE + "format"
-										+ ChatColor.YELLOW + "]",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " load "
-										+ ChatColor.GOLD + "example "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "format"
-										+ ChatColor.YELLOW + "]",
-										slash + schemAlias + " load ", p);
+										Load.usageMessage(slash, schemAlias),
+										Load.usageHoverMessage(slash, schemAlias),
+										Load.usageCommand(slash, schemAlias), p);
 	}
 }

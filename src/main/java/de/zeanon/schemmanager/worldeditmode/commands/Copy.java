@@ -35,25 +35,46 @@ public class Copy {
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GOLD + "filename"
 									  + ChatColor.YELLOW + ">");
-						Copy.copyUsage(p, slash, schemAlias);
+						Copy.usage(p, slash, schemAlias);
 					} else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "'resolution error: Path is not allowed.");
-						Copy.copyUsage(p, slash, schemAlias);
+						Copy.usage(p, slash, schemAlias);
 					} else if (args.length == 5 && !WorldEditModeRequestUtils.checkRenameRequest(p.getUniqueId(), args[2])
 							   && !args[3].equalsIgnoreCase("confirm")
 							   && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						Copy.copyUsage(p, slash, schemAlias);
+						Copy.usage(p, slash, schemAlias);
 					} else {
 						Copy.onCopy(p, args);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					Copy.copyUsage(p, slash, schemAlias);
+					Copy.usage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
+	}
+
+	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " copy "
+			   + ChatColor.YELLOW + "<"
+			   + ChatColor.GOLD + "filename"
+			   + ChatColor.YELLOW + "> <"
+			   + ChatColor.GOLD + "newname"
+			   + ChatColor.YELLOW + ">";
+	}
+
+	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.RED + "e.g. "
+			   + ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " copy "
+			   + ChatColor.GOLD + "example newname";
+	}
+
+	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+		return slash + schemAlias + " copy ";
 	}
 
 	private void onCopy(final @NotNull Player p, final @NotNull String[] args) {
@@ -125,19 +146,10 @@ public class Copy {
 		}
 	}
 
-	private void copyUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+	private void usage(final @NotNull Player p, final @NotNull String slash, @NotNull final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " copy "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + "> <"
-										+ ChatColor.GOLD + "newname"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " copy "
-										+ ChatColor.GOLD + "example newname",
-										slash + schemAlias + " copy ", p);
+										Copy.usageMessage(slash, schemAlias),
+										Copy.usageHoverMessage(slash, schemAlias),
+										Copy.usageCommand(slash, schemAlias), p);
 	}
 }

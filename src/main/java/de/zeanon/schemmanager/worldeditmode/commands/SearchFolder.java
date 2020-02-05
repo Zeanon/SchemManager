@@ -63,25 +63,62 @@ public class SearchFolder {
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GOLD + "filename"
 									  + ChatColor.YELLOW + ">");
-						SearchFolder.searchFolderUsage(p, slash, schemAlias);
+						SearchFolder.usage(p, slash, schemAlias);
 					} else if (args[2 + modifierCount].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "'resolution error: Path is not allowed.");
-						SearchFolder.searchFolderUsage(p, slash, schemAlias);
+						SearchFolder.usage(p, slash, schemAlias);
 					} else if (args.length == 5 + modifierCount
 							   && (StringUtils.isNumeric(args[2 + modifierCount])
 								   || StringUtils.isNumeric(args[3 + modifierCount])
 								   || !StringUtils.isNumeric(args[4 + modifierCount]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						SearchFolder.searchFolderUsage(p, slash, schemAlias);
+						SearchFolder.usage(p, slash, schemAlias);
 					} else {
 						SearchFolder.onSearchFolder(p, args, deep, caseSensitive, modifierCount);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					SearchFolder.searchFolderUsage(p, slash, schemAlias);
+					SearchFolder.usage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
+	}
+
+	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " searchfolder "
+			   + ChatColor.YELLOW + "["
+			   + ChatColor.DARK_PURPLE + "-d"
+			   + ChatColor.YELLOW + "] ["
+			   + ChatColor.DARK_PURPLE + "-c"
+			   + ChatColor.YELLOW + "] ["
+			   + ChatColor.GREEN + "folder"
+			   + ChatColor.YELLOW + "] <"
+			   + ChatColor.GOLD + "filename"
+			   + ChatColor.YELLOW + "> ["
+			   + ChatColor.DARK_PURPLE + "page"
+			   + ChatColor.YELLOW + "]";
+	}
+
+	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.RED + "e.g. "
+			   + ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " searchfolder "
+			   + ChatColor.YELLOW + "["
+			   + ChatColor.DARK_PURPLE + "-d"
+			   + ChatColor.YELLOW + "] ["
+			   + ChatColor.DARK_PURPLE + "-c"
+			   + ChatColor.YELLOW + "] ["
+			   + ChatColor.GREEN + "folder"
+			   + ChatColor.YELLOW + "] "
+			   + ChatColor.GOLD + "example"
+			   + ChatColor.YELLOW + " ["
+			   + ChatColor.DARK_PURPLE + "page"
+			   + ChatColor.YELLOW + "]";
+	}
+
+	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+		return slash + schemAlias + " searchfolder ";
 	}
 
 	private void onSearchFolder(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final boolean caseSensitiveSearch, final int modifierCount) {
@@ -424,35 +461,10 @@ public class SearchFolder {
 		}
 	}
 
-	private void searchFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+	private void usage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " searchfolder "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "-d"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.DARK_PURPLE + "-c"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.GREEN + "folder"
-										+ ChatColor.YELLOW + "] <"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + "> ["
-										+ ChatColor.DARK_PURPLE + "page"
-										+ ChatColor.YELLOW + "]",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " searchfolder "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "-d"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.DARK_PURPLE + "-c"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.GREEN + "folder"
-										+ ChatColor.YELLOW + "] "
-										+ ChatColor.GOLD + "example"
-										+ ChatColor.YELLOW + " ["
-										+ ChatColor.DARK_PURPLE + "page"
-										+ ChatColor.YELLOW + "]",
-										slash + schemAlias + " searchfolder ", p);
+										SearchFolder.usageMessage(slash, schemAlias),
+										SearchFolder.usageHoverMessage(slash, schemAlias),
+										SearchFolder.usageCommand(slash, schemAlias), p);
 	}
 }

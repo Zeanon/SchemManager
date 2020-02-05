@@ -32,25 +32,44 @@ public class DeleteFolder {
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GREEN + "filename"
 									  + ChatColor.YELLOW + ">");
-						DeleteFolder.deleteFolderUsage(p, slash, schemAlias);
+						DeleteFolder.usage(p, slash, schemAlias);
 					} else if (args[2].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
-						DeleteFolder.deleteFolderUsage(p, slash, schemAlias);
+						DeleteFolder.usage(p, slash, schemAlias);
 					} else if (args.length == 4
 							   && !WorldEditModeRequestUtils.checkDeleteFolderRequest(p.getUniqueId(), args[2])
 							   && !args[3].equalsIgnoreCase("confirm")
 							   && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						DeleteFolder.deleteFolderUsage(p, slash, schemAlias);
+						DeleteFolder.usage(p, slash, schemAlias);
 					} else {
 						DeleteFolder.onDeleteFolder(p, args);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					DeleteFolder.deleteFolderUsage(p, slash, schemAlias);
+					DeleteFolder.usage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
+	}
+
+	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " deletefolder "
+			   + ChatColor.YELLOW + "<"
+			   + ChatColor.GREEN + "filename"
+			   + ChatColor.YELLOW + ">";
+	}
+
+	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.RED + "e.g. "
+			   + ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " deletefolder "
+			   + ChatColor.GREEN + "example";
+	}
+
+	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+		return slash + schemAlias + " deletefolder ";
 	}
 
 	private void onDeleteFolder(final @NotNull Player p, final @NotNull String[] args) {
@@ -110,8 +129,7 @@ public class DeleteFolder {
 		}
 	}
 
-	private @Nullable
-	String getParentName(final @NotNull File file) {
+	private @Nullable String getParentName(final @NotNull File file) {
 		@Nullable String parentName = null;
 		if (ConfigUtils.getBoolean("Delete empty Folders")
 			&& !file.getAbsoluteFile().getParentFile().equals(WorldEditModeSchemUtils.getSchemFolder())) {
@@ -125,17 +143,10 @@ public class DeleteFolder {
 		return parentName;
 	}
 
-	private void deleteFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+	private void usage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " deletefolder "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GREEN + "filename"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " deletefolder "
-										+ ChatColor.GREEN + "example",
-										slash + schemAlias + " deletefolder ", p);
+										DeleteFolder.usageMessage(slash, schemAlias),
+										DeleteFolder.usageHoverMessage(slash, schemAlias),
+										DeleteFolder.usageCommand(slash, schemAlias), p);
 	}
 }

@@ -36,26 +36,47 @@ public class RenameFolder {
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GREEN + "filename"
 									  + ChatColor.YELLOW + ">");
-						RenameFolder.renameFolderUsage(p, slash, schemAlias);
+						RenameFolder.usage(p, slash, schemAlias);
 					} else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "'resolution error: Path is not allowed.");
-						RenameFolder.renameFolderUsage(p, slash, schemAlias);
+						RenameFolder.usage(p, slash, schemAlias);
 					} else if (args.length == 5
 							   && !args[4].equalsIgnoreCase("confirm")
 							   && !args[4].equalsIgnoreCase("deny")
 							   && !WorldEditModeRequestUtils.checkRenameFolderRequest(p.getUniqueId(), args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						RenameFolder.renameFolderUsage(p, slash, schemAlias);
+						RenameFolder.usage(p, slash, schemAlias);
 					} else {
 						RenameFolder.onRenameFolder(p, args);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					RenameFolder.renameFolderUsage(p, slash, schemAlias);
+					RenameFolder.usage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
+	}
+
+	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " renamefolder "
+			   + ChatColor.YELLOW + "<"
+			   + ChatColor.GREEN + "filename"
+			   + ChatColor.YELLOW + "> <"
+			   + ChatColor.GREEN + "newname"
+			   + ChatColor.YELLOW + ">";
+	}
+
+	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.RED + "e.g. "
+			   + ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " renamefolder "
+			   + ChatColor.GREEN + "example newname";
+	}
+
+	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+		return slash + schemAlias + " renamefolder ";
 	}
 
 	private void onRenameFolder(final @NotNull Player p, final @NotNull String[] args) {
@@ -217,19 +238,10 @@ public class RenameFolder {
 		return true;
 	}
 
-	private void renameFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+	private void usage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " renamefolder "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GREEN + "filename"
-										+ ChatColor.YELLOW + "> <"
-										+ ChatColor.GREEN + "newname"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " renamefolder "
-										+ ChatColor.GREEN + "example newname",
-										slash + schemAlias + " renamefolder ", p);
+										RenameFolder.usageMessage(slash, schemAlias),
+										RenameFolder.usageHoverMessage(slash, schemAlias),
+										RenameFolder.usageCommand(slash, schemAlias), p);
 	}
 }

@@ -22,14 +22,7 @@ public class Formats {
 					Formats.onFormats(p, false);
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-													ChatColor.GRAY + slash + schemAlias
-													+ ChatColor.AQUA + " formats",
-													ChatColor.DARK_BLUE + ""
-													+ ChatColor.UNDERLINE + ""
-													+ ChatColor.ITALIC + ""
-													+ ChatColor.BOLD + "There are different formats? :O",
-													slash + schemAlias + " formats", p);
+					Formats.usage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
@@ -53,5 +46,28 @@ public class Formats {
 						  + ChatColor.AQUA + ", "
 						  + ChatColor.LIGHT_PURPLE + "schematic");
 		}
+	}
+
+	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " formats";
+	}
+
+	public @NotNull String usageHoverMessage() {
+		return ChatColor.DARK_BLUE + ""
+			   + ChatColor.UNDERLINE + ""
+			   + ChatColor.ITALIC + ""
+			   + ChatColor.BOLD + "There are different formats? :O";
+	}
+
+	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+		return slash + schemAlias + " formats";
+	}
+
+	private void usage(final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
+										Formats.usageMessage(slash, schemAlias),
+										Formats.usageHoverMessage(),
+										Formats.usageCommand(slash, schemAlias), p);
 	}
 }

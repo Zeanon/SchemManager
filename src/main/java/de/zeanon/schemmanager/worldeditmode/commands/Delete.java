@@ -33,24 +33,43 @@ public class Delete {
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GOLD + "filename"
 									  + ChatColor.YELLOW + ">");
-						Delete.deleteUsage(p, slash, schemAlias);
+						Delete.usage(p, slash, schemAlias);
 					} else if (args[2].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
-						Delete.deleteUsage(p, slash, schemAlias);
+						Delete.usage(p, slash, schemAlias);
 					} else if (args.length == 4 && !WorldEditModeRequestUtils.checkDeleteFolderRequest(p.getUniqueId(), args[2])
 							   && !args[3].equalsIgnoreCase("confirm")
 							   && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						Delete.deleteUsage(p, slash, schemAlias);
+						Delete.usage(p, slash, schemAlias);
 					} else {
 						Delete.onDelete(p, args);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					Delete.deleteUsage(p, slash, schemAlias);
+					Delete.usage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
+	}
+
+	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " delete "
+			   + ChatColor.YELLOW + "<"
+			   + ChatColor.GOLD + "filename"
+			   + ChatColor.YELLOW + ">";
+	}
+
+	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.RED + "e.g. "
+			   + ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " delete "
+			   + ChatColor.GOLD + "example";
+	}
+
+	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+		return slash + schemAlias + " delete ";
 	}
 
 	private void onDelete(final @NotNull Player p, final @NotNull String[] args) {
@@ -119,17 +138,10 @@ public class Delete {
 		}
 	}
 
-	private void deleteUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+	private void usage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " delete "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " delete "
-										+ ChatColor.GOLD + "example",
-										slash + schemAlias + " delete ", p);
+										Delete.usageMessage(slash, schemAlias),
+										Delete.usageHoverMessage(slash, schemAlias),
+										Delete.usageCommand(slash, schemAlias), p);
 	}
 }

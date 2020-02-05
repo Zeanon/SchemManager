@@ -27,14 +27,14 @@ public class Help {
 													ChatColor.LIGHT_PURPLE + ""
 													+ ChatColor.UNDERLINE + ""
 													+ ChatColor.ITALIC + ""
-													+ ChatColor.BOLD + "PLS HELP ME",
+													+ ChatColor.BOLD + "OMG PLS HELP ME",
 													slash + schemAlias + " help", p);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	public void onHelp(final @NotNull Player p, final String slash, final String schemAlias) {
+	public void onHelp(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		if (ConfigUtils.getBoolean("Space Lists")) {
 			p.sendMessage("");
 		}
@@ -49,216 +49,73 @@ public class Help {
 										+ ChatColor.UNDERLINE + ""
 										+ ChatColor.ITALIC + ""
 										+ ChatColor.BOLD + "OMG PLS HELP ME",
-										slash + schemAlias + " help", p);
+										slash + schemAlias + " help",
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Show Available formats: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "formats",
-										ChatColor.BLUE + ""
-										+ ChatColor.UNDERLINE + ""
-										+ ChatColor.ITALIC + ""
-										+ ChatColor.BOLD + "There are different formats? :O",
-										slash + schemAlias + " formats", p);
+										Formats.usageMessage(slash, schemAlias),
+										Formats.usageHoverMessage(),
+										Formats.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Load a schematic: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "load "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + "> ["
-										+ ChatColor.DARK_PURPLE + "format"
-										+ ChatColor.YELLOW + "]",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "load "
-										+ ChatColor.GOLD + "example "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "format"
-										+ ChatColor.YELLOW + "]",
-										slash + schemAlias + " load ", p);
+										Load.usageMessage(slash, schemAlias),
+										Load.usageHoverMessage(slash, schemAlias),
+										Load.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Save a schematic: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "save "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "save "
-										+ ChatColor.GOLD + "example",
-										slash + schemAlias + " save ", p);
+										Save.usageMessage(slash, schemAlias),
+										Save.usageHoverMessage(slash, schemAlias),
+										Save.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Rename a schematic: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "rename "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + "> <"
-										+ ChatColor.GOLD + "newname"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "rename "
-										+ ChatColor.GOLD + "example newname",
-										slash + schemAlias + " rename ", p);
+										Rename.usageMessage(slash, schemAlias),
+										Rename.usageHoverMessage(slash, schemAlias),
+										Rename.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Rename a folder: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "renamefolder "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GREEN + "filename"
-										+ ChatColor.YELLOW + "> <"
-										+ ChatColor.GREEN + "newname"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "renamefolder "
-										+ ChatColor.GREEN + "example newname",
-										slash + schemAlias + " renamefolder ", p);
+										RenameFolder.usageMessage(slash, schemAlias),
+										RenameFolder.usageHoverMessage(slash, schemAlias),
+										RenameFolder.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Copy a schematic: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "copy "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + "> <"
-										+ ChatColor.GOLD + "newname"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias
-										+ " " + ChatColor.AQUA + "copy "
-										+ ChatColor.GOLD + "example newname",
-										slash + schemAlias + " copy ", p);
+										Copy.usageMessage(slash, schemAlias),
+										Copy.usageHoverMessage(slash, schemAlias),
+										Copy.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Copy a folder: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "copyfolder "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GREEN + "filename"
-										+ ChatColor.YELLOW + "> <"
-										+ ChatColor.GREEN + "newname"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "copyfolder "
-										+ ChatColor.GREEN + "example newname",
-										slash + schemAlias + " copyfolder ", p);
+										CopyFolder.usageMessage(slash, schemAlias),
+										CopyFolder.usageHoverMessage(slash, schemAlias),
+										CopyFolder.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Delete a schematic: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "delete "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "delete "
-										+ ChatColor.GOLD + "example",
-										slash + schemAlias + " delete ", p);
+										Delete.usageMessage(slash, schemAlias),
+										Delete.usageHoverMessage(slash, schemAlias),
+										Delete.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Delete a folder: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "deletefolder "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GREEN + "filename"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "deletefolder "
-										+ ChatColor.GREEN + "example",
-										slash + schemAlias + " deletefolder ", p);
+										DeleteFolder.usageMessage(slash, schemAlias),
+										DeleteFolder.usageHoverMessage(slash, schemAlias),
+										DeleteFolder.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "List schematics: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "list "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "-d"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.GREEN + "folder"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.DARK_PURPLE + "page"
-										+ ChatColor.YELLOW + "]",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "list "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "-d"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.GREEN + "folder"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.DARK_PURPLE + "page"
-										+ ChatColor.YELLOW + "]",
-										slash + schemAlias + " list ", p);
+										List.usageMessage(slash, schemAlias),
+										List.usageHoverMessage(slash, schemAlias),
+										List.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "List folders: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "listfolders "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "-d"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.GREEN + "folder"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.DARK_PURPLE + "page"
-										+ ChatColor.YELLOW + "]",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "listfolders "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "-d"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.GREEN + "folder"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.DARK_PURPLE + "page"
-										+ ChatColor.YELLOW + "]",
-										slash + schemAlias + " listfolders ", p);
+										ListFolders.usageMessage(slash, schemAlias),
+										ListFolders.usageHoverMessage(slash, schemAlias),
+										ListFolders.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Search for a schematic: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "search "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "-c"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.DARK_PURPLE + "-d"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.GREEN + "folder"
-										+ ChatColor.YELLOW + "] <"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + "> ["
-										+ ChatColor.DARK_PURPLE + "page"
-										+ ChatColor.YELLOW + "]",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "search "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "-c"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.DARK_PURPLE + "-d"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.GREEN + "folder"
-										+ ChatColor.YELLOW + "] "
-										+ ChatColor.GOLD + "example"
-										+ ChatColor.YELLOW + " ["
-										+ ChatColor.DARK_PURPLE + "page"
-										+ ChatColor.YELLOW + "]",
-										slash + schemAlias + " search ", p);
+										Search.usageMessage(slash, schemAlias),
+										Search.usageHoverMessage(slash, schemAlias),
+										Search.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Search for a folder: ",
-										ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "searchfolder "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "-c"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.DARK_PURPLE + "-d"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.GREEN + "folder"
-										+ ChatColor.YELLOW + "] <"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + "> ["
-										+ ChatColor.DARK_PURPLE + "page"
-										+ ChatColor.YELLOW + "]",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias + " "
-										+ ChatColor.AQUA + "searchfolder "
-										+ ChatColor.YELLOW + "["
-										+ ChatColor.DARK_PURPLE + "-c"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.DARK_PURPLE + "-d"
-										+ ChatColor.YELLOW + "] ["
-										+ ChatColor.GREEN + "folder"
-										+ ChatColor.YELLOW + "] "
-										+ ChatColor.GOLD + "example"
-										+ ChatColor.YELLOW + " ["
-										+ ChatColor.DARK_PURPLE + "page"
-										+ ChatColor.YELLOW + "]",
-										slash + schemAlias + " searchfolder ", p);
+										SearchFolder.usageMessage(slash, schemAlias),
+										SearchFolder.usageHoverMessage(slash, schemAlias),
+										SearchFolder.usageCommand(slash, schemAlias),
+										p);
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Update the plugin: ",
 										ChatColor.GRAY + "/schemmanager "
 										+ ChatColor.AQUA + "update",

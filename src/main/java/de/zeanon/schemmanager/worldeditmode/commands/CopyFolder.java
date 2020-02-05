@@ -35,26 +35,47 @@ public class CopyFolder {
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GREEN + "filename"
 									  + ChatColor.YELLOW + ">");
-						CopyFolder.copyFolderUsage(p, slash, schemAlias);
+						CopyFolder.usage(p, slash, schemAlias);
 					} else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "'resolution error: Path is not allowed.");
-						CopyFolder.copyFolderUsage(p, slash, schemAlias);
+						CopyFolder.usage(p, slash, schemAlias);
 					} else if (args.length == 5
 							   && !args[4].equalsIgnoreCase("confirm")
 							   && !args[4].equalsIgnoreCase("deny")
 							   && !WorldEditModeRequestUtils.checkRenameFolderRequest(p.getUniqueId(), args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						CopyFolder.copyFolderUsage(p, slash, schemAlias);
+						CopyFolder.usage(p, slash, schemAlias);
 					} else {
 						CopyFolder.onCopyFolder(p, args);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					CopyFolder.copyFolderUsage(p, slash, schemAlias);
+					CopyFolder.usage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
+	}
+
+	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " copyfolder "
+			   + ChatColor.YELLOW + "<"
+			   + ChatColor.GREEN + "filename"
+			   + ChatColor.YELLOW + "> <"
+			   + ChatColor.GREEN + "newname"
+			   + ChatColor.YELLOW + ">";
+	}
+
+	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.RED + "e.g. "
+			   + ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " copyfolder "
+			   + ChatColor.GREEN + "example newname";
+	}
+
+	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+		return slash + schemAlias + " copyfolder ";
 	}
 
 	private void onCopyFolder(final @NotNull Player p, final @NotNull String[] args) {
@@ -245,19 +266,10 @@ public class CopyFolder {
 		return true;
 	}
 
-	private void copyFolderUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+	private void usage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " copyfolder "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GREEN + "filename"
-										+ ChatColor.YELLOW + "> <"
-										+ ChatColor.GREEN + "newname"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " copyfolder "
-										+ ChatColor.GREEN + "example newname",
-										slash + schemAlias + " copyfolder ", p);
+										CopyFolder.usageMessage(slash, schemAlias),
+										CopyFolder.usageHoverMessage(slash, schemAlias),
+										CopyFolder.usageCommand(slash, schemAlias), p);
 	}
 }

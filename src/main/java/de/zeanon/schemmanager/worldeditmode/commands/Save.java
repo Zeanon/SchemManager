@@ -49,7 +49,7 @@ public class Save {
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GOLD + "filename"
 									  + ChatColor.YELLOW + ">");
-						Save.saveUsage(p, slash, schemAlias);
+						Save.usage(p, slash, schemAlias);
 					}
 				} else {
 					event.setCancelled(true);
@@ -58,22 +58,41 @@ public class Save {
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GOLD + "filename"
 									  + ChatColor.YELLOW + ">");
-						Save.saveUsage(p, slash, schemAlias);
+						Save.usage(p, slash, schemAlias);
 					} else if (args[2].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
-						Save.saveUsage(p, slash, schemAlias);
+						Save.usage(p, slash, schemAlias);
 					} else if (args.length > 4 || (args.length == 4
 												   && !WorldEditModeRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])
 												   && !args[3].equalsIgnoreCase("confirm")
 												   && !args[3].equalsIgnoreCase("deny"))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						Save.saveUsage(p, slash, schemAlias);
+						Save.usage(p, slash, schemAlias);
 					} else {
 						Save.onSave(p, args);
 					}
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
+	}
+
+	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " save "
+			   + ChatColor.YELLOW + "<"
+			   + ChatColor.GOLD + "filename"
+			   + ChatColor.YELLOW + ">";
+	}
+
+	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+		return ChatColor.RED + "e.g. "
+			   + ChatColor.GRAY + slash + schemAlias
+			   + ChatColor.AQUA + " save "
+			   + ChatColor.GOLD + "example";
+	}
+
+	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+		return slash + schemAlias + " save ";
 	}
 
 	private void onSave(final @NotNull Player p, final @NotNull String[] args) {
@@ -139,17 +158,10 @@ public class Save {
 										slash + schemAlias + " save ", p);
 	}
 
-	private void saveUsage(final @NotNull Player p, final String slash, final String schemAlias) {
+	private void usage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " save "
-										+ ChatColor.YELLOW + "<"
-										+ ChatColor.GOLD + "filename"
-										+ ChatColor.YELLOW + ">",
-										ChatColor.RED + "e.g. "
-										+ ChatColor.GRAY + slash + schemAlias
-										+ ChatColor.AQUA + " save "
-										+ ChatColor.GOLD + "example",
-										slash + schemAlias + " save ", p);
+										Save.usageMessage(slash, schemAlias),
+										Save.usageHoverMessage(slash, schemAlias),
+										Save.usageCommand(slash, schemAlias), p);
 	}
 }
