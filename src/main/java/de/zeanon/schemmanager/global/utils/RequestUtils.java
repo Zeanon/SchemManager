@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager.global.utils;
 
-import de.zeanon.storagemanager.external.browniescollections.GapList;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentSkipListSet;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,23 +10,15 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class RequestUtils {
 
-	private final @NotNull
-	List<UUID> disableRequests = new GapList<>();
-	private final @NotNull
-	List<UUID> updateRequests = new GapList<>();
+	private final @NotNull Set<UUID> disableRequests = new ConcurrentSkipListSet<>();
+	private final @NotNull Set<UUID> updateRequests = new ConcurrentSkipListSet<>();
+
+	public void addDisableRequest(final @NotNull UUID uuid) {
+		RequestUtils.disableRequests.add(uuid);
+	}
 
 	public void removeDisableRequest(final @NotNull UUID uuid) {
 		RequestUtils.disableRequests.remove(uuid);
-	}
-
-	public void removeUpdateRequest(final @NotNull UUID uuid) {
-		RequestUtils.updateRequests.remove(uuid);
-	}
-
-	public void addDisableRequest(final @NotNull UUID uuid) {
-		if (!RequestUtils.checkDisableRequest(uuid)) {
-			RequestUtils.disableRequests.add(uuid);
-		}
 	}
 
 	public boolean checkDisableRequest(final @NotNull UUID uuid) {
@@ -34,9 +26,11 @@ public class RequestUtils {
 	}
 
 	public void addUpdateRequest(final @NotNull UUID uuid) {
-		if (!RequestUtils.checkUpdateRequest(uuid)) {
-			RequestUtils.updateRequests.add(uuid);
-		}
+		RequestUtils.updateRequests.add(uuid);
+	}
+
+	public void removeUpdateRequest(final @NotNull UUID uuid) {
+		RequestUtils.updateRequests.remove(uuid);
 	}
 
 	public boolean checkUpdateRequest(final @NotNull UUID uuid) {
