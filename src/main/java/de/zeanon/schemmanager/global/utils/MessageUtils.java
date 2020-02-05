@@ -89,7 +89,7 @@ public class MessageUtils {
 		final @NotNull TextComponent localMessage = new TextComponent(
 				TextComponent.fromLegacyText(message));
 		final @NotNull TextComponent separator = new TextComponent(
-				TextComponent.fromLegacyText(ChatColor.BLACK + " " + ChatColor.BOLD + "| "));
+				TextComponent.fromLegacyText(ChatColor.BLACK + " " + ChatColor.BOLD + "|" + ChatColor.BLACK + " "));
 		final @NotNull TextComponent commandPartYes = new TextComponent(
 				TextComponent.fromLegacyText(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "[Y]"));
 		final @NotNull TextComponent commandPartNo = new TextComponent(
@@ -159,7 +159,7 @@ public class MessageUtils {
 																		messageForward))).create()));
 
 		localMessage.addExtra(commandPartBackward);
-		localMessage.addExtra(ChatColor.AQUA + " " + ChatColor.BOLD + "| ");
+		localMessage.addExtra(ChatColor.AQUA + " " + ChatColor.BOLD + "|" + ChatColor.AQUA + " ");
 		localMessage.addExtra(commandPartForward);
 		localMessage.addExtra(ChatColor.AQUA + " ===");
 		target.spigot().sendMessage(localMessage);
