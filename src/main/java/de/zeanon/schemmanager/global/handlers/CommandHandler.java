@@ -42,15 +42,14 @@ public class CommandHandler implements CommandExecutor {
 						RequestUtils.addDisableRequest(p.getUniqueId());
 					} else if (args.length == 2
 							   && (args[1].equalsIgnoreCase("confirm")
-								   || args[1].equalsIgnoreCase("deny"))) {
-						if (args[1].equalsIgnoreCase("confirm")
-							&& RequestUtils.checkDisableRequest(p.getUniqueId())) {
+								   || args[1].equalsIgnoreCase("deny"))
+							   && RequestUtils.checkDisableRequest(p.getUniqueId())) {
+						RequestUtils.removeDisableRequest(p.getUniqueId());
+						if (args[1].equalsIgnoreCase("confirm")) {
 							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 										  + ChatColor.RED + " is being disabled.");
 							SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
-						} else if (args[1].equalsIgnoreCase("deny")
-								   && RequestUtils.checkDisableRequest(p.getUniqueId())) {
-							RequestUtils.removeDisableRequest(p.getUniqueId());
+						} else {
 							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 										  + ChatColor.RED + " will not be disabled.");
 						}
@@ -68,18 +67,17 @@ public class CommandHandler implements CommandExecutor {
 						RequestUtils.addUpdateRequest(p.getUniqueId());
 					} else if (args.length == 2
 							   && (args[1].equalsIgnoreCase("confirm")
-								   || args[1].equalsIgnoreCase("deny"))) {
-						if (args[1].equalsIgnoreCase("confirm") && RequestUtils.checkUpdateRequest(p.getUniqueId())) {
-							RequestUtils.removeUpdateRequest(p.getUniqueId());
+								   || args[1].equalsIgnoreCase("deny"))
+							   && RequestUtils.checkUpdateRequest(p.getUniqueId())) {
+						RequestUtils.removeUpdateRequest(p.getUniqueId());
+						if (args[1].equalsIgnoreCase("confirm")) {
 							new BukkitRunnable() {
 								@Override
 								public void run() {
 									Update.updatePlugin(p);
 								}
 							}.runTaskAsynchronously(SchemManager.getInstance());
-						} else if (args[1].equalsIgnoreCase("deny")
-								   && RequestUtils.checkUpdateRequest(p.getUniqueId())) {
-							RequestUtils.removeUpdateRequest(p.getUniqueId());
+						} else {
 							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 										  + ChatColor.RED + " will not be updated.");
 						}
@@ -94,15 +92,35 @@ public class CommandHandler implements CommandExecutor {
 					this.sendDisableUsage(p);
 				}
 			} else {
-				if (args.length == 1 && args[0].equalsIgnoreCase("disable")) {
-					SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
-				} else if (args[0].equalsIgnoreCase("update")) {
-					new BukkitRunnable() {
-						@Override
-						public void run() {
-							Update.updatePlugin();
+				if (args.length == 1) {
+					if (args[0].equalsIgnoreCase("disable")) {
+						RequestUtils.addConsoleDisableRequest();
+					} else if (args[0].equalsIgnoreCase("update")) {
+						RequestUtils.addConsoleUpdateRequest();
+						new BukkitRunnable() {
+							@Override
+							public void run() {
+								Update.updatePlugin();
+							}
+						}.runTaskAsynchronously(SchemManager.getInstance());
+					}
+				} else if (args.length == 2 && (args[1].equalsIgnoreCase("deny") || args[1].equalsIgnoreCase("confirm"))) {
+					if (args[0].equalsIgnoreCase("disable") && RequestUtils.checkConsoleDisableRequest()) {
+						RequestUtils.removeConsoleDisableRequest();
+						if (args[1].equalsIgnoreCase("confirm")) {
+							SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 						}
-					}.runTaskAsynchronously(SchemManager.getInstance());
+					} else if (args[0].equalsIgnoreCase("update") && RequestUtils.checkConsoleUpdateRequest()) {
+						RequestUtils.removeConsoleUpdateRequest();
+						if (args[1].equalsIgnoreCase("confirm")) {
+							new BukkitRunnable() {
+								@Override
+								public void run() {
+									Update.updatePlugin();
+								}
+							}.runTaskAsynchronously(SchemManager.getInstance());
+						}
+					}
 				}
 			}
 		}
