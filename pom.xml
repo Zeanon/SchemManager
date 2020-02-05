@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.4.2-Beta-v2.110</version>
+    <version>4.4.2-Beta-v2.111</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
 
@@ -109,7 +109,7 @@
                         <configuration>
                             <groupId>de.zeanon</groupId>
                             <artifactId>storagemanager</artifactId>
-                            <version>1.1.72</version>
+                            <version>1.1.73</version>
                             <file>src/main/resources/dependencies/StorageManager.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
@@ -251,7 +251,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>storagemanager</artifactId>
-            <version>1.1.72</version>
+            <version>1.1.73</version>
             <scope>compile</scope>
         </dependency>
 
