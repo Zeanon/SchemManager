@@ -95,20 +95,18 @@ public class CommandHandler implements CommandExecutor {
 				if (args.length == 1) {
 					if (args[0].equalsIgnoreCase("disable")) {
 						RequestUtils.addConsoleDisableRequest();
+						System.out.println("To disable type '/schemmanager disable confirm', otherwise type '/schemmanager disable deny'");
 					} else if (args[0].equalsIgnoreCase("update")) {
 						RequestUtils.addConsoleUpdateRequest();
-						new BukkitRunnable() {
-							@Override
-							public void run() {
-								Update.updatePlugin();
-							}
-						}.runTaskAsynchronously(SchemManager.getInstance());
+						System.out.println("To update type '/schemmanager update confirm', otherwise type '/schemmanager update deny'");
 					}
 				} else if (args.length == 2 && (args[1].equalsIgnoreCase("deny") || args[1].equalsIgnoreCase("confirm"))) {
 					if (args[0].equalsIgnoreCase("disable") && RequestUtils.checkConsoleDisableRequest()) {
 						RequestUtils.removeConsoleDisableRequest();
 						if (args[1].equalsIgnoreCase("confirm")) {
 							SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+						} else {
+							System.out.println("SchemManager will not be disabled.");
 						}
 					} else if (args[0].equalsIgnoreCase("update") && RequestUtils.checkConsoleUpdateRequest()) {
 						RequestUtils.removeConsoleUpdateRequest();
@@ -119,6 +117,8 @@ public class CommandHandler implements CommandExecutor {
 									Update.updatePlugin();
 								}
 							}.runTaskAsynchronously(SchemManager.getInstance());
+						} else {
+							System.out.println("SchemManager will not be updated.");
 						}
 					}
 				}
