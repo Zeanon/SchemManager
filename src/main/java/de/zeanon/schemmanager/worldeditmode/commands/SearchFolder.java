@@ -152,9 +152,8 @@ public class SearchFolder {
 		}
 	}
 
-	private @NotNull
-	File[] getFileArray(final @NotNull File directory, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
-		return BaseFileUtils.listFiles(directory, deepSearch)
+	private @NotNull File[] getFileArray(final @NotNull File directory, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
+		return BaseFileUtils.listFolders(directory, deepSearch)
 							.parallelStream()
 							.filter(file -> (!caseSensitive && file.getName().toLowerCase().contains(sequence.toLowerCase()))
 											|| (caseSensitive && file.getName().contains(sequence)))
