@@ -36,7 +36,7 @@ public class Formats {
 		if (!Objects.notNull(ConfigUtils.getStringList("File Extensions")).isEmpty()) {
 			final @NotNull String[] formats = Objects.notNull(ConfigUtils.getStringList("File Extensions")).toArray(new String[0]);
 			final @NotNull StringBuilder pathBuilder = new StringBuilder(ChatColor.LIGHT_PURPLE + formats[0] + ChatColor.AQUA + ", ");
-			for (byte i = 1; i < formats.length - 1; i++) {
+			for (int i = 1; i < formats.length - 1; i++) {
 				pathBuilder.append(ChatColor.LIGHT_PURPLE).append(formats[i]).append(ChatColor.AQUA).append(", ");
 			}
 			pathBuilder.append(ChatColor.LIGHT_PURPLE).append(formats[formats.length - 1]);

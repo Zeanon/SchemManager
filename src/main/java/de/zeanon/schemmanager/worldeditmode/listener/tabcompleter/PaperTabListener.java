@@ -16,12 +16,10 @@ public class PaperTabListener implements Listener {
 	public void onTab(final @NotNull AsyncTabCompleteEvent event) throws IOException {
 		final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
 		final @Nullable List<String> completions = WorldEditModeTabCompleter.execute(message);
-		if (completions != null) {
-			if (completions.isEmpty()) {
-				event.setCancelled(true);
-			} else {
-				event.setCompletions(completions);
-			}
+		if (completions.isEmpty()) {
+			event.setCancelled(true);
+		} else {
+			event.setCompletions(completions);
 		}
 	}
 }

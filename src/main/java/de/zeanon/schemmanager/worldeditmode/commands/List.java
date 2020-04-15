@@ -183,7 +183,7 @@ public class List {
 					}
 
 					Arrays.sort(files);
-					for (byte i = 0; i < listmax; i++) {
+					for (int i = 0; i < listmax; i++) {
 						if (List.sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 							return;
 						}
@@ -252,7 +252,7 @@ public class List {
 						}
 
 						Arrays.sort(files);
-						for (byte i = 0; i < listmax; i++) {
+						for (int i = 0; i < listmax; i++) {
 							if (List.sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 								return;
 							}
@@ -324,7 +324,7 @@ public class List {
 						}
 
 						Arrays.sort(files);
-						for (byte i = 0; i < listmax; i++) {
+						for (int i = 0; i < listmax; i++) {
 							if (List.sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 								return;
 							}
@@ -394,7 +394,7 @@ public class List {
 					}
 
 					Arrays.sort(files);
-					for (byte i = 0; i < listmax; i++) {
+					for (int i = 0; i < listmax; i++) {
 						if (List.sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 							return;
 						}

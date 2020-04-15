@@ -26,7 +26,6 @@ public class Search {
 
 	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
-			@SuppressWarnings("DuplicatedCode")
 			@Override
 			public void run() {
 				final int modifierCount;
@@ -234,7 +233,7 @@ public class Search {
 					}
 
 					Arrays.sort(files);
-					for (byte i = 0; i < listmax; i++) {
+					for (int i = 0; i < listmax; i++) {
 						if (Search.sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 							return;
 						}
@@ -301,7 +300,7 @@ public class Search {
 						}
 
 						Arrays.sort(files);
-						for (byte i = 0; i < listmax; i++) {
+						for (int i = 0; i < listmax; i++) {
 							if (Search.sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 								return;
 							}
@@ -371,7 +370,7 @@ public class Search {
 						}
 
 						Arrays.sort(files);
-						for (byte i = 0; i < listmax; i++) {
+						for (int i = 0; i < listmax; i++) {
 							if (Search.sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 								return;
 							}
@@ -440,7 +439,7 @@ public class Search {
 					}
 
 					Arrays.sort(files);
-					for (byte i = 0; i < listmax; i++) {
+					for (int i = 0; i < listmax; i++) {
 						if (Search.sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 							return;
 						}

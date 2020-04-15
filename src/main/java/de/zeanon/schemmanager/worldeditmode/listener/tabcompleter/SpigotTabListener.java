@@ -16,8 +16,6 @@ public class SpigotTabListener implements Listener {
 	public void onTab(final @NotNull TabCompleteEvent event) throws IOException {
 		final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
 		final @Nullable List<String> completions = WorldEditModeTabCompleter.execute(message);
-		if (completions != null) {
-			event.setCompletions(completions);
-		}
+		event.setCompletions(completions);
 	}
 }

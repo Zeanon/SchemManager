@@ -24,7 +24,7 @@ public class InternalFileUtils {
 		final @NotNull String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
 		final @NotNull String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
 		final @NotNull StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
-		for (byte i = 1; i < parts.length - 1; i++) {
+		for (int i = 1; i < parts.length - 1; i++) {
 			pathBuilder.append(parts[i]).append(slash);
 		}
 		PLUGIN_FOLDER_PATH = pathBuilder.toString();

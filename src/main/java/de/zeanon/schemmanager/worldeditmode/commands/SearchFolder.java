@@ -24,7 +24,6 @@ public class SearchFolder {
 
 	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
-			@SuppressWarnings("DuplicatedCode")
 			@Override
 			public void run() {
 				final int modifierCount;
@@ -221,7 +220,7 @@ public class SearchFolder {
 					}
 
 					Arrays.sort(files);
-					for (byte i = 0; i < listmax; i++) {
+					for (int i = 0; i < listmax; i++) {
 						if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 							return;
 						}
@@ -286,7 +285,7 @@ public class SearchFolder {
 						if (count < listmax * sideNumber) {
 							listmax = (byte) ((int) count - (listmax * (sideNumber - 1)));
 						}
-						for (byte i = 0; i < listmax; i++) {
+						for (int i = 0; i < listmax; i++) {
 							if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 								return;
 							}
@@ -354,7 +353,7 @@ public class SearchFolder {
 						if (count < listmax) {
 							listmax = (byte) count;
 						}
-						for (byte i = 0; i < listmax; i++) {
+						for (int i = 0; i < listmax; i++) {
 							if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 								return;
 							}
@@ -419,7 +418,7 @@ public class SearchFolder {
 					if (count < listmax * sideNumber) {
 						listmax = (byte) ((int) count - (listmax * (sideNumber - 1)));
 					}
-					for (byte i = 0; i < listmax; i++) {
+					for (int i = 0; i < listmax; i++) {
 						if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 							return;
 						}

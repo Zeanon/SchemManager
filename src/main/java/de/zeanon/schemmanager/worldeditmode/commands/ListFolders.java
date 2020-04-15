@@ -174,7 +174,7 @@ public class ListFolders {
 					}
 
 					Arrays.sort(files);
-					for (byte i = 0; i < listmax; i++) {
+					for (int i = 0; i < listmax; i++) {
 						if (ListFolders.sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 							return;
 						}
@@ -244,7 +244,7 @@ public class ListFolders {
 						}
 
 						Arrays.sort(files);
-						for (byte i = 0; i < listmax; i++) {
+						for (int i = 0; i < listmax; i++) {
 							if (ListFolders.sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 								return;
 							}
@@ -317,7 +317,7 @@ public class ListFolders {
 						}
 
 						Arrays.sort(files);
-						for (byte i = 0; i < listmax; i++) {
+						for (int i = 0; i < listmax; i++) {
 							if (ListFolders.sendListLineFailed(p, schemPath, listPath, files[i], i, deepSearch)) {
 								return;
 							}
@@ -387,7 +387,7 @@ public class ListFolders {
 					}
 
 					Arrays.sort(files);
-					for (byte i = 0; i < listmax; i++) {
+					for (int i = 0; i < listmax; i++) {
 						if (ListFolders.sendListLineFailed(p, schemPath, listPath, files[id], id, deepSearch)) {
 							return;
 						}

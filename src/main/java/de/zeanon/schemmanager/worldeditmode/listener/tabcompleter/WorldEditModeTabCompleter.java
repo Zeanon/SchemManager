@@ -21,8 +21,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 class WorldEditModeTabCompleter {
 
-	@Nullable
-	List<String> execute(final @NotNull String message) throws IOException {
+	@NotNull List<String> execute(final @NotNull String message) throws IOException {
 		final @NotNull String[] args = message.replace("worldedit:", "/").split(" ");
 		final boolean argumentEnded = message.endsWith(" ");
 		if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
@@ -61,7 +60,7 @@ class WorldEditModeTabCompleter {
 				return Collections.emptyList();
 			}
 		} else {
-			return null;
+			return Collections.emptyList();
 		}
 	}
 
@@ -176,7 +175,7 @@ class WorldEditModeTabCompleter {
 					final @NotNull String[] pathArgs = args[2].split("/");
 					if (tempDirectory != null) {
 						if (!args[2].endsWith("/")) {
-							for (byte i = 0; i < pathArgs.length - 1; i++) {
+							for (int i = 0; i < pathArgs.length - 1; i++) {
 								tempDirectory = tempDirectory.resolve(pathArgs[i]);
 							}
 						} else {
@@ -201,7 +200,7 @@ class WorldEditModeTabCompleter {
 					final @NotNull String[] pathArgs = args[2 + modifierCount].split("/");
 					if (tempDirectory != null) {
 						if (!args[2 + modifierCount].endsWith("/")) {
-							for (byte i = 0; i < pathArgs.length - 1; i++) {
+							for (int i = 0; i < pathArgs.length - 1; i++) {
 								tempDirectory = tempDirectory.resolve(pathArgs[i]);
 							}
 						} else {
@@ -256,7 +255,7 @@ class WorldEditModeTabCompleter {
 					if (tempDirectory != null) {
 						final @NotNull String[] pathArgs = args[3].split("/");
 						if (!args[3].endsWith("/")) {
-							for (byte i = 0; i < pathArgs.length - 1; i++) {
+							for (int i = 0; i < pathArgs.length - 1; i++) {
 								tempDirectory = tempDirectory.resolve(pathArgs[i]);
 							}
 						} else {
@@ -281,7 +280,7 @@ class WorldEditModeTabCompleter {
 					if (tempDirectory != null) {
 						final @NotNull String[] pathArgs = args[3].split("/");
 						if (!args[3].endsWith("/")) {
-							for (byte i = 0; i < pathArgs.length - 1; i++) {
+							for (int i = 0; i < pathArgs.length - 1; i++) {
 								tempDirectory = tempDirectory.resolve(pathArgs[i]);
 							}
 						} else {
