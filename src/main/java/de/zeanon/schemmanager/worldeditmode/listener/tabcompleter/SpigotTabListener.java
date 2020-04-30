@@ -14,7 +14,9 @@ public class SpigotTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onTab(final @NotNull TabCompleteEvent event) throws IOException {
-		if (event.getBuffer().toLowerCase().startsWith("//schem") || event.getBuffer().toLowerCase().startsWith("/stoplag")) {
+		if (event.getBuffer().toLowerCase().startsWith("//schem")
+			|| event.getBuffer().toLowerCase().startsWith("/schem")
+			|| event.getBuffer().toLowerCase().startsWith("/stoplag")) {
 			final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
 			final @Nullable List<String> completions = WorldEditModeTabCompleter.execute(message);
 			event.setCompletions(completions);

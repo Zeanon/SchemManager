@@ -14,7 +14,9 @@ public class PaperTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onTab(final @NotNull AsyncTabCompleteEvent event) throws IOException {
-		if (event.getBuffer().toLowerCase().startsWith("//schem") || event.getBuffer().toLowerCase().startsWith("/stoplag")) {
+		if (event.getBuffer().toLowerCase().startsWith("//schem")
+			|| event.getBuffer().toLowerCase().startsWith("/schem")
+			|| event.getBuffer().toLowerCase().startsWith("/stoplag")) {
 			final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
 			final @Nullable List<String> completions = WorldEditModeTabCompleter.execute(message);
 			if (completions.isEmpty()) {
