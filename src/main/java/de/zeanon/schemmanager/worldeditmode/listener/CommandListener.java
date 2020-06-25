@@ -89,12 +89,14 @@ public class CommandListener implements Listener {
 				// <Load>
 			} else if (args[1].equalsIgnoreCase("load")
 					   && p.hasPermission("worldedit.schematic.load")) {
+				event.setCancelled(true);
 				Load.execute(args, p, slash, schemAlias, event);
 				// </Load>
 
 				// <Save>
 			} else if (args[1].equalsIgnoreCase("save")
 					   && p.hasPermission("worldedit.schematic.save")) {
+				event.setCancelled(true);
 				Save.execute(args, p, slash, schemAlias, event);
 				// </Save>
 

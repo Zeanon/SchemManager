@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.4.2-Beta-v2.117</version>
+    <version>4.4.3</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
 
@@ -46,7 +46,7 @@
     </scm>
 
     <build>
-        <defaultGoal>clean verify -U -Dmaven.copy.skip=true</defaultGoal>
+        <defaultGoal>clean verify -U</defaultGoal>
         <finalName>${project.name}</finalName>
 
         <pluginManagement>
@@ -94,7 +94,7 @@
                         <configuration>
                             <groupId>com.rylinaux</groupId>
                             <artifactId>plugman</artifactId>
-                            <version>2.1.6</version>
+                            <version>2.1.7</version>
                             <file>src/main/resources/dependencies/PlugMan.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
@@ -193,8 +193,7 @@
                         <id>moveFiles</id>
                         <phase>verify</phase>
                         <configuration>
-                            <target unless="maven.copy.skip">
-                                <echo message="To skip, call -Dmaven.copy.skip=true"/>
+                            <target if="maven.copy">
                                 <copy todir="E:\Servers\Server 1.14\plugins" flatten="true" overwrite="true"
                                       verbose="true" failonerror="true">
                                     <fileset dir="${basedir}/target"
@@ -290,7 +289,7 @@
         <dependency>
             <groupId>com.rylinaux</groupId>
             <artifactId>plugman</artifactId>
-            <version>2.1.6</version>
+            <version>2.1.7</version>
             <scope>provided</scope>
         </dependency>
 

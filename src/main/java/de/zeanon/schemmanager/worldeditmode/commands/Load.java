@@ -21,24 +21,22 @@ public class Load {
 			@Override
 			public void run() {
 				if (args.length < 3) {
-					event.setCancelled(true);
 					p.sendMessage(ChatColor.RED + "Missing argument for "
 								  + ChatColor.YELLOW + "<"
 								  + ChatColor.GOLD + "filename"
 								  + ChatColor.YELLOW + ">");
 					Load.loadUsage(p, slash, schemAlias);
 				} else if (args[2].contains("./")) {
-					event.setCancelled(true);
 					p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
 					Load.loadUsage(p, slash, schemAlias);
 				} else if (args.length > 4) {
-					event.setCancelled(true);
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Load.loadUsage(p, slash, schemAlias);
 				} else if (args.length > 3 && !Objects.notNull(ConfigUtils.getStringList("File Extensions")).contains(args[3])) {
-					event.setCancelled(true);
 					p.sendMessage(ChatColor.LIGHT_PURPLE + args[3] + ChatColor.RED + " is no valid file format.");
 					Formats.executeInternally(p, true);
+				} else {
+					event.setCancelled(false);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());

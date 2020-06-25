@@ -28,7 +28,6 @@ public class Save {
 			@Override
 			public void run() {
 				if (!ConfigUtils.getBoolean("Save Function Override")) {
-					event.setCancelled(true);
 					if (args.length < 3) {
 						p.sendMessage(ChatColor.RED + "Missing argument for "
 									  + ChatColor.YELLOW + "<"
@@ -44,15 +43,15 @@ public class Save {
 					}
 				} else if (args.length > 2 && args.length < 5 && args[2].equalsIgnoreCase("-f")) {
 					if (args.length == 3) {
-						event.setCancelled(true);
 						p.sendMessage(ChatColor.RED + "Missing argument for "
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GOLD + "filename"
 									  + ChatColor.YELLOW + ">");
 						Save.usage(p, slash, schemAlias);
+					} else {
+						event.setCancelled(false);
 					}
 				} else {
-					event.setCancelled(true);
 					if (args.length < 3) {
 						p.sendMessage(ChatColor.RED + "Missing argument for "
 									  + ChatColor.YELLOW + "<"
