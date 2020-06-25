@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class List {
 
-	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -47,7 +47,7 @@ public class List {
 						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "'resolution error: Path is not allowed.");
 						List.usage(p, slash, schemAlias);
 					} else {
-						List.onList(p, args, deep, modifierCount);
+						List.executeInternally(p, args, deep, modifierCount);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -86,9 +86,8 @@ public class List {
 		return slash + schemAlias + " list ";
 	}
 
-	private void onList(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final int modifierCount) {
-
-		final byte listmax = ConfigUtils.getByte("Listmax");
+	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args, final boolean deepSearch, final int modifierCount) {
+		final int listmax = ConfigUtils.getInt("Listmax");
 		final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
 		final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 		final @Nullable java.util.List<String> extensions = ConfigUtils.getStringList("File Extensions");
@@ -150,7 +149,7 @@ public class List {
 		}
 	}
 
-	private void twoArgs(final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, byte listmax) {
+	private void twoArgs(final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, int listmax) {
 		try {
 			final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
@@ -179,7 +178,7 @@ public class List {
 												  ChatColor.AQUA + " ===",
 												  ChatColor.GRAY + "Schematics", p);
 					if (count < listmax) {
-						listmax = (byte) count;
+						listmax = (int) count;
 					}
 
 					Arrays.sort(files);
@@ -208,7 +207,7 @@ public class List {
 		}
 	}
 
-	private void threeArgs(final @NotNull String arg, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, byte listmax) {
+	private void threeArgs(final @NotNull String arg, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, int listmax) {
 		if (StringUtils.isNumeric(arg)) {
 			try {
 				final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
@@ -248,7 +247,7 @@ public class List {
 						int id = (sideNumber - 1) * listmax;
 
 						if (count < listmax * sideNumber) {
-							listmax = (byte) ((int) count - (listmax * (sideNumber - 1)));
+							listmax = (int) count - (listmax * (sideNumber - 1));
 						}
 
 						Arrays.sort(files);
@@ -320,7 +319,7 @@ public class List {
 													  ChatColor.AQUA + " ===",
 													  ChatColor.GRAY + "Schematics/" + arg, p);
 						if (count < listmax) {
-							listmax = (byte) count;
+							listmax = (int) count;
 						}
 
 						Arrays.sort(files);
@@ -351,7 +350,7 @@ public class List {
 		}
 	}
 
-	private void defaultCase(final @NotNull String argTwo, final @NotNull String argThree, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, byte listmax) {
+	private void defaultCase(final @NotNull String argTwo, final @NotNull String argThree, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, int listmax) {
 		try {
 			final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toRealPath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
@@ -390,7 +389,7 @@ public class List {
 					int id = (sideNumber - 1) * listmax;
 
 					if (count < listmax * sideNumber) {
-						listmax = (byte) ((int) count - (listmax * (sideNumber - 1)));
+						listmax = (int) count - (listmax * (sideNumber - 1));
 					}
 
 					Arrays.sort(files);

@@ -37,7 +37,7 @@ public class CommandListener implements Listener {
 				new BukkitRunnable() {
 					@Override
 					public void run() {
-						Help.onHelp(p, slash, schemAlias);
+						Help.executeInternally(p, slash, schemAlias);
 					}
 				}.runTaskAsynchronously(SchemManager.getInstance());
 				// </Help>

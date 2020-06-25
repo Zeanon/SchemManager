@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Delete {
 
-	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -43,7 +43,7 @@ public class Delete {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Delete.usage(p, slash, schemAlias);
 					} else {
-						Delete.onDelete(p, args);
+						Delete.executeInternally(p, args);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -72,7 +72,7 @@ public class Delete {
 		return slash + schemAlias + " delete ";
 	}
 
-	private void onDelete(final @NotNull Player p, final @NotNull String[] args) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
 		final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 		final @Nullable List<File> files = schemPath != null
 										   ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))

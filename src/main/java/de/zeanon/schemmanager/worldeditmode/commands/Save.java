@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Save {
 
-	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias, final @NotNull PlayerCommandPreprocessEvent event) {
+	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias, final @NotNull PlayerCommandPreprocessEvent event) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -69,7 +69,7 @@ public class Save {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Save.usage(p, slash, schemAlias);
 					} else {
-						Save.onSave(p, args);
+						Save.executeInternally(p, args);
 					}
 				}
 			}
@@ -95,7 +95,7 @@ public class Save {
 		return slash + schemAlias + " save ";
 	}
 
-	private void onSave(final @NotNull Player p, final @NotNull String[] args) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
 		final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 		final @Nullable File file = schemPath != null
 									? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[2])) //NOSONAR

@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class RenameFolder {
 
-	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -48,7 +48,7 @@ public class RenameFolder {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						RenameFolder.usage(p, slash, schemAlias);
 					} else {
-						RenameFolder.onRenameFolder(p, args);
+						RenameFolder.executeInternally(p, args);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -79,7 +79,7 @@ public class RenameFolder {
 		return slash + schemAlias + " renamefolder ";
 	}
 
-	private void onRenameFolder(final @NotNull Player p, final @NotNull String[] args) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
 		try {
 			final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 			final @Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;

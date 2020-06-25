@@ -14,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class Formats {
 
-	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				if (args.length == 2) {
-					Formats.onFormats(p, false);
+					Formats.executeInternally(p, false);
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					Formats.usage(p, slash, schemAlias);
@@ -28,7 +28,7 @@ public class Formats {
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	public void onFormats(final @NotNull Player p, final boolean suppressBlankLine) {
+	public void executeInternally(final @NotNull Player p, final boolean suppressBlankLine) {
 		if (ConfigUtils.getBoolean("Space Lists") && !suppressBlankLine) {
 			p.sendMessage("");
 		}

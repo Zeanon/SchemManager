@@ -19,7 +19,7 @@ public class CommandHandler implements CommandExecutor {
 	 * Gets the user commands and processes them("/schemmanager")
 	 */
 	@Override
-	public boolean onCommand(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String label, final @NotNull String[] args) {
+	public boolean onCommand(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String label, final @NotNull String @NotNull [] args) {
 		if (command.getName().equalsIgnoreCase("schemmanager")) {
 			if (sender instanceof Player) {
 				final @NotNull Player p = (Player) sender;

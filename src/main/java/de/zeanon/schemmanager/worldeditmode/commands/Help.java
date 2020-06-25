@@ -13,12 +13,12 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class Help {
 
-	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				if (args.length == 2) {
-					Help.onHelp(p, slash, schemAlias);
+					Help.executeInternally(p, slash, schemAlias);
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
 					MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
@@ -34,7 +34,7 @@ public class Help {
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	public void onHelp(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
+	public void executeInternally(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		if (ConfigUtils.getBoolean("Space Lists")) {
 			p.sendMessage("");
 		}

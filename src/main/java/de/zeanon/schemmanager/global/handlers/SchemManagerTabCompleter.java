@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class SchemManagerTabCompleter implements TabCompleter {
 
 	@Override
-	public List<String> onTabComplete(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String alias, final @NotNull String[] args) {
+	public List<String> onTabComplete(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String alias, final @NotNull String @NotNull [] args) {
 		if (args.length == 1) {
 			final @NotNull List<String> completions = new GapList<>();
 			if ("update".startsWith(args[0].toLowerCase())) {

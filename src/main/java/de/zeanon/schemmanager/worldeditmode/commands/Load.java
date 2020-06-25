@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class Load {
 
-	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias, final @NotNull PlayerCommandPreprocessEvent event) {
+	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias, final @NotNull PlayerCommandPreprocessEvent event) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -38,7 +38,7 @@ public class Load {
 				} else if (args.length > 3 && !Objects.notNull(ConfigUtils.getStringList("File Extensions")).contains(args[3])) {
 					event.setCancelled(true);
 					p.sendMessage(ChatColor.LIGHT_PURPLE + args[3] + ChatColor.RED + " is no valid file format.");
-					Formats.onFormats(p, true);
+					Formats.executeInternally(p, true);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());

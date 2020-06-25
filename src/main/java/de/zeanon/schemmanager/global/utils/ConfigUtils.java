@@ -21,7 +21,7 @@ public class ConfigUtils {
 	 *
 	 * @return value.
 	 */
-	public byte getByte(final @NotNull String key) {
+	public int getInt(final @NotNull String key) {
 		try {
 			return Objects.notNull(Utils.getConfig()).getByteUseArray(key);
 		} catch (ObjectNullException e) {
@@ -31,7 +31,7 @@ public class ConfigUtils {
 					Update.updateConfig();
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
-			return (byte) ConfigUtils.getDefaultValue(key);
+			return (int) ConfigUtils.getDefaultValue(key);
 		}
 	}
 
@@ -86,7 +86,7 @@ public class ConfigUtils {
 	 *
 	 * @return the default value.
 	 */
-	private @Nullable
+	private @NotNull
 	Object getDefaultValue(final @NotNull String key) {
 		switch (key) {
 			case "Space Lists":
@@ -102,7 +102,7 @@ public class ConfigUtils {
 			case "Plugin Version":
 				return SchemManager.getInstance().getDescription().getVersion();
 			default:
-				return null;
+				return new Object();
 		}
 	}
 }

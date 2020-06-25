@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class CopyFolder {
 
-	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -47,7 +47,7 @@ public class CopyFolder {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						CopyFolder.usage(p, slash, schemAlias);
 					} else {
-						CopyFolder.onCopyFolder(p, args);
+						CopyFolder.executeInternally(p, args);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -78,7 +78,7 @@ public class CopyFolder {
 		return slash + schemAlias + " copyfolder ";
 	}
 
-	private void onCopyFolder(final @NotNull Player p, final @NotNull String[] args) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
 		try {
 			final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
 			final @Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
