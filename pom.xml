@@ -118,6 +118,21 @@
                             <goal>install-file</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>install-lixfel-worldedit</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>de.lixfel</groupId>
+                            <artifactId>worldedit</artifactId>
+                            <version>1.0.0</version>
+                            <file>src/main/resources/dependencies/WorldEdit.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
 
@@ -260,6 +275,14 @@
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
             <version>7.1.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- WorldEdit API | LixFel -->
+        <dependency>
+            <groupId>de.lixfel</groupId>
+            <artifactId>worldedit</artifactId>
+            <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>
 
