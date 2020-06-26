@@ -6,7 +6,6 @@ import de.zeanon.schemmanager.global.utils.MessageUtils;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -14,24 +13,19 @@ import org.jetbrains.annotations.NotNull;
 public class Help {
 
 	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (args.length == 2) {
-					Help.executeInternally(p, slash, schemAlias);
-				} else {
-					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-													ChatColor.GRAY + slash + schemAlias
-													+ ChatColor.AQUA + " help",
-													ChatColor.LIGHT_PURPLE + ""
-													+ ChatColor.UNDERLINE + ""
-													+ ChatColor.ITALIC + ""
-													+ ChatColor.BOLD + "OMG PLS HELP ME",
-													slash + schemAlias + " help", p);
-				}
-			}
-		}.runTaskAsynchronously(SchemManager.getInstance());
+		if (args.length == 2) {
+			Help.executeInternally(p, slash, schemAlias);
+		} else {
+			p.sendMessage(ChatColor.RED + "Too many arguments.");
+			MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
+											ChatColor.GRAY + slash + schemAlias
+											+ ChatColor.AQUA + " help",
+											ChatColor.LIGHT_PURPLE + ""
+											+ ChatColor.UNDERLINE + ""
+											+ ChatColor.ITALIC + ""
+											+ ChatColor.BOLD + "OMG PLS HELP ME",
+											slash + schemAlias + " help", p);
+		}
 	}
 
 	public void executeInternally(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {

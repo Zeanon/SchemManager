@@ -1,13 +1,11 @@
 package de.zeanon.schemmanager.worldeditmode.commands;
 
-import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
 import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.storagemanager.internal.utility.basic.Objects;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -15,17 +13,12 @@ import org.jetbrains.annotations.NotNull;
 public class Formats {
 
 	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (args.length == 2) {
-					Formats.executeInternally(p, false);
-				} else {
-					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					Formats.usage(p, slash, schemAlias);
-				}
-			}
-		}.runTaskAsynchronously(SchemManager.getInstance());
+		if (args.length == 2) {
+			Formats.executeInternally(p, false);
+		} else {
+			p.sendMessage(ChatColor.RED + "Too many arguments.");
+			Formats.usage(p, slash, schemAlias);
+		}
 	}
 
 	public void executeInternally(final @NotNull Player p, final boolean suppressBlankLine) {

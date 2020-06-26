@@ -71,12 +71,7 @@ public class Save {
 				Save.usage(p, slash, schemAlias);
 			} else {
 				event.setCancelled(true);
-				new BukkitRunnable() {
-					@Override
-					public void run() {
-						Save.executeInternally(p, args);
-					}
-				}.runTaskAsynchronously(SchemManager.getInstance());
+				Save.executeInternally(p, args);
 			}
 		}
 	}
@@ -101,49 +96,54 @@ public class Save {
 	}
 
 	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
-		final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
-		final @Nullable File file = schemPath != null
-									? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[2])) //NOSONAR
-									   ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()
-									   : WorldEditModeSchemUtils.getSchemPath().resolve(
-											   BaseFileUtils.removeExtension(args[2])).toFile())
-									: null;
-		final boolean fileExists = file != null && file.exists() && !file.isDirectory();
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+				final @Nullable File file = schemPath != null
+											? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[2])) //NOSONAR
+											   ? WorldEditModeSchemUtils.getSchemPath().resolve(args[2]).toFile()
+											   : WorldEditModeSchemUtils.getSchemPath().resolve(
+													   BaseFileUtils.removeExtension(args[2])).toFile())
+											: null;
+				final boolean fileExists = file != null && file.exists() && !file.isDirectory();
 
-		if (args.length == 3) {
-			try {
-				Objects.notNull(WorldEditMode.getWorldEditPlugin()).getSession(p).getClipboard();
-				WorldEditModeRequestUtils.addOverwriteRequest(p.getUniqueId(), args[2]);
-				if (fileExists) {
-					p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
-					MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
-													"//schem save " + args[2] + " confirm",
-													"//schem save " + args[2] + " deny", p);
-				} else {
-					new BukkitRunnable() {
-						@Override
-						public void run() {
-							p.performCommand("/schem save -f " + args[2]);
+				if (args.length == 3) {
+					try {
+						Objects.notNull(WorldEditMode.getWorldEditPlugin()).getSession(p).getClipboard();
+						WorldEditModeRequestUtils.addOverwriteRequest(p.getUniqueId(), args[2]);
+						if (fileExists) {
+							p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
+							MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
+															"//schem save " + args[2] + " confirm",
+															"//schem save " + args[2] + " deny", p);
+						} else {
+							new BukkitRunnable() {
+								@Override
+								public void run() {
+									p.performCommand("/schem save -f " + args[2]);
+								}
+							}.runTask(SchemManager.getInstance());
 						}
-					}.runTask(SchemManager.getInstance());
-				}
-			} catch (EmptyClipboardException e) {
-				p.sendMessage(ChatColor.RED + "Your clipboard is empty. Use //copy first.");
-			}
-		} else {
-			if (args[3].equalsIgnoreCase("confirm") && WorldEditModeRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])) {
-				WorldEditModeRequestUtils.removeOverWriteRequest(p.getUniqueId());
-				new BukkitRunnable() {
-					@Override
-					public void run() {
-						p.performCommand("/schem save -f " + args[2]);
+					} catch (EmptyClipboardException e) {
+						p.sendMessage(ChatColor.RED + "Your clipboard is empty. Use //copy first.");
 					}
-				}.runTask(SchemManager.getInstance());
-			} else if (args[3].equalsIgnoreCase("deny") && WorldEditModeRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])) {
-				WorldEditModeRequestUtils.removeOverWriteRequest(p.getUniqueId());
-				p.sendMessage(ChatColor.LIGHT_PURPLE + args[2] + " was not overwritten.");
+				} else {
+					if (args[3].equalsIgnoreCase("confirm") && WorldEditModeRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])) {
+						WorldEditModeRequestUtils.removeOverWriteRequest(p.getUniqueId());
+						new BukkitRunnable() {
+							@Override
+							public void run() {
+								p.performCommand("/schem save -f " + args[2]);
+							}
+						}.runTask(SchemManager.getInstance());
+					} else if (args[3].equalsIgnoreCase("deny") && WorldEditModeRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])) {
+						WorldEditModeRequestUtils.removeOverWriteRequest(p.getUniqueId());
+						p.sendMessage(ChatColor.LIGHT_PURPLE + args[2] + " was not overwritten.");
+					}
+				}
 			}
-		}
+		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
 	private void defaultSaveUsage(final @NotNull Player p, final String slash, final String schemAlias) {
