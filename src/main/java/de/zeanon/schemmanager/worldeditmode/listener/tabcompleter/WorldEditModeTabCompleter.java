@@ -54,7 +54,7 @@ class WorldEditModeTabCompleter {
 				return WorldEditModeTabCompleter.onTab(args, deep, caseSensitive, modifierCount, argumentEnded);
 			}
 		} else if (args[0].equalsIgnoreCase("/stoplag")) {
-			if (args.length == 1 || (args.length == 2 && !message.endsWith(" "))) {
+			if (args.length == 1 || (args.length == 2 && !message.endsWith(" ") && "-c".startsWith(args[1]))) {
 				return Collections.singletonList("-c");
 			} else {
 				return Collections.emptyList();
