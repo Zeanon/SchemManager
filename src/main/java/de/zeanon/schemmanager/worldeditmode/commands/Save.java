@@ -24,55 +24,61 @@ import org.jetbrains.annotations.Nullable;
 public class Save {
 
 	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias, final @NotNull PlayerCommandPreprocessEvent event) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (!ConfigUtils.getBoolean("Save Function Override")) {
-					if (args.length < 3) {
-						p.sendMessage(ChatColor.RED + "Missing argument for "
-									  + ChatColor.YELLOW + "<"
-									  + ChatColor.GOLD + "filename"
-									  + ChatColor.YELLOW + ">");
-						Save.defaultSaveUsage(p, slash, schemAlias);
-					} else if (args[2].contains("./")) {
-						p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
-						Save.defaultSaveUsage(p, slash, schemAlias);
-					} else if (args.length > 4 && !args[2].equalsIgnoreCase("-f")) {
-						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						Save.defaultSaveUsage(p, slash, schemAlias);
-					}
-				} else if (args.length > 2 && args.length < 5 && args[2].equalsIgnoreCase("-f")) {
-					if (args.length == 3) {
-						p.sendMessage(ChatColor.RED + "Missing argument for "
-									  + ChatColor.YELLOW + "<"
-									  + ChatColor.GOLD + "filename"
-									  + ChatColor.YELLOW + ">");
-						Save.usage(p, slash, schemAlias);
-					} else {
-						event.setCancelled(false);
-					}
-				} else {
-					if (args.length < 3) {
-						p.sendMessage(ChatColor.RED + "Missing argument for "
-									  + ChatColor.YELLOW + "<"
-									  + ChatColor.GOLD + "filename"
-									  + ChatColor.YELLOW + ">");
-						Save.usage(p, slash, schemAlias);
-					} else if (args[2].contains("./")) {
-						p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
-						Save.usage(p, slash, schemAlias);
-					} else if (args.length > 4 || (args.length == 4
-												   && !WorldEditModeRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])
-												   && !args[3].equalsIgnoreCase("confirm")
-												   && !args[3].equalsIgnoreCase("deny"))) {
-						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						Save.usage(p, slash, schemAlias);
-					} else {
+		if (!ConfigUtils.getBoolean("Save Function Override")) {
+			if (args.length < 3) {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + "Missing argument for "
+							  + ChatColor.YELLOW + "<"
+							  + ChatColor.GOLD + "filename"
+							  + ChatColor.YELLOW + ">");
+				Save.defaultSaveUsage(p, slash, schemAlias);
+			} else if (args[2].contains("./")) {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
+				Save.defaultSaveUsage(p, slash, schemAlias);
+			} else if (args.length > 4 && !args[2].equalsIgnoreCase("-f")) {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + "Too many arguments.");
+				Save.defaultSaveUsage(p, slash, schemAlias);
+			}
+		} else if (args.length > 2 && args.length < 5 && args[2].equalsIgnoreCase("-f")) {
+			if (args.length == 3) {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + "Missing argument for "
+							  + ChatColor.YELLOW + "<"
+							  + ChatColor.GOLD + "filename"
+							  + ChatColor.YELLOW + ">");
+				Save.usage(p, slash, schemAlias);
+			}
+		} else {
+			if (args.length < 3) {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + "Missing argument for "
+							  + ChatColor.YELLOW + "<"
+							  + ChatColor.GOLD + "filename"
+							  + ChatColor.YELLOW + ">");
+				Save.usage(p, slash, schemAlias);
+			} else if (args[2].contains("./")) {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
+				Save.usage(p, slash, schemAlias);
+			} else if (args.length > 4 || (args.length == 4
+										   && !WorldEditModeRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])
+										   && !args[3].equalsIgnoreCase("confirm")
+										   && !args[3].equalsIgnoreCase("deny"))) {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + "Too many arguments.");
+				Save.usage(p, slash, schemAlias);
+			} else {
+				event.setCancelled(true);
+				new BukkitRunnable() {
+					@Override
+					public void run() {
 						Save.executeInternally(p, args);
 					}
-				}
+				}.runTaskAsynchronously(SchemManager.getInstance());
 			}
-		}.runTaskAsynchronously(SchemManager.getInstance());
+		}
 	}
 
 	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {

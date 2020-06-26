@@ -5,6 +5,7 @@ import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.global.utils.RequestUtils;
 import de.zeanon.schemmanager.global.utils.Update;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -71,12 +72,16 @@ public class CommandHandler implements CommandExecutor {
 							   && RequestUtils.checkUpdateRequest(p.getUniqueId())) {
 						RequestUtils.removeUpdateRequest(p.getUniqueId());
 						if (args[1].equalsIgnoreCase("confirm")) {
-							new BukkitRunnable() {
-								@Override
-								public void run() {
-									Update.updatePlugin(p);
-								}
-							}.runTaskAsynchronously(SchemManager.getInstance());
+							if (Bukkit.getVersion().contains("git-Paper")) {
+								new BukkitRunnable() {
+									@Override
+									public void run() {
+										Update.updatePlugin(p);
+									}
+								}.runTaskAsynchronously(SchemManager.getInstance());
+							} else {
+								Update.updatePlugin(p);
+							}
 						} else {
 							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 										  + ChatColor.RED + " will not be updated.");
@@ -95,10 +100,10 @@ public class CommandHandler implements CommandExecutor {
 				if (args.length == 1) {
 					if (args[0].equalsIgnoreCase("disable")) {
 						RequestUtils.addConsoleDisableRequest();
-						System.out.println("To disable type '/schemmanager disable confirm', otherwise type '/schemmanager disable deny'");
+						System.out.println("To disable type 'schemmanager disable confirm', otherwise type 'schemmanager disable deny'");
 					} else if (args[0].equalsIgnoreCase("update")) {
 						RequestUtils.addConsoleUpdateRequest();
-						System.out.println("To update type '/schemmanager update confirm', otherwise type '/schemmanager update deny'");
+						System.out.println("To update type 'schemmanager update confirm', otherwise type 'schemmanager update deny'");
 					}
 				} else if (args.length == 2 && (args[1].equalsIgnoreCase("deny") || args[1].equalsIgnoreCase("confirm"))) {
 					if (args[0].equalsIgnoreCase("disable") && RequestUtils.checkConsoleDisableRequest()) {
@@ -111,12 +116,16 @@ public class CommandHandler implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("update") && RequestUtils.checkConsoleUpdateRequest()) {
 						RequestUtils.removeConsoleUpdateRequest();
 						if (args[1].equalsIgnoreCase("confirm")) {
-							new BukkitRunnable() {
-								@Override
-								public void run() {
-									Update.updatePlugin();
-								}
-							}.runTaskAsynchronously(SchemManager.getInstance());
+							if (Bukkit.getVersion().contains("git-Paper")) {
+								new BukkitRunnable() {
+									@Override
+									public void run() {
+										Update.updatePlugin();
+									}
+								}.runTaskAsynchronously(SchemManager.getInstance());
+							} else {
+								Update.updatePlugin();
+							}
 						} else {
 							System.out.println("SchemManager will not be updated.");
 						}
