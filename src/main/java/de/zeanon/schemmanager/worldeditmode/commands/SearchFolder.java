@@ -152,11 +152,7 @@ public class SearchFolder {
 	}
 
 	private @NotNull File[] getFileArray(final @NotNull File directory, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
-		return BaseFileUtils.listFolders(directory, deepSearch)
-							.parallelStream()
-							.filter(file -> (!caseSensitive && file.getName().toLowerCase().contains(sequence.toLowerCase()))
-											|| (caseSensitive && file.getName().contains(sequence)))
-							.toArray(File[]::new);
+		return BaseFileUtils.listFolders(directory, deepSearch, sequence, caseSensitive).toArray(new File[0]);
 	}
 
 	private boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {

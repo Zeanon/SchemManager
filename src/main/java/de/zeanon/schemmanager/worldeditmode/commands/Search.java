@@ -154,13 +154,8 @@ public class Search {
 		}
 	}
 
-	private @NotNull
-	File[] getFileArray(final @NotNull File directory, final @NotNull List<String> extensions, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
-		return BaseFileUtils.listFiles(directory, deepSearch, extensions)
-							.parallelStream()
-							.filter(file -> (!caseSensitive && BaseFileUtils.removeExtension(file.getName()).toLowerCase().contains(sequence.toLowerCase()))
-											|| (caseSensitive && BaseFileUtils.removeExtension(file.getName()).contains(sequence)))
-							.toArray(File[]::new);
+	private @NotNull File[] getFileArray(final @NotNull File directory, final @NotNull List<String> extensions, final boolean deepSearch, final boolean caseSensitive, final @NotNull String sequence) throws IOException {
+		return BaseFileUtils.listFiles(directory, deepSearch, sequence, caseSensitive, extensions).toArray(new File[0]);
 	}
 
 	private boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
