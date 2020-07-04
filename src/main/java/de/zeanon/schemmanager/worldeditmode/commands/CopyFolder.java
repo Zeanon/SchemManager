@@ -78,6 +78,7 @@ public class CopyFolder {
 		return slash + schemAlias + " copyfolder ";
 	}
 
+	@SuppressWarnings("DuplicatedCode")
 	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
 		try {
 			final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
@@ -92,20 +93,17 @@ public class CopyFolder {
 				} else if (directoryNew.exists() && directoryNew.isDirectory()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GREEN + args[3] + ChatColor.RED + " already exists, the folders will be merged.");
+
+					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								  ChatColor.RED + "These schematics already exist in " +
+								  ChatColor.GREEN + args[3] +
+								  ChatColor.RED + ", they will be overwritten:");
 					int id = 0;
-					final @Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
-					for (final @NotNull File oldFile : BaseFileUtils.listFiles(directoryOld, true, Objects.notNull(extensions))) {
-						for (final @NotNull File newFile : BaseFileUtils.listFiles(directoryNew, true, extensions)) {
-							if (BaseFileUtils.removeExtension(newFile.getName())
-											 .equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.getName()))
-								&& newFile.toPath().relativize(directoryNew.toPath())
-										  .equals(oldFile.toPath().relativize(directoryOld.toPath()))) {
-								if (id == 0) {
-									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-												  ChatColor.RED + "These schematics already exist in " +
-												  ChatColor.GREEN + args[3] +
-												  ChatColor.RED + ", they will be overwritten:");
-								}
+					final @Nullable List<String> extensions = Objects.notNull(ConfigUtils.getStringList("File Extensions"));
+					for (final @NotNull File oldFile : BaseFileUtils.listFiles(directoryOld, true, extensions)) {
+						for (final @NotNull File newFile : BaseFileUtils.listFiles(directoryNew, true, BaseFileUtils.removeExtension(oldFile.getName()), extensions)) {
+							if (BaseFileUtils.removeExtension(newFile.toPath().relativize(directoryNew.toPath()).toString())
+											 .equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.toPath().relativize(directoryOld.toPath()).toString()))) {
 
 								final @NotNull String path = FilenameUtils.separatorsToUnix(
 										schemPath.toRealPath()
@@ -139,20 +137,15 @@ public class CopyFolder {
 						}
 					}
 
+					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								  ChatColor.RED + "These folders already exist in " +
+								  ChatColor.GREEN + args[3] +
+								  ChatColor.RED + ", they will be merged:");
 					int i = 0;
 					for (final @NotNull File oldFolder : BaseFileUtils.listFolders(directoryOld, true)) {
-						for (final @NotNull File newFolder : BaseFileUtils.listFolders(directoryNew, true)) {
-							if (newFolder.getName()
-										 .equalsIgnoreCase(oldFolder.getName())
-								&& newFolder.toPath().relativize(directoryNew.toPath())
-											.equals(oldFolder.toPath().relativize(directoryOld.toPath()))) {
-
-								if (i == 0) {
-									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-												  ChatColor.RED + "These folders already exist in " +
-												  ChatColor.GREEN + args[3] +
-												  ChatColor.RED + ", they will be merged:");
-								}
+						for (final @NotNull File newFolder : BaseFileUtils.listFolders(directoryNew, true, oldFolder.getName())) {
+							if (BaseFileUtils.removeExtension(newFolder.toPath().relativize(directoryNew.toPath()).toString())
+											 .equalsIgnoreCase(BaseFileUtils.removeExtension(oldFolder.toPath().relativize(directoryOld.toPath()).toString()))) {
 
 								final @NotNull String name = newFolder.getName();
 								final @NotNull String path = FilenameUtils.separatorsToUnix(
