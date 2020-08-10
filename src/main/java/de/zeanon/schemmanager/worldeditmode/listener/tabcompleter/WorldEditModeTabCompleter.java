@@ -64,8 +64,7 @@ class WorldEditModeTabCompleter {
 		}
 	}
 
-	private @NotNull
-	List<String> onTab(final @NotNull String @NotNull [] args, final boolean alreadyDeep, final boolean alreadyCaseSensitive, final int modifierCount, final boolean argumentEnded) throws IOException {
+	private @NotNull List<String> onTab(final @NotNull String @NotNull [] args, final boolean alreadyDeep, final boolean alreadyCaseSensitive, final int modifierCount, final boolean argumentEnded) throws IOException {
 		final @NotNull List<String> completions = new GapList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
