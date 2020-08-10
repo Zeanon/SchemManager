@@ -34,7 +34,7 @@ public class Utils {
 			Utils.loadConfigs();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are loaded successfully.");
 
-			Utils.initVersion();
+			Utils.initConfigs();
 		} catch (RuntimeIOException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load config files.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the Config File and reload the plugin.");
@@ -44,7 +44,7 @@ public class Utils {
 		}
 	}
 
-	private void initVersion() {
+	private void initConfigs() {
 		try {
 			if (!Utils.getConfig().hasKeyUseArray("Plugin Version")
 				|| !Objects.notNull(Utils.getConfig().getStringUseArray("Plugin Version"))
@@ -53,20 +53,24 @@ public class Utils {
 				Update.checkConfigUpdate();
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
 			}
-
-			/*if (pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.isPluginEnabled("FastAsyncWorldEdit"))) { //NOSONAR
-			//TODO //NOSONAR
-			} else */
-			if (SchemManager.getPluginManager().getPlugin("WorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("WorldEdit")) {
-				Utils.initWorldEditMode();
-			} else {
-				Utils.enableSleepMode();
-			}
 		} catch (RuntimeIOException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not update config files.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the Config File and reload the plugin.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+		}
+
+		Utils.initVersion();
+	}
+
+	private void initVersion() {
+		/*if (pluginManager.getPlugin("FastAsyncWorldEdit") != null && pluginManager.isPluginEnabled("FastAsyncWorldEdit"))) { //NOSONAR
+		//TODO //NOSONAR
+		} else */
+		if (SchemManager.getPluginManager().getPlugin("WorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("WorldEdit")) {
+			Utils.initWorldEditMode();
+		} else {
+			Utils.enableSleepMode();
 		}
 	}
 
