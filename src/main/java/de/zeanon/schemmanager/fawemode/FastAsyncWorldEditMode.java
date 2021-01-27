@@ -2,10 +2,10 @@ package de.zeanon.schemmanager.fawemode;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.worldeditmode.listener.CommandListener;
-import de.zeanon.schemmanager.worldeditmode.listener.EventListener;
-import de.zeanon.schemmanager.worldeditmode.listener.tabcompleter.PaperTabListener;
-import de.zeanon.schemmanager.worldeditmode.listener.tabcompleter.SpigotTabListener;
+import de.zeanon.schemmanager.fawemode.listener.CommandListener;
+import de.zeanon.schemmanager.fawemode.listener.EventListener;
+import de.zeanon.schemmanager.fawemode.listener.tabcompleter.PaperTabListener;
+import de.zeanon.schemmanager.fawemode.listener.tabcompleter.SpigotTabListener;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;

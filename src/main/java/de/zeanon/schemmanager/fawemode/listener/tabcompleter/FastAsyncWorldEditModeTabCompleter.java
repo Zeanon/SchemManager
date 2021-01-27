@@ -1,7 +1,7 @@
 package de.zeanon.schemmanager.fawemode.listener.tabcompleter;
 
+import de.zeanon.schemmanager.fawemode.utils.FastAsyncWorldEditModeSchemUtils;
 import de.zeanon.schemmanager.global.utils.ConfigUtils;
-import de.zeanon.schemmanager.worldeditmode.utils.WorldEditModeSchemUtils;
 import de.zeanon.storagemanager.external.browniescollections.GapList;
 import de.zeanon.storagemanager.internal.utility.basic.BaseFileUtils;
 import de.zeanon.storagemanager.internal.utility.basic.Objects;
@@ -131,7 +131,7 @@ class FastAsyncWorldEditModeTabCompleter {
 				}
 
 				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+					final @Nullable Path schemPath = FastAsyncWorldEditModeSchemUtils.getSchemPath();
 					final @Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null) {
 						for (final @NotNull File file : FastAsyncWorldEditModeTabCompleter.getFileArray(pathFile)) {
@@ -139,7 +139,7 @@ class FastAsyncWorldEditModeTabCompleter {
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolders") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
-					final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+					final @Nullable Path schemPath = FastAsyncWorldEditModeSchemUtils.getSchemPath();
 					final @Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
 						for (final @NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
@@ -167,7 +167,7 @@ class FastAsyncWorldEditModeTabCompleter {
 				}
 
 				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					@Nullable Path tempDirectory = WorldEditModeSchemUtils.getSchemPath();
+					@Nullable Path tempDirectory = FastAsyncWorldEditModeSchemUtils.getSchemPath();
 					final @NotNull String[] pathArgs = args[2].split("/");
 					if (tempDirectory != null) {
 						if (!args[2].endsWith("/")) {
@@ -189,7 +189,7 @@ class FastAsyncWorldEditModeTabCompleter {
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolders") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
-					@Nullable Path tempDirectory = WorldEditModeSchemUtils.getSchemPath();
+					@Nullable Path tempDirectory = FastAsyncWorldEditModeSchemUtils.getSchemPath();
 					final @NotNull String[] pathArgs = args[2 + modifierCount].split("/");
 					if (tempDirectory != null) {
 						if (!args[2 + modifierCount].endsWith("/")) {
@@ -217,7 +217,7 @@ class FastAsyncWorldEditModeTabCompleter {
 				if (args[1].equalsIgnoreCase("load")) {
 					completions.addAll(Objects.notNull(ConfigUtils.getStringList("File Extensions")));
 				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+					final @Nullable Path schemPath = FastAsyncWorldEditModeSchemUtils.getSchemPath();
 					final @Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null) {
 						for (final @NotNull File file : FastAsyncWorldEditModeTabCompleter.getFileArray(pathFile)) {
@@ -225,7 +225,7 @@ class FastAsyncWorldEditModeTabCompleter {
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
-					final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+					final @Nullable Path schemPath = FastAsyncWorldEditModeSchemUtils.getSchemPath();
 					final @Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
 						for (final @NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
@@ -241,7 +241,7 @@ class FastAsyncWorldEditModeTabCompleter {
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					@Nullable Path tempDirectory = WorldEditModeSchemUtils.getSchemPath();
+					@Nullable Path tempDirectory = FastAsyncWorldEditModeSchemUtils.getSchemPath();
 					if (tempDirectory != null) {
 						final @NotNull String[] pathArgs = args[3].split("/");
 						if (!args[3].endsWith("/")) {
@@ -263,7 +263,7 @@ class FastAsyncWorldEditModeTabCompleter {
 						}
 					}
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
-					@Nullable Path tempDirectory = WorldEditModeSchemUtils.getSchemPath();
+					@Nullable Path tempDirectory = FastAsyncWorldEditModeSchemUtils.getSchemPath();
 					if (tempDirectory != null) {
 						final @NotNull String[] pathArgs = args[3].split("/");
 						if (!args[3].endsWith("/")) {
@@ -299,7 +299,7 @@ class FastAsyncWorldEditModeTabCompleter {
 	private void addFileToCompletions(final @NotNull String sequence, final @NotNull List<String> completions, final @NotNull File file) {
 		try {
 			if (file.getName().toLowerCase().startsWith(sequence.toLowerCase()) && !file.getName().equalsIgnoreCase(sequence)) {
-				final @Nullable Path schemPath = WorldEditModeSchemUtils.getSchemPath();
+				final @Nullable Path schemPath = FastAsyncWorldEditModeSchemUtils.getSchemPath();
 				if (schemPath != null) {
 					final @NotNull String path = FilenameUtils.separatorsToUnix(schemPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
 					completions.add(path);

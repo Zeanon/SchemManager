@@ -194,7 +194,7 @@
                         <phase>verify</phase>
                         <configuration>
                             <target if="maven.copy">
-                                <copy todir="E:\Servers\Server 1.14\plugins" flatten="true" overwrite="true"
+                                <copy todir="E:\Servers\Server 1.15\plugins" flatten="true" overwrite="true"
                                       verbose="true" failonerror="true">
                                     <fileset dir="${basedir}/target"
                                              includes="${project.build.finalName}.jar"/>

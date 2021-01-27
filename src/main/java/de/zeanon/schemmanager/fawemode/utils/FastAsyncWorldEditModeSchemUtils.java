@@ -44,7 +44,7 @@ public class FastAsyncWorldEditModeSchemUtils {
 		if (tempPath.isAbsolute()) {
 			FastAsyncWorldEditModeSchemUtils.schemFolderPath = tempPath.normalize();
 		} else {
-			FastAsyncWorldEditModeSchemUtils.schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit"))
+			FastAsyncWorldEditModeSchemUtils.schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit"))
 																	  .getDataFolder().toPath().resolve(tempPath).normalize();
 		}
 		FastAsyncWorldEditModeSchemUtils.schemFolder = FastAsyncWorldEditModeSchemUtils.schemFolderPath.toFile();
