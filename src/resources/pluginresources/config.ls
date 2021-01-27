@@ -3,7 +3,7 @@
 #||                                                                                                          ||#
 #||                                         SchemManager Config-File                                         ||#
 #||                                             Plugin by Zeanon                                             ||#
-#||                       Config-Management-System: LightningStorage by JavaFactoryDev                       ||#
+#||                            Config-Management-System: StorageManager by Zeanon                            ||#
 #||                                                                                                          ||#
 #||==========================================================================================================||#
 ################################################################################################################
