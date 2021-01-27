@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.4.6</version>
+    <version>4.5.0-Beta</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
 
@@ -234,6 +234,12 @@
             <id>enginehub-maven</id>
             <url>http://maven.enginehub.org/repo/</url>
         </repository>
+
+        <!-- FAWE -->
+        <repository>
+            <id>IntellectualSites</id>
+            <url>https://mvn.intellectualsites.com/content/repositories/releases/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -282,6 +288,14 @@
             <groupId>de.lixfel</groupId>
             <artifactId>worldedit</artifactId>
             <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- FAWE API -->
+        <dependency>
+            <groupId>com.intellectualsites.fawe</groupId>
+            <artifactId>FAWE-Bukkit</artifactId>
+            <version>1.16-555</version>
             <scope>provided</scope>
         </dependency>
 
