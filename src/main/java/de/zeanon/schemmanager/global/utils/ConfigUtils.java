@@ -1,33 +1,81 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.storagemanager.internal.base.exceptions.ObjectNullException;
+import de.zeanon.storagemanager.internal.utility.basic.Objects;
 import java.util.Arrays;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class ConfigUtils {
 
 	/**
 	 * get an int from the config.
 	 *
 	 * @param key the Config key.
+	 *
 	 * @return value.
 	 */
-	public static byte getByte(final String key) {
-		if (SchemManager.getLocalConfig().hasKey(key)) {
-			return SchemManager.getLocalConfig().getByte(key);
-		} else {
+	public int getInt(final @NotNull String key) {
+		try {
+			return Objects.notNull(Utils.getConfig()).getByteUseArray(key);
+		} catch (ObjectNullException e) {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					Update.updateConfig(true);
+					Update.updateConfig();
 				}
 			}.runTaskAsynchronously(SchemManager.getInstance());
-			return (byte) getDefaultValue(key);
+			return (int) ConfigUtils.getDefaultValue(key);
+		}
+	}
+
+	/**
+	 * get a boolean from the config.
+	 *
+	 * @param key the Config key.
+	 *
+	 * @return value.
+	 */
+	public boolean getBoolean(final @NotNull String key) {
+		try {
+			return Objects.notNull(Utils.getConfig()).getBooleanUseArray(key);
+		} catch (ObjectNullException e) {
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					Update.updateConfig();
+				}
+			}.runTaskAsynchronously(SchemManager.getInstance());
+			return (boolean) ConfigUtils.getDefaultValue(key);
+		}
+	}
+
+	/**
+	 * get a StringList from the config.
+	 *
+	 * @param key the Config key.
+	 *
+	 * @return value.
+	 */
+	@Nullable
+	public List<String> getStringList(final @NotNull String key) {
+		try {
+			return Objects.notNull(Utils.getConfig()).getListUseArray(key);
+		} catch (ObjectNullException e) {
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					Update.updateConfig();
+				}
+			}.runTaskAsynchronously(SchemManager.getInstance());
+			//noinspection unchecked
+			return (List<String>) ConfigUtils.getDefaultValue(key);
 		}
 	}
 
@@ -35,9 +83,10 @@ public class ConfigUtils {
 	 * Get the default values of the different Config keys.
 	 *
 	 * @param key the Config key.
+	 *
 	 * @return the default value.
 	 */
-	private static Object getDefaultValue(final String key) {
+	private @NotNull Object getDefaultValue(final @NotNull String key) {
 		switch (key) {
 			case "Space Lists":
 			case "Delete empty Folders":
@@ -52,48 +101,7 @@ public class ConfigUtils {
 			case "Plugin Version":
 				return SchemManager.getInstance().getDescription().getVersion();
 			default:
-				return null;
-		}
-	}
-
-	/**
-	 * get a boolean from the config.
-	 *
-	 * @param key the Config key.
-	 * @return value.
-	 */
-	public static boolean getBoolean(final String key) {
-		if (SchemManager.getLocalConfig().hasKey(key)) {
-			return SchemManager.getLocalConfig().getBoolean(key);
-		} else {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					Update.updateConfig(true);
-				}
-			}.runTaskAsynchronously(SchemManager.getInstance());
-			return (boolean) getDefaultValue(key);
-		}
-	}
-
-	/**
-	 * get a StringList from the config.
-	 *
-	 * @param key the Config key.
-	 * @return value.
-	 */
-	@SuppressWarnings("unchecked")
-	public static List<String> getStringList(final String key) {
-		if (SchemManager.getLocalConfig().hasKey(key)) {
-			return SchemManager.getLocalConfig().getStringList(key);
-		} else {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					Update.updateConfig(true);
-				}
-			}.runTaskAsynchronously(SchemManager.getInstance());
-			return (List<String>) getDefaultValue(key);
+				return new Object();
 		}
 	}
 }

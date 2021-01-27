@@ -5,11 +5,13 @@ import de.zeanon.schemmanager.global.utils.MessageUtils;
 import de.zeanon.schemmanager.global.utils.RequestUtils;
 import de.zeanon.schemmanager.global.utils.Update;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 
 public class CommandHandler implements CommandExecutor {
@@ -17,90 +19,142 @@ public class CommandHandler implements CommandExecutor {
 	/**
 	 * Gets the user commands and processes them("/schemmanager")
 	 */
-	@SuppressWarnings("NullableProblems")
 	@Override
-	public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
+	public boolean onCommand(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String label, final @NotNull String @NotNull [] args) {
 		if (command.getName().equalsIgnoreCase("schemmanager")) {
 			if (sender instanceof Player) {
-				Player p = (Player) sender;
+				final @NotNull Player p = (Player) sender;
 				if (args.length == 0) {
-					p.sendMessage(ChatColor.RED + "Missing argument for " + ChatColor.YELLOW + "<" + ChatColor.GOLD
-								  + "argument" + ChatColor.YELLOW + ">");
-					sendUpdateUsage(p);
-					sendDisableUsage(p);
-				} else if (args[0].equalsIgnoreCase("disable") && p.hasPermission("schemmanager.disable")) {
+					p.sendMessage(ChatColor.RED + "Missing argument for "
+								  + ChatColor.YELLOW + "<"
+								  + ChatColor.GOLD + "argument"
+								  + ChatColor.YELLOW + ">");
+					this.sendUpdateUsage(p);
+					this.sendDisableUsage(p);
+				} else if (args[0].equalsIgnoreCase("disable")
+						   && p.hasPermission("schemmanager.disable")) {
 					if (args.length == 1) {
-						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to disable " + ChatColor.DARK_PURPLE
-														+ SchemManager.getInstance().getName() + ChatColor.RED + "? ", "/schemmanager disable confirm", "/schemmanager disable deny",
-														p);
-						RequestUtils.addDisableRequest(p);
-					} else if (args.length == 2 && (args[1].equalsIgnoreCase("confirm") || args[1].equalsIgnoreCase("deny"))) {
-						if (args[1].equalsIgnoreCase("confirm") && RequestUtils.checkDisableRequest(p)) {
-							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " is being disabled.");
+						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to disable "
+														+ ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+														+ ChatColor.RED + "? "
+								, "/schemmanager disable confirm"
+								, "/schemmanager disable deny"
+								, p);
+						RequestUtils.addDisableRequest(p.getUniqueId());
+					} else if (args.length == 2
+							   && (args[1].equalsIgnoreCase("confirm")
+								   || args[1].equalsIgnoreCase("deny"))
+							   && RequestUtils.checkDisableRequest(p.getUniqueId())) {
+						RequestUtils.removeDisableRequest(p.getUniqueId());
+						if (args[1].equalsIgnoreCase("confirm")) {
+							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+										  + ChatColor.RED + " is being disabled.");
 							SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
-						} else if (args[1].equalsIgnoreCase("deny") && RequestUtils.checkDisableRequest(p)) {
-							RequestUtils.removeDisableRequest(p);
-							p.sendMessage(
-									ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " will not be disabled.");
+						} else {
+							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+										  + ChatColor.RED + " will not be disabled.");
 						}
 					} else {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						sendDisableUsage(p);
+						this.sendDisableUsage(p);
 					}
-				} else if (args[0].equalsIgnoreCase("update") && p.hasPermission("schemmanager.update")) {
+				} else if (args[0].equalsIgnoreCase("update")
+						   && p.hasPermission("schemmanager.update")) {
 					if (args.length == 1) {
-						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to update?", "/schemmanager update confirm",
-														"/schemmanager update deny", p);
-						RequestUtils.addUpdateRequest(p);
-					} else if (args.length == 2 && (args[1].equalsIgnoreCase("confirm") || args[1].equalsIgnoreCase("deny"))) {
-						if (args[1].equalsIgnoreCase("confirm") && RequestUtils.checkUpdateRequest(p)) {
-							RequestUtils.removeUpdateRequest(p);
-							new BukkitRunnable() {
-								@Override
-								public void run() {
-									Update.updatePlugin(p);
-								}
-							}.runTaskAsynchronously(SchemManager.getInstance());
-						} else if (args[1].equalsIgnoreCase("deny") && RequestUtils.checkUpdateRequest(p)) {
-							RequestUtils.removeUpdateRequest(p);
-							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName() + ChatColor.RED + " will not be updated.");
+						MessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to update?"
+								, "/schemmanager update confirm"
+								, "/schemmanager update deny"
+								, p);
+						RequestUtils.addUpdateRequest(p.getUniqueId());
+					} else if (args.length == 2
+							   && (args[1].equalsIgnoreCase("confirm")
+								   || args[1].equalsIgnoreCase("deny"))
+							   && RequestUtils.checkUpdateRequest(p.getUniqueId())) {
+						RequestUtils.removeUpdateRequest(p.getUniqueId());
+						if (args[1].equalsIgnoreCase("confirm")) {
+							if (Bukkit.getVersion().contains("git-Paper")) {
+								new BukkitRunnable() {
+									@Override
+									public void run() {
+										Update.updatePlugin(p);
+									}
+								}.runTaskAsynchronously(SchemManager.getInstance());
+							} else {
+								Update.updatePlugin(p);
+							}
+						} else {
+							p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+										  + ChatColor.RED + " will not be updated.");
 						}
 					} else {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						sendUpdateUsage(p);
+						this.sendUpdateUsage(p);
 					}
 				} else {
-					p.sendMessage(ChatColor.RED + "Invalid sub-command '" + ChatColor.GOLD + "" + args[0] + ChatColor.RED + ".");
-					sendUpdateUsage(p);
-					sendDisableUsage(p);
+					p.sendMessage(ChatColor.RED + "Invalid sub-command '"
+								  + ChatColor.GOLD + "" + args[0] + ChatColor.RED + ".");
+					this.sendUpdateUsage(p);
+					this.sendDisableUsage(p);
 				}
 			} else {
-				if (args.length == 1 && args[0].equalsIgnoreCase("disable")) {
-					SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
-				} else if (args[0].equalsIgnoreCase("update")) {
-					new BukkitRunnable() {
-						@Override
-						public void run() {
-							Update.updatePlugin();
+				if (args.length == 1) {
+					if (args[0].equalsIgnoreCase("disable")) {
+						RequestUtils.addConsoleDisableRequest();
+						System.out.println("To disable type 'schemmanager disable confirm', otherwise type 'schemmanager disable deny'");
+					} else if (args[0].equalsIgnoreCase("update")) {
+						RequestUtils.addConsoleUpdateRequest();
+						System.out.println("To update type 'schemmanager update confirm', otherwise type 'schemmanager update deny'");
+					}
+				} else if (args.length == 2 && (args[1].equalsIgnoreCase("deny") || args[1].equalsIgnoreCase("confirm"))) {
+					if (args[0].equalsIgnoreCase("disable") && RequestUtils.checkConsoleDisableRequest()) {
+						RequestUtils.removeConsoleDisableRequest();
+						if (args[1].equalsIgnoreCase("confirm")) {
+							SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+						} else {
+							System.out.println("SchemManager will not be disabled.");
 						}
-					}.runTaskAsynchronously(SchemManager.getInstance());
+					} else if (args[0].equalsIgnoreCase("update") && RequestUtils.checkConsoleUpdateRequest()) {
+						RequestUtils.removeConsoleUpdateRequest();
+						if (args[1].equalsIgnoreCase("confirm")) {
+							if (Bukkit.getVersion().contains("git-Paper")) {
+								new BukkitRunnable() {
+									@Override
+									public void run() {
+										Update.updatePlugin();
+									}
+								}.runTaskAsynchronously(SchemManager.getInstance());
+							} else {
+								Update.updatePlugin();
+							}
+						} else {
+							System.out.println("SchemManager will not be updated.");
+						}
+					}
 				}
 			}
 		}
 		return true;
 	}
 
-	private void sendUpdateUsage(final Player p) {
+	private void sendUpdateUsage(final @NotNull Player p) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " update", ChatColor.DARK_GREEN + ""
-																									   + ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "!!UPDATE BABY!!",
+										ChatColor.GRAY + "/schemmanager"
+										+ ChatColor.AQUA + " update",
+										ChatColor.DARK_GREEN + ""
+										+ ChatColor.UNDERLINE + ""
+										+ ChatColor.ITALIC + ""
+										+ ChatColor.BOLD + "!!UPDATE BABY!!",
 										"/schemmanager update", p);
 	}
 
-	private void sendDisableUsage(final Player p) {
+	private void sendDisableUsage(final @NotNull Player p) {
 		MessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-										ChatColor.GRAY + "/schemmanager" + ChatColor.AQUA + " disable", ChatColor.DARK_RED + ""
-																										+ ChatColor.UNDERLINE + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "PLS DON'T D;",
+										ChatColor.GRAY + "/schemmanager"
+										+ ChatColor.AQUA + " disable",
+										ChatColor.DARK_RED + ""
+										+ ChatColor.UNDERLINE + ""
+										+ ChatColor.ITALIC + ""
+										+ ChatColor.BOLD + "PLS DON'T D;",
 										"/schemmanager disable", p);
 	}
 }

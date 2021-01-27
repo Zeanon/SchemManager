@@ -1,262 +1,326 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-			xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.zeanon</groupId>
-	<artifactId>schemmanager</artifactId>
-	<version>4.4.2-Beta-v2.29</version>
-	<name>SchemManager</name>
-	<description>Manage your schematics properly</description>
-	<url>https://github.com/Zeanon/SchemManager</url>
+    <groupId>de.zeanon</groupId>
+    <artifactId>schemmanager</artifactId>
+    <version>4.5.0-Beta</version>
+    <packaging>jar</packaging>
+    <name>SchemManager</name>
 
-	<licenses>
-		<license>
-			<name>Apache License 2.0</name>
-			<url>https://github.com/Zeanon/SchemManager/blob/master/LICENSE</url>
-		</license>
-	</licenses>
+    <description>Manage your schematics properly</description>
+    <url>https://github.com/Zeanon/SchemManager</url>
 
-	<developers>
-		<developer>
-			<id>Zeanon</id>
-			<name>Zeanon</name>
-			<email>thezeanon@gmail.com</email>
-			<url>https://github.com/Zeanon</url>
-			<roles>
-				<role>Lead Developer</role>
-				<role>Coolest guy on earth</role>
-			</roles>
-			<timezone>Germany</timezone>
-		</developer>
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://github.com/Zeanon/SchemManager/blob/master/LICENSE</url>
+        </license>
+    </licenses>
 
-		<developer>
-			<id>JavaFactoryDev</id>
-			<name>Leonhard Solbach</name>
-			<email>JavaFactoryDev@gmail.com</email>
-			<url>https://github.com/JavaFactoryDev</url>
-			<roles>
-				<role>Library Developer</role>
-				<role>Does not know how to document code</role>
-			</roles>
-			<timezone>Germany</timezone>
-		</developer>
-	</developers>
+    <developers>
+        <developer>
+            <id>Zeanon</id>
+            <name>Zeanon</name>
+            <email>thezeanon@gmail.com</email>
+            <url>https://github.com/Zeanon</url>
+            <roles>
+                <role>Lead Developer</role>
+            </roles>
+            <timezone>Germany</timezone>
+        </developer>
+    </developers>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
-	<packaging>jar</packaging>
+    <scm>
+        <connection>scm:git:git://github.com/Zeanon/SchemManager.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Zeanon/SchemManager.git</developerConnection>
+        <url>//github.com/Zeanon/SchemManager</url>
+    </scm>
 
-	<build>
-		<defaultGoal>clean verify -U -Dmaven.copy.skip=true</defaultGoal>
-		<finalName>${project.name}</finalName>
-		<resources>
-			<resource>
-				<filtering>true</filtering>
-				<targetPath>.</targetPath>
-				<directory>${basedir}/src/resources/spigotresources/</directory>
-			</resource>
+    <build>
+        <defaultGoal>clean verify -U</defaultGoal>
+        <finalName>${project.name}</finalName>
 
-			<resource>
-				<filtering>true</filtering>
-				<targetPath>resources</targetPath>
-				<directory>${basedir}/src/resources/pluginresources/</directory>
-			</resource>
-		</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>3.0.0-M1</version>
-				<executions>
-					<execution>
-						<id>install-plugman</id>
-						<phase>clean</phase>
-						<configuration>
-							<groupId>com.rylinaux</groupId>
-							<artifactId>plugman</artifactId>
-							<version>2.1.6</version>
-							<file>${basedir}/src/resources/libs/PlugMan.jar</file>
-							<packaging>jar</packaging>
-							<generatePom>true</generatePom>
-						</configuration>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.8.2</version>
+                </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.1</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<relocations>
-						<relocation>
-							<pattern>de.leonhard</pattern>
-							<shadedPattern>de.zeanon.schemmanager.shaded</shadedPattern>
-						</relocation>
-					</relocations>
-					<createDependencyReducedPom>false</createDependencyReducedPom>
-				</configuration>
-			</plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.1.1</version>
+                </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.2</version>
-				<configuration>
-					<archive>
-						<addMavenDescriptor>false</addMavenDescriptor>
-						<manifestEntries>
-							<Manifest-Version>${project.version}</Manifest-Version>
-							<Built-By>${project.name} Development Team</Built-By>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
+                <plugin>
+                    <artifactId>maven-scm-publish-plugin</artifactId>
+                    <version>1.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <targetPath>.</targetPath>
+                <directory>src/main/resources/spigotresources/</directory>
+            </resource>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<id>moveFiles</id>
-						<phase>verify</phase>
-						<configuration>
-							<target unless="maven.copy.skip">
-								<echo message="To skip, call -Dmaven.copy.skip=true"/>
-								<copy todir="E:\Servers\Server 1.14\plugins" flatten="true" overwrite="true"
-										verbose="true" failonerror="true">
-									<fileset dir="${basedir}/target"
-												includes="${project.build.finalName}.jar"/>
-								</copy>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-	<repositories>
-		<!-- Spigot Repo -->
-		<repository>
-			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-		</repository>
+            <resource>
+                <filtering>true</filtering>
+                <targetPath>resources</targetPath>
+                <directory>src/main/resources/pluginresources/</directory>
+            </resource>
+        </resources>
 
-		<!-- BungeeCord Repo -->
-		<repository>
-			<id>bungeecord-repo</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</repository>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <executions>
+                    <execution>
+                        <id>install-plugman</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>com.rylinaux</groupId>
+                            <artifactId>plugman</artifactId>
+                            <version>2.1.7</version>
+                            <file>src/main/resources/dependencies/PlugMan.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install-storagemanager</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>de.zeanon</groupId>
+                            <artifactId>storagemanager</artifactId>
+                            <version>1.1.79</version>
+                            <file>src/main/resources/dependencies/StorageManager.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install-lixfel-worldedit</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>de.lixfel</groupId>
+                            <artifactId>worldedit</artifactId>
+                            <version>1.0.0</version>
+                            <file>src/main/resources/dependencies/WorldEdit.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-		<!-- Paper repo -->
-		<repository>
-			<id>papermc</id>
-			<url>https://papermc.io/repo/repository/maven-public/</url>
-		</repository>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>de.zeanon.storagemanager</pattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                </configuration>
+            </plugin>
 
-		<!-- WorldEdit Repo -->
-		<repository>
-			<id>enginehub-maven</id>
-			<url>http://maven.enginehub.org/repo/</url>
-		</repository>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifestEntries>
+                            <Manifest-Version>${project.version}</Manifest-Version>
+                            <Built-By>${project.name} Development Team</Built-By>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
 
-		<!-- TheWarKing Repo -->
-		<repository>
-			<id>thewarking-public</id>
-			<url>http://thewarking.de:8081/repository/PluginUtils/</url>
-		</repository>
-	</repositories>
-	<dependencies>
-		<!-- Spigot API -->
-		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot-api</artifactId>
-			<version>1.14.4-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
 
-		<!-- PaperMC API -->
-		<dependency>
-			<groupId>com.destroystokyo.paper</groupId>
-			<artifactId>paper-api</artifactId>
-			<version>1.14.4-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>moveFiles</id>
+                        <phase>verify</phase>
+                        <configuration>
+                            <target if="maven.copy">
+                                <copy todir="E:\Servers\Server 1.15\plugins" flatten="true" overwrite="true"
+                                      verbose="true" failonerror="true">
+                                    <fileset dir="${basedir}/target"
+                                             includes="${project.build.finalName}.jar"/>
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-		<!-- Commons IO -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
-			<scope>runtime</scope>
-		</dependency>
+    <repositories>
+        <!-- Spigot Repo -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
 
-		<!-- LightningStorage by JavaFactoryDev and Zeanon-->
-		<dependency>
-			<groupId>de.leonhard</groupId>
-			<artifactId>lightningstorage</artifactId>
-			<version>3.0.0-Beta-v3.42</version>
-			<scope>compile</scope>
-		</dependency>
+        <!-- BungeeCord Repo -->
+        <repository>
+            <id>bungeecord-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
 
-		<!-- WorldEdit API -->
-		<dependency>
-			<groupId>com.sk89q.worldedit</groupId>
-			<artifactId>worldedit-bukkit</artifactId>
-			<version>7.1.0-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- Paper repo -->
+        <repository>
+            <id>papermc</id>
+            <url>https://papermc.io/repo/repository/maven-public/</url>
+        </repository>
 
-		<!-- PlugMan API -->
-		<dependency>
-			<groupId>com.rylinaux</groupId>
-			<artifactId>plugman</artifactId>
-			<version>2.1.6</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- WorldEdit Repo -->
+        <repository>
+            <id>enginehub-maven</id>
+            <url>http://maven.enginehub.org/repo/</url>
+        </repository>
 
-		<!-- Lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.10</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- FAWE -->
+        <repository>
+            <id>IntellectualSites</id>
+            <url>https://mvn.intellectualsites.com/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 
-		<!-- JetBrains -->
-		<dependency>
-			<groupId>org.jetbrains</groupId>
-			<artifactId>annotations</artifactId>
-			<version>17.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <!-- Spigot API -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.15.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- PaperMC API -->
+        <dependency>
+            <groupId>com.destroystokyo.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.15.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Commons IO -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- StorageManager by Zeanon-->
+        <dependency>
+            <groupId>de.zeanon</groupId>
+            <artifactId>storagemanager</artifactId>
+            <version>1.1.79</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- WorldEdit API -->
+        <dependency>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>7.1.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- WorldEdit API | LixFel -->
+        <dependency>
+            <groupId>de.lixfel</groupId>
+            <artifactId>worldedit</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- FAWE API -->
+        <dependency>
+            <groupId>com.intellectualsites.fawe</groupId>
+            <artifactId>FAWE-Bukkit</artifactId>
+            <version>1.16-555</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- PlugMan -->
+        <dependency>
+            <groupId>com.rylinaux</groupId>
+            <artifactId>plugman</artifactId>
+            <version>2.1.7</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JetBrains -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>17.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

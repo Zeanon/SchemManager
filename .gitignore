@@ -77,6 +77,10 @@ cmake-build-*/
 # File-based project format
 *.iws
 
+# UML Files
+*.plantuml
+*.puml
+
 # IntelliJ
 out/
 
@@ -207,3 +211,4 @@ TODO.txt
 .github
 LICENSE
 README.md
+!/src/main/resources/**/*.jar

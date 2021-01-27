@@ -1,42 +1,65 @@
 package de.zeanon.schemmanager.global.utils;
 
-import java.util.ArrayList;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import org.bukkit.entity.Player;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentSkipListSet;
+import lombok.experimental.UtilityClass;
+import org.jetbrains.annotations.NotNull;
 
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class RequestUtils {
 
-	private static final ArrayList<String> disableRequests = new ArrayList<>();
-	private static final ArrayList<String> updateRequests = new ArrayList<>();
+	private final @NotNull Set<UUID> disableRequests = new ConcurrentSkipListSet<>();
+	private final @NotNull Set<UUID> updateRequests = new ConcurrentSkipListSet<>();
+	private boolean consoleUpdate = false;
+	private boolean consoleDisable = false;
 
-	public static void removeDisableRequest(final Player p) {
-		disableRequests.remove(p.getUniqueId().toString());
+	public void addDisableRequest(final @NotNull UUID uuid) {
+		RequestUtils.disableRequests.add(uuid);
 	}
 
-	public static void removeUpdateRequest(final Player p) {
-		updateRequests.remove(p.getUniqueId().toString());
+	public void removeDisableRequest(final @NotNull UUID uuid) {
+		RequestUtils.disableRequests.remove(uuid);
 	}
 
-	public static void addDisableRequest(final Player p) {
-		if (!checkDisableRequest(p)) {
-			disableRequests.add(p.getUniqueId().toString());
-		}
+	public boolean checkDisableRequest(final @NotNull UUID uuid) {
+		return RequestUtils.disableRequests.contains(uuid);
 	}
 
-	public static boolean checkDisableRequest(final Player p) {
-		return disableRequests.contains(p.getUniqueId().toString());
+	public void addUpdateRequest(final @NotNull UUID uuid) {
+		RequestUtils.updateRequests.add(uuid);
 	}
 
-	public static void addUpdateRequest(final Player p) {
-		if (!checkUpdateRequest(p)) {
-			updateRequests.add(p.getUniqueId().toString());
-		}
+	public void removeUpdateRequest(final @NotNull UUID uuid) {
+		RequestUtils.updateRequests.remove(uuid);
 	}
 
-	public static boolean checkUpdateRequest(final Player p) {
-		return updateRequests.contains(p.getUniqueId().toString());
+	public boolean checkUpdateRequest(final @NotNull UUID uuid) {
+		return RequestUtils.updateRequests.contains(uuid);
+	}
+
+	public void addConsoleDisableRequest() {
+		RequestUtils.consoleDisable = true;
+	}
+
+	public void removeConsoleDisableRequest() {
+		RequestUtils.consoleDisable = false;
+	}
+
+	public boolean checkConsoleDisableRequest() {
+		return RequestUtils.consoleDisable;
+	}
+
+	public void addConsoleUpdateRequest() {
+		RequestUtils.consoleUpdate = true;
+	}
+
+	public void removeConsoleUpdateRequest() {
+		RequestUtils.consoleUpdate = false;
+	}
+
+	public boolean checkConsoleUpdateRequest() {
+		return RequestUtils.consoleUpdate;
 	}
 }

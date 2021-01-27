@@ -1,60 +1,48 @@
 package de.zeanon.schemmanager.global.utils;
 
 import de.zeanon.schemmanager.SchemManager;
-import java.io.*;
-import java.nio.file.Files;
+import de.zeanon.storagemanager.external.browniescollections.GapList;
+import de.zeanon.storagemanager.internal.utility.basic.BaseFileUtils;
+import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import java.io.File;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import java.util.List;
+import lombok.Getter;
+import lombok.experimental.UtilityClass;
+import org.jetbrains.annotations.NotNull;
 
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
+@SuppressWarnings("unused")
 public class InternalFileUtils {
 
-	private static final String pluginFolderPath;
+	@Getter
+	private final @NotNull String PLUGIN_FOLDER_PATH;
 
 	static {
-		String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
-		String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
-		StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
-		for (byte i = 1; i < parts.length - 1; i++) {
+		final @NotNull String slash = SchemManager.getInstance().getDataFolder().getAbsolutePath().contains("\\") ? "\\\\" : "/";
+		final @NotNull String[] parts = SchemManager.getInstance().getDataFolder().getAbsolutePath().split(slash);
+		final @NotNull StringBuilder pathBuilder = new StringBuilder(parts[0] + slash);
+		for (int i = 1; i < parts.length - 1; i++) {
 			pathBuilder.append(parts[i]).append(slash);
 		}
-		pluginFolderPath = pathBuilder.toString();
+		PLUGIN_FOLDER_PATH = pathBuilder.toString();
 	}
 
-	/**
-	 * @param folder the folder to look into
-	 * @param deep   deepSearch
-	 * @return the files of the folder that are directories
-	 */
-	public static ArrayList<File> getFolders(final File folder, final Boolean deep) {
-		ArrayList<File> files = new ArrayList<>();
-		for (File file : Objects.requireNonNull(folder.listFiles())) {
-			if (file.isDirectory()) {
-				files.add(file);
-				if (deep) {
-					files.addAll(getFolders(file, true));
-				}
-			}
-		}
-		return files;
-	}
-
-	public static ArrayList<File> getExistingFiles(final Path path) {
-		ArrayList<File> tempFiles = new ArrayList<>();
-		if (ConfigUtils.getStringList("File Extensions").stream().anyMatch(getExtension(path.toString()) :: equalsIgnoreCase)) {
-			File file = path.toFile();
+	public @NotNull List<File> getExistingFiles(final @NotNull Path path) {
+		final @NotNull List<File> tempFiles = new GapList<>();
+		if (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(path))) {
+			final @NotNull File file = path.toFile();
 			if (file.exists() && !file.isDirectory()) {
-				return new ArrayList<>(Collections.singletonList(file));
+				tempFiles.add(file);
 			}
+			return tempFiles;
 		}
-		ConfigUtils.getStringList("File Extensions").iterator().forEachRemaining(extension -> tempFiles.add(new File(path + "." + extension)));
-		ArrayList<File> files = new ArrayList<>();
-		for (File file : tempFiles) {
+		Objects.notNull(ConfigUtils.getStringList("File Extensions"))
+			   .iterator()
+			   .forEachRemaining(extension -> tempFiles.add(new File(path + "." + extension)));
+		final @NotNull List<File> files = new GapList<>();
+		for (final @NotNull File file : tempFiles) {
 			if (file.exists() && !file.isDirectory()) {
 				files.add(file);
 			}
@@ -62,41 +50,10 @@ public class InternalFileUtils {
 		return files;
 	}
 
-	public static String removeExtension(final String path) {
-		return path.replaceFirst("[.][^.]+$", "");
-	}
-
-	public static String getExtension(final String path) {
-		return path.lastIndexOf(".") > 0 ? path.substring(path.lastIndexOf(".") + 1) : "";
-	}
-
-	public static String deleteEmptyParent(final File file) {
-		if (file.getAbsoluteFile().getParentFile().delete()) {
-			return deleteEmptyParent(file.getAbsoluteFile().getParentFile());
+	public @NotNull String deleteEmptyParent(final @NotNull File file) {
+		if (file.getAbsoluteFile().getParentFile().delete()) { //NOSONAR
+			return InternalFileUtils.deleteEmptyParent(file.getAbsoluteFile().getParentFile());
 		}
 		return file.getName();
-	}
-
-	static String getPluginFolderPath() {
-		return pluginFolderPath;
-	}
-
-	static synchronized boolean writeToFile(final File file, final BufferedInputStream inputStream) {
-		try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
-			if (!file.exists()) {
-				Files.copy(inputStream, file.toPath());
-				return true;
-			} else {
-				final byte[] data = new byte[8192];
-				int count;
-				while ((count = inputStream.read(data, 0, 8192)) != -1) {
-					outputStream.write(data, 0, count);
-				}
-				return true;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
 	}
 }
