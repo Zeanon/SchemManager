@@ -41,7 +41,7 @@ public class Copy {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "'resolution error: Path is not allowed.");
 						Copy.usage(p, slash, schemAlias);
-					} else if (args.length == 5 && !FastAsyncWorldEditModeRequestUtils.checkRenameRequest(p.getUniqueId(), args[2])
+					} else if (args.length == 5 && !FastAsyncWorldEditModeRequestUtils.checkCopyRequest(p.getUniqueId(), args[2])
 							   && !args[3].equalsIgnoreCase("confirm")
 							   && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -99,6 +99,8 @@ public class Copy {
 				MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 												ChatColor.RED + "Do you really want to copy " +
 												ChatColor.GOLD + args[2] +
+												ChatColor.RED + " to " +
+												ChatColor.GOLD + args[3] +
 												ChatColor.RED + "?",
 												"//schem copy " + args[2] + " " + args[3] + " confirm",
 												"//schem copy " + args[2] + " " + args[3] + " deny", p);

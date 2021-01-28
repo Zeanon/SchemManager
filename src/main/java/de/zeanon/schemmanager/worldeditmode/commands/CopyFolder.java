@@ -43,7 +43,7 @@ public class CopyFolder {
 					} else if (args.length == 5
 							   && !args[4].equalsIgnoreCase("confirm")
 							   && !args[4].equalsIgnoreCase("deny")
-							   && !WorldEditModeRequestUtils.checkRenameFolderRequest(p.getUniqueId(), args[2])) {
+							   && !WorldEditModeRequestUtils.checkCopyFolderRequest(p.getUniqueId(), args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						CopyFolder.usage(p, slash, schemAlias);
 					} else {
@@ -197,9 +197,11 @@ public class CopyFolder {
 				}
 
 				MessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-												ChatColor.RED + "Do you really want to copy "
-												+ ChatColor.GREEN + args[2]
-												+ ChatColor.RED + "?",
+												ChatColor.RED + "Do you really want to copy " +
+												ChatColor.GREEN + args[2] +
+												ChatColor.RED + " to " +
+												ChatColor.GREEN + args[3] +
+												ChatColor.RED + "?",
 												"//schem copyfolder " + args[2] + " " + args[3] + " confirm",
 												"//schem copyfolder " + args[2] + " " + args[3] + " deny", p);
 				WorldEditModeRequestUtils.addCopyFolderRequest(p.getUniqueId(), args[2]);
