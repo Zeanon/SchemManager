@@ -68,7 +68,7 @@ class WorldEditModeTabCompleter {
 		final @NotNull List<String> completions = new GapList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
-				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolders", "search", "searchfolder");
+				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder");
 			} else {
 				if ("help".startsWith(args[1]) && !"help".equals(args[1])) {
 					completions.add("help");
@@ -109,8 +109,8 @@ class WorldEditModeTabCompleter {
 				if ("list".startsWith(args[1]) && !"list".equals(args[1])) {
 					completions.add("list");
 				}
-				if ("listfolders".startsWith(args[1]) && !"listfolders".equals(args[1])) {
-					completions.add("listfolders");
+				if ("listfolder".startsWith(args[1]) && !"listfolder".equals(args[1])) {
+					completions.add("listfolder");
 				}
 				if ("search".startsWith(args[1]) && !"search".equals(args[1])) {
 					completions.add("search");
@@ -121,7 +121,7 @@ class WorldEditModeTabCompleter {
 			}
 		} else if ((args.length == 3 + modifierCount && !argumentEnded) || args.length == 2 + modifierCount) {
 			if (argumentEnded) {
-				if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolders") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
+				if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
 					completions.add("-d");
 					completions.add("-deep");
 				}
@@ -138,7 +138,7 @@ class WorldEditModeTabCompleter {
 							completions.add(file.getName());
 						}
 					}
-				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolders") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
+				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
 					final @Nullable Path schemPath = SchemUtils.getSchemPath();
 					final @Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null && pathFile.exists() && pathFile.isDirectory()) {
@@ -148,7 +148,7 @@ class WorldEditModeTabCompleter {
 					}
 				}
 			} else {
-				if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolders") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
+				if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
 					if ("-d".startsWith(args[2 + modifierCount]) && !"-d".equals(args[2 + modifierCount])) {
 						completions.add("-d");
 					}
@@ -188,7 +188,7 @@ class WorldEditModeTabCompleter {
 							}
 						}
 					}
-				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolders") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
+				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
 					@Nullable Path tempDirectory = SchemUtils.getSchemPath();
 					final @NotNull String[] pathArgs = args[2 + modifierCount].split("/");
 					if (tempDirectory != null) {

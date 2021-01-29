@@ -96,9 +96,9 @@ public class Help {
 											  List.usageCommand(slash, schemAlias),
 											  p);
 		GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "List folders: ",
-											  ListFolders.usageMessage(slash, schemAlias),
-											  ListFolders.usageHoverMessage(slash, schemAlias),
-											  ListFolders.usageCommand(slash, schemAlias),
+											  ListFolder.usageMessage(slash, schemAlias),
+											  ListFolder.usageHoverMessage(slash, schemAlias),
+											  ListFolder.usageCommand(slash, schemAlias),
 											  p);
 		GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Search for a schematic: ",
 											  Search.usageMessage(slash, schemAlias),

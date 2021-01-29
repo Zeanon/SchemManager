@@ -190,7 +190,7 @@ public class SearchFolder {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + "There is no schematic folder.");
 			} else {
-				final @NotNull List<File> files = BaseFileUtils.listFiles(directory, deepSearch, arg, caseSensitiveSearch);
+				final @NotNull List<File> files = BaseFileUtils.listFolders(directory, deepSearch, arg, caseSensitiveSearch);
 				final double count = files.size();
 				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -248,7 +248,7 @@ public class SearchFolder {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.RED + "There is no schematic folder.");
 				} else {
-					final @NotNull List<File> files = BaseFileUtils.listFiles(directory, deepSearch, argTwo, caseSensitiveSearch);
+					final @NotNull List<File> files = BaseFileUtils.listFolders(directory, deepSearch, argTwo, caseSensitiveSearch);
 					final double count = files.size();
 					final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 					final int sideNumber = Integer.parseInt(argThree);
@@ -327,7 +327,7 @@ public class SearchFolder {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GREEN + argTwo + ChatColor.RED + " is no folder.");
 				} else {
-					final @NotNull List<File> files = BaseFileUtils.listFiles(directory, deepSearch, argThree, caseSensitiveSearch);
+					final @NotNull List<File> files = BaseFileUtils.listFolders(directory, deepSearch, argThree, caseSensitiveSearch);
 					final double count = files.size();
 					final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -385,7 +385,7 @@ public class SearchFolder {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GREEN + argTwo + ChatColor.RED + " is no folder.");
 			} else {
-				final @NotNull List<File> files = BaseFileUtils.listFiles(directory, deepSearch, argThree, caseSensitiveSearch);
+				final @NotNull List<File> files = BaseFileUtils.listFolders(directory, deepSearch, argThree, caseSensitiveSearch);
 				final double count = files.size();
 				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 				final int sideNumber = Integer.parseInt(argFour);

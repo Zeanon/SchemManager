@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
-public class ListFolders {
+public class ListFolder {
 
 	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
@@ -40,16 +40,16 @@ public class ListFolders {
 				if (args.length <= 4 + modifierCount) {
 					if (args.length == 4 + modifierCount && (StringUtils.isNumeric(args[2 + modifierCount]) || !StringUtils.isNumeric(args[3 + modifierCount]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						ListFolders.usage(p, slash, schemAlias);
+						ListFolder.usage(p, slash, schemAlias);
 					} else if (args.length >= 3 + modifierCount && args[2 + modifierCount].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "'resolution error: Path is not allowed.");
-						ListFolders.usage(p, slash, schemAlias);
+						ListFolder.usage(p, slash, schemAlias);
 					} else {
-						ListFolders.executeInternally(p, args, deep, modifierCount);
+						ListFolder.executeInternally(p, args, deep, modifierCount);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					ListFolders.usage(p, slash, schemAlias);
+					ListFolder.usage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
@@ -57,7 +57,7 @@ public class ListFolders {
 
 	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
 		return ChatColor.GRAY + slash + schemAlias
-			   + ChatColor.AQUA + " listfolders "
+			   + ChatColor.AQUA + " listfolder "
 			   + ChatColor.YELLOW + "["
 			   + ChatColor.DARK_PURPLE + "-d"
 			   + ChatColor.YELLOW + "] ["
@@ -70,7 +70,7 @@ public class ListFolders {
 	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
 		return ChatColor.RED + "e.g. "
 			   + ChatColor.GRAY + slash + schemAlias
-			   + ChatColor.AQUA + " listfolders "
+			   + ChatColor.AQUA + " listfolder "
 			   + ChatColor.YELLOW + "["
 			   + ChatColor.DARK_PURPLE + "-d"
 			   + ChatColor.YELLOW + "] ["
@@ -81,7 +81,7 @@ public class ListFolders {
 	}
 
 	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
-		return slash + schemAlias + " listfolders ";
+		return slash + schemAlias + " listfolder ";
 	}
 
 	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args, final boolean deepSearch, final int modifierCount) {
@@ -98,18 +98,18 @@ public class ListFolders {
 
 		switch (args.length - modifierCount) {
 			case 2:
-				ListFolders.twoArgs(schemPath, p, deep, deepSearch, spaceLists, listmax);
+				ListFolder.twoArgs(schemPath, p, deep, deepSearch, spaceLists, listmax);
 				break;
 			case 3:
-				ListFolders.threeArgs(args[2 + modifierCount], schemPath, p, deep, deepSearch, spaceLists, listmax);
+				ListFolder.threeArgs(args[2 + modifierCount], schemPath, p, deep, deepSearch, spaceLists, listmax);
 				break;
 			default:
-				ListFolders.defaultCase(args[2 + modifierCount], args[3 + modifierCount], schemPath, p, deep, deepSearch, spaceLists, listmax);
+				ListFolder.defaultCase(args[2 + modifierCount], args[3 + modifierCount], schemPath, p, deep, deepSearch, spaceLists, listmax);
 		}
 	}
 
 	private boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
-		return (!ListFolders.sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
+		return (!ListFolder.sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
 	}
 
 	private boolean sendListLine(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
@@ -173,21 +173,21 @@ public class ListFolders {
 
 					Collections.sort(files);
 					for (int i = 0; i < listmax; i++) {
-						if (ListFolders.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
+						if (ListFolder.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
 							return;
 						}
 					}
 
 					if (side > 1) {
-						GlobalMessageUtils.sendScrollMessage("//schem listfolders " + deep + "2",
-															 "//schem listfolders " + deep + side,
+						GlobalMessageUtils.sendScrollMessage("//schem listfolder " + deep + "2",
+															 "//schem listfolder " + deep + side,
 															 ChatColor.DARK_PURPLE + "Page 2",
 															 ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 					} else {
 						GlobalMessageUtils.sendScrollMessage("",
 															 "",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolders list",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolders list", p, ChatColor.BLUE);
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list",
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list", p, ChatColor.BLUE);
 					}
 				}
 			}
@@ -214,7 +214,7 @@ public class ListFolders {
 
 					if (sideNumber > side) {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-															ChatColor.RED + "There are only " + side + " pages of folders in ListFolders list",
+															ChatColor.RED + "There are only " + side + " pages of folders in ListFolder list",
 															"",
 															ChatColor.GRAY + "Schematics", p);
 						return;
@@ -242,7 +242,7 @@ public class ListFolders {
 
 						Collections.sort(files);
 						for (int i = 0; i < listmax; i++) {
-							if (ListFolders.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
+							if (ListFolder.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
 								return;
 							}
 							id++;
@@ -251,27 +251,27 @@ public class ListFolders {
 						if (side > 1) {
 							if (sideNumber > 1) {
 								if (sideNumber < side) {
-									GlobalMessageUtils.sendScrollMessage("//schem listfolders " + deep + (sideNumber + 1),
-																		 "//schem listfolders " + deep + (sideNumber - 1),
+									GlobalMessageUtils.sendScrollMessage("//schem listfolder " + deep + (sideNumber + 1),
+																		 "//schem listfolder " + deep + (sideNumber - 1),
 																		 ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
 																		 ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 								} else {
-									GlobalMessageUtils.sendScrollMessage("//schem listfolders " + deep + "1",
-																		 "//schem listfolders " + deep + (sideNumber - 1),
+									GlobalMessageUtils.sendScrollMessage("//schem listfolder " + deep + "1",
+																		 "//schem listfolder " + deep + (sideNumber - 1),
 																		 ChatColor.DARK_PURPLE + "Page 1",
 																		 ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 								}
 							} else {
-								GlobalMessageUtils.sendScrollMessage("//schem listfolders " + deep + (sideNumber + 1),
-																	 "//schem listfolders " + deep + side,
+								GlobalMessageUtils.sendScrollMessage("//schem listfolder " + deep + (sideNumber + 1),
+																	 "//schem listfolder " + deep + side,
 																	 ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
 																	 ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 							}
 						} else {
 							GlobalMessageUtils.sendScrollMessage("",
 																 "",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolders list",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolders list", p, ChatColor.BLUE);
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list",
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -314,21 +314,21 @@ public class ListFolders {
 
 						Collections.sort(files);
 						for (int i = 0; i < listmax; i++) {
-							if (ListFolders.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
+							if (ListFolder.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
 								return;
 							}
 						}
 
 						if (side > 1) {
-							GlobalMessageUtils.sendScrollMessage("//schem listfolders " + deep + arg + " 2",
-																 "//schem listfolders " + deep + arg + " " + side,
+							GlobalMessageUtils.sendScrollMessage("//schem listfolder " + deep + arg + " 2",
+																 "//schem listfolder " + deep + arg + " " + side,
 																 ChatColor.DARK_PURPLE + "Page 2",
 																 ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 						} else {
 							GlobalMessageUtils.sendScrollMessage("",
 																 "",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolders list",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolders list", p, ChatColor.BLUE);
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list",
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -356,7 +356,7 @@ public class ListFolders {
 
 				if (sideNumber > side) {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-														ChatColor.RED + "There are only " + side + " pages of folders in ListFolders list",
+														ChatColor.RED + "There are only " + side + " pages of folders in ListFolder list",
 														"",
 														ChatColor.GRAY + "Schematics/" + argTwo, p);
 					return;
@@ -383,7 +383,7 @@ public class ListFolders {
 
 					Collections.sort(files);
 					for (int i = 0; i < listmax; i++) {
-						if (ListFolders.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
+						if (ListFolder.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
 							return;
 						}
 						id++;
@@ -392,27 +392,27 @@ public class ListFolders {
 					if (side > 1) {
 						if (sideNumber > 1) {
 							if (sideNumber < side) {
-								GlobalMessageUtils.sendScrollMessage("//schem listfolders " + deep + argTwo + " " + (sideNumber + 1),
-																	 "//schem listfolders " + deep + argTwo + " " + (sideNumber - 1),
+								GlobalMessageUtils.sendScrollMessage("//schem listfolder " + deep + argTwo + " " + (sideNumber + 1),
+																	 "//schem listfolder " + deep + argTwo + " " + (sideNumber - 1),
 																	 ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
 																	 ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 							} else {
-								GlobalMessageUtils.sendScrollMessage("//schem listfolders " + deep + argTwo + " 1",
-																	 "//schem listfolders " + deep + argTwo + " " + (sideNumber - 1),
+								GlobalMessageUtils.sendScrollMessage("//schem listfolder " + deep + argTwo + " 1",
+																	 "//schem listfolder " + deep + argTwo + " " + (sideNumber - 1),
 																	 ChatColor.DARK_PURPLE + "Page 1",
 																	 ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 							}
 						} else {
-							GlobalMessageUtils.sendScrollMessage("//schem listfolders " + deep + argTwo + " " + (sideNumber + 1),
-																 "//schem listfolders " + deep + argTwo + " " + side,
+							GlobalMessageUtils.sendScrollMessage("//schem listfolder " + deep + argTwo + " " + (sideNumber + 1),
+																 "//schem listfolder " + deep + argTwo + " " + side,
 																 ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
 																 ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 						}
 					} else {
 						GlobalMessageUtils.sendScrollMessage("",
 															 "",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolders list",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolders list", p, ChatColor.BLUE);
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list",
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list", p, ChatColor.BLUE);
 					}
 				}
 			}
@@ -425,8 +425,8 @@ public class ListFolders {
 
 	private void usage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-											  ListFolders.usageMessage(slash, schemAlias),
-											  ListFolders.usageHoverMessage(slash, schemAlias),
-											  ListFolders.usageCommand(slash, schemAlias), p);
+											  ListFolder.usageMessage(slash, schemAlias),
+											  ListFolder.usageHoverMessage(slash, schemAlias),
+											  ListFolder.usageCommand(slash, schemAlias), p);
 	}
 }

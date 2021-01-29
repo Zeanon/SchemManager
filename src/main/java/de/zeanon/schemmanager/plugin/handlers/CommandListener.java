@@ -106,12 +106,12 @@ public class CommandListener implements Listener {
 				List.execute(args, p, slash, schemAlias);
 				// </List>
 
-				// <ListFolders>
-			} else if (args[1].equalsIgnoreCase("listfolders")
+				// <ListFolder>
+			} else if (args[1].equalsIgnoreCase("listfolder")
 					   && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
-				ListFolders.execute(args, p, slash, schemAlias);
-				// </ListFolders>
+				ListFolder.execute(args, p, slash, schemAlias);
+				// </ListFolder>
 
 				// <Search>
 			} else if (args[1].equalsIgnoreCase("search")
@@ -154,7 +154,7 @@ public class CommandListener implements Listener {
 							  + "delete" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "deletefolder" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "list" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "listfolders" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "listfolder" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "search" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "searchfolder");
 				CommandMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);

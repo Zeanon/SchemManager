@@ -25,7 +25,7 @@ public class CommandMessageUtils {
 		final @NotNull TextComponent delete = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "delete"));
 		final @NotNull TextComponent deletefolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "deletefolder"));
 		final @NotNull TextComponent list = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "list"));
-		final @NotNull TextComponent listfolders = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "listfolders"));
+		final @NotNull TextComponent listfolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "listfolder"));
 		final @NotNull TextComponent search = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "search"));
 		final @NotNull TextComponent searchfolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "searchfolder"));
 		schem.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + schemAlias + " "));
@@ -125,22 +125,22 @@ public class CommandMessageUtils {
 														  + ChatColor.DARK_PURPLE + "page"
 														  + ChatColor.YELLOW + "]")))
 												  .create()));
-		listfolders.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + schemAlias + " listfolders "));
-		listfolders.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-												 new ComponentBuilder(new TextComponent(
-														 TextComponent.fromLegacyText(
-																 ChatColor.RED + "e.g. "
-																 + ChatColor.GRAY + ""
-																 + slash + schemAlias + " "
-																 + ChatColor.AQUA + "listfolders "
-																 + ChatColor.YELLOW + "["
-																 + ChatColor.DARK_PURPLE + "-d"
-																 + ChatColor.YELLOW + "] ["
-																 + ChatColor.GREEN + "folder"
-																 + ChatColor.YELLOW + "] ["
-																 + ChatColor.DARK_PURPLE + "page"
-																 + ChatColor.YELLOW + "]")))
-														 .create()));
+		listfolder.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + schemAlias + " listfolder "));
+		listfolder.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+												new ComponentBuilder(new TextComponent(
+														TextComponent.fromLegacyText(
+																ChatColor.RED + "e.g. "
+																+ ChatColor.GRAY + ""
+																+ slash + schemAlias + " "
+																+ ChatColor.AQUA + "listfolder "
+																+ ChatColor.YELLOW + "["
+																+ ChatColor.DARK_PURPLE + "-d"
+																+ ChatColor.YELLOW + "] ["
+																+ ChatColor.GREEN + "folder"
+																+ ChatColor.YELLOW + "] ["
+																+ ChatColor.DARK_PURPLE + "page"
+																+ ChatColor.YELLOW + "]")))
+														.create()));
 		search.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + schemAlias + " search "));
 		search.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 											new ComponentBuilder(new TextComponent(
@@ -191,7 +191,7 @@ public class CommandMessageUtils {
 		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(list);
 		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
-		base.addExtra(listfolders);
+		base.addExtra(listfolder);
 		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(search);
 		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
