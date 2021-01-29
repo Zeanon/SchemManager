@@ -1,0 +1,95 @@
+package de.zeanon.schemmanager.plugin.update;
+
+import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.schemmanager.init.InitMode;
+import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
+import de.zeanon.storagemanager.internal.base.exceptions.ObjectNullException;
+import de.zeanon.storagemanager.internal.base.exceptions.RuntimeIOException;
+import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import java.util.Arrays;
+import java.util.List;
+import javafx.util.Pair;
+import lombok.experimental.UtilityClass;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+
+@UtilityClass
+public class Update {
+
+	public void updatePlugin() {
+		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
+			&& SchemManager.getPluginManager()
+						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
+			PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
+		} else {
+			DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"), SchemManager.getInstance());
+		}
+	}
+
+	public void updatePlugin(final @NotNull Player p) {
+		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
+			&& SchemManager.getPluginManager()
+						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
+			PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
+		} else {
+			DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"), SchemManager.getInstance());
+		}
+	}
+
+	public void checkConfigUpdate() {
+		try {
+			if (!Objects.notNull(InitMode.getConfig().getStringUseArray("Plugin Version"))
+						.equals(SchemManager.getInstance().getDescription().getVersion())
+				|| !InitMode.getConfig().hasKeyUseArray("File Extensions")
+				|| !InitMode.getConfig().hasKeyUseArray("Listmax")
+				|| !InitMode.getConfig().hasKeyUseArray("Space Lists")
+				|| !InitMode.getConfig().hasKeyUseArray("Delete empty Folders")
+				|| !InitMode.getConfig().hasKeyUseArray("Save Function Override")
+				|| !InitMode.getConfig().hasKeyUseArray("Stoplag Override")
+				|| !InitMode.getConfig().hasKeyUseArray("Automatic Reload")) {
+
+				Update.updateConfig();
+			}
+		} catch (ObjectNullException e) {
+			Update.updateConfig();
+		}
+	}
+
+	public void updateConfig() {
+		try {
+			final @NotNull List<String> fileExtensions = InitMode.getConfig().hasKeyUseArray("File Extensions")
+														 ? Objects.notNull(InitMode.getConfig().getListUseArray("File Extensions"))
+														 : Arrays.asList("schem", "schematic");
+			final int listmax = InitMode.getConfig().hasKeyUseArray("Listmax")
+								? InitMode.getConfig().getIntUseArray("Listmax")
+								: 10;
+			final boolean spaceLists = !InitMode.getConfig().hasKeyUseArray("Space Lists")
+									   || InitMode.getConfig().getBooleanUseArray("Space Lists");
+			final boolean deleteEmptyFolders = !InitMode.getConfig().hasKeyUseArray("Delete empty Folders")
+											   || InitMode.getConfig().getBooleanUseArray("Delete empty Folders");
+			final boolean saveOverride = !InitMode.getConfig().hasKeyUseArray("Save Function Override")
+										 || InitMode.getConfig().getBooleanUseArray("Save Function Override");
+			final boolean stoplagOverride = !InitMode.getConfig().hasKeyUseArray("Stoplag Override")
+											|| InitMode.getConfig().getBooleanUseArray("Stoplag Override");
+			final boolean autoReload = !InitMode.getConfig().hasKeyUseArray("Automatic Reload")
+									   || InitMode.getConfig().getBooleanUseArray("Automatic Reload");
+
+			InitMode.getConfig().setDataFromResource("resources/config.tf");
+
+			//noinspection unchecked
+			InitMode.getConfig().setAllUseArray(new Pair<>(new String[]{"Plugin Version"}, SchemManager.getInstance().getDescription().getVersion()),
+												new Pair<>(new String[]{"File Extensions"}, fileExtensions),
+												new Pair<>(new String[]{"Listmax"}, listmax),
+												new Pair<>(new String[]{"Space Lists"}, spaceLists),
+												new Pair<>(new String[]{"Delete empty Folders"}, deleteEmptyFolders),
+												new Pair<>(new String[]{"Save Function Override"}, saveOverride),
+												new Pair<>(new String[]{"Stoplag Override"}, stoplagOverride),
+												new Pair<>(new String[]{"Automatic Reload"}, autoReload));
+
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' updated.");
+		} catch (RuntimeIOException e) {
+			throw new RuntimeIOException("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be updated.", e);
+		}
+	}
+}

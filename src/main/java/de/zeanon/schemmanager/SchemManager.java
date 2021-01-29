@@ -1,8 +1,8 @@
 package de.zeanon.schemmanager;
 
-import de.zeanon.schemmanager.global.handlers.CommandHandler;
-import de.zeanon.schemmanager.global.handlers.SchemManagerTabCompleter;
-import de.zeanon.schemmanager.global.utils.Utils;
+import de.zeanon.schemmanager.init.InitMode;
+import de.zeanon.schemmanager.plugin.handlers.CommandHandler;
+import de.zeanon.schemmanager.plugin.handlers.SchemManagerTabCompleter;
 import de.zeanon.storagemanager.internal.utility.basic.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -29,7 +29,7 @@ public class SchemManager extends JavaPlugin {
 		SchemManager.setPluginManager(Bukkit.getPluginManager());
 		Objects.notNull(this.getCommand("schemmanager")).setExecutor(new CommandHandler());
 		Objects.notNull(this.getCommand("schemmanager")).setTabCompleter(new SchemManagerTabCompleter());
-		Utils.initPlugin();
+		InitMode.initPlugin();
 	}
 
 	@Override
