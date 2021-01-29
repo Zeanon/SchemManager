@@ -227,8 +227,8 @@ public class SearchFolder {
 					} else {
 						GlobalMessageUtils.sendScrollMessage("",
 															 "",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in SearchFolder list",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in SearchFolder list", p, ChatColor.BLUE);
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
 					}
 				}
 			}
@@ -255,7 +255,7 @@ public class SearchFolder {
 
 					if (sideNumber > side) {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-															ChatColor.RED + "There are only " + side + " pages of folders in SearchFolder list",
+															ChatColor.RED + "There are only " + side + " pages of folders in this list",
 															"",
 															ChatColor.GRAY + (caseSensitiveSearch ? "Schematics [-c]" : "Schematics"), p);
 						return;
@@ -309,8 +309,8 @@ public class SearchFolder {
 						} else {
 							GlobalMessageUtils.sendScrollMessage("",
 																 "",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in SearchFolder list",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in SearchFolder list", p, ChatColor.BLUE);
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -364,8 +364,8 @@ public class SearchFolder {
 						} else {
 							GlobalMessageUtils.sendScrollMessage("",
 																 "",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in SearchFolder list",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in SearchFolder list", p, ChatColor.BLUE);
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -392,7 +392,7 @@ public class SearchFolder {
 
 				if (sideNumber > side) {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-														ChatColor.RED + "There are only " + side + " pages of folders in SearchFolder list",
+														ChatColor.RED + "There are only " + side + " pages of folders in this list",
 														"",
 														ChatColor.GRAY + (caseSensitiveSearch ? "Schematics/" + argTwo + " [-c]" : "Schematics/" + argTwo), p);
 					return;
@@ -446,8 +446,8 @@ public class SearchFolder {
 					} else {
 						GlobalMessageUtils.sendScrollMessage("",
 															 "",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in SearchFolder list",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in SearchFolder list", p, ChatColor.BLUE);
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
 					}
 				}
 			}

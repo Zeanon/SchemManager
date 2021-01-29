@@ -186,8 +186,8 @@ public class ListFolder {
 					} else {
 						GlobalMessageUtils.sendScrollMessage("",
 															 "",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list", p, ChatColor.BLUE);
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
 					}
 				}
 			}
@@ -214,7 +214,7 @@ public class ListFolder {
 
 					if (sideNumber > side) {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-															ChatColor.RED + "There are only " + side + " pages of folders in ListFolder list",
+															ChatColor.RED + "There are only " + side + " pages of folders in this list",
 															"",
 															ChatColor.GRAY + "Schematics", p);
 						return;
@@ -270,8 +270,8 @@ public class ListFolder {
 						} else {
 							GlobalMessageUtils.sendScrollMessage("",
 																 "",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list", p, ChatColor.BLUE);
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -327,8 +327,8 @@ public class ListFolder {
 						} else {
 							GlobalMessageUtils.sendScrollMessage("",
 																 "",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list", p, ChatColor.BLUE);
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
+																 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -356,7 +356,7 @@ public class ListFolder {
 
 				if (sideNumber > side) {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-														ChatColor.RED + "There are only " + side + " pages of folders in ListFolder list",
+														ChatColor.RED + "There are only " + side + " pages of folders in this list",
 														"",
 														ChatColor.GRAY + "Schematics/" + argTwo, p);
 					return;
@@ -411,8 +411,8 @@ public class ListFolder {
 					} else {
 						GlobalMessageUtils.sendScrollMessage("",
 															 "",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in ListFolder list", p, ChatColor.BLUE);
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
 					}
 				}
 			}

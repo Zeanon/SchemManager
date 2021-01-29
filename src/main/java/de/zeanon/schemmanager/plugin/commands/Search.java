@@ -238,8 +238,8 @@ public class Search {
 					} else {
 						GlobalMessageUtils.sendScrollMessage("",
 															 "",
-															 ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list",
-															 ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list", p, ChatColor.BLUE);
+															 ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
+															 ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
 					}
 				}
 			}
@@ -266,7 +266,7 @@ public class Search {
 
 					if (sideNumber > side) {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-															ChatColor.RED + "There are only " + side + " schematics in Search list",
+															ChatColor.RED + "There are only " + side + " schematics in this list",
 															"",
 															ChatColor.GRAY + (caseSensitiveSearch ? "Schematics [-c]" : "Schematics"), p);
 						return;
@@ -320,8 +320,8 @@ public class Search {
 						} else {
 							GlobalMessageUtils.sendScrollMessage("",
 																 "",
-																 ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list",
-																 ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list", p, ChatColor.BLUE);
+																 ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
+																 ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -375,8 +375,8 @@ public class Search {
 						} else {
 							GlobalMessageUtils.sendScrollMessage("",
 																 "",
-																 ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list",
-																 ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list", p, ChatColor.BLUE);
+																 ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
+																 ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
 						}
 					}
 				}
@@ -403,7 +403,7 @@ public class Search {
 
 				if (sideNumber > side) {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-														ChatColor.RED + "There are only " + side + " schematics in Search list",
+														ChatColor.RED + "There are only " + side + " schematics in this list",
 														"",
 														ChatColor.GRAY + (caseSensitiveSearch ? "Schematics/" + argTwo + " [-c]" : "Schematics/" + argTwo), p);
 					return;
@@ -459,8 +459,8 @@ public class Search {
 					} else {
 						GlobalMessageUtils.sendScrollMessage("",
 															 "",
-															 ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list",
-															 ChatColor.DARK_PURPLE + "There is only one page of schematics in Search list", p, ChatColor.BLUE);
+															 ChatColor.DARK_PURPLE + "There is only one page of schematics in this list",
+															 ChatColor.DARK_PURPLE + "There is only one page of schematics in this list", p, ChatColor.BLUE);
 					}
 				}
 			}
