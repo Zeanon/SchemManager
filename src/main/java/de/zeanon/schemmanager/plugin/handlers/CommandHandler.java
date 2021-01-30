@@ -61,7 +61,7 @@ public class CommandHandler implements CommandExecutor {
 				} else if (args[0].equalsIgnoreCase("update")
 						   && p.hasPermission("schemmanager.update")) {
 					if (args.length == 1) {
-						if (Update.checkForUpdate()) {
+						if (!Update.checkForUpdate()) {
 							p.sendMessage(ChatColor.RED + "You are already running the latest Version.");
 						}
 						GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to update?"
