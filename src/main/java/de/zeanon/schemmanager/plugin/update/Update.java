@@ -113,7 +113,8 @@ public class Update {
 	}
 
 	public boolean checkForUpdate() {
-		return !SchemManager.getInstance().getDescription().getVersion().equalsIgnoreCase(Update.getGithubVersionTag());
+		System.out.println(Update.getGithubVersionTag() + "|" + SchemManager.getInstance().getDescription().getVersion());
+		return !("v" + SchemManager.getInstance().getDescription().getVersion()).equalsIgnoreCase(Update.getGithubVersionTag());
 	}
 
 	private String getGithubVersionTag() {

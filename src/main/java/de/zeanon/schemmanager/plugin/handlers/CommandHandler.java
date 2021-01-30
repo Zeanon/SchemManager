@@ -66,14 +66,13 @@ public class CommandHandler implements CommandExecutor {
 									, "/schemmanager update confirm"
 									, "/schemmanager update deny"
 									, p);
-							GlobalRequestUtils.addUpdateRequest(p.getUniqueId());
 						} else {
 							GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "You are already running on the latest version. Do you really want to update?"
 									, "/schemmanager update confirm"
 									, "/schemmanager update deny"
 									, p);
-							GlobalRequestUtils.addUpdateRequest(p.getUniqueId());
 						}
+						GlobalRequestUtils.addUpdateRequest(p.getUniqueId());
 					} else if (args.length == 2
 							   && (args[1].equalsIgnoreCase("confirm")
 								   || args[1].equalsIgnoreCase("deny"))
