@@ -62,16 +62,12 @@ public class CommandHandler implements CommandExecutor {
 						   && p.hasPermission("schemmanager.update")) {
 					if (args.length == 1) {
 						if (Update.checkForUpdate()) {
-							GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to update?"
-									, "/schemmanager update confirm"
-									, "/schemmanager update deny"
-									, p);
-						} else {
-							GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "You are already running on the latest version. Do you really want to update?"
-									, "/schemmanager update confirm"
-									, "/schemmanager update deny"
-									, p);
+							p.sendMessage(ChatColor.RED + "You are already running the latest Version.");
 						}
+						GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to update?"
+								, "/schemmanager update confirm"
+								, "/schemmanager update deny"
+								, p);
 						GlobalRequestUtils.addUpdateRequest(p.getUniqueId());
 					} else if (args.length == 2
 							   && (args[1].equalsIgnoreCase("confirm")
