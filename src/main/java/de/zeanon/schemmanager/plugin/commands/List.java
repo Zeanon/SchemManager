@@ -169,12 +169,12 @@ public class List {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 														ChatColor.AQUA + "No schematics found",
 														ChatColor.AQUA + " ===",
-														ChatColor.GRAY + "Schematics", p);
+														ChatColor.GRAY + "schematics", p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 														ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side,
 														ChatColor.AQUA + " ===",
-														ChatColor.GRAY + "Schematics", p);
+														ChatColor.GRAY + "schematics", p);
 					if (count < listmax) {
 						listmax = (int) count;
 					}
@@ -224,7 +224,7 @@ public class List {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
 															ChatColor.RED + "There are only " + side + " schematics in this list",
 															"",
-															ChatColor.GRAY + "Schematics", p);
+															ChatColor.GRAY + "schematics", p);
 						return;
 					}
 
@@ -236,11 +236,11 @@ public class List {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															ChatColor.AQUA + "No schematics found",
 															ChatColor.AQUA + " ===",
-															ChatColor.GRAY + "Schematics", p);
+															ChatColor.GRAY + "schematics", p);
 					} else {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															ChatColor.AQUA + "" + (int) count + " Schematics | Page " + sideNumber + "/" + side,
-															ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics", p);
+															ChatColor.AQUA + " ===", ChatColor.GRAY + "schematics", p);
 						int id = (sideNumber - 1) * listmax;
 
 						if (count < listmax * sideNumber) {
@@ -308,12 +308,12 @@ public class List {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															ChatColor.AQUA + "No schematics found",
 															ChatColor.AQUA + " ===",
-															ChatColor.GRAY + "Schematics/" + arg, p);
+															ChatColor.GRAY + "schematics/" + arg, p);
 					} else {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side,
 															ChatColor.AQUA + " ===",
-															ChatColor.GRAY + "Schematics/" + arg, p);
+															ChatColor.GRAY + "schematics/" + arg, p);
 						if (count < listmax) {
 							listmax = (int) count;
 						}
@@ -364,7 +364,7 @@ public class List {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
 														ChatColor.RED + "There are only " + side + " schematics in this list",
 														"",
-														ChatColor.GRAY + "Schematics/" + argTwo, p);
+														ChatColor.GRAY + "schematics/" + argTwo, p);
 					return;
 				}
 
@@ -376,11 +376,11 @@ public class List {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 														ChatColor.AQUA + "No schematics found",
 														ChatColor.AQUA + " ===",
-														ChatColor.GRAY + "Schematics/" + argTwo, p);
+														ChatColor.GRAY + "schematics/" + argTwo, p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 														ChatColor.AQUA + "" + (int) count + " Schematics | Page " + sideNumber + "/" + side,
-														ChatColor.AQUA + " ===", ChatColor.GRAY + "Schematics/" + argTwo, p);
+														ChatColor.AQUA + " ===", ChatColor.GRAY + "schematics/" + argTwo, p);
 					int id = (sideNumber - 1) * listmax;
 
 					if (count < listmax * sideNumber) {

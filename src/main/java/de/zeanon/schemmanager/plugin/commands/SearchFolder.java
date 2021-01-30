@@ -202,12 +202,12 @@ public class SearchFolder {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 														ChatColor.AQUA + "No folders found",
 														ChatColor.AQUA + " ===",
-														ChatColor.GRAY + (caseSensitiveSearch ? "Schematics [-c]" : "Schematics"), p);
+														ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 														ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side,
 														ChatColor.AQUA + " ===",
-														ChatColor.GRAY + (caseSensitiveSearch ? "Schematics [-c]" : "Schematics"), p);
+														ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 					if (count < listmax) {
 						listmax = (int) count;
 					}
@@ -257,7 +257,7 @@ public class SearchFolder {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
 															ChatColor.RED + "There are only " + side + " pages of folders in this list",
 															"",
-															ChatColor.GRAY + (caseSensitiveSearch ? "Schematics [-c]" : "Schematics"), p);
+															ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 						return;
 					}
 					if (spaceLists) {
@@ -267,12 +267,12 @@ public class SearchFolder {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															ChatColor.AQUA + "No folders found",
 															ChatColor.AQUA + " ===",
-															ChatColor.GRAY + (caseSensitiveSearch ? "Schematics [-c]" : "Schematics"), p);
+															ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 					} else {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
 															ChatColor.AQUA + " ===",
-															ChatColor.GRAY + (caseSensitiveSearch ? "Schematics [-c]" : "Schematics"), p);
+															ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 
 						int id = (sideNumber - 1) * listmax;
 						if (count < listmax * sideNumber) {
@@ -338,12 +338,12 @@ public class SearchFolder {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															ChatColor.AQUA + "No folders found",
 															ChatColor.AQUA + " ===",
-															ChatColor.GRAY + (caseSensitiveSearch ? "Schematics/" + argTwo + " [-c]" : "Schematics/" + argTwo), p);
+															ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 					} else {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 															ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side,
 															ChatColor.AQUA + " ===",
-															ChatColor.GRAY + (caseSensitiveSearch ? "Schematics/" + argTwo + " [-c]" : "Schematics/" + argTwo), p);
+															ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 
 						if (count < listmax) {
 							listmax = (int) count;
@@ -394,7 +394,7 @@ public class SearchFolder {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
 														ChatColor.RED + "There are only " + side + " pages of folders in this list",
 														"",
-														ChatColor.GRAY + (caseSensitiveSearch ? "Schematics/" + argTwo + " [-c]" : "Schematics/" + argTwo), p);
+														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 					return;
 				}
 				if (spaceLists) {
@@ -404,12 +404,12 @@ public class SearchFolder {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 														ChatColor.AQUA + "No folders found",
 														ChatColor.AQUA + " ===",
-														ChatColor.GRAY + (caseSensitiveSearch ? "Schematics/" + argTwo + " [-c]" : "Schematics/" + argTwo), p);
+														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
 														ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
 														ChatColor.AQUA + " ===",
-														ChatColor.GRAY + (caseSensitiveSearch ? "Schematics/" + argTwo + " [-c]" : "Schematics/" + argTwo), p);
+														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 
 					int id = (sideNumber - 1) * listmax;
 					if (count < listmax * sideNumber) {

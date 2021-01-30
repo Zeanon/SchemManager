@@ -27,6 +27,8 @@ public class InitMode {
 	private YamlFile weConfig;
 	@Getter(onMethod_ = {@NotNull})
 	private ThunderConfig config;
+	@Getter(onMethod_ = {@NotNull})
+	private String worldEditPluginName;
 
 	public void initPlugin() {
 		try {
@@ -65,8 +67,10 @@ public class InitMode {
 
 	private void initVersion() {
 		if (SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
+			InitMode.worldEditPluginName = "FastAsyncWorldEdit";
 			InitMode.initFastAsyncWorldEditMode();
 		} else if (SchemManager.getPluginManager().getPlugin("WorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("WorldEdit")) {
+			InitMode.worldEditPluginName = "WorldEdit";
 			InitMode.initWorldEditMode();
 		} else {
 			InitMode.enableSleepMode();

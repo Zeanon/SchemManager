@@ -44,7 +44,7 @@ public class SchemUtils {
 		if (tempPath.isAbsolute()) {
 			SchemUtils.schemFolderPath = tempPath.normalize();
 		} else {
-			SchemUtils.schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit"))
+			SchemUtils.schemFolderPath = Objects.notNull(SchemManager.getPluginManager().getPlugin(InitMode.getWorldEditPluginName()))
 												.getDataFolder().toPath().resolve(tempPath).normalize();
 		}
 		SchemUtils.schemFolder = SchemUtils.schemFolderPath.toFile();
@@ -53,8 +53,8 @@ public class SchemUtils {
 		}
 	}
 
-	public @Nullable
-	File getSchemFolder() {
+
+	public @Nullable File getSchemFolder() {
 		if (!Objects.notNull(InitMode.getWeConfig()).hasChanged()) {
 			return SchemUtils.schemFolder;
 		} else {

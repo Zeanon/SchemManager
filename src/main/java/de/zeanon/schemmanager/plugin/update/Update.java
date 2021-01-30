@@ -3,13 +3,18 @@ package de.zeanon.schemmanager.plugin.update;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.init.InitMode;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
+import de.zeanon.schemmanager.plugin.utils.GlobalMessageUtils;
 import de.zeanon.storagemanager.internal.base.exceptions.ObjectNullException;
 import de.zeanon.storagemanager.internal.base.exceptions.RuntimeIOException;
 import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import javafx.util.Pair;
 import lombok.experimental.UtilityClass;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -90,6 +95,36 @@ public class Update {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' updated.");
 		} catch (RuntimeIOException e) {
 			throw new RuntimeIOException("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be updated.", e);
+		}
+	}
+
+	public void updateAvailable(final @NotNull Player p) {
+		if ((p.hasPermission("schemmanager.update")) && Update.checkForUpdate()) {
+			GlobalMessageUtils.sendCommandMessage("",
+												  ChatColor.RED + ""
+												  + ChatColor.BOLD + "There is a new Update available, click here to update.",
+												  ChatColor.DARK_GREEN + ""
+												  + ChatColor.UNDERLINE + ""
+												  + ChatColor.ITALIC + ""
+												  + ChatColor.BOLD + "!!UPDATE BABY!!",
+												  "/sm update",
+												  p);
+		}
+	}
+
+	public boolean checkForUpdate() {
+		return !SchemManager.getInstance().getDescription().getVersion().equalsIgnoreCase(Update.getGithubVersionTag());
+	}
+
+	private String getGithubVersionTag() {
+		try {
+			HttpURLConnection urlConnect = (HttpURLConnection) new URL("https://github.com/Zeanon/SchemManager/releases/latest").openConnection();
+			urlConnect.setInstanceFollowRedirects(false);
+			urlConnect.getResponseCode();
+			return urlConnect.getHeaderField("Location").replaceFirst(".*/", "");
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
