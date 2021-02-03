@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.5.9-Beta</version>
+    <version>4.5.10-Beta</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
 
@@ -103,6 +103,7 @@
                             <goal>install-file</goal>
                         </goals>
                     </execution>
+
                     <execution>
                         <id>install-storagemanager</id>
                         <phase>clean</phase>
@@ -118,6 +119,7 @@
                             <goal>install-file</goal>
                         </goals>
                     </execution>
+
                     <execution>
                         <id>install-lixfel-worldedit</id>
                         <phase>clean</phase>

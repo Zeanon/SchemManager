@@ -22,6 +22,9 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class Update {
 
+	final String DOWNLOAD_URL = Update.RELEASE_URL + "/download/SchemManager.jar";
+	private final String RELEASE_URL = "https://github.com/Zeanon/SchemManager/releases/latest";
+
 	public void updatePlugin() {
 		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
 			&& SchemManager.getPluginManager()
@@ -113,13 +116,12 @@ public class Update {
 	}
 
 	public boolean checkForUpdate() {
-		System.out.println(Update.getGithubVersionTag() + "|" + SchemManager.getInstance().getDescription().getVersion());
 		return !("v" + SchemManager.getInstance().getDescription().getVersion()).equalsIgnoreCase(Update.getGithubVersionTag());
 	}
 
 	private String getGithubVersionTag() {
 		try {
-			HttpURLConnection urlConnect = (HttpURLConnection) new URL("https://github.com/Zeanon/SchemManager/releases/latest").openConnection();
+			HttpURLConnection urlConnect = (HttpURLConnection) new URL(Update.RELEASE_URL).openConnection();
 			urlConnect.setInstanceFollowRedirects(false);
 			urlConnect.getResponseCode();
 			return urlConnect.getHeaderField("Location").replaceFirst(".*/", "");

@@ -27,7 +27,7 @@ class PlugManEnabledUpdate {
 																.toURI()
 																.getPath())
 											  .getCanonicalFile(), new BufferedInputStream(
-					new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar")
+					new URL(Update.DOWNLOAD_URL)
 							.openStream()));
 			System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
 			if (autoReload) {
@@ -49,7 +49,7 @@ class PlugManEnabledUpdate {
 																.toURI()
 																.getPath())
 											  .getCanonicalFile(), new BufferedInputStream(
-					new URL("https://github.com/Zeanon/SchemManager/releases/latest/download/SchemManager.jar")
+					new URL(Update.DOWNLOAD_URL)
 							.openStream()));
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "update successful.");

@@ -95,7 +95,6 @@ public class CommandListener implements Listener {
 				// <Save>
 			} else if (args[1].equalsIgnoreCase("save")
 					   && p.hasPermission("worldedit.schematic.save")) {
-				event.setCancelled(true);
 				Save.execute(args, p, slash, schemAlias, event);
 				// </Save>
 
