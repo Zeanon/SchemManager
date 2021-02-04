@@ -12,7 +12,6 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -20,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 class DefaultUpdate {
 
 	void updatePlugin(final boolean autoReload, final @NotNull JavaPlugin instance) {
-		System.out.println(SchemManager.getInstance().getName() + " is updating...");
+		System.out.println(instance.getName() + " is updating...");
 		try {
 			BaseFileUtils.writeToFile(new File(SchemManager.class.getProtectionDomain()
 																 .getCodeSource()
@@ -31,23 +30,18 @@ class DefaultUpdate {
 									  new BufferedInputStream(
 											  new URL(Update.DOWNLOAD_URL)
 													  .openStream()));
-			System.out.println(SchemManager.getInstance().getName() + " was updated successfully.");
+			System.out.println(instance.getName() + " was updated successfully.");
 			if (autoReload) {
-				new BukkitRunnable() {
-					@Override
-					public void run() {
-						Bukkit.getServer().reload();
-					}
-				}.runTask(instance);
+				Bukkit.getServer().reload();
 			}
 		} catch (@NotNull IOException | URISyntaxException e) {
 			e.printStackTrace();
-			System.out.println(SchemManager.getInstance().getName() + " could not be updated.");
+			System.out.println(instance.getName() + " could not be updated.");
 		}
 	}
 
 	void updatePlugin(final @NotNull Player p, final boolean autoReload, final @NotNull JavaPlugin instance) {
-		p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+		p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
 					  ChatColor.RED + "updating plugin...");
 		try {
 			BaseFileUtils.writeToFile(new File(SchemManager.class.getProtectionDomain()
@@ -59,21 +53,16 @@ class DefaultUpdate {
 									  new BufferedInputStream(
 											  new URL(Update.DOWNLOAD_URL)
 													  .openStream()));
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "update successful.");
 			if (autoReload) {
-				new BukkitRunnable() {
-					@Override
-					public void run() {
-						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-									  ChatColor.RED + "server is reloading.");
-						Bukkit.getServer().reload();
-					}
-				}.runTask(instance);
+				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
+							  ChatColor.RED + "server is reloading.");
+				Bukkit.getServer().reload();
 			}
 		} catch (@NotNull IOException | URISyntaxException e) {
 			e.printStackTrace();
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "could not update.");
 		}
 	}

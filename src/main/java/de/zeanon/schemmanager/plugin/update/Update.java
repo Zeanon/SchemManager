@@ -16,6 +16,7 @@ import javafx.util.Pair;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -25,23 +26,23 @@ public class Update {
 	final String DOWNLOAD_URL = Update.RELEASE_URL + "/download/SchemManager.jar";
 	private final String RELEASE_URL = "https://github.com/Zeanon/SchemManager/releases/latest";
 
-	public void updatePlugin() {
+	public void updatePlugin(final @NotNull JavaPlugin instance) {
 		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
 			&& SchemManager.getPluginManager()
 						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-			PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"));
+			PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"), instance);
 		} else {
-			DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"), SchemManager.getInstance());
+			DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"), instance);
 		}
 	}
 
-	public void updatePlugin(final @NotNull Player p) {
+	public void updatePlugin(final @NotNull Player p, final @NotNull JavaPlugin instance) {
 		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
 			&& SchemManager.getPluginManager()
 						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-			PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"));
+			PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"), instance);
 		} else {
-			DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"), SchemManager.getInstance());
+			DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"), instance);
 		}
 	}
 

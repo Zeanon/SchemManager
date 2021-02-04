@@ -1,5 +1,6 @@
 package de.zeanon.schemmanager.plugin.handlers.tabcompleter;
 
+import de.zeanon.schemmanager.plugin.handlers.SchemManagerTabCompleter;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.SchemUtils;
 import de.zeanon.storagemanager.external.browniescollections.GapList;
@@ -70,54 +71,7 @@ class WorldEditModeTabCompleter {
 			if (argumentEnded) {
 				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder");
 			} else {
-				if ("help".startsWith(args[1]) && !"help".equals(args[1])) {
-					completions.add("help");
-				}
-				if ("load".startsWith(args[1]) && !"load".equals(args[1])) {
-					completions.add("load");
-				}
-				if ("formats".startsWith(args[1]) && !"formats".equals(args[1])) {
-					completions.add("formats");
-				}
-				if ("save".startsWith(args[1]) && !"save".equals(args[1])) {
-					completions.add("save");
-				}
-				if ("rename".startsWith(args[1]) && !"rename".equals(args[1])) {
-					completions.add("rename");
-				}
-				if ("renamefolder".startsWith(args[1]) && !"renamefolder".equals(args[1])) {
-					completions.add("renamefolder");
-				}
-				if ("copy".startsWith(args[1]) && !"copy".equals(args[1])) {
-					completions.add("copy");
-				}
-				if ("copyfolder".startsWith(args[1]) && !"copyfolder".equals(args[1])) {
-					completions.add("copyfolder");
-				}
-				if ("del".startsWith(args[1]) && !"del".equals(args[1])) {
-					completions.add("del");
-				}
-				if ("delete".startsWith(args[1]) && !"delete".equals(args[1])) {
-					completions.add("delete");
-				}
-				if ("delfolder".startsWith(args[1]) && !"delfolder".equals(args[1])) {
-					completions.add("delfolder");
-				}
-				if ("deletefolder".startsWith(args[1]) && !"deletefolder".equals(args[1])) {
-					completions.add("deletefolder");
-				}
-				if ("list".startsWith(args[1]) && !"list".equals(args[1])) {
-					completions.add("list");
-				}
-				if ("listfolder".startsWith(args[1]) && !"listfolder".equals(args[1])) {
-					completions.add("listfolder");
-				}
-				if ("search".startsWith(args[1]) && !"search".equals(args[1])) {
-					completions.add("search");
-				}
-				if ("searchfolder".startsWith(args[1]) && !"searchfolder".equals(args[1])) {
-					completions.add("searchfolder");
-				}
+				return SchemManagerTabCompleter.getCompletions(args[1], "help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder");
 			}
 		} else if ((args.length == 3 + modifierCount && !argumentEnded) || args.length == 2 + modifierCount) {
 			if (argumentEnded) {
