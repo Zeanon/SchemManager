@@ -103,16 +103,14 @@ public class Save {
 				final @Nullable File file = schemPath != null
 											? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[2])) //NOSONAR
 											   ? SchemUtils.getSchemPath().resolve(args[2]).toFile()
-											   : SchemUtils.getSchemPath().resolve(
-													   BaseFileUtils.removeExtension(args[2])).toFile())
+											   : SchemUtils.getSchemPath().resolve(args[2] + ".schem").toFile())
 											: null;
-				final boolean fileExists = file != null && file.exists() && !file.isDirectory();
 
 				if (args.length == 3) {
 					try {
 						Objects.notNull(RunningMode.getWorldEditPlugin()).getSession(p).getClipboard();
-						CommandRequestUtils.addOverwriteRequest(p.getUniqueId(), args[2]);
-						if (fileExists) {
+						if (file != null && file.exists() && !file.isDirectory()) {
+							CommandRequestUtils.addOverwriteRequest(p.getUniqueId(), args[2]);
 							p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
 							GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
 																  "//schem save " + args[2] + " confirm",
