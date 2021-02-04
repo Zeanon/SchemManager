@@ -106,7 +106,7 @@ public class Update {
 		if ((p.hasPermission("schemmanager.update")) && Update.checkForUpdate()) {
 			GlobalMessageUtils.sendCommandMessage("",
 												  ChatColor.RED + ""
-												  + ChatColor.BOLD + "There is a new Update available, click here to update.",
+												  + ChatColor.BOLD + "There is a new Update available for SchemManager, click here to update.",
 												  ChatColor.DARK_GREEN + ""
 												  + ChatColor.UNDERLINE + ""
 												  + ChatColor.ITALIC + ""
