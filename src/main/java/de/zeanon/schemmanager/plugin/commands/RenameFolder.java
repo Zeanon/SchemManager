@@ -58,7 +58,7 @@ public class RenameFolder {
 		return ChatColor.GRAY + slash + schemAlias
 			   + ChatColor.AQUA + " renamefolder "
 			   + ChatColor.YELLOW + "<"
-			   + ChatColor.GREEN + "filename"
+			   + ChatColor.GREEN + "foldername"
 			   + ChatColor.YELLOW + "> <"
 			   + ChatColor.GREEN + "newname"
 			   + ChatColor.YELLOW + ">";

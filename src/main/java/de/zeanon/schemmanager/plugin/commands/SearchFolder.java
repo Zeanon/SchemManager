@@ -94,7 +94,7 @@ public class SearchFolder {
 			   + ChatColor.YELLOW + "] ["
 			   + ChatColor.GREEN + "folder"
 			   + ChatColor.YELLOW + "] <"
-			   + ChatColor.GOLD + "filename"
+			   + ChatColor.GREEN + "filename"
 			   + ChatColor.YELLOW + "> ["
 			   + ChatColor.DARK_PURPLE + "page"
 			   + ChatColor.YELLOW + "]";
@@ -111,7 +111,7 @@ public class SearchFolder {
 			   + ChatColor.YELLOW + "] ["
 			   + ChatColor.GREEN + "folder"
 			   + ChatColor.YELLOW + "] "
-			   + ChatColor.GOLD + "example"
+			   + ChatColor.GREEN + "example"
 			   + ChatColor.YELLOW + " ["
 			   + ChatColor.DARK_PURPLE + "page"
 			   + ChatColor.YELLOW + "]";

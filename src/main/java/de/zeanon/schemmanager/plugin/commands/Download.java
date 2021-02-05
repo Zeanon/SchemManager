@@ -103,7 +103,7 @@ public class Download {
 
 	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
 		return ChatColor.GRAY + slash + schemAlias
-			   + ChatColor.AQUA + " deletefolder "
+			   + ChatColor.AQUA + " download "
 			   + ChatColor.YELLOW + "<"
 			   + ChatColor.DARK_PURPLE + "downloadlink"
 			   + ChatColor.YELLOW + "> <"

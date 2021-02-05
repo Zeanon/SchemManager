@@ -61,7 +61,7 @@ public class CopyFolder {
 		return ChatColor.GRAY + slash + schemAlias
 			   + ChatColor.AQUA + " copyfolder "
 			   + ChatColor.YELLOW + "<"
-			   + ChatColor.GREEN + "filename"
+			   + ChatColor.GREEN + "foldername"
 			   + ChatColor.YELLOW + "> <"
 			   + ChatColor.GREEN + "newname"
 			   + ChatColor.YELLOW + ">";

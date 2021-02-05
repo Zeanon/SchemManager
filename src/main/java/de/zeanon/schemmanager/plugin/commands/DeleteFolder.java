@@ -53,7 +53,7 @@ public class DeleteFolder {
 		return ChatColor.GRAY + slash + schemAlias
 			   + ChatColor.AQUA + " deletefolder "
 			   + ChatColor.YELLOW + "<"
-			   + ChatColor.GREEN + "filename"
+			   + ChatColor.GREEN + "foldername"
 			   + ChatColor.YELLOW + ">";
 	}
 
