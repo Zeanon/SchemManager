@@ -59,5 +59,6 @@ public class EventListener implements Listener {
 		CommandRequestUtils.removeRenameRequest(p.getUniqueId());
 		CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId());
 		CommandRequestUtils.removeOverWriteRequest(p.getUniqueId());
+		CommandRequestUtils.removeDownloadRequest(p.getUniqueId());
 	}
 }

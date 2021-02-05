@@ -114,6 +114,11 @@ public class Help {
 													  SearchFolder.usageHoverMessage(slash, schemAlias),
 													  SearchFolder.usageCommand(slash, schemAlias),
 													  p);
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Download a schematic: ",
+													  Download.usageMessage(slash, schemAlias),
+													  Download.usageHoverMessage(slash, schemAlias),
+													  Download.usageCommand(slash, schemAlias),
+													  p);
 				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Update the plugin: ",
 													  ChatColor.GRAY + "/schemmanager "
 													  + ChatColor.AQUA + "update",

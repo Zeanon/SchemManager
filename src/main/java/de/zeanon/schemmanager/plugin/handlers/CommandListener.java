@@ -126,6 +126,13 @@ public class CommandListener implements Listener {
 				SearchFolder.execute(args, p, slash, schemAlias);
 				// </SearchFolder>
 
+				// <Download>
+			} else if (args[1].equalsIgnoreCase("download")
+					   && p.hasPermission("worldedit.schematic.save")) {
+				event.setCancelled(true);
+				Download.execute(args, p, slash, schemAlias);
+				// </Download>
+
 				// <Help>
 			} else if (args[1].equalsIgnoreCase("help")) {
 				event.setCancelled(true);
@@ -155,7 +162,8 @@ public class CommandListener implements Listener {
 							  + "list" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "listfolder" + ChatColor.RED + ", " + ChatColor.GOLD
 							  + "search" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "searchfolder");
+							  + "searchfolder" + ChatColor.RED + ", " + ChatColor.GOLD
+							  + "download");
 				CommandMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
 			}
 			// </Invalid Command>

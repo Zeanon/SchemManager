@@ -15,6 +15,7 @@ public class CommandRequestUtils {
 	private final @NotNull Map<UUID, String> renameRequests = new ConcurrentHashMap<>();
 	private final @NotNull Map<UUID, String> renameFolderRequests = new ConcurrentHashMap<>();
 	private final @NotNull Map<UUID, String> overwriteRequests = new ConcurrentHashMap<>();
+	private final @NotNull Map<UUID, String> downloadRequests = new ConcurrentHashMap<>();
 	private final @NotNull Map<UUID, String> copyRequest = new ConcurrentHashMap<>();
 	private final @NotNull Map<UUID, String> copyFolderRequest = new ConcurrentHashMap<>();
 
@@ -112,5 +113,18 @@ public class CommandRequestUtils {
 	public boolean checkOverWriteRequest(final @NotNull UUID uuid, final String name) {
 		return CommandRequestUtils.overwriteRequests.containsKey(uuid)
 			   && CommandRequestUtils.overwriteRequests.get(uuid).equalsIgnoreCase(name);
+	}
+
+	public void addDownloadRequest(final @NotNull UUID uuid, final String name) {
+		CommandRequestUtils.downloadRequests.put(uuid, name);
+	}
+
+	public void removeDownloadRequest(final @NotNull UUID uuid) {
+		CommandRequestUtils.downloadRequests.remove(uuid);
+	}
+
+	public boolean checkDownloadRequest(final @NotNull UUID uuid, final @NotNull String name) {
+		return CommandRequestUtils.downloadRequests.containsKey(uuid)
+			   && CommandRequestUtils.downloadRequests.get(uuid).equalsIgnoreCase(name);
 	}
 }

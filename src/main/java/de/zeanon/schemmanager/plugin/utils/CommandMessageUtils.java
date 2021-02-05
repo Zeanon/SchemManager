@@ -28,6 +28,7 @@ public class CommandMessageUtils {
 		final @NotNull TextComponent listfolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "listfolder"));
 		final @NotNull TextComponent search = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "search"));
 		final @NotNull TextComponent searchfolder = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "searchfolder"));
+		final @NotNull TextComponent download = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "download"));
 		schem.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + schemAlias + " "));
 		schem.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 										   new ComponentBuilder(new TextComponent(
@@ -152,7 +153,9 @@ public class CommandMessageUtils {
 															+ ChatColor.DARK_PURPLE + "-d"
 															+ ChatColor.YELLOW + "] ["
 															+ ChatColor.GREEN + "folder"
-															+ ChatColor.YELLOW + "] ["
+															+ ChatColor.YELLOW + "] "
+															+ ChatColor.GOLD + "name"
+															+ ChatColor.YELLOW + " ["
 															+ ChatColor.DARK_PURPLE + "page"
 															+ ChatColor.YELLOW + "]")))
 													.create()));
@@ -167,10 +170,21 @@ public class CommandMessageUtils {
 																  + ChatColor.DARK_PURPLE + "-d"
 																  + ChatColor.YELLOW + "] ["
 																  + ChatColor.GREEN + "folder"
-																  + ChatColor.YELLOW + "] ["
+																  + ChatColor.YELLOW + "] "
+																  + ChatColor.GOLD + "name"
+																  + ChatColor.YELLOW + " ["
 																  + ChatColor.DARK_PURPLE + "page"
 																  + ChatColor.YELLOW + "]")))
 														  .create()));
+		download.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + schemAlias + "download "));
+		download.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+											  new ComponentBuilder(new TextComponent(
+													  TextComponent.fromLegacyText(ChatColor.RED + "e.g. "
+																				   + ChatColor.GRAY + "" + slash + schemAlias + " "
+																				   + ChatColor.AQUA + "download "
+																				   + ChatColor.DARK_PURPLE + "link"
+																				   + ChatColor.GOLD + " name")))
+													  .create()));
 		base.addExtra(schem);
 		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + " <")));
 		base.addExtra(help);
@@ -196,6 +210,8 @@ public class CommandMessageUtils {
 		base.addExtra(search);
 		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(searchfolder);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
+		base.addExtra(download);
 		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + ">")));
 		target.spigot().sendMessage(base);
 	}

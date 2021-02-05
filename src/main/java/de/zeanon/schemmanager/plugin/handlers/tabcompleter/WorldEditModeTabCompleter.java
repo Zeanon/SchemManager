@@ -69,9 +69,9 @@ class WorldEditModeTabCompleter {
 		final @NotNull List<String> completions = new GapList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
-				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder");
+				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder", "download");
 			} else {
-				return SchemManagerTabCompleter.getCompletions(args[1], "help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder");
+				return SchemManagerTabCompleter.getCompletions(args[1], "help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder", "download");
 			}
 		} else if ((args.length == 3 + modifierCount && !argumentEnded) || args.length == 2 + modifierCount) {
 			if (argumentEnded) {
@@ -79,6 +79,7 @@ class WorldEditModeTabCompleter {
 					completions.add("-d");
 					completions.add("-deep");
 				}
+
 				if (!alreadyCaseSensitive && (args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
 					completions.add("-c");
 					completions.add("-casesensitive");
@@ -170,7 +171,7 @@ class WorldEditModeTabCompleter {
 			if (argumentEnded) {
 				if (args[1].equalsIgnoreCase("load")) {
 					completions.addAll(Objects.notNull(ConfigUtils.getStringList("File Extensions")));
-				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
+				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy") || args[1].equalsIgnoreCase("download")) {
 					final @Nullable Path schemPath = SchemUtils.getSchemPath();
 					final @Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null) {
@@ -194,7 +195,7 @@ class WorldEditModeTabCompleter {
 							completions.add(extension);
 						}
 					}
-				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
+				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy") || args[1].equalsIgnoreCase("download")) {
 					@Nullable Path tempDirectory = SchemUtils.getSchemPath();
 					if (tempDirectory != null) {
 						final @NotNull String[] pathArgs = args[3].split("/");
