@@ -103,7 +103,7 @@ public class Save {
 				final @Nullable File file = schemPath != null
 											? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[2])) //NOSONAR
 											   ? SchemUtils.getSchemPath().resolve(args[2]).toFile()
-											   : SchemUtils.getSchemPath().resolve(args[2] + ".schem").toFile())
+											   : SchemUtils.getSchemPath().resolve(args[2] + "." + Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0)).toFile())
 											: null;
 
 				if (args.length == 3) {

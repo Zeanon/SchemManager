@@ -33,7 +33,7 @@ public class Download {
 					final @Nullable File file = schemPath != null
 												? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[3])) //NOSONAR
 												   ? SchemUtils.getSchemPath().resolve(args[3]).toFile()
-												   : SchemUtils.getSchemPath().resolve(args[3] + ".schem").toFile())
+												   : SchemUtils.getSchemPath().resolve(args[3] + "." + Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0)).toFile())
 												: null;
 
 					if (file != null && !file.isDirectory()) {
@@ -72,7 +72,7 @@ public class Download {
 							final @Nullable File file = schemPath != null
 														? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[3])) //NOSONAR
 														   ? SchemUtils.getSchemPath().resolve(args[3]).toFile()
-														   : SchemUtils.getSchemPath().resolve(args[3] + ".schem").toFile())
+														   : SchemUtils.getSchemPath().resolve(args[3] + "." + Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0)).toFile())
 														: null;
 							if (file != null) {
 								BaseFileUtils.createFile(file);
