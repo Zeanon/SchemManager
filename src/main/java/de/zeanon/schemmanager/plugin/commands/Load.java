@@ -21,15 +21,15 @@ public class Load {
 						  + ChatColor.YELLOW + "<"
 						  + ChatColor.GOLD + "filename"
 						  + ChatColor.YELLOW + ">");
-			Load.loadUsage(p, slash, schemAlias);
+			Load.usage(p, slash, schemAlias);
 		} else if (args[2].contains("./")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
-			Load.loadUsage(p, slash, schemAlias);
+			Load.usage(p, slash, schemAlias);
 		} else if (args.length > 4) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + "Too many arguments.");
-			Load.loadUsage(p, slash, schemAlias);
+			Load.usage(p, slash, schemAlias);
 		} else if (args.length > 3 && !Objects.notNull(ConfigUtils.getStringList("File Extensions")).contains(args[3])) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.LIGHT_PURPLE + args[3] + ChatColor.RED + " is no valid file format.");
@@ -61,7 +61,7 @@ public class Load {
 		return slash + schemAlias + " load ";
 	}
 
-	private void loadUsage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
+	private void usage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
 											  Load.usageMessage(slash, schemAlias),
 											  Load.usageHoverMessage(slash, schemAlias),

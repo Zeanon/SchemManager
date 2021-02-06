@@ -28,7 +28,10 @@ public class Download {
 			@Override
 			public void run() {
 				if (args.length == 4) {
-
+					if (args[3].contains("./")) {
+						p.sendMessage(ChatColor.RED + "File '" + args[3] + "'resolution error: Path is not allowed.");
+						Download.usage(p, slash, schemAlias);
+					}
 					final @Nullable Path schemPath = SchemUtils.getSchemPath();
 					final @Nullable File file = schemPath != null
 												? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[3])) //NOSONAR
@@ -61,6 +64,9 @@ public class Download {
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GREEN + "name"
 									  + ChatColor.YELLOW + ">");
+						Download.usage(p, slash, schemAlias);
+					} else if (args[3].contains("./")) {
+						p.sendMessage(ChatColor.RED + "File '" + args[3] + "'resolution error: Path is not allowed.");
 						Download.usage(p, slash, schemAlias);
 					} else if (!args[4].equalsIgnoreCase("confirm") && !args[4].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
