@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.plugin.commands;
 
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.GlobalMessageUtils;
-import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;

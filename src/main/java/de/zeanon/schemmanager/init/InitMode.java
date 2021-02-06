@@ -4,15 +4,16 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.handlers.WakeupListener;
 import de.zeanon.schemmanager.plugin.update.Update;
 import de.zeanon.schemmanager.plugin.utils.SchemUtils;
-import de.zeanon.storagemanager.StorageManager;
-import de.zeanon.storagemanager.internal.base.exceptions.FileParseException;
-import de.zeanon.storagemanager.internal.base.exceptions.ObjectNullException;
-import de.zeanon.storagemanager.internal.base.exceptions.RuntimeIOException;
-import de.zeanon.storagemanager.internal.base.settings.Comment;
-import de.zeanon.storagemanager.internal.base.settings.Reload;
-import de.zeanon.storagemanager.internal.files.config.ThunderConfig;
-import de.zeanon.storagemanager.internal.files.raw.YamlFile;
-import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import de.zeanon.storagemanagercore.internal.base.exceptions.FileParseException;
+import de.zeanon.storagemanagercore.internal.base.exceptions.ObjectNullException;
+import de.zeanon.storagemanagercore.internal.base.exceptions.RuntimeIOException;
+import de.zeanon.storagemanagercore.internal.base.settings.Comment;
+import de.zeanon.storagemanagercore.internal.base.settings.Reload;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
+import de.zeanon.thunderfilemanager.ThunderFileManager;
+import de.zeanon.thunderfilemanager.internal.files.config.ThunderConfig;
+import de.zeanon.yamlfilemanager.YamlFileManager;
+import de.zeanon.yamlfilemanager.internal.files.raw.YamlFile;
 import java.io.FileNotFoundException;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
@@ -80,12 +81,12 @@ public class InitMode {
 	private void loadConfigs() {
 		@Nullable Throwable cause = null;
 		try {
-			InitMode.config = StorageManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
-											.fromResource("resources/config.tf")
-											.reloadSetting(Reload.INTELLIGENT)
-											.commentSetting(Comment.PRESERVE)
-											.concurrentData(true)
-											.create();
+			InitMode.config = ThunderFileManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
+												.fromResource("resources/config.tf")
+												.reloadSetting(Reload.INTELLIGENT)
+												.commentSetting(Comment.PRESERVE)
+												.concurrentData(true)
+												.create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
 		} catch (final @NotNull RuntimeIOException | FileParseException e) {
@@ -102,11 +103,11 @@ public class InitMode {
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + "...");
 
 		try {
-			InitMode.weConfig = StorageManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
-											  .reloadSetting(Reload.AUTOMATICALLY)
-											  .commentSetting(Comment.SKIP)
-											  .concurrentData(false)
-											  .create();
+			InitMode.weConfig = YamlFileManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
+											   .reloadSetting(Reload.AUTOMATICALLY)
+											   .commentSetting(Comment.SKIP)
+											   .concurrentData(false)
+											   .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
 			InitMode.initWorldEditPlugin();
@@ -133,11 +134,11 @@ public class InitMode {
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching FastAsyncWorldEdit Version of " + SchemManager.getInstance().getName() + "...");
 
 		try {
-			InitMode.weConfig = StorageManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit")).getDataFolder(), "config-legacy")
-											  .reloadSetting(Reload.AUTOMATICALLY)
-											  .commentSetting(Comment.SKIP)
-											  .concurrentData(false)
-											  .create();
+			InitMode.weConfig = YamlFileManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit")).getDataFolder(), "config-legacy")
+											   .reloadSetting(Reload.AUTOMATICALLY)
+											   .commentSetting(Comment.SKIP)
+											   .concurrentData(false)
+											   .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> FastAsyncWorldEdit Config is loaded successfully.");
 			InitMode.initFastAsyncWorldEditPlugin();

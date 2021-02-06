@@ -4,7 +4,7 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.GlobalMessageUtils;
 import de.zeanon.schemmanager.plugin.utils.SchemUtils;
-import de.zeanon.storagemanager.internal.utility.basic.BaseFileUtils;
+import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -147,7 +147,7 @@ public class ListFolder {
 
 			if (directory == null || !directory.isDirectory()) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-							  ChatColor.RED + "There is no schematic folder.");
+							  ChatColor.RED + "Could not access schematic folder.");
 			} else {
 				final @NotNull java.util.List<File> files = BaseFileUtils.listFolders(directory, deepSearch);
 				final double count = files.size();
@@ -205,7 +205,7 @@ public class ListFolder {
 
 				if (directory == null || !directory.isDirectory()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-								  ChatColor.RED + "There is no schematic folder.");
+								  ChatColor.RED + "Could not access schematic folder.");
 				} else {
 					final @NotNull java.util.List<File> files = BaseFileUtils.listFolders(directory, deepSearch);
 					final double count = files.size();

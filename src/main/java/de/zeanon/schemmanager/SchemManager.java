@@ -3,7 +3,7 @@ package de.zeanon.schemmanager;
 import de.zeanon.schemmanager.init.InitMode;
 import de.zeanon.schemmanager.plugin.handlers.CommandHandler;
 import de.zeanon.schemmanager.plugin.handlers.SchemManagerTabCompleter;
-import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

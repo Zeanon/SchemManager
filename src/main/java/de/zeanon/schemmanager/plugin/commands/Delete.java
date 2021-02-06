@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.plugin.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.utils.*;
-import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -73,10 +73,12 @@ public class Delete {
 		final @Nullable List<File> files = schemPath != null
 										   ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
 										   : null;
-		final boolean fileExists = files != null && !files.isEmpty();
 
-		if (args.length == 3) {
-			if (fileExists) {
+		if (schemPath == null) {
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+						  ChatColor.RED + "Could not access schematic folder.");
+		} else if (args.length == 3) {
+			if (!files.isEmpty()) {
 				GlobalMessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 													  ChatColor.RED + "Do you really want to delete "
 													  + ChatColor.GOLD + args[2]
@@ -91,7 +93,7 @@ public class Delete {
 		} else if (args.length == 4 && CommandRequestUtils.checkDeleteRequest(p.getUniqueId(), args[2])) {
 			if (args[3].equalsIgnoreCase("confirm")) {
 				CommandRequestUtils.removeDeleteRequest(p.getUniqueId());
-				if (fileExists) {
+				if (!files.isEmpty()) {
 					@Nullable String parentName = null;
 					for (final @NotNull File file : files) {
 						try {

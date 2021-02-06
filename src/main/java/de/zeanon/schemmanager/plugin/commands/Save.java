@@ -7,8 +7,8 @@ import de.zeanon.schemmanager.plugin.utils.CommandRequestUtils;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.GlobalMessageUtils;
 import de.zeanon.schemmanager.plugin.utils.SchemUtils;
-import de.zeanon.storagemanager.internal.utility.basic.BaseFileUtils;
-import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.nio.file.Path;
 import lombok.experimental.UtilityClass;
@@ -106,10 +106,13 @@ public class Save {
 											   : SchemUtils.getSchemPath().resolve(args[2] + "." + Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0)).toFile())
 											: null;
 
-				if (args.length == 3) {
+				if (schemPath == null) {
+					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+								  ChatColor.RED + "Could not access schematic folder.");
+				} else if (args.length == 3) {
 					try {
 						Objects.notNull(RunningMode.getWorldEditPlugin()).getSession(p).getClipboard();
-						if (file != null && file.exists() && !file.isDirectory()) {
+						if (file.exists() && !file.isDirectory()) {
 							CommandRequestUtils.addOverwriteRequest(p.getUniqueId(), args[2]);
 							p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
 							GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",

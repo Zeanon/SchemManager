@@ -2,9 +2,9 @@ package de.zeanon.schemmanager.plugin.utils;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.init.InitMode;
-import de.zeanon.storagemanager.internal.base.exceptions.ObjectNullException;
-import de.zeanon.storagemanager.internal.base.exceptions.RuntimeIOException;
-import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import de.zeanon.storagemanagercore.internal.base.exceptions.ObjectNullException;
+import de.zeanon.storagemanagercore.internal.base.exceptions.RuntimeIOException;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;

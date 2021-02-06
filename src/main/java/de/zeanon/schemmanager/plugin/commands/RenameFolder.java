@@ -2,8 +2,8 @@ package de.zeanon.schemmanager.plugin.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.utils.*;
-import de.zeanon.storagemanager.internal.utility.basic.BaseFileUtils;
-import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -82,8 +82,11 @@ public class RenameFolder {
 			final @Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
 			final @Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
 
-			if (args.length == 4) {
-				if (directoryOld == null || !directoryOld.exists() || !directoryOld.isDirectory()) {
+			if (schemPath == null) {
+				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+							  ChatColor.RED + "Could not access schematic folder.");
+			} else if (args.length == 4) {
+				if (!directoryOld.exists() || !directoryOld.isDirectory()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 					return;
@@ -164,7 +167,7 @@ public class RenameFolder {
 			} else if (args.length == 5 && CommandRequestUtils.checkRenameFolderRequest(p.getUniqueId(), args[2])) {
 				if (args[4].equalsIgnoreCase("confirm")) {
 					CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId());
-					if (directoryOld != null && directoryOld.exists() && directoryOld.isDirectory()) {
+					if (directoryOld.exists() && directoryOld.isDirectory()) {
 						if (RenameFolder.deepMerge(directoryOld, directoryNew)) {
 							RenameFolder.deleteParents(directoryOld, args[2], p);
 						} else {

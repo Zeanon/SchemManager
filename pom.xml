@@ -5,10 +5,9 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.5.14-Beta</version>
+    <version>4.5.15-Beta</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
-
     <description>Manage your schematics properly</description>
     <url>https://github.com/Zeanon/SchemManager</url>
 
@@ -105,13 +104,45 @@
                     </execution>
 
                     <execution>
-                        <id>install-storagemanager</id>
+                        <id>install-storagemanagercore</id>
                         <phase>clean</phase>
                         <configuration>
                             <groupId>de.zeanon</groupId>
-                            <artifactId>storagemanager</artifactId>
-                            <version>1.1.79</version>
-                            <file>src/main/resources/dependencies/StorageManager.jar</file>
+                            <artifactId>storagemanagercore</artifactId>
+                            <version>1.1.81</version>
+                            <file>src/main/resources/dependencies/storagemanagercore.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>install-thunderfilemanager</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>de.zeanon</groupId>
+                            <artifactId>thunderfilemanager</artifactId>
+                            <version>1.1.81</version>
+                            <file>src/main/resources/dependencies/thunderfilemanager.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>install-yamlfilemanager</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>de.zeanon</groupId>
+                            <artifactId>yamlfilemanager</artifactId>
+                            <version>1.1.81</version>
+                            <file>src/main/resources/dependencies/yamlfilemanager.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
                         </configuration>
@@ -153,8 +184,12 @@
                 <configuration>
                     <relocations>
                         <relocation>
-                            <pattern>de.zeanon.storagemanager</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
+                            <pattern>de.zeanon.thunderfilemanager</pattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded.thunderfilemanager</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.zeanon.yamlfilemanager</pattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded.yamlfilemanager</shadedPattern>
                         </relocation>
                     </relocations>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -266,8 +301,24 @@
         <!-- StorageManager by Zeanon-->
         <dependency>
             <groupId>de.zeanon</groupId>
-            <artifactId>storagemanager</artifactId>
-            <version>1.1.79</version>
+            <artifactId>storagemanagercore</artifactId>
+            <version>1.1.81</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- StorageManager by Zeanon-->
+        <dependency>
+            <groupId>de.zeanon</groupId>
+            <artifactId>thunderfilemanager</artifactId>
+            <version>1.1.81</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- StorageManager by Zeanon-->
+        <dependency>
+            <groupId>de.zeanon</groupId>
+            <artifactId>yamlfilemanager</artifactId>
+            <version>1.1.81</version>
             <scope>compile</scope>
         </dependency>
 

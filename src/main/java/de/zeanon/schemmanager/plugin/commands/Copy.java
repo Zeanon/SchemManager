@@ -2,8 +2,8 @@ package de.zeanon.schemmanager.plugin.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.utils.*;
-import de.zeanon.storagemanager.internal.utility.basic.BaseFileUtils;
-import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -82,12 +82,13 @@ public class Copy {
 		final @Nullable List<File> newFiles = schemPath != null
 											  ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3]))
 											  : null;
-		final boolean oldFileExists = oldFiles != null && !oldFiles.isEmpty();
-		final boolean newFileExists = newFiles != null && !newFiles.isEmpty();
 
-		if (args.length == 4) {
-			if (oldFileExists) {
-				if (newFileExists) {
+		if (schemPath == null) {
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+						  ChatColor.RED + "Could not access schematic folder.");
+		} else if (args.length == 4) {
+			if (!oldFiles.isEmpty()) {
+				if (!newFiles.isEmpty()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
 				}
@@ -108,7 +109,7 @@ public class Copy {
 		} else if (args.length == 5 && CommandRequestUtils.checkCopyRequest(p.getUniqueId(), args[2])) {
 			if (args[4].equalsIgnoreCase("confirm")) {
 				CommandRequestUtils.removeCopyRequest(p.getUniqueId());
-				if (oldFileExists) {
+				if (!oldFiles.isEmpty()) {
 					Copy.copyFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
 				} else {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +

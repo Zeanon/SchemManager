@@ -2,8 +2,8 @@ package de.zeanon.schemmanager.plugin.commands;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.utils.*;
-import de.zeanon.storagemanager.internal.utility.basic.BaseFileUtils;
-import de.zeanon.storagemanager.internal.utility.basic.Objects;
+import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -78,8 +78,11 @@ public class Rename {
 		final @Nullable List<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
 		final @Nullable List<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
 
-		if (args.length == 4) {
-			if (schemPath != null && !oldFiles.isEmpty()) {
+		if (schemPath == null) {
+			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+						  ChatColor.RED + "Could not access schematic folder.");
+		} else if (args.length == 4) {
+			if (!oldFiles.isEmpty()) {
 				if (!newFiles.isEmpty()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[3] + ChatColor.RED + " already exists, the file will be overwritten.");
@@ -97,7 +100,7 @@ public class Rename {
 		} else if (args.length == 5 && CommandRequestUtils.checkRenameRequest(p.getUniqueId(), args[2])) {
 			if (args[4].equalsIgnoreCase("confirm")) {
 				CommandRequestUtils.removeRenameRequest(p.getUniqueId());
-				if (schemPath != null && !oldFiles.isEmpty()) {
+				if (!oldFiles.isEmpty()) {
 					Rename.moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
 				} else {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
