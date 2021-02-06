@@ -94,7 +94,7 @@ public class SearchFolder {
 			   + ChatColor.YELLOW + "] ["
 			   + ChatColor.GREEN + "folder"
 			   + ChatColor.YELLOW + "] <"
-			   + ChatColor.GREEN + "filename"
+			   + ChatColor.GREEN + "foldername"
 			   + ChatColor.YELLOW + "> ["
 			   + ChatColor.DARK_PURPLE + "page"
 			   + ChatColor.YELLOW + "]";
