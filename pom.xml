@@ -109,8 +109,8 @@
                         <configuration>
                             <groupId>de.zeanon</groupId>
                             <artifactId>storagemanagercore</artifactId>
-                            <version>1.1.83</version>
-                            <file>src/main/resources/dependencies/storagemanagercore.jar</file>
+                            <version>1.1.85</version>
+                            <file>src/main/resources/dependencies/StorageManagerCore.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
                         </configuration>
@@ -125,8 +125,8 @@
                         <configuration>
                             <groupId>de.zeanon</groupId>
                             <artifactId>thunderfilemanager</artifactId>
-                            <version>1.1.83</version>
-                            <file>src/main/resources/dependencies/thunderfilemanager.jar</file>
+                            <version>1.1.85</version>
+                            <file>src/main/resources/dependencies/ThunderFileManager.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
                         </configuration>
@@ -141,8 +141,8 @@
                         <configuration>
                             <groupId>de.zeanon</groupId>
                             <artifactId>yamlfilemanager</artifactId>
-                            <version>1.1.83</version>
-                            <file>src/main/resources/dependencies/yamlfilemanager.jar</file>
+                            <version>1.1.85</version>
+                            <file>src/main/resources/dependencies/YamlFileManager.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
                         </configuration>
@@ -306,7 +306,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>storagemanagercore</artifactId>
-            <version>1.1.83</version>
+            <version>1.1.85</version>
             <scope>compile</scope>
         </dependency>
 
@@ -314,7 +314,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>thunderfilemanager</artifactId>
-            <version>1.1.83</version>
+            <version>1.1.85</version>
             <scope>compile</scope>
         </dependency>
 
@@ -322,7 +322,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>yamlfilemanager</artifactId>
-            <version>1.1.83</version>
+            <version>1.1.85</version>
             <scope>compile</scope>
         </dependency>
 

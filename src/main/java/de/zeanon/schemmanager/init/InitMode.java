@@ -31,6 +31,7 @@ public class InitMode {
 	@Getter(onMethod_ = {@NotNull})
 	private String worldEditPluginName;
 
+
 	public void initPlugin() {
 		try {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Loading Configs...");

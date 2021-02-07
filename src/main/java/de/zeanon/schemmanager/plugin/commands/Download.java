@@ -111,7 +111,6 @@ public class Download {
 		} else if (args.length == 5 && CommandRequestUtils.checkDownloadRequest(p.getUniqueId(), args[3])) {
 			if (args[4].equalsIgnoreCase("confirm")) {
 				CommandRequestUtils.removeDownloadRequest(p.getUniqueId());
-				BaseFileUtils.createFile(file);
 				try {
 					BaseFileUtils.writeToFile(file, new BufferedInputStream(
 							new URL(args[2])
