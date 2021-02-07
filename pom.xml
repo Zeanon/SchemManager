@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.5.16-Beta</version>
+    <version>4.5.17-Beta</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
@@ -185,15 +185,15 @@
                     <relocations>
                         <relocation>
                             <pattern>de.zeanon.thunderfilemanager</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.shaded.thunderfilemanager</shadedPattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>de.zeanon.yamlfilemanager</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.shaded.yamlfilemanager</shadedPattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>de.zeanon.storagemanagercore</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.shaded.storagemanagercore</shadedPattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
                         </relocation>
                     </relocations>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
