@@ -168,15 +168,15 @@
                 <configuration>
                     <relocations>
                         <relocation>
+                            <pattern>de.zeanon.storagemanagercore</pattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
+                        </relocation>
+                        <relocation>
                             <pattern>de.zeanon.thunderfilemanager</pattern>
                             <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>de.zeanon.yamlfilemanager</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>de.zeanon.storagemanagercore</pattern>
                             <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
                         </relocation>
                     </relocations>

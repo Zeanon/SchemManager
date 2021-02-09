@@ -25,7 +25,7 @@ public class ConfigUtils {
 	 */
 	public int getInt(final @NotNull String key) {
 		try {
-			return Objects.notNull(InitMode.getConfig()).getByteUseArray(key);
+			return Objects.notNull(InitMode.getConfig()).getIntUseArray(key);
 		} catch (ObjectNullException e) {
 			new BukkitRunnable() {
 				@Override

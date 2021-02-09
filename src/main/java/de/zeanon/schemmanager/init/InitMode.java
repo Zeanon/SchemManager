@@ -34,36 +34,41 @@ public class InitMode {
 
 	public void initPlugin() {
 		try {
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Loading Configs...");
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Loading Config...");
 			InitMode.loadConfigs();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are loaded successfully.");
-
-			InitMode.initConfigs();
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config file are loaded successfully.");
 		} catch (RuntimeIOException e) {
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load config files.");
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the Config File and reload the plugin.");
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load config file.");
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the config file and reload the plugin.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
 
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+			return;
 		}
+
+		try {
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Initializing Config...");
+			InitMode.initConfigs();
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config file is initialized successfully.");
+		} catch (RuntimeIOException e) {
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not update config file.");
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the config file and reload the plugin.");
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
+
+			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+			return;
+		}
+
+		InitMode.initVersion();
 	}
 
 	private void initConfigs() {
-		try {
-			if (!InitMode.getConfig().hasKeyUseArray("Plugin Version")
-				|| !Objects.notNull(InitMode.getConfig().getStringUseArray("Plugin Version"))
-						   .equals(SchemManager.getInstance().getDescription().getVersion())) {
-				System.out.println("[" + SchemManager.getInstance().getName() + "] >> Updating Configs...");
-				Update.checkConfigUpdate();
-				System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
-			}
-
-			InitMode.initVersion();
-		} catch (RuntimeIOException e) {
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not update config files.");
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the Config File and reload the plugin.");
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
-			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+		if (!InitMode.getConfig().hasKeyUseArray("Plugin Version")
+			|| !Objects.notNull(InitMode.getConfig().getStringUseArray("Plugin Version"))
+					   .equals(SchemManager.getInstance().getDescription().getVersion())) {
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Updating Configs...");
+			Update.checkConfigUpdate();
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
 		}
 	}
 

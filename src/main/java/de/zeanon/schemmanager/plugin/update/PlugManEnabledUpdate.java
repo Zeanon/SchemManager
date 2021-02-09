@@ -29,8 +29,11 @@ class PlugManEnabledUpdate {
 											  .getCanonicalFile(), new BufferedInputStream(
 					new URL(Update.DOWNLOAD_URL)
 							.openStream()));
+
 			System.out.println(instance.getName() + " was updated successfully.");
+
 			if (autoReload) {
+				System.out.println(instance.getName() + " is reloading.");
 				PluginUtil.reload(instance);
 			}
 		} catch (@NotNull IOException | URISyntaxException e) {
@@ -51,8 +54,10 @@ class PlugManEnabledUpdate {
 											  .getCanonicalFile(), new BufferedInputStream(
 					new URL(Update.DOWNLOAD_URL)
 							.openStream()));
+
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "update successful.");
+
 			if (autoReload) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + "reloading plugin.");

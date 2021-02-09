@@ -25,6 +25,7 @@
 # disable uses schemmanager.disable                                                                            #
 ################################################################################################################
 
+
 Plugin Version = ${project.version}
 
 # File Extensions: here you can specify the file-types the plugin recognizes as schematics.
