@@ -33,7 +33,7 @@ public class Delete {
 					} else if (args[2].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
 						Delete.usage(p, slash, schemAlias);
-					} else if (args.length == 4 && !CommandRequestUtils.checkDeleteFolderRequest(p.getUniqueId(), args[2])
+					} else if (args.length == 4 && !CommandRequestUtils.checkDeleteFolderRequest(p.getUniqueId().toString(), args[2])
 							   && !args[3].equalsIgnoreCase("confirm")
 							   && !args[3].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -85,14 +85,14 @@ public class Delete {
 													  + ChatColor.RED + "?",
 													  "//schem del " + args[2] + " confirm",
 													  "//schem del " + args[2] + " deny", p);
-				CommandRequestUtils.addDeleteRequest(p.getUniqueId(), args[2]);
+				CommandRequestUtils.addDeleteRequest(p.getUniqueId().toString(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 			}
-		} else if (args.length == 4 && CommandRequestUtils.checkDeleteRequest(p.getUniqueId(), args[2])) {
+		} else if (args.length == 4 && CommandRequestUtils.checkDeleteRequest(p.getUniqueId().toString(), args[2])) {
 			if (args[3].equalsIgnoreCase("confirm")) {
-				CommandRequestUtils.removeDeleteRequest(p.getUniqueId());
+				CommandRequestUtils.removeDeleteRequest(p.getUniqueId().toString());
 				if (!files.isEmpty()) {
 					@Nullable String parentName = null;
 					for (final @NotNull File file : files) {
@@ -129,7 +129,7 @@ public class Delete {
 								  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				}
 			} else if (args[3].equalsIgnoreCase("deny")) {
-				CommandRequestUtils.removeDeleteRequest(p.getUniqueId());
+				CommandRequestUtils.removeDeleteRequest(p.getUniqueId().toString());
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " was not deleted.");
 			}

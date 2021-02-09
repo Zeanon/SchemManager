@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.5.17-Beta</version>
+    <version>4.5.18-Beta</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
@@ -150,22 +150,6 @@
                             <goal>install-file</goal>
                         </goals>
                     </execution>
-
-                    <execution>
-                        <id>install-lixfel-worldedit</id>
-                        <phase>clean</phase>
-                        <configuration>
-                            <groupId>de.lixfel</groupId>
-                            <artifactId>worldedit</artifactId>
-                            <version>1.0.0</version>
-                            <file>src/main/resources/dependencies/WorldEdit.jar</file>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                        </configuration>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                    </execution>
                 </executions>
             </plugin>
 
@@ -278,18 +262,26 @@
     </repositories>
 
     <dependencies>
-        <!-- Commons IO -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-            <scope>compile</scope>
-        </dependency>
-
         <!-- StorageManager by Zeanon-->
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>storagemanagercore</artifactId>
+            <version>1.1.85</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- ThunderFileManager by Zeanon-->
+        <dependency>
+            <groupId>de.zeanon</groupId>
+            <artifactId>thunderfilemanager</artifactId>
+            <version>1.1.85</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- YamlFileManager by Zeanon-->
+        <dependency>
+            <groupId>de.zeanon</groupId>
+            <artifactId>yamlfilemanager</artifactId>
             <version>1.1.85</version>
             <scope>compile</scope>
         </dependency>
@@ -308,22 +300,6 @@
             <artifactId>paper-api</artifactId>
             <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-
-        <!-- ThunderFileManager by Zeanon-->
-        <dependency>
-            <groupId>de.zeanon</groupId>
-            <artifactId>thunderfilemanager</artifactId>
-            <version>1.1.85</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- YamlFileManager by Zeanon-->
-        <dependency>
-            <groupId>de.zeanon</groupId>
-            <artifactId>yamlfilemanager</artifactId>
-            <version>1.1.85</version>
-            <scope>compile</scope>
         </dependency>
 
         <!-- WorldEdit API -->

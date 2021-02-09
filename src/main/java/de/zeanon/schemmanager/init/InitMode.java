@@ -57,14 +57,14 @@ public class InitMode {
 				Update.checkConfigUpdate();
 				System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
 			}
+
+			InitMode.initVersion();
 		} catch (RuntimeIOException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not update config files.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the Config File and reload the plugin.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 		}
-
-		InitMode.initVersion();
 	}
 
 	private void initVersion() {
@@ -95,6 +95,7 @@ public class InitMode {
 			e.printStackTrace();
 			cause = e;
 		}
+
 		if (cause != null) {
 			throw new RuntimeIOException(cause);
 		}

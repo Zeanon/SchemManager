@@ -63,7 +63,7 @@ public class Save {
 				p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
 				Save.usage(p, slash, schemAlias);
 			} else if (args.length > 4 || (args.length == 4
-										   && !CommandRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])
+										   && !CommandRequestUtils.checkOverWriteRequest(p.getUniqueId().toString(), args[2])
 										   && !args[3].equalsIgnoreCase("confirm")
 										   && !args[3].equalsIgnoreCase("deny"))) {
 				event.setCancelled(true);
@@ -113,7 +113,7 @@ public class Save {
 					try {
 						Objects.notNull(RunningMode.getWorldEditPlugin()).getSession(p).getClipboard();
 						if (file.exists() && !file.isDirectory()) {
-							CommandRequestUtils.addOverwriteRequest(p.getUniqueId(), args[2]);
+							CommandRequestUtils.addOverwriteRequest(p.getUniqueId().toString(), args[2]);
 							p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
 							GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
 																  "//schem save " + args[2] + " confirm",
@@ -130,16 +130,16 @@ public class Save {
 						p.sendMessage(ChatColor.RED + "Your clipboard is empty. Use //copy first.");
 					}
 				} else {
-					if (args[3].equalsIgnoreCase("confirm") && CommandRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])) {
-						CommandRequestUtils.removeOverWriteRequest(p.getUniqueId());
+					if (args[3].equalsIgnoreCase("confirm") && CommandRequestUtils.checkOverWriteRequest(p.getUniqueId().toString(), args[2])) {
+						CommandRequestUtils.removeOverWriteRequest(p.getUniqueId().toString());
 						new BukkitRunnable() {
 							@Override
 							public void run() {
 								p.performCommand("/schem save -f " + args[2]);
 							}
 						}.runTask(SchemManager.getInstance());
-					} else if (args[3].equalsIgnoreCase("deny") && CommandRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])) {
-						CommandRequestUtils.removeOverWriteRequest(p.getUniqueId());
+					} else if (args[3].equalsIgnoreCase("deny") && CommandRequestUtils.checkOverWriteRequest(p.getUniqueId().toString(), args[2])) {
+						CommandRequestUtils.removeOverWriteRequest(p.getUniqueId().toString());
 						p.sendMessage(ChatColor.LIGHT_PURPLE + args[2] + " was not overwritten.");
 					}
 				}

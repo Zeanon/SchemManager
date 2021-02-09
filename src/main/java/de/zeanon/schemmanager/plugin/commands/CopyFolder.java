@@ -43,7 +43,7 @@ public class CopyFolder {
 					} else if (args.length == 5
 							   && !args[4].equalsIgnoreCase("confirm")
 							   && !args[4].equalsIgnoreCase("deny")
-							   && !CommandRequestUtils.checkCopyFolderRequest(p.getUniqueId(), args[2])) {
+							   && !CommandRequestUtils.checkCopyFolderRequest(p.getUniqueId().toString(), args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						CopyFolder.usage(p, slash, schemAlias);
 					} else {
@@ -207,10 +207,10 @@ public class CopyFolder {
 													  ChatColor.RED + "?",
 													  "//schem copyfolder " + args[2] + " " + args[3] + " confirm",
 													  "//schem copyfolder " + args[2] + " " + args[3] + " deny", p);
-				CommandRequestUtils.addCopyFolderRequest(p.getUniqueId(), args[2]);
-			} else if (args.length == 5 && CommandRequestUtils.checkCopyFolderRequest(p.getUniqueId(), args[2])) {
+				CommandRequestUtils.addCopyFolderRequest(p.getUniqueId().toString(), args[2]);
+			} else if (args.length == 5 && CommandRequestUtils.checkCopyFolderRequest(p.getUniqueId().toString(), args[2])) {
 				if (args[4].equalsIgnoreCase("confirm")) {
-					CommandRequestUtils.removeCopyFolderRequest(p.getUniqueId());
+					CommandRequestUtils.removeCopyFolderRequest(p.getUniqueId().toString());
 					if (directoryOld.exists() && directoryOld.isDirectory()) {
 						if (CopyFolder.deepMerge(directoryOld, directoryNew)) {
 							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
@@ -224,7 +224,7 @@ public class CopyFolder {
 									  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 					}
 				} else if (args[4].equalsIgnoreCase("deny")) {
-					CommandRequestUtils.removeCopyFolderRequest(p.getUniqueId());
+					CommandRequestUtils.removeCopyFolderRequest(p.getUniqueId().toString());
 					p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not copied");
 				}
 			}

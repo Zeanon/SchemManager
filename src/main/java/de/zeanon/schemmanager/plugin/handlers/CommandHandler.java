@@ -43,12 +43,12 @@ public class CommandHandler implements CommandExecutor {
 										, "/schemmanager disable confirm"
 										, "/schemmanager disable deny"
 										, p);
-								GlobalRequestUtils.addDisableRequest(p.getUniqueId());
+								GlobalRequestUtils.addDisableRequest(p.getUniqueId().toString());
 							} else if (args.length == 2
 									   && (args[1].equalsIgnoreCase("confirm")
 										   || args[1].equalsIgnoreCase("deny"))
-									   && GlobalRequestUtils.checkDisableRequest(p.getUniqueId())) {
-								GlobalRequestUtils.removeDisableRequest(p.getUniqueId());
+									   && GlobalRequestUtils.checkDisableRequest(p.getUniqueId().toString())) {
+								GlobalRequestUtils.removeDisableRequest(p.getUniqueId().toString());
 								if (args[1].equalsIgnoreCase("confirm")) {
 									p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 												  + ChatColor.RED + " is being disabled.");
@@ -76,12 +76,12 @@ public class CommandHandler implements CommandExecutor {
 										, "/schemmanager update confirm"
 										, "/schemmanager update deny"
 										, p);
-								GlobalRequestUtils.addUpdateRequest(p.getUniqueId());
+								GlobalRequestUtils.addUpdateRequest(p.getUniqueId().toString());
 							} else if (args.length == 2
 									   && (args[1].equalsIgnoreCase("confirm")
 										   || args[1].equalsIgnoreCase("deny"))
-									   && GlobalRequestUtils.checkUpdateRequest(p.getUniqueId())) {
-								GlobalRequestUtils.removeUpdateRequest(p.getUniqueId());
+									   && GlobalRequestUtils.checkUpdateRequest(p.getUniqueId().toString())) {
+								GlobalRequestUtils.removeUpdateRequest(p.getUniqueId().toString());
 								if (args[1].equalsIgnoreCase("confirm")) {
 									if (Bukkit.getVersion().contains("git-Paper")) {
 										Update.updatePlugin(SchemManager.getInstance());

@@ -52,13 +52,13 @@ public class EventListener implements Listener {
 	@EventHandler
 	public void onQuit(final @NotNull PlayerQuitEvent event) {
 		final @NotNull Player p = event.getPlayer();
-		GlobalRequestUtils.removeDisableRequest(p.getUniqueId());
-		GlobalRequestUtils.removeUpdateRequest(p.getUniqueId());
-		CommandRequestUtils.removeDeleteRequest(p.getUniqueId());
-		CommandRequestUtils.removeDeleteFolderRequest(p.getUniqueId());
-		CommandRequestUtils.removeRenameRequest(p.getUniqueId());
-		CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId());
-		CommandRequestUtils.removeOverWriteRequest(p.getUniqueId());
-		CommandRequestUtils.removeDownloadRequest(p.getUniqueId());
+		GlobalRequestUtils.removeDisableRequest(p.getUniqueId().toString());
+		GlobalRequestUtils.removeUpdateRequest(p.getUniqueId().toString());
+		CommandRequestUtils.removeDeleteRequest(p.getUniqueId().toString());
+		CommandRequestUtils.removeDeleteFolderRequest(p.getUniqueId().toString());
+		CommandRequestUtils.removeRenameRequest(p.getUniqueId().toString());
+		CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId().toString());
+		CommandRequestUtils.removeOverWriteRequest(p.getUniqueId().toString());
+		CommandRequestUtils.removeDownloadRequest(p.getUniqueId().toString());
 	}
 }

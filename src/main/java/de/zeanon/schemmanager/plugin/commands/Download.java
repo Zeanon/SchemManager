@@ -47,7 +47,7 @@ public class Download {
 					} else if (args[3].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[3] + "'resolution error: Path is not allowed.");
 						Download.usage(p, slash, schemAlias);
-					} else if (args.length == 5 && !CommandRequestUtils.checkDownloadRequest(p.getUniqueId(), args[2])
+					} else if (args.length == 5 && !CommandRequestUtils.checkDownloadRequest(p.getUniqueId().toString(), args[2])
 							   && !args[4].equalsIgnoreCase("confirm")
 							   && !args[4].equalsIgnoreCase("deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -97,7 +97,7 @@ public class Download {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "Could not access schematic folder.");
 		} else if (args.length == 4) {
-			CommandRequestUtils.addDownloadRequest(p.getUniqueId(), args[3]);
+			CommandRequestUtils.addDownloadRequest(p.getUniqueId().toString(), args[3]);
 			if (file.exists()) {
 				p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[3] + ChatColor.RED + " already exists.");
 				GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[3] + ChatColor.RED + "?",
@@ -108,9 +108,9 @@ public class Download {
 													  "//schem download " + args[2] + " " + args[3] + " confirm",
 													  "//schem download " + args[2] + " " + args[3] + " deny", p);
 			}
-		} else if (args.length == 5 && CommandRequestUtils.checkDownloadRequest(p.getUniqueId(), args[3])) {
+		} else if (args.length == 5 && CommandRequestUtils.checkDownloadRequest(p.getUniqueId().toString(), args[3])) {
 			if (args[4].equalsIgnoreCase("confirm")) {
-				CommandRequestUtils.removeDownloadRequest(p.getUniqueId());
+				CommandRequestUtils.removeDownloadRequest(p.getUniqueId().toString());
 				try {
 					BaseFileUtils.writeToFile(file, new BufferedInputStream(
 							new URL(args[2])
@@ -123,7 +123,7 @@ public class Download {
 								  ChatColor.GOLD + args[3] + ChatColor.RED + " could not be downloaded, for further information please see [console].");
 				}
 			} else if (args[3].equalsIgnoreCase("deny")) {
-				CommandRequestUtils.removeDownloadRequest(p.getUniqueId());
+				CommandRequestUtils.removeDownloadRequest(p.getUniqueId().toString());
 				p.sendMessage(ChatColor.LIGHT_PURPLE + args[3] + " was not downloaded.");
 			}
 		}

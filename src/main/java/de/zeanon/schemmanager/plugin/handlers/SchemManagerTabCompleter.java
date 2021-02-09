@@ -29,8 +29,8 @@ public class SchemManagerTabCompleter implements TabCompleter {
 		if (args.length == 1) {
 			return SchemManagerTabCompleter.getCompletions(args[0], "update", "disable");
 		} else if (args.length == 2 && ((sender instanceof Player
-										 && (GlobalRequestUtils.checkUpdateRequest(((Player) sender).getUniqueId())
-											 || GlobalRequestUtils.checkDisableRequest(((Player) sender).getUniqueId())))
+										 && (GlobalRequestUtils.checkUpdateRequest(((Player) sender).getUniqueId().toString())
+											 || GlobalRequestUtils.checkDisableRequest(((Player) sender).getUniqueId().toString())))
 										|| (sender instanceof ConsoleCommandSender
 											&& (GlobalRequestUtils.checkConsoleUpdateRequest()
 												|| GlobalRequestUtils.checkConsoleDisableRequest())))) {

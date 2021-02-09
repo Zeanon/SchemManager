@@ -39,7 +39,7 @@ public class Copy {
 					} else if (args.length == 5
 							   && !args[4].equalsIgnoreCase("confirm")
 							   && !args[4].equalsIgnoreCase("deny")
-							   && !CommandRequestUtils.checkCopyRequest(p.getUniqueId(), args[2])) {
+							   && !CommandRequestUtils.checkCopyRequest(p.getUniqueId().toString(), args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Copy.usage(p, slash, schemAlias);
 					} else {
@@ -101,14 +101,14 @@ public class Copy {
 													  ChatColor.RED + "?",
 													  "//schem copy " + args[2] + " " + args[3] + " confirm",
 													  "//schem copy " + args[2] + " " + args[3] + " deny", p);
-				CommandRequestUtils.addCopyRequest(p.getUniqueId(), args[2]);
+				CommandRequestUtils.addCopyRequest(p.getUniqueId().toString(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 			}
-		} else if (args.length == 5 && CommandRequestUtils.checkCopyRequest(p.getUniqueId(), args[2])) {
+		} else if (args.length == 5 && CommandRequestUtils.checkCopyRequest(p.getUniqueId().toString(), args[2])) {
 			if (args[4].equalsIgnoreCase("confirm")) {
-				CommandRequestUtils.removeCopyRequest(p.getUniqueId());
+				CommandRequestUtils.removeCopyRequest(p.getUniqueId().toString());
 				if (!oldFiles.isEmpty()) {
 					Copy.copyFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
 				} else {
@@ -116,7 +116,7 @@ public class Copy {
 								  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				}
 			} else if (args[4].equalsIgnoreCase("deny")) {
-				CommandRequestUtils.removeCopyRequest(p.getUniqueId());
+				CommandRequestUtils.removeCopyRequest(p.getUniqueId().toString());
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " was not copied.");
 			}
