@@ -52,12 +52,16 @@ public class CommandHandler implements CommandExecutor {
 								if (args[1].equalsIgnoreCase("confirm")) {
 									p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 												  + ChatColor.RED + " is being disabled.");
-									new BukkitRunnable() {
-										@Override
-										public void run() {
-											SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
-										}
-									}.runTask(SchemManager.getInstance());
+									if (RunningMode.isPaperSpigot()) {
+										SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+									} else {
+										new BukkitRunnable() {
+											@Override
+											public void run() {
+												SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+											}
+										}.runTask(SchemManager.getInstance());
+									}
 								} else {
 									p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 												  + ChatColor.RED + " will not be disabled.");
@@ -120,12 +124,16 @@ public class CommandHandler implements CommandExecutor {
 							if (args[0].equalsIgnoreCase("disable") && GlobalRequestUtils.checkConsoleDisableRequest()) {
 								GlobalRequestUtils.removeConsoleDisableRequest();
 								if (args[1].equalsIgnoreCase("confirm")) {
-									new BukkitRunnable() {
-										@Override
-										public void run() {
-											SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
-										}
-									}.runTask(SchemManager.getInstance());
+									if (RunningMode.isPaperSpigot()) {
+										SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+									} else {
+										new BukkitRunnable() {
+											@Override
+											public void run() {
+												SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+											}
+										}.runTask(SchemManager.getInstance());
+									}
 								} else {
 									System.out.println("SchemManager will not be disabled.");
 								}
