@@ -57,7 +57,8 @@ public class CopyFolder {
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+	public @NotNull
+	String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
 		return ChatColor.GRAY + slash + schemAlias
 			   + ChatColor.AQUA + " copyfolder "
 			   + ChatColor.YELLOW + "<"
@@ -67,14 +68,16 @@ public class CopyFolder {
 			   + ChatColor.YELLOW + ">";
 	}
 
-	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+	public @NotNull
+	String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
 		return ChatColor.RED + "e.g. "
 			   + ChatColor.GRAY + slash + schemAlias
 			   + ChatColor.AQUA + " copyfolder "
 			   + ChatColor.GREEN + "example newname";
 	}
 
-	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+	public @NotNull
+	String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
 		return slash + schemAlias + " copyfolder ";
 	}
 
@@ -103,8 +106,8 @@ public class CopyFolder {
 								  ChatColor.RED + ", they will be overwritten:");
 					int id = 0;
 					final @Nullable List<String> extensions = Objects.notNull(ConfigUtils.getStringList("File Extensions"));
-					for (final @NotNull File oldFile : BaseFileUtils.listFiles(directoryOld, true, extensions)) {
-						for (final @NotNull File newFile : BaseFileUtils.listFiles(directoryNew, true, BaseFileUtils.removeExtension(oldFile.getName()), extensions)) {
+					for (final @NotNull File oldFile : BaseFileUtils.listFilesOfType(directoryOld, true, extensions)) {
+						for (final @NotNull File newFile : BaseFileUtils.searchFilesOfType(directoryNew, true, BaseFileUtils.removeExtension(oldFile.getName()), extensions)) {
 							if (BaseFileUtils.removeExtension(newFile.toPath().relativize(directoryNew.toPath()).toString())
 											 .equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.toPath().relativize(directoryOld.toPath()).toString()))) {
 
@@ -146,7 +149,7 @@ public class CopyFolder {
 								  ChatColor.RED + ", they will be merged:");
 					int i = 0;
 					for (final @NotNull File oldFolder : BaseFileUtils.listFolders(directoryOld, true)) {
-						for (final @NotNull File newFolder : BaseFileUtils.listFolders(directoryNew, true, oldFolder.getName())) {
+						for (final @NotNull File newFolder : BaseFileUtils.searchFolders(directoryNew, true, oldFolder.getName())) {
 							if (BaseFileUtils.removeExtension(newFolder.toPath().relativize(directoryNew.toPath()).toString())
 											 .equalsIgnoreCase(BaseFileUtils.removeExtension(oldFolder.toPath().relativize(directoryOld.toPath()).toString()))) {
 

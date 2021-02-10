@@ -1,11 +1,11 @@
 package de.zeanon.schemmanager.plugin.handlers;
 
 import de.zeanon.schemmanager.SchemManager;
+import de.zeanon.schemmanager.init.RunningMode;
 import de.zeanon.schemmanager.plugin.update.Update;
 import de.zeanon.schemmanager.plugin.utils.GlobalMessageUtils;
 import de.zeanon.schemmanager.plugin.utils.GlobalRequestUtils;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -83,7 +83,7 @@ public class CommandHandler implements CommandExecutor {
 									   && GlobalRequestUtils.checkUpdateRequest(p.getUniqueId().toString())) {
 								GlobalRequestUtils.removeUpdateRequest(p.getUniqueId().toString());
 								if (args[1].equalsIgnoreCase("confirm")) {
-									if (Bukkit.getVersion().contains("git-Paper")) {
+									if (RunningMode.isPaperSpigot()) {
 										Update.updatePlugin(SchemManager.getInstance());
 									} else {
 										new BukkitRunnable() {
@@ -132,7 +132,7 @@ public class CommandHandler implements CommandExecutor {
 							} else if (args[0].equalsIgnoreCase("update") && GlobalRequestUtils.checkConsoleUpdateRequest()) {
 								GlobalRequestUtils.removeConsoleUpdateRequest();
 								if (args[1].equalsIgnoreCase("confirm")) {
-									if (Bukkit.getVersion().contains("git-Paper")) {
+									if (RunningMode.isPaperSpigot()) {
 										Update.updatePlugin(SchemManager.getInstance());
 									} else {
 										new BukkitRunnable() {

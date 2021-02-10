@@ -16,17 +16,19 @@ import org.jetbrains.annotations.Nullable;
 public class RunningMode {
 
 	@Getter
-	private final @Nullable
-	WorldEditPlugin worldEditPlugin;
+	private final @Nullable WorldEditPlugin worldEditPlugin;
+	@Getter
+	private final boolean paperSpigot;
 
 	static {
 		worldEditPlugin = (WorldEditPlugin) SchemManager.getPluginManager().getPlugin("WorldEdit");
+		paperSpigot = Bukkit.getVersion().contains("git-Paper");
 	}
 
 	public void onEnable() {
 		SchemManager.getPluginManager().registerEvents(new CommandListener(), SchemManager.getInstance());
 		SchemManager.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
-		if (Bukkit.getVersion().contains("git-Paper")) {
+		if (RunningMode.isPaperSpigot()) {
 			SchemManager.getPluginManager().registerEvents(new PaperTabListener(), SchemManager.getInstance());
 		} else {
 			SchemManager.getPluginManager().registerEvents(new SpigotTabListener(), SchemManager.getInstance());

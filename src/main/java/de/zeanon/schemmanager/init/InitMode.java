@@ -75,10 +75,10 @@ public class InitMode {
 	private void initVersion() {
 		if (SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
 			InitMode.worldEditPluginName = "FastAsyncWorldEdit";
-			InitMode.initFastAsyncWorldEditMode();
+			InitMode.initFastAsyncWorldEditConfig();
 		} else if (SchemManager.getPluginManager().getPlugin("WorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("WorldEdit")) {
 			InitMode.worldEditPluginName = "WorldEdit";
-			InitMode.initWorldEditMode();
+			InitMode.initWorldEditConfig();
 		} else {
 			InitMode.enableSleepMode();
 		}
@@ -106,7 +106,7 @@ public class InitMode {
 		}
 	}
 
-	private void initWorldEditMode() {
+	private void initWorldEditConfig() {
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + "...");
 
 		try {
@@ -117,7 +117,7 @@ public class InitMode {
 											   .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
-			InitMode.initWorldEditPlugin();
+			InitMode.initWorldEditMode();
 		} catch (final @NotNull RuntimeIOException | FileParseException e) {
 			e.printStackTrace();
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file.");
@@ -125,7 +125,7 @@ public class InitMode {
 		}
 	}
 
-	private void initWorldEditPlugin() {
+	private void initWorldEditMode() {
 		try {
 			SchemUtils.initSchemPath();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Schematic-Folder is loaded successfully.");
@@ -137,7 +137,7 @@ public class InitMode {
 		}
 	}
 
-	private void initFastAsyncWorldEditMode() {
+	private void initFastAsyncWorldEditConfig() {
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching FastAsyncWorldEdit Version of " + SchemManager.getInstance().getName() + "...");
 
 		try {
@@ -148,7 +148,7 @@ public class InitMode {
 											   .create();
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> FastAsyncWorldEdit Config is loaded successfully.");
-			InitMode.initFastAsyncWorldEditPlugin();
+			InitMode.initFastAsyncWorldEditMode();
 		} catch (final @NotNull RuntimeIOException | FileParseException e) {
 			e.printStackTrace();
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load FastAsyncWorldEdit Config file.");
@@ -156,7 +156,7 @@ public class InitMode {
 		}
 	}
 
-	private void initFastAsyncWorldEditPlugin() {
+	private void initFastAsyncWorldEditMode() {
 		try {
 			SchemUtils.initSchemPath();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> FastAsyncWorldEdit Schematic-Folder is loaded successfully.");

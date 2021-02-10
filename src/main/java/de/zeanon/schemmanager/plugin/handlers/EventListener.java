@@ -25,20 +25,21 @@ public class EventListener implements Listener {
 
 	@EventHandler
 	public void onPluginDisable(final @NotNull PluginDisableEvent event) {
-		if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldEdit")) {
+		if (event.getPlugin().getName().equalsIgnoreCase("WorldEdit")
+			|| event.getPlugin().getName().equalsIgnoreCase("FastAsyncWorldEdit")) {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
-		} else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
+		} else if (event.getPlugin().getName().equalsIgnoreCase("WorldGuard")) {
 			EventListener.setWorldguardEnabled(false);
 		}
 	}
 
 	@EventHandler
 	public void onPluginEnable(final @NotNull PluginEnableEvent event) {
-		if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit")) {
+		if (event.getPlugin().getName().equalsIgnoreCase("FastAsyncWorldEdit")) {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
-		} else if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldGuard")) {
+		} else if (event.getPlugin().getName().equalsIgnoreCase("WorldGuard")) {
 			EventListener.setWorldguardEnabled(true);
 		}
 	}

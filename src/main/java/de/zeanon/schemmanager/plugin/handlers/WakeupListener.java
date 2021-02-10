@@ -15,8 +15,8 @@ public class WakeupListener implements Listener {
 
 	@EventHandler
 	public void onPluginEnable(final @NotNull PluginEnableEvent event) {
-		if (event.getPlugin() == SchemManager.getPluginManager().getPlugin("WorldEdit")
-			|| event.getPlugin() == SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit")) {
+		if (event.getPlugin().getName().equalsIgnoreCase("WorldEdit")
+			|| event.getPlugin().getName().equalsIgnoreCase("FastAsyncWorldEdit")) {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
 		}
