@@ -2,7 +2,6 @@ package de.zeanon.schemmanager.plugin.handlers;
 
 import de.zeanon.schemmanager.plugin.utils.GlobalRequestUtils;
 import de.zeanon.storagemanagercore.external.browniescollections.GapList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.bukkit.command.Command;
@@ -27,9 +26,7 @@ public class SchemManagerTabCompleter implements TabCompleter {
 
 	@Override
 	public List<String> onTabComplete(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String alias, final @NotNull String @NotNull [] args) {
-		if (args.length == 0) {
-			return Arrays.asList("update", "disable");
-		} else if (args.length == 1) {
+		if (args.length == 1) {
 			return SchemManagerTabCompleter.getCompletions(args[0], "update", "disable");
 		} else if (args.length == 2 && ((sender instanceof Player
 										 && (GlobalRequestUtils.checkUpdateRequest(((Player) sender).getUniqueId().toString())
