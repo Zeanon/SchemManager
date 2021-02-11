@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import lombok.experimental.UtilityClass;
@@ -89,7 +88,7 @@ class WorldEditModeTabCompleter {
 					final @Nullable Path schemPath = SchemUtils.getSchemPath();
 					final @Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null) {
-						for (final @NotNull File file : WorldEditModeTabCompleter.getFileArray(pathFile)) {
+						for (final @NotNull File file : WorldEditModeTabCompleter.getFileList(pathFile)) {
 							completions.add(file.getName());
 						}
 					}
@@ -130,15 +129,13 @@ class WorldEditModeTabCompleter {
 								tempDirectory = tempDirectory.resolve(pathArgs[i]);
 							}
 						} else {
-							for (final @NotNull String pathArg : pathArgs) {
-								tempDirectory = tempDirectory.resolve(pathArg);
-							}
+							tempDirectory = tempDirectory.resolve(args[2]);
 						}
 
 						final @NotNull File pathFile = tempDirectory.toFile();
 						if (pathFile.exists() && pathFile.isDirectory()) {
 							final @NotNull String sequence = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
-							for (final @NotNull File file : WorldEditModeTabCompleter.getFileArray(pathFile)) {
+							for (final @NotNull File file : WorldEditModeTabCompleter.getFileList(pathFile)) {
 								WorldEditModeTabCompleter.addFileToCompletions(sequence, completions, file);
 							}
 						}
@@ -152,9 +149,7 @@ class WorldEditModeTabCompleter {
 								tempDirectory = tempDirectory.resolve(pathArgs[i]);
 							}
 						} else {
-							for (final @NotNull String pathArg : pathArgs) {
-								tempDirectory = tempDirectory.resolve(pathArg);
-							}
+							tempDirectory = tempDirectory.resolve(args[2 + modifierCount].substring(0, args[2 + modifierCount].length() - 1));
 						}
 
 						final @NotNull File pathFile = tempDirectory.toFile();
@@ -175,7 +170,7 @@ class WorldEditModeTabCompleter {
 					final @Nullable Path schemPath = SchemUtils.getSchemPath();
 					final @Nullable File pathFile = schemPath != null ? schemPath.toFile() : null;
 					if (pathFile != null) {
-						for (final @NotNull File file : WorldEditModeTabCompleter.getFileArray(pathFile)) {
+						for (final @NotNull File file : WorldEditModeTabCompleter.getFileList(pathFile)) {
 							completions.add(file.getName());
 						}
 					}
@@ -204,15 +199,13 @@ class WorldEditModeTabCompleter {
 								tempDirectory = tempDirectory.resolve(pathArgs[i]);
 							}
 						} else {
-							for (final @NotNull String pathArg : pathArgs) {
-								tempDirectory = tempDirectory.resolve(pathArg);
-							}
+							tempDirectory = tempDirectory.resolve(args[3].substring(0, args[3].length() - 1));
 						}
 
 						final @NotNull File pathFile = tempDirectory.toFile();
 						if (pathFile.exists() && pathFile.isDirectory()) {
 							final @NotNull String sequence = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
-							for (final @NotNull File file : WorldEditModeTabCompleter.getFileArray(pathFile)) {
+							for (final @NotNull File file : WorldEditModeTabCompleter.getFileList(pathFile)) {
 								WorldEditModeTabCompleter.addFileToCompletions(sequence, completions, file);
 							}
 						}
@@ -226,9 +219,7 @@ class WorldEditModeTabCompleter {
 								tempDirectory = tempDirectory.resolve(pathArgs[i]);
 							}
 						} else {
-							for (final @NotNull String pathArg : pathArgs) {
-								tempDirectory = tempDirectory.resolve(pathArg);
-							}
+							tempDirectory = tempDirectory.resolve(args[3].substring(0, args[3].length() - 1));
 						}
 
 						final @NotNull File pathFile = tempDirectory.toFile();
@@ -245,10 +236,10 @@ class WorldEditModeTabCompleter {
 		return completions;
 	}
 
-	private @NotNull File[] getFileArray(final @NotNull File directory) throws IOException {
+	private @NotNull List<File> getFileList(final @NotNull File directory) throws IOException {
 		final @Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
-		final @NotNull Collection<File> rawFiles = BaseFileUtils.listFilesOfTypeAndFolders(directory, false, Objects.notNull(extensions));
-		return rawFiles.toArray(new File[0]);
+		final @NotNull List<File> rawFiles = BaseFileUtils.listFilesOfTypeAndFolders(directory, false, Objects.notNull(extensions));
+		return rawFiles;
 	}
 
 	private void addFileToCompletions(final @NotNull String sequence, final @NotNull List<String> completions, final @NotNull File file) {

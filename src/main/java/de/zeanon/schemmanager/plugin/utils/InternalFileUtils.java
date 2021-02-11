@@ -1,12 +1,13 @@
 package de.zeanon.schemmanager.plugin.utils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.storagemanagercore.external.browniescollections.GapList;
 import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
 import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
@@ -30,24 +31,15 @@ public class InternalFileUtils {
 	}
 
 	public @NotNull List<File> getExistingFiles(final @NotNull Path path) {
-		final @NotNull List<File> tempFiles = new GapList<>();
 		if (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(path))) {
 			final @NotNull File file = path.toFile();
-			if (file.exists() && !file.isDirectory()) {
-				tempFiles.add(file);
-			}
-			return tempFiles;
+			return file.exists() && !file.isDirectory() ? Collections.singletonList(file) : Collections.emptyList();
 		}
-		Objects.notNull(ConfigUtils.getStringList("File Extensions"))
-			   .iterator()
-			   .forEachRemaining(extension -> tempFiles.add(new File(path + "." + extension)));
-		final @NotNull List<File> files = new GapList<>();
-		for (final @NotNull File file : tempFiles) {
-			if (file.exists() && !file.isDirectory()) {
-				files.add(file);
-			}
-		}
-		return files;
+		return Objects.notNull(ConfigUtils.getStringList("File Extensions"))
+					  .stream()
+					  .map(extension -> new File(path + "." + extension))
+					  .filter(tempFile -> tempFile.exists() && !tempFile.isDirectory())
+					  .collect(Collectors.toList());
 	}
 
 	public @NotNull String deleteEmptyParent(final @NotNull File file) {
