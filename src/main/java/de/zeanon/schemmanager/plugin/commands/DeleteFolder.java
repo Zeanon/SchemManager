@@ -102,7 +102,9 @@ public class DeleteFolder {
 				if (file.exists() && file.isDirectory()) {
 					try {
 						FileUtils.deleteDirectory(file);
-						@Nullable String parentName = DeleteFolder.getParentName(file);
+						@Nullable String parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length == 0
+													  && ConfigUtils.getBoolean("Delete empty Folders") ? InternalFileUtils.deleteEmptyParent(file, SchemUtils.getSchemFolder()) : null;
+
 						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 									  ChatColor.GREEN + args[2] +
 									  ChatColor.RED + " was deleted successfully.");
@@ -125,20 +127,6 @@ public class DeleteFolder {
 							  ChatColor.GREEN + args[2] + ChatColor.RED + " was not deleted.");
 			}
 		}
-	}
-
-	private @Nullable String getParentName(final @NotNull File file) {
-		@Nullable String parentName = null;
-		if (ConfigUtils.getBoolean("Delete empty Folders")
-			&& !file.getAbsoluteFile().getParentFile().equals(SchemUtils.getSchemFolder())) {
-			parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
-						 ? null
-						 : InternalFileUtils.deleteEmptyParent(file);
-			if (file.getName().equals(parentName)) {
-				parentName = null;
-			}
-		}
-		return parentName;
 	}
 
 	private void usage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {

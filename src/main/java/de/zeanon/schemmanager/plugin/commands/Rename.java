@@ -130,12 +130,8 @@ public class Rename {
 					FileUtils.moveFile(file, destPath.toFile());
 				}
 
-				parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length > 0
-							 || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(file);
-
-				if (file.getName().equals(parentName)) {
-					parentName = null;
-				}
+				parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length == 0
+							 && ConfigUtils.getBoolean("Delete empty Folders") ? InternalFileUtils.deleteEmptyParent(file, SchemUtils.getSchemFolder()) : null;
 			}
 
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +

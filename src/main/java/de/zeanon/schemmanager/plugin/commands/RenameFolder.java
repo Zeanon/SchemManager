@@ -197,11 +197,9 @@ public class RenameFolder {
 	private void deleteParents(final @NotNull File directory, final @NotNull String arg, final @NotNull Player p) {
 		try {
 			FileUtils.deleteDirectory(directory);
-			@Nullable String parentName = Objects.notNull(directory.getAbsoluteFile().getParentFile().listFiles()).length > 0
-										  || ConfigUtils.getBoolean("Delete empty Folders") ? null : InternalFileUtils.deleteEmptyParent(directory);
-			if (directory.getName().equals(parentName)) {
-				parentName = null;
-			}
+			@Nullable String parentName = Objects.notNull(directory.getAbsoluteFile().getParentFile().listFiles()).length == 0
+										  && ConfigUtils.getBoolean("Delete empty Folders") ? InternalFileUtils.deleteEmptyParent(directory, SchemUtils.getSchemFolder()) : null;
+
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GREEN + arg + ChatColor.RED + " was renamed successfully.");
 			if (parentName != null) {

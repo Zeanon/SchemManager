@@ -98,17 +98,8 @@ public class Delete {
 					for (final @NotNull File file : files) {
 						try {
 							Files.delete(file.toPath());
-							if (ConfigUtils.getBoolean("Delete empty Folders")
-								&& !file.getAbsoluteFile().getParentFile()
-										.equals(SchemUtils.getSchemFolder())) {
-								parentName = Objects.notNull(
-										file.getAbsoluteFile().getParentFile().listFiles()).length > 0
-											 ? null
-											 : InternalFileUtils.deleteEmptyParent(file);
-								if (file.getName().equals(parentName)) {
-									parentName = null;
-								}
-							}
+							parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length == 0
+										 && ConfigUtils.getBoolean("Delete empty Folders") ? InternalFileUtils.deleteEmptyParent(file, SchemUtils.getSchemFolder()) : null;
 						} catch (IOException e) {
 							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 										  ChatColor.GOLD + args[2] + ChatColor.RED + " could not be deleted, for further information please see [console].");

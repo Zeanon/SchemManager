@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
@@ -42,9 +43,9 @@ public class InternalFileUtils {
 					  .collect(Collectors.toList());
 	}
 
-	public @NotNull String deleteEmptyParent(final @NotNull File file) {
-		if (file.getAbsoluteFile().getParentFile().delete()) { //NOSONAR
-			return InternalFileUtils.deleteEmptyParent(file.getAbsoluteFile().getParentFile());
+	public @NotNull String deleteEmptyParent(final @NotNull File file, final @Nullable File stopHere) {
+		if (!file.getAbsoluteFile().getParentFile().equals(stopHere) && file.getAbsoluteFile().getParentFile().delete()) { //NOSONAR
+			return InternalFileUtils.deleteEmptyParent(file.getAbsoluteFile().getParentFile(), stopHere);
 		}
 		return file.getName();
 	}
