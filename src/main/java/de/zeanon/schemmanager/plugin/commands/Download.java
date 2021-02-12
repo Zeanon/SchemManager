@@ -122,7 +122,7 @@ public class Download {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[3] + ChatColor.RED + " could not be downloaded, for further information please see [console].");
 				}
-			} else if (args[3].equalsIgnoreCase("deny")) {
+			} else if (args[4].equalsIgnoreCase("deny")) {
 				CommandRequestUtils.removeDownloadRequest(p.getUniqueId().toString());
 				p.sendMessage(ChatColor.LIGHT_PURPLE + args[3] + " was not downloaded.");
 			}
