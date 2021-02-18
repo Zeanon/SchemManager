@@ -60,7 +60,7 @@ public class Update {
 
 				Update.updateConfig();
 			}
-		} catch (ObjectNullException e) {
+		} catch (final @NotNull ObjectNullException e) {
 			Update.updateConfig();
 		}
 	}
@@ -97,7 +97,7 @@ public class Update {
 												new Pair<>(new String[]{"Automatic Reload"}, autoReload));
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' updated.");
-		} catch (RuntimeIOException e) {
+		} catch (final @NotNull RuntimeIOException e) {
 			throw new RuntimeIOException("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be updated.", e);
 		}
 	}
@@ -126,7 +126,7 @@ public class Update {
 			urlConnect.setInstanceFollowRedirects(false);
 			urlConnect.getResponseCode();
 			return urlConnect.getHeaderField("Location").replaceFirst(".*/", "");
-		} catch (IOException e) {
+		} catch (final @NotNull IOException e) {
 			e.printStackTrace();
 			return null;
 		}
