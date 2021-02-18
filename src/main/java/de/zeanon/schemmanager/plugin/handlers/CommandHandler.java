@@ -107,7 +107,7 @@ public class CommandHandler implements CommandExecutor {
 							}
 						} else {
 							p.sendMessage(ChatColor.RED + "Invalid sub-command '"
-										  + ChatColor.GOLD + "" + args[0] + ChatColor.RED + ".");
+										  + ChatColor.GOLD + "" + args[0] + ChatColor.RED + "'.");
 							CommandHandler.sendUpdateUsage(p);
 							CommandHandler.sendDisableUsage(p);
 						}
