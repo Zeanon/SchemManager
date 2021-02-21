@@ -37,7 +37,8 @@ public class CommandHandler implements CommandExecutor {
 						} else if (args[0].equalsIgnoreCase("disable")
 								   && p.hasPermission("schemmanager.disable")) {
 							if (args.length == 1) {
-								GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to disable "
+								GlobalMessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
+																	  + ChatColor.RED + "Do you really want to disable "
 																	  + ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 																	  + ChatColor.RED + "? "
 										, "/sm disable confirm"
@@ -50,7 +51,7 @@ public class CommandHandler implements CommandExecutor {
 									   && GlobalRequestUtils.checkDisableRequest(p.getUniqueId().toString())) {
 								GlobalRequestUtils.removeDisableRequest(p.getUniqueId().toString());
 								if (args[1].equalsIgnoreCase("confirm")) {
-									p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
 												  + ChatColor.RED + " is being disabled.");
 									if (RunningMode.isPaperSpigot()) {
 										SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
@@ -63,7 +64,7 @@ public class CommandHandler implements CommandExecutor {
 										}.runTask(SchemManager.getInstance());
 									}
 								} else {
-									p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
 												  + ChatColor.RED + " will not be disabled.");
 								}
 							} else {
@@ -74,9 +75,11 @@ public class CommandHandler implements CommandExecutor {
 								   && p.hasPermission("schemmanager.update")) {
 							if (args.length == 1) {
 								if (!Update.checkForUpdate()) {
-									p.sendMessage(ChatColor.RED + "You are already running the latest Version.");
+									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
+												  + ChatColor.RED + "You are already running the latest Version.");
 								}
-								GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to update?"
+								GlobalMessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
+																	  + ChatColor.RED + "Do you really want to update?"
 										, "/sm update confirm"
 										, "/sm update deny"
 										, p);
@@ -98,7 +101,7 @@ public class CommandHandler implements CommandExecutor {
 										}.runTask(SchemManager.getInstance());
 									}
 								} else {
-									p.sendMessage(ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
 												  + ChatColor.RED + " will not be updated.");
 								}
 							} else {
