@@ -142,7 +142,7 @@ public class RenameFolder {
 								GlobalMessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ",
 																	  ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
 																	  ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path,
-																	  "//schem list " + path, p);
+																	  "//schem list -d " + path, p);
 								i++;
 							}
 						}

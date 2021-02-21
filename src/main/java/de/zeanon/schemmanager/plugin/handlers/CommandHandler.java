@@ -40,8 +40,8 @@ public class CommandHandler implements CommandExecutor {
 								GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to disable "
 																	  + ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
 																	  + ChatColor.RED + "? "
-										, "/schemmanager disable confirm"
-										, "/schemmanager disable deny"
+										, "/sm disable confirm"
+										, "/sm disable deny"
 										, p);
 								GlobalRequestUtils.addDisableRequest(p.getUniqueId().toString());
 							} else if (args.length == 2
@@ -77,8 +77,8 @@ public class CommandHandler implements CommandExecutor {
 									p.sendMessage(ChatColor.RED + "You are already running the latest Version.");
 								}
 								GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to update?"
-										, "/schemmanager update confirm"
-										, "/schemmanager update deny"
+										, "/sm update confirm"
+										, "/sm update deny"
 										, p);
 								GlobalRequestUtils.addUpdateRequest(p.getUniqueId().toString());
 							} else if (args.length == 2

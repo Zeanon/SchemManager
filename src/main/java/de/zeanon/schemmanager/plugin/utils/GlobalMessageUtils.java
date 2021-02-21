@@ -55,6 +55,7 @@ public class GlobalMessageUtils {
 	 */
 	public void sendInvertedCommandMessage(final @NotNull String message,
 										   final @NotNull String commandMessage,
+										   final @NotNull String secondMessage,
 										   final @NotNull String hoverMessage,
 										   final @Nullable String command,
 										   final @NotNull Player target) {
@@ -62,6 +63,9 @@ public class GlobalMessageUtils {
 				TextComponent.fromLegacyText(message));
 		final @NotNull TextComponent commandPart = new TextComponent(
 				TextComponent.fromLegacyText(commandMessage));
+		final @NotNull TextComponent secondLocalMessage = new TextComponent(
+				TextComponent.fromLegacyText(secondMessage));
+
 
 		if (command != null && !command.isEmpty()) {
 			commandPart.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
@@ -70,8 +74,9 @@ public class GlobalMessageUtils {
 		commandPart.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												 new ComponentBuilder(hoverMessage).create()));
 
-		commandPart.addExtra(localMessage);
-		target.spigot().sendMessage(commandPart);
+		localMessage.addExtra(commandPart);
+		localMessage.addExtra(secondLocalMessage);
+		target.spigot().sendMessage(localMessage);
 	}
 
 	/**

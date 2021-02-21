@@ -22,8 +22,8 @@ public class DeleteFolder {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (args.length <= 5) {
-					if (args.length < 3) {
+				if (args.length <= 4) {
+					if (args.length < 2) {
 						p.sendMessage(ChatColor.RED + "Missing argument for "
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GREEN + "filename"
@@ -78,12 +78,12 @@ public class DeleteFolder {
 		} else if (args.length == 3) {
 			if (file.exists() && file.isDirectory()) {
 				if (Objects.notNull(file.listFiles()).length > 0) {
-					GlobalMessageUtils.sendInvertedCommandMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-																  ChatColor.RED + " still contains files.",
+					GlobalMessageUtils.sendInvertedCommandMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] ",
 																  ChatColor.GREEN + args[2],
+																  ChatColor.RED + " still contains files.",
 																  ChatColor.RED + "Open "
 																  + ChatColor.GREEN + args[2],
-																  "//schem list " + args[2], p);
+																  "//schem list -d " + args[2], p);
 				}
 				GlobalMessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 													  ChatColor.RED + "Do you really want to delete "

@@ -23,8 +23,8 @@ public class Delete {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (args.length <= 5) {
-					if (args.length < 3) {
+				if (args.length <= 4) {
+					if (args.length < 2) {
 						p.sendMessage(ChatColor.RED + "Missing argument for "
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GOLD + "filename"
