@@ -242,12 +242,6 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
 
-        <!-- BungeeCord Repo -->
-        <repository>
-            <id>bungeecord-repo</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-
         <!-- Paper repo -->
         <repository>
             <id>papermc</id>
