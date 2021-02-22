@@ -9,4 +9,4 @@ softdepend: [ WorldEdit, FastAsyncWorldEdit, WorldGuard, PlugMan ]
 commands:
   schemmanager:
     description: The basic command for SchemManager
-    aliases: sm
+    aliases: [ sm ]
