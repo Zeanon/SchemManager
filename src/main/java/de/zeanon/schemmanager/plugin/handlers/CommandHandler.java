@@ -95,7 +95,7 @@ public class CommandHandler implements CommandExecutor {
 									GlobalRequestUtils.removeUpdateRequest(p.getUniqueId().toString());
 									if (args[1].equalsIgnoreCase("confirm")) {
 										if (RunningMode.isPaperSpigot()) {
-											Update.updatePlugin(SchemManager.getInstance());
+											Update.updatePlugin(p, SchemManager.getInstance());
 										} else {
 											new BukkitRunnable() {
 												@Override
