@@ -47,25 +47,29 @@ public class CommandHandler implements CommandExecutor {
 								GlobalRequestUtils.addDisableRequest(p.getUniqueId().toString());
 							} else if (args.length == 2
 									   && (args[1].equalsIgnoreCase("confirm")
-										   || args[1].equalsIgnoreCase("deny"))
-									   && GlobalRequestUtils.checkDisableRequest(p.getUniqueId().toString())) {
-								GlobalRequestUtils.removeDisableRequest(p.getUniqueId().toString());
-								if (args[1].equalsIgnoreCase("confirm")) {
-									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
-												  + ChatColor.RED + " is being disabled.");
-									if (RunningMode.isPaperSpigot()) {
-										SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+										   || args[1].equalsIgnoreCase("deny"))) {
+								if (GlobalRequestUtils.checkDisableRequest(p.getUniqueId().toString())) {
+									GlobalRequestUtils.removeDisableRequest(p.getUniqueId().toString());
+									if (args[1].equalsIgnoreCase("confirm")) {
+										p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
+													  + ChatColor.RED + " is being disabled.");
+										if (RunningMode.isPaperSpigot()) {
+											SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+										} else {
+											new BukkitRunnable() {
+												@Override
+												public void run() {
+													SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+												}
+											}.runTask(SchemManager.getInstance());
+										}
 									} else {
-										new BukkitRunnable() {
-											@Override
-											public void run() {
-												SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
-											}
-										}.runTask(SchemManager.getInstance());
+										p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
+													  + ChatColor.RED + " will not be disabled.");
 									}
 								} else {
 									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
-												  + ChatColor.RED + " will not be disabled.");
+												  + ChatColor.RED + "You don't have a pending disable request.");
 								}
 							} else {
 								p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -86,23 +90,27 @@ public class CommandHandler implements CommandExecutor {
 								GlobalRequestUtils.addUpdateRequest(p.getUniqueId().toString());
 							} else if (args.length == 2
 									   && (args[1].equalsIgnoreCase("confirm")
-										   || args[1].equalsIgnoreCase("deny"))
-									   && GlobalRequestUtils.checkUpdateRequest(p.getUniqueId().toString())) {
-								GlobalRequestUtils.removeUpdateRequest(p.getUniqueId().toString());
-								if (args[1].equalsIgnoreCase("confirm")) {
-									if (RunningMode.isPaperSpigot()) {
-										Update.updatePlugin(SchemManager.getInstance());
+										   || args[1].equalsIgnoreCase("deny"))) {
+								if (GlobalRequestUtils.checkUpdateRequest(p.getUniqueId().toString())) {
+									GlobalRequestUtils.removeUpdateRequest(p.getUniqueId().toString());
+									if (args[1].equalsIgnoreCase("confirm")) {
+										if (RunningMode.isPaperSpigot()) {
+											Update.updatePlugin(SchemManager.getInstance());
+										} else {
+											new BukkitRunnable() {
+												@Override
+												public void run() {
+													Update.updatePlugin(p, SchemManager.getInstance());
+												}
+											}.runTask(SchemManager.getInstance());
+										}
 									} else {
-										new BukkitRunnable() {
-											@Override
-											public void run() {
-												Update.updatePlugin(p, SchemManager.getInstance());
-											}
-										}.runTask(SchemManager.getInstance());
+										p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
+													  + ChatColor.RED + "Plugin will not be updated.");
 									}
 								} else {
 									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
-												  + ChatColor.RED + " will not be updated.");
+												  + ChatColor.RED + "You don't have a pending update request.");
 								}
 							} else {
 								p.sendMessage(ChatColor.RED + "Too many arguments.");
