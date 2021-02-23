@@ -22,8 +22,7 @@ public class SchemUtils {
 	private @Nullable
 	Path schemFolderPath;
 
-	public @Nullable
-	Path getSchemPath() {
+	public @Nullable Path getSchemPath() {
 		if (!Objects.notNull(InitMode.getWeConfig()).hasChanged()) {
 			return SchemUtils.schemFolderPath;
 		} else {
@@ -37,6 +36,7 @@ public class SchemUtils {
 			}
 		}
 	}
+
 
 	public void initSchemPath() throws FileNotFoundException {
 		final @NotNull Path tempPath = Paths.get(Objects.notNull(InitMode.getWeConfig().getStringUseArray("saving", "dir")));
