@@ -189,7 +189,7 @@ public class Search {
 
 	private void threeArgs(final @NotNull String arg, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final @NotNull java.util.List<String> extensions, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, int listmax) {
 		try {
-			final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
+			final @Nullable Path listPath = schemPath != null ? schemPath.toAbsolutePath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 			if (directory == null || !directory.isDirectory()) {
@@ -247,7 +247,7 @@ public class Search {
 	private void fourArgs(final @NotNull String argTwo, final @NotNull String argThree, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final @NotNull java.util.List<String> extensions, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, int listmax) {
 		if (StringUtils.isNumeric(argThree)) {
 			try {
-				final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
+				final @Nullable Path listPath = schemPath != null ? schemPath.toAbsolutePath() : null;
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 				if (directory == null || !directory.isDirectory()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
@@ -325,7 +325,7 @@ public class Search {
 			}
 		} else {
 			try {
-				final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toRealPath() : null;
+				final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toAbsolutePath() : null;
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 				if (directory == null || !directory.isDirectory()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
@@ -382,7 +382,7 @@ public class Search {
 
 	private void defaultCase(final @NotNull String argTwo, final @NotNull String argThree, final @NotNull String argFour, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final @NotNull java.util.List<String> extensions, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, int listmax) {
 		try {
-			final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toRealPath() : null;
+			final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toAbsolutePath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 			if (directory == null || !directory.isDirectory()) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +

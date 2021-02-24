@@ -55,7 +55,8 @@ public class List {
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}
 
-	public @NotNull String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+	public @NotNull
+	String usageMessage(final @NotNull String slash, final @NotNull String schemAlias) {
 		return ChatColor.GRAY + slash + schemAlias
 			   + ChatColor.AQUA + " list "
 			   + ChatColor.YELLOW + "["
@@ -67,7 +68,8 @@ public class List {
 			   + ChatColor.YELLOW + "]";
 	}
 
-	public @NotNull String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
+	public @NotNull
+	String usageHoverMessage(final @NotNull String slash, final @NotNull String schemAlias) {
 		return ChatColor.RED + "e.g. "
 			   + ChatColor.GRAY + slash + schemAlias
 			   + ChatColor.AQUA + " list "
@@ -80,7 +82,8 @@ public class List {
 			   + ChatColor.YELLOW + "]";
 	}
 
-	public @NotNull String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
+	public @NotNull
+	String usageCommand(final @NotNull String slash, final @NotNull String schemAlias) {
 		return slash + schemAlias + " list ";
 	}
 
@@ -145,7 +148,7 @@ public class List {
 
 	private void twoArgs(final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, int listmax) {
 		try {
-			final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
+			final @Nullable Path listPath = schemPath != null ? schemPath.toAbsolutePath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 			if (directory == null || !directory.isDirectory()) {
@@ -202,7 +205,7 @@ public class List {
 	private void threeArgs(final @NotNull String arg, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, int listmax) {
 		if (StringUtils.isNumeric(arg)) {
 			try {
-				final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
+				final @Nullable Path listPath = schemPath != null ? schemPath.toAbsolutePath() : null;
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 				if (directory == null || !directory.isDirectory()) {
@@ -282,7 +285,7 @@ public class List {
 			}
 		} else {
 			try {
-				final @Nullable Path listPath = schemPath != null ? schemPath.resolve(arg).toRealPath() : null;
+				final @Nullable Path listPath = schemPath != null ? schemPath.resolve(arg).toAbsolutePath() : null;
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 				if (directory == null || !directory.isDirectory()) {
@@ -340,7 +343,7 @@ public class List {
 
 	private void defaultCase(final @NotNull String argTwo, final @NotNull String argThree, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, int listmax) {
 		try {
-			final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toRealPath() : null;
+			final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toAbsolutePath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 			if (directory == null || !directory.isDirectory()) {
