@@ -121,7 +121,7 @@ public class RenameFolder {
 								}
 								GlobalMessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
 																	  ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
-																	  ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard",
+																	  ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard.",
 																	  "//schem load " + path, p);
 								id++;
 							}
@@ -141,7 +141,7 @@ public class RenameFolder {
 								final @NotNull String shortenedRelativePath = FilenameUtils.separatorsToUnix(schemPath.resolve(args[3]).toRealPath().relativize(newFolder.toPath().toRealPath()).toString());
 								GlobalMessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(i + 1) + ": ",
 																	  ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
-																	  ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path,
+																	  ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path + ".",
 																	  "//schem list -d " + path, p);
 								i++;
 							}

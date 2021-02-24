@@ -9,7 +9,6 @@ import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collections;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FilenameUtils;
@@ -111,10 +110,6 @@ public class List {
 	}
 
 	private boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
-		return (!List.sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
-	}
-
-	private boolean sendListLine(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
 		try {
 			final @NotNull String name;
 			final @Nullable String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
@@ -131,20 +126,20 @@ public class List {
 			if (deepSearch) {
 				GlobalMessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
 													  ChatColor.GOLD + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
-													  ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard",
+													  ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard.",
 													  "//schem load " + path, p);
 			} else {
 				GlobalMessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
 													  ChatColor.GOLD + name,
-													  ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard",
+													  ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard.",
 													  "//schem load " + path, p);
 			}
-			return true;
+			return false;
 		} catch (final @NotNull IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "An Error occurred while getting the filepaths for the schematics, for further information please see [console].");
 			e.printStackTrace();
-			return false;
+			return true;
 		}
 	}
 
@@ -179,7 +174,6 @@ public class List {
 						listmax = (int) count;
 					}
 
-					Collections.sort(files);
 					for (int i = 0; i < listmax; i++) {
 						if (List.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
 							return;
@@ -247,7 +241,6 @@ public class List {
 							listmax = (int) count - (listmax * (sideNumber - 1));
 						}
 
-						Collections.sort(files);
 						for (int i = 0; i < listmax; i++) {
 							if (List.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
 								return;
@@ -318,7 +311,6 @@ public class List {
 							listmax = (int) count;
 						}
 
-						Collections.sort(files);
 						for (int i = 0; i < listmax; i++) {
 							if (List.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
 								return;
@@ -387,7 +379,6 @@ public class List {
 						listmax = (int) count - (listmax * (sideNumber - 1));
 					}
 
-					Collections.sort(files);
 					for (int i = 0; i < listmax; i++) {
 						if (List.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
 							return;

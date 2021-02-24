@@ -8,7 +8,6 @@ import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
@@ -153,10 +152,6 @@ public class SearchFolder {
 	}
 
 	private boolean sendListLineFailed(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
-		return (!SearchFolder.sendListLine(p, schemFolderPath, listPath, file, id, deepSearch));
-	}
-
-	private boolean sendListLine(final @NotNull Player p, final @NotNull Path schemFolderPath, final @NotNull Path listPath, final @NotNull File file, final int id, final boolean deepSearch) {
 		try {
 			final @NotNull String name = file.getName();
 			final @NotNull String path = FilenameUtils.separatorsToUnix(schemFolderPath.toRealPath().relativize(file.toPath().toRealPath()).toString());
@@ -165,20 +160,20 @@ public class SearchFolder {
 			if (deepSearch) {
 				GlobalMessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
 													  ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
-													  ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path,
+													  ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path + ".",
 													  "//schem list " + path, p);
 			} else {
 				GlobalMessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
 													  ChatColor.GREEN + name,
-													  ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path,
+													  ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path + ".",
 													  "//schem list " + path, p);
 			}
-			return true;
+			return false;
 		} catch (final @NotNull IOException e) {
 			e.printStackTrace();
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "An Error occurred while getting the filepaths for the folders, for further information please see [console].");
-			return false;
+			return true;
 		}
 	}
 
@@ -212,7 +207,6 @@ public class SearchFolder {
 						listmax = (int) count;
 					}
 
-					Collections.sort(files);
 					for (int i = 0; i < listmax; i++) {
 						if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
 							return;
@@ -279,7 +273,6 @@ public class SearchFolder {
 							listmax = (int) count - (listmax * (sideNumber - 1));
 						}
 
-						Collections.sort(files);
 						for (int i = 0; i < listmax; i++) {
 							if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
 								return;
@@ -349,7 +342,6 @@ public class SearchFolder {
 							listmax = (int) count;
 						}
 
-						Collections.sort(files);
 						for (int i = 0; i < listmax; i++) {
 							if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
 								return;
@@ -416,7 +408,6 @@ public class SearchFolder {
 						listmax = (int) count - (listmax * (sideNumber - 1));
 					}
 
-					Collections.sort(files);
 					for (int i = 0; i < listmax; i++) {
 						if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
 							return;

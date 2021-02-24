@@ -134,9 +134,7 @@ public class CopyFolder {
 										+ ChatColor.DARK_GRAY + " ["
 										+ ChatColor.GRAY + shortenedRelativePath
 										+ ChatColor.DARK_GRAY + "]",
-										ChatColor.RED + "Load "
-										+ ChatColor.GOLD + path
-										+ ChatColor.RED + " to your clipboard",
+										ChatColor.RED + "Load " + ChatColor.GOLD + path + ChatColor.RED + " to your clipboard.",
 										"//schem load " + path, p);
 								id++;
 							}
@@ -168,8 +166,7 @@ public class CopyFolder {
 																	  + ChatColor.DARK_GRAY + " ["
 																	  + ChatColor.GRAY + shortenedRelativePath
 																	  + ChatColor.DARK_GRAY + "]",
-																	  ChatColor.RED + "List the schematics in "
-																	  + ChatColor.GREEN + path,
+																	  ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path + ".",
 																	  "//schem list " + path, p);
 								i++;
 							}
