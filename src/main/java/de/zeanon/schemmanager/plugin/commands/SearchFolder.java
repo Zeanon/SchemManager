@@ -179,7 +179,7 @@ public class SearchFolder {
 
 	private void threeArgs(final @NotNull String arg, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, int listmax) {
 		try {
-			final @Nullable Path listPath = schemPath;
+			final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 			if (directory == null || !directory.isDirectory()) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
@@ -236,7 +236,7 @@ public class SearchFolder {
 	private void fourArgs(final @NotNull String argTwo, final @NotNull String argThree, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, int listmax) {
 		if (StringUtils.isNumeric(argThree)) {
 			try {
-				final @Nullable Path listPath = schemPath;
+				final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 				if (directory == null || !directory.isDirectory()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
@@ -314,7 +314,7 @@ public class SearchFolder {
 			}
 		} else {
 			try {
-				final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo) : null;
+				final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toRealPath() : null;
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 				if (directory == null || !directory.isDirectory()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
@@ -371,7 +371,7 @@ public class SearchFolder {
 
 	private void defaultCase(final @NotNull String argTwo, final @NotNull String argThree, final @NotNull String argFour, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @NotNull String caseSensitive, final boolean deepSearch, final boolean caseSensitiveSearch, final boolean spaceLists, int listmax) {
 		try {
-			final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo) : null;
+			final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toRealPath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 			if (directory == null || !directory.isDirectory()) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +

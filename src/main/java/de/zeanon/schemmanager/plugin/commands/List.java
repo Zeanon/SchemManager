@@ -145,7 +145,7 @@ public class List {
 
 	private void twoArgs(final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, int listmax) {
 		try {
-			final @Nullable Path listPath = schemPath;
+			final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 			if (directory == null || !directory.isDirectory()) {
@@ -202,7 +202,7 @@ public class List {
 	private void threeArgs(final @NotNull String arg, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, int listmax) {
 		if (StringUtils.isNumeric(arg)) {
 			try {
-				final @Nullable Path listPath = schemPath;
+				final @Nullable Path listPath = schemPath != null ? schemPath.toRealPath() : null;
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 				if (directory == null || !directory.isDirectory()) {
@@ -282,7 +282,7 @@ public class List {
 			}
 		} else {
 			try {
-				final @Nullable Path listPath = schemPath != null ? schemPath.resolve(arg) : null;
+				final @Nullable Path listPath = schemPath != null ? schemPath.resolve(arg).toRealPath() : null;
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 				if (directory == null || !directory.isDirectory()) {
@@ -340,7 +340,7 @@ public class List {
 
 	private void defaultCase(final @NotNull String argTwo, final @NotNull String argThree, final @Nullable Path schemPath, final @NotNull Player p, final @NotNull String deep, final @Nullable java.util.List<String> extensions, final boolean deepSearch, final boolean spaceLists, int listmax) {
 		try {
-			final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo) : null;
+			final @Nullable Path listPath = schemPath != null ? schemPath.resolve(argTwo).toRealPath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 			if (directory == null || !directory.isDirectory()) {
