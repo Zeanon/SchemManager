@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.plugin.handlers;
 
-import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.commands.*;
 import de.zeanon.schemmanager.plugin.utils.CommandMessageUtils;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
@@ -10,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -34,12 +32,7 @@ public class CommandListener implements Listener {
 			// <Help>
 			if (args.length == 1) {
 				event.setCancelled(true);
-				new BukkitRunnable() {
-					@Override
-					public void run() {
-						Help.executeInternally(p, slash, schemAlias);
-					}
-				}.runTaskAsynchronously(SchemManager.getInstance());
+				Help.executeInternally(p, slash, schemAlias);
 				// </Help>
 
 				// <Delete>

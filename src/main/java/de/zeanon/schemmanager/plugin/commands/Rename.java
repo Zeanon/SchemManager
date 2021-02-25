@@ -34,7 +34,7 @@ public class Rename {
 						Rename.usage(p, slash, schemAlias);
 					} else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
 						String name = args[2].contains("./") ? args[2] : args[3];
-						p.sendMessage(ChatColor.RED + "File '" + name + "'resolution error: Path is not allowed.");
+						p.sendMessage(ChatColor.RED + "File '" + name + "' resolution error: Path is not allowed.");
 						Rename.usage(p, slash, schemAlias);
 					} else if (args.length == 5 && !CommandRequestUtils.checkRenameRequest(p.getUniqueId().toString(), args[2])
 							   && !args[3].equalsIgnoreCase("confirm")

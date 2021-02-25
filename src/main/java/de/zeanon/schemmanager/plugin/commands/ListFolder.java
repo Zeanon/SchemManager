@@ -41,7 +41,7 @@ public class ListFolder {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						ListFolder.usage(p, slash, schemAlias);
 					} else if (args.length >= 3 + modifierCount && args[2 + modifierCount].contains("./")) {
-						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "'resolution error: Path is not allowed.");
+						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "' resolution error: Path is not allowed.");
 						ListFolder.usage(p, slash, schemAlias);
 					} else {
 						ListFolder.executeInternally(p, args, deep, modifierCount);

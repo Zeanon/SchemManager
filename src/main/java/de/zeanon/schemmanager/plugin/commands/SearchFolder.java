@@ -64,7 +64,7 @@ public class SearchFolder {
 									  + ChatColor.YELLOW + ">");
 						SearchFolder.usage(p, slash, schemAlias);
 					} else if (args[2 + modifierCount].contains("./")) {
-						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "'resolution error: Path is not allowed.");
+						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "' resolution error: Path is not allowed.");
 						SearchFolder.usage(p, slash, schemAlias);
 					} else if (args.length == 5 + modifierCount
 							   && (StringUtils.isNumeric(args[2 + modifierCount])

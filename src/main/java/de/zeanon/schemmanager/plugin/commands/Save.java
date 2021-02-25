@@ -34,7 +34,7 @@ public class Save {
 				Save.defaultSaveUsage(p, slash, schemAlias);
 			} else if (args[2].contains("./")) {
 				event.setCancelled(true);
-				p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
+				p.sendMessage(ChatColor.RED + "File '" + args[2] + "' resolution error: Path is not allowed.");
 				Save.defaultSaveUsage(p, slash, schemAlias);
 			} else if (args.length > 4 && !args[2].equalsIgnoreCase("-f")) {
 				event.setCancelled(true);
@@ -60,7 +60,7 @@ public class Save {
 				Save.usage(p, slash, schemAlias);
 			} else if (args[2].contains("./")) {
 				event.setCancelled(true);
-				p.sendMessage(ChatColor.RED + "File '" + args[2] + "'resolution error: Path is not allowed.");
+				p.sendMessage(ChatColor.RED + "File '" + args[2] + "' resolution error: Path is not allowed.");
 				Save.usage(p, slash, schemAlias);
 			} else if (args.length > 4 || (args.length == 4
 										   && !CommandRequestUtils.checkOverWriteRequest(p.getUniqueId().toString(), args[2])
