@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class RunningMode {
 
-	@Getter
+	@Getter(onMethod_ = {@Nullable})
 	private final @Nullable WorldEditPlugin worldEditPlugin;
 	@Getter
 	private final boolean paperSpigot;
