@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.5.30-Beta</version>
+    <version>4.5.31-Beta</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
@@ -109,7 +109,7 @@
                         <configuration>
                             <groupId>de.zeanon</groupId>
                             <artifactId>storagemanagercore</artifactId>
-                            <version>1.1.93</version>
+                            <version>1.1.95</version>
                             <file>src/main/resources/dependencies/StorageManagerCore.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
@@ -125,7 +125,7 @@
                         <configuration>
                             <groupId>de.zeanon</groupId>
                             <artifactId>thunderfilemanager</artifactId>
-                            <version>1.1.93</version>
+                            <version>1.1.95</version>
                             <file>src/main/resources/dependencies/ThunderFileManager.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
@@ -141,7 +141,7 @@
                         <configuration>
                             <groupId>de.zeanon</groupId>
                             <artifactId>yamlfilemanager</artifactId>
-                            <version>1.1.93</version>
+                            <version>1.1.95</version>
                             <file>src/main/resources/dependencies/YamlFileManager.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
@@ -260,7 +260,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>storagemanagercore</artifactId>
-            <version>1.1.93</version>
+            <version>1.1.95</version>
             <scope>compile</scope>
         </dependency>
 
@@ -268,7 +268,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>thunderfilemanager</artifactId>
-            <version>1.1.93</version>
+            <version>1.1.95</version>
             <scope>compile</scope>
         </dependency>
 
@@ -276,7 +276,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>yamlfilemanager</artifactId>
-            <version>1.1.93</version>
+            <version>1.1.95</version>
             <scope>compile</scope>
         </dependency>
 
