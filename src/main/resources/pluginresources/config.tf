@@ -44,9 +44,6 @@ Delete empty Folders = true
 # Save Funtion Override: Should the basic save function be overridden by the plugin?
 Save Function Override = true
 
-# Stoplag Override: Should the new stoplag activation method be reverted to it's old style?
-Stoplag Override = true
-
 # Automatic Reload: Should the plugin automatically reload the Server after it got updated?
 # If you have PlugMan installed, it will only reload itself, not the whole server.
 # PlugMan: https://dev.bukkit.org/projects/plugmam

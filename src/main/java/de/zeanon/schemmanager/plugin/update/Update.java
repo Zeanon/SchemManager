@@ -55,7 +55,6 @@ public class Update {
 				|| !InitMode.getConfig().hasKeyUseArray("Space Lists")
 				|| !InitMode.getConfig().hasKeyUseArray("Delete empty Folders")
 				|| !InitMode.getConfig().hasKeyUseArray("Save Function Override")
-				|| !InitMode.getConfig().hasKeyUseArray("Stoplag Override")
 				|| !InitMode.getConfig().hasKeyUseArray("Automatic Reload")) {
 
 				Update.updateConfig();
@@ -79,8 +78,6 @@ public class Update {
 											   || InitMode.getConfig().getBooleanUseArray("Delete empty Folders");
 			final boolean saveOverride = !InitMode.getConfig().hasKeyUseArray("Save Function Override")
 										 || InitMode.getConfig().getBooleanUseArray("Save Function Override");
-			final boolean stoplagOverride = !InitMode.getConfig().hasKeyUseArray("Stoplag Override")
-											|| InitMode.getConfig().getBooleanUseArray("Stoplag Override");
 			final boolean autoReload = !InitMode.getConfig().hasKeyUseArray("Automatic Reload")
 									   || InitMode.getConfig().getBooleanUseArray("Automatic Reload");
 
@@ -93,7 +90,6 @@ public class Update {
 												new Pair<>(new String[]{"Space Lists"}, spaceLists),
 												new Pair<>(new String[]{"Delete empty Folders"}, deleteEmptyFolders),
 												new Pair<>(new String[]{"Save Function Override"}, saveOverride),
-												new Pair<>(new String[]{"Stoplag Override"}, stoplagOverride),
 												new Pair<>(new String[]{"Automatic Reload"}, autoReload));
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' updated.");

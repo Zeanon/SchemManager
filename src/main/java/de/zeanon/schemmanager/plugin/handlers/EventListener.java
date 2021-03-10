@@ -4,8 +4,6 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.update.Update;
 import de.zeanon.schemmanager.plugin.utils.CommandRequestUtils;
 import de.zeanon.schemmanager.plugin.utils.GlobalRequestUtils;
-import lombok.AccessLevel;
-import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,10 +16,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class EventListener implements Listener {
 
-	@Setter(AccessLevel.PRIVATE)
-	static boolean worldguardEnabled = SchemManager.getPluginManager().getPlugin("WorldGuard") != null
-									   && SchemManager.getPluginManager().isPluginEnabled("WorldGuard");
-
 
 	@EventHandler
 	public void onPluginDisable(final @NotNull PluginDisableEvent event) {
@@ -29,8 +23,6 @@ public class EventListener implements Listener {
 			|| event.getPlugin().getName().equalsIgnoreCase("FastAsyncWorldEdit")) {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
-		} else if (event.getPlugin().getName().equalsIgnoreCase("WorldGuard")) {
-			EventListener.setWorldguardEnabled(false);
 		}
 	}
 
@@ -39,8 +31,6 @@ public class EventListener implements Listener {
 		if (event.getPlugin().getName().equalsIgnoreCase("FastAsyncWorldEdit")) {
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			SchemManager.getPluginManager().enablePlugin(SchemManager.getInstance());
-		} else if (event.getPlugin().getName().equalsIgnoreCase("WorldGuard")) {
-			EventListener.setWorldguardEnabled(true);
 		}
 	}
 

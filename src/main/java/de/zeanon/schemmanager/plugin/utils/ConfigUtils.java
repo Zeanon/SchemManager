@@ -94,7 +94,6 @@ public class ConfigUtils {
 			case "Delete empty Folders":
 			case "Save Function Override":
 			case "Automatic Reload":
-			case "Stoplag Override":
 				return true;
 			case "Listmax":
 				return 10;

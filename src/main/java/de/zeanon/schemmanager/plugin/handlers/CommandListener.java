@@ -2,7 +2,6 @@ package de.zeanon.schemmanager.plugin.handlers;
 
 import de.zeanon.schemmanager.plugin.commands.*;
 import de.zeanon.schemmanager.plugin.utils.CommandMessageUtils;
-import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -160,14 +159,6 @@ public class CommandListener implements Listener {
 				CommandMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
 			}
 			// </Invalid Command>
-		} else if (args[0].equalsIgnoreCase("/stoplag")
-				   && EventListener.worldguardEnabled
-				   && ConfigUtils.getBoolean("Stoplag Override")
-				   && (args.length == 1
-					   || (!args[1].equalsIgnoreCase("confirm")
-						   && !args[1].equalsIgnoreCase("-c")))) {
-			event.setCancelled(true);
-			p.performCommand("stoplag confirm");
 		}
 	}
 }

@@ -5,7 +5,7 @@ author: Zeanon
 website: ${project.url}
 main: de.zeanon.schemmanager.SchemManager
 api-version: 1.15
-softdepend: [ WorldEdit, FastAsyncWorldEdit, WorldGuard, PlugMan ]
+softdepend: [ WorldEdit, FastAsyncWorldEdit, PlugMan ]
 commands:
   schemmanager:
     description: The basic command for SchemManager

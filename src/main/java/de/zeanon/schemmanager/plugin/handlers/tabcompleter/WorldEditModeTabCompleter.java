@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 class WorldEditModeTabCompleter {
 
 	@NotNull List<String> execute(final @NotNull String message) throws IOException {
-		final @NotNull String[] args = message.replace("worldedit:", "/").split(" ");
+		final @NotNull String[] args = message.split(" ");
 		final boolean argumentEnded = message.endsWith(" ");
 		if (args[0].equalsIgnoreCase("//schem") || args[0].equalsIgnoreCase("//schematic")) {
 			if (message.contains("./")) {
@@ -52,12 +52,6 @@ class WorldEditModeTabCompleter {
 				}
 
 				return WorldEditModeTabCompleter.onTab(args, deep, caseSensitive, modifierCount, argumentEnded);
-			}
-		} else if (args[0].equalsIgnoreCase("/stoplag")) {
-			if (args.length == 1 || (args.length == 2 && !message.endsWith(" ") && "-c".startsWith(args[1]))) {
-				return Collections.singletonList("-c");
-			} else {
-				return Collections.emptyList();
 			}
 		} else {
 			return Collections.emptyList();

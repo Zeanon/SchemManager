@@ -39,7 +39,7 @@ public class CommandHandler implements CommandExecutor {
 							if (args.length == 1) {
 								GlobalMessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
 																	  + ChatColor.RED + "Do you really want to disable "
-																	  + ChatColor.DARK_PURPLE + SchemManager.getInstance().getName()
+																	  + ChatColor.DARK_RED + SchemManager.getInstance().getName()
 																	  + ChatColor.RED + "? "
 										, "/sm disable confirm"
 										, "/sm disable deny"
@@ -52,7 +52,7 @@ public class CommandHandler implements CommandExecutor {
 									GlobalRequestUtils.removeDisableRequest(p.getUniqueId().toString());
 									if (args[1].equalsIgnoreCase("confirm")) {
 										p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
-													  + ChatColor.RED + " is being disabled.");
+													  + ChatColor.RED + "is being disabled.");
 										if (RunningMode.isPaperSpigot()) {
 											SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 										} else {
@@ -65,7 +65,7 @@ public class CommandHandler implements CommandExecutor {
 										}
 									} else {
 										p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
-													  + ChatColor.RED + " will not be disabled.");
+													  + ChatColor.RED + "will not be disabled.");
 									}
 								} else {
 									p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
