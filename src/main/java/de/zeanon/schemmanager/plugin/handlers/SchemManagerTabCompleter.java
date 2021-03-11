@@ -2,7 +2,6 @@ package de.zeanon.schemmanager.plugin.handlers;
 
 import de.zeanon.schemmanager.plugin.utils.GlobalRequestUtils;
 import de.zeanon.storagemanagercore.external.browniescollections.GapList;
-import java.util.Collections;
 import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -21,7 +20,7 @@ public class SchemManagerTabCompleter implements TabCompleter {
 				result.add(completion);
 			}
 		}
-		return result;
+		return result.isEmpty() ? null : result;
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class SchemManagerTabCompleter implements TabCompleter {
 												|| GlobalRequestUtils.checkConsoleDisableRequest())))) {
 			return SchemManagerTabCompleter.getCompletions(args[1], "allow", "deny");
 		} else {
-			return Collections.emptyList();
+			return null;
 		}
 	}
 }
