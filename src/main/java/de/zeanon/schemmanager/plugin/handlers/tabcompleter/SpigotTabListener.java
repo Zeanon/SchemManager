@@ -13,8 +13,7 @@ public class SpigotTabListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onTab(final @NotNull TabCompleteEvent event) throws IOException {
 		if (event.getBuffer().toLowerCase().startsWith("//schem")
-			|| event.getBuffer().toLowerCase().startsWith("/schem")
-			|| event.getBuffer().toLowerCase().startsWith("/stoplag")) {
+			|| event.getBuffer().toLowerCase().startsWith("/schem")) {
 			final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
 			event.setCompletions(WorldEditModeTabCompleter.execute(message));
 		}

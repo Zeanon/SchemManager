@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 
 public class PaperTabListener implements Listener {
@@ -15,10 +14,9 @@ public class PaperTabListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onTab(final @NotNull AsyncTabCompleteEvent event) throws IOException {
 		if (event.getBuffer().toLowerCase().startsWith("//schem")
-			|| event.getBuffer().toLowerCase().startsWith("/schem")
-			|| event.getBuffer().toLowerCase().startsWith("/stoplag")) {
+			|| event.getBuffer().toLowerCase().startsWith("/schem")) {
 			final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
-			final @Nullable List<String> completions = WorldEditModeTabCompleter.execute(message);
+			final @NotNull List<String> completions = WorldEditModeTabCompleter.execute(message);
 			if (completions.isEmpty()) {
 				event.setCancelled(true);
 			} else {
