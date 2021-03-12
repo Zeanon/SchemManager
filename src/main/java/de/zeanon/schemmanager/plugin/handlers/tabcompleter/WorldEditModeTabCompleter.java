@@ -24,10 +24,10 @@ class WorldEditModeTabCompleter {
 	@NotNull List<String> execute(final @NotNull String message) throws IOException {
 		final @NotNull String[] args = message.split(" ");
 		final boolean argumentEnded = message.endsWith(" ");
-		if (args[0].equalsIgnoreCase("//schem")
-			|| args[0].equalsIgnoreCase("//schematic")
-			|| args[0].equalsIgnoreCase("/schem")
-			|| args[0].equalsIgnoreCase("/schematic")) {
+		if (args[0].equals("//schem")
+			|| args[0].equals("//schematic")
+			|| args[0].equals("/schem")
+			|| args[0].equals("/schematic")) {
 			if (message.contains("./")) {
 				return Collections.emptyList();
 			} else {
