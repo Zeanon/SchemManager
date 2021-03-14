@@ -58,17 +58,17 @@ class DefaultUpdate {
 													  .openStream()));
 
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
-						  ChatColor.RED + "update successful.");
+						  ChatColor.RED + "Update successful.");
 
 			if (autoReload) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
-							  ChatColor.RED + "server is reloading.");
+							  ChatColor.RED + "Server is reloading...");
 				Bukkit.getServer().reload();
 			}
 		} catch (@NotNull IOException | URISyntaxException e) {
 			e.printStackTrace();
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
-						  ChatColor.RED + "could not update.");
+						  ChatColor.RED + "Could not update.");
 		}
 	}
 }
