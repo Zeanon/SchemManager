@@ -3,7 +3,6 @@ package de.zeanon.schemmanager.plugin.utils;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.init.InitMode;
 import de.zeanon.schemmanager.plugin.update.Update;
-import de.zeanon.storagemanagercore.internal.base.exceptions.ObjectNullException;
 import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.util.Arrays;
 import java.util.List;
@@ -24,9 +23,9 @@ public class ConfigUtils {
 	 * @return value.
 	 */
 	public int getInt(final @NotNull String key) {
-		try {
-			return Objects.notNull(InitMode.getConfig()).getIntUseArray(key);
-		} catch (ObjectNullException e) {
+		if (InitMode.getConfig().hasKeyUseArray(key)) {
+			return InitMode.getConfig().getIntUseArray(key);
+		} else {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
@@ -45,9 +44,9 @@ public class ConfigUtils {
 	 * @return value.
 	 */
 	public boolean getBoolean(final @NotNull String key) {
-		try {
-			return Objects.notNull(InitMode.getConfig()).getBooleanUseArray(key);
-		} catch (ObjectNullException e) {
+		if (InitMode.getConfig().hasKeyUseArray(key)) {
+			return InitMode.getConfig().getBooleanUseArray(key);
+		} else {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
@@ -67,9 +66,9 @@ public class ConfigUtils {
 	 */
 	@Nullable
 	public List<String> getStringList(final @NotNull String key) {
-		try {
+		if (InitMode.getConfig().hasKeyUseArray(key)) {
 			return Objects.notNull(InitMode.getConfig()).getListUseArray(key);
-		} catch (ObjectNullException e) {
+		} else {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
