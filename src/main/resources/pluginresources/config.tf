@@ -46,5 +46,5 @@ Save Function Override = true
 
 # Automatic Reload: Should the plugin automatically reload the Server after it got updated?
 # If you have PlugMan installed, it will only reload itself, not the whole server.
-# PlugMan: https://dev.bukkit.org/projects/plugmam
+# PlugMan: https://dev.bukkit.org/projects/plugman
 Automatic Reload = true
