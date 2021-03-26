@@ -3,6 +3,7 @@ package de.zeanon.schemmanager.plugin.handlers;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.update.Update;
 import de.zeanon.schemmanager.plugin.utils.GlobalRequestUtils;
+import java.util.UUID;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -29,7 +30,7 @@ public class WakeupListener implements Listener {
 
 	@EventHandler
 	public void onQuit(final @NotNull PlayerQuitEvent event) {
-		final @NotNull String uuid = event.getPlayer().getUniqueId().toString();
+		final @NotNull UUID uuid = event.getPlayer().getUniqueId();
 		GlobalRequestUtils.removeDisableRequest(uuid);
 		GlobalRequestUtils.removeUpdateRequest(uuid);
 	}
