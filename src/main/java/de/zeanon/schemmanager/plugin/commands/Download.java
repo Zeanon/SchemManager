@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Download {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -47,9 +47,9 @@ public class Download {
 					} else if (args[3].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[3] + "' resolution error: Path is not allowed.");
 						Download.usage(p, slash, schemAlias);
-					} else if (args.length == 5 && !CommandRequestUtils.checkDownloadRequest(p.getUniqueId().toString(), args[2])
-							   && !args[4].equalsIgnoreCase("confirm")
-							   && !args[4].equalsIgnoreCase("deny")) {
+					} else if (args.length == 5 && !CommandRequestUtils.checkDownloadRequest(p.getUniqueId(), args[2])
+							   && !args[4].equalsIgnoreCase("-confirm")
+							   && !args[4].equalsIgnoreCase("-deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Download.usage(p, slash, schemAlias);
 					} else {
@@ -85,7 +85,7 @@ public class Download {
 		return slash + schemAlias + " download ";
 	}
 
-	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
 		final @Nullable Path schemPath = SchemUtils.getSchemPath();
 		final @Nullable File file = schemPath != null
 									? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[3])) //NOSONAR
@@ -97,7 +97,7 @@ public class Download {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "Could not access schematic folder.");
 		} else if (args.length == 4) {
-			CommandRequestUtils.addDownloadRequest(p.getUniqueId().toString(), args[3]);
+			CommandRequestUtils.addDownloadRequest(p.getUniqueId(), args[3]);
 			if (file.exists()) {
 				p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[3] + ChatColor.RED + " already exists.");
 				GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[3] + ChatColor.RED + "?",
@@ -108,9 +108,9 @@ public class Download {
 													  "//schem download " + args[2] + " " + args[3] + " confirm",
 													  "//schem download " + args[2] + " " + args[3] + " deny", p);
 			}
-		} else if (args.length == 5 && CommandRequestUtils.checkDownloadRequest(p.getUniqueId().toString(), args[3])) {
-			if (args[4].equalsIgnoreCase("confirm")) {
-				CommandRequestUtils.removeDownloadRequest(p.getUniqueId().toString());
+		} else if (args.length == 5 && CommandRequestUtils.checkDownloadRequest(p.getUniqueId(), args[3])) {
+			if (args[4].equalsIgnoreCase("-confirm")) {
+				CommandRequestUtils.removeDownloadRequest(p.getUniqueId());
 				try {
 					BaseFileUtils.writeToFile(file, new BufferedInputStream(
 							new URL(args[2])
@@ -122,8 +122,8 @@ public class Download {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[3] + ChatColor.RED + " could not be downloaded, for further information please see [console].");
 				}
-			} else if (args[4].equalsIgnoreCase("deny")) {
-				CommandRequestUtils.removeDownloadRequest(p.getUniqueId().toString());
+			} else if (args[4].equalsIgnoreCase("-deny")) {
+				CommandRequestUtils.removeDownloadRequest(p.getUniqueId());
 				p.sendMessage(ChatColor.LIGHT_PURPLE + args[3] + " was not downloaded.");
 			}
 		}

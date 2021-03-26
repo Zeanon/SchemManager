@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class Help {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		if (args.length == 2) {
 			Help.executeInternally(p, slash, schemAlias);
 		} else {

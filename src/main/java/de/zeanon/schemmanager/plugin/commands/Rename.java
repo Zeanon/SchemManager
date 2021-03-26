@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Rename {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -36,9 +36,9 @@ public class Rename {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "' resolution error: Path is not allowed.");
 						Rename.usage(p, slash, schemAlias);
-					} else if (args.length == 5 && !CommandRequestUtils.checkRenameRequest(p.getUniqueId().toString(), args[2])
-							   && !args[3].equalsIgnoreCase("confirm")
-							   && !args[3].equalsIgnoreCase("deny")) {
+					} else if (args.length == 5 && !CommandRequestUtils.checkRenameRequest(p.getUniqueId(), args[2])
+							   && !args[3].equalsIgnoreCase("-confirm")
+							   && !args[3].equalsIgnoreCase("-deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Rename.usage(p, slash, schemAlias);
 					} else {
@@ -73,7 +73,7 @@ public class Rename {
 		return slash + schemAlias + " rename ";
 	}
 
-	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
 		final @Nullable Path schemPath = SchemUtils.getSchemPath();
 		final @Nullable List<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
 		final @Nullable List<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
@@ -92,22 +92,22 @@ public class Rename {
 													  ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
 													  "//schem rename " + args[2] + " " + args[3] + " confirm",
 													  "//schem rename " + args[2] + " " + args[3] + " deny", p);
-				CommandRequestUtils.addRenameRequest(p.getUniqueId().toString(), args[2]);
+				CommandRequestUtils.addRenameRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 			}
-		} else if (args.length == 5 && CommandRequestUtils.checkRenameRequest(p.getUniqueId().toString(), args[2])) {
-			if (args[4].equalsIgnoreCase("confirm")) {
-				CommandRequestUtils.removeRenameRequest(p.getUniqueId().toString());
+		} else if (args.length == 5 && CommandRequestUtils.checkRenameRequest(p.getUniqueId(), args[2])) {
+			if (args[4].equalsIgnoreCase("-confirm")) {
+				CommandRequestUtils.removeRenameRequest(p.getUniqueId());
 				if (!oldFiles.isEmpty()) {
 					Rename.moveFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
 				} else {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				}
-			} else if (args[4].equalsIgnoreCase("deny")) {
-				CommandRequestUtils.removeRenameRequest(p.getUniqueId().toString());
+			} else if (args[4].equalsIgnoreCase("-deny")) {
+				CommandRequestUtils.removeRenameRequest(p.getUniqueId());
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " was not renamed.");
 			}

@@ -24,17 +24,17 @@ public class SchemManagerTabCompleter implements TabCompleter {
 	}
 
 	@Override
-	public List<String> onTabComplete(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String alias, final @NotNull String @NotNull [] args) {
+	public List<String> onTabComplete(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String alias, final @NotNull String[] args) {
 		if (args.length == 1) {
 			List<String> completions = SchemManagerTabCompleter.getCompletions(args[0], "update", "disable");
 			return completions.isEmpty() ? null : completions;
 		} else if (args.length == 2 && ((sender instanceof Player
-										 && (GlobalRequestUtils.checkUpdateRequest(((Player) sender).getUniqueId().toString())
-											 || GlobalRequestUtils.checkDisableRequest(((Player) sender).getUniqueId().toString())))
+										 && (GlobalRequestUtils.checkUpdateRequest(((Player) sender).getUniqueId())
+											 || GlobalRequestUtils.checkDisableRequest(((Player) sender).getUniqueId())))
 										|| (sender instanceof ConsoleCommandSender
 											&& (GlobalRequestUtils.checkConsoleUpdateRequest()
 												|| GlobalRequestUtils.checkConsoleDisableRequest())))) {
-			List<String> completions = SchemManagerTabCompleter.getCompletions(args[1], "allow", "deny");
+			List<String> completions = SchemManagerTabCompleter.getCompletions(args[1], "allow", "-deny");
 			return completions.isEmpty() ? null : completions;
 		} else {
 			return null;

@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class RenameFolder {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -38,9 +38,9 @@ public class RenameFolder {
 						p.sendMessage(ChatColor.RED + "File '" + name + "' resolution error: Path is not allowed.");
 						RenameFolder.usage(p, slash, schemAlias);
 					} else if (args.length == 5
-							   && !args[4].equalsIgnoreCase("confirm")
-							   && !args[4].equalsIgnoreCase("deny")
-							   && !CommandRequestUtils.checkRenameFolderRequest(p.getUniqueId().toString(), args[2])) {
+							   && !args[4].equalsIgnoreCase("-confirm")
+							   && !args[4].equalsIgnoreCase("-deny")
+							   && !CommandRequestUtils.checkRenameFolderRequest(p.getUniqueId(), args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						RenameFolder.usage(p, slash, schemAlias);
 					} else {
@@ -79,7 +79,7 @@ public class RenameFolder {
 	}
 
 	@SuppressWarnings("DuplicatedCode")
-	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
 		try {
 			final @Nullable Path schemPath = SchemUtils.getSchemPath();
 			final @Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
@@ -166,10 +166,10 @@ public class RenameFolder {
 													  ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?",
 													  "//schem renamefolder " + args[2] + " " + args[3] + " confirm",
 													  "//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
-				CommandRequestUtils.addRenameFolderRequest(p.getUniqueId().toString(), args[2]);
-			} else if (args.length == 5 && CommandRequestUtils.checkRenameFolderRequest(p.getUniqueId().toString(), args[2])) {
-				if (args[4].equalsIgnoreCase("confirm")) {
-					CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId().toString());
+				CommandRequestUtils.addRenameFolderRequest(p.getUniqueId(), args[2]);
+			} else if (args.length == 5 && CommandRequestUtils.checkRenameFolderRequest(p.getUniqueId(), args[2])) {
+				if (args[4].equalsIgnoreCase("-confirm")) {
+					CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId());
 					if (directoryOld.exists() && directoryOld.isDirectory()) {
 						if (RenameFolder.deepMerge(directoryOld, directoryNew)) {
 							RenameFolder.deleteParents(directoryOld, args[2], p);
@@ -181,8 +181,8 @@ public class RenameFolder {
 						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 									  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 					}
-				} else if (args[4].equalsIgnoreCase("deny")) {
-					CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId().toString());
+				} else if (args[4].equalsIgnoreCase("-deny")) {
+					CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId());
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GREEN + args[2] + ChatColor.RED + " was not renamed");
 				}
@@ -210,7 +210,7 @@ public class RenameFolder {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GREEN + arg + ChatColor.RED + " could not be renamed, for further information please see [console].");
 			e.printStackTrace();
-			CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId().toString());
+			CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId());
 		}
 	}
 

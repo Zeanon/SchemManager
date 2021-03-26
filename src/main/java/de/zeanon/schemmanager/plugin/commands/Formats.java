@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class Formats {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		if (args.length == 2) {
 			Formats.executeInternally(p, false);
 		} else {

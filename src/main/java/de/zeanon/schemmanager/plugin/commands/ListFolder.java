@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class ListFolder {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -83,7 +83,7 @@ public class ListFolder {
 		return slash + schemAlias + " listfolder ";
 	}
 
-	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args, final boolean deepSearch, final int modifierCount) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final int modifierCount) {
 		final int listmax = ConfigUtils.getInt("Listmax");
 		final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
 		final @Nullable Path schemPath = SchemUtils.getSchemPath();

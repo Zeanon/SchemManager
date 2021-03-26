@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Search {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -121,7 +121,7 @@ public class Search {
 		return slash + schemAlias + " search ";
 	}
 
-	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args, final boolean deepSearch, final boolean caseSensitiveSearch, final int modifierCount) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String[] args, final boolean deepSearch, final boolean caseSensitiveSearch, final int modifierCount) {
 		final int listmax = ConfigUtils.getInt("Listmax");
 		final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
 		final @Nullable Path schemPath = SchemUtils.getSchemPath();

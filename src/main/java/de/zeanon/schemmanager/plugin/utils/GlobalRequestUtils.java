@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager.plugin.utils;
 
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentSkipListSet;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
@@ -14,28 +15,28 @@ public class GlobalRequestUtils {
 	private boolean consoleUpdate = false;
 	private boolean consoleDisable = false;
 
-	public void addDisableRequest(final @NotNull String uuid) {
-		GlobalRequestUtils.disableRequests.add(uuid);
+	public void addDisableRequest(final @NotNull UUID uuid) {
+		GlobalRequestUtils.disableRequests.add(uuid.toString());
 	}
 
-	public void removeDisableRequest(final @NotNull String uuid) {
-		GlobalRequestUtils.disableRequests.remove(uuid);
+	public void removeDisableRequest(final @NotNull UUID uuid) {
+		GlobalRequestUtils.disableRequests.remove(uuid.toString());
 	}
 
-	public boolean checkDisableRequest(final @NotNull String uuid) {
-		return GlobalRequestUtils.disableRequests.contains(uuid);
+	public boolean checkDisableRequest(final @NotNull UUID uuid) {
+		return GlobalRequestUtils.disableRequests.contains(uuid.toString());
 	}
 
-	public void addUpdateRequest(final @NotNull String uuid) {
-		GlobalRequestUtils.updateRequests.add(uuid);
+	public void addUpdateRequest(final @NotNull UUID uuid) {
+		GlobalRequestUtils.updateRequests.add(uuid.toString());
 	}
 
-	public void removeUpdateRequest(final @NotNull String uuid) {
-		GlobalRequestUtils.updateRequests.remove(uuid);
+	public void removeUpdateRequest(final @NotNull UUID uuid) {
+		GlobalRequestUtils.updateRequests.remove(uuid.toString());
 	}
 
-	public boolean checkUpdateRequest(final @NotNull String uuid) {
-		return GlobalRequestUtils.updateRequests.contains(uuid);
+	public boolean checkUpdateRequest(final @NotNull UUID uuid) {
+		return GlobalRequestUtils.updateRequests.contains(uuid.toString());
 	}
 
 	public void addConsoleDisableRequest() {

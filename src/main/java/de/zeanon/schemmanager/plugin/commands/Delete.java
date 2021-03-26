@@ -19,12 +19,12 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Delete {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				if (args.length <= 4) {
-					if (args.length < 2) {
+					if (args.length < 3) {
 						p.sendMessage(ChatColor.RED + "Missing argument for "
 									  + ChatColor.YELLOW + "<"
 									  + ChatColor.GOLD + "filename"
@@ -33,9 +33,9 @@ public class Delete {
 					} else if (args[2].contains("./")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2] + "' resolution error: Path is not allowed.");
 						Delete.usage(p, slash, schemAlias);
-					} else if (args.length == 4 && !CommandRequestUtils.checkDeleteFolderRequest(p.getUniqueId().toString(), args[2])
-							   && !args[3].equalsIgnoreCase("confirm")
-							   && !args[3].equalsIgnoreCase("deny")) {
+					} else if (args.length == 4 && !CommandRequestUtils.checkDeleteFolderRequest(p.getUniqueId(), args[2])
+							   && !args[3].equalsIgnoreCase("-confirm")
+							   && !args[3].equalsIgnoreCase("-deny")) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Delete.usage(p, slash, schemAlias);
 					} else {
@@ -68,7 +68,7 @@ public class Delete {
 		return slash + schemAlias + " delete ";
 	}
 
-	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
 		final @Nullable Path schemPath = SchemUtils.getSchemPath();
 		final @Nullable List<File> files = schemPath != null
 										   ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
@@ -85,14 +85,14 @@ public class Delete {
 													  + ChatColor.RED + "?",
 													  "//schem del " + args[2] + " confirm",
 													  "//schem del " + args[2] + " deny", p);
-				CommandRequestUtils.addDeleteRequest(p.getUniqueId().toString(), args[2]);
+				CommandRequestUtils.addDeleteRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 			}
-		} else if (args.length == 4 && CommandRequestUtils.checkDeleteRequest(p.getUniqueId().toString(), args[2])) {
-			if (args[3].equalsIgnoreCase("confirm")) {
-				CommandRequestUtils.removeDeleteRequest(p.getUniqueId().toString());
+		} else if (args.length == 4 && CommandRequestUtils.checkDeleteRequest(p.getUniqueId(), args[2])) {
+			if (args[3].equalsIgnoreCase("-confirm")) {
+				CommandRequestUtils.removeDeleteRequest(p.getUniqueId());
 				if (!files.isEmpty()) {
 					@Nullable String parentName = null;
 					for (final @NotNull File file : files) {
@@ -119,8 +119,8 @@ public class Delete {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				}
-			} else if (args[3].equalsIgnoreCase("deny")) {
-				CommandRequestUtils.removeDeleteRequest(p.getUniqueId().toString());
+			} else if (args[3].equalsIgnoreCase("-deny")) {
+				CommandRequestUtils.removeDeleteRequest(p.getUniqueId());
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " was not deleted.");
 			}

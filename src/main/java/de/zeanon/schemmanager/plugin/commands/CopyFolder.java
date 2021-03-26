@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class CopyFolder {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -41,9 +41,9 @@ public class CopyFolder {
 						p.sendMessage(ChatColor.RED + "File '" + name + "' resolution error: Path is not allowed.");
 						CopyFolder.usage(p, slash, schemAlias);
 					} else if (args.length == 5
-							   && !args[4].equalsIgnoreCase("confirm")
-							   && !args[4].equalsIgnoreCase("deny")
-							   && !CommandRequestUtils.checkCopyFolderRequest(p.getUniqueId().toString(), args[2])) {
+							   && !args[4].equalsIgnoreCase("-confirm")
+							   && !args[4].equalsIgnoreCase("-deny")
+							   && !CommandRequestUtils.checkCopyFolderRequest(p.getUniqueId(), args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						CopyFolder.usage(p, slash, schemAlias);
 					} else {
@@ -82,7 +82,7 @@ public class CopyFolder {
 	}
 
 	@SuppressWarnings("DuplicatedCode")
-	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
 		try {
 			final @Nullable Path schemPath = SchemUtils.getSchemPath();
 			final @Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
@@ -207,10 +207,10 @@ public class CopyFolder {
 													  ChatColor.RED + "?",
 													  "//schem copyfolder " + args[2] + " " + args[3] + " confirm",
 													  "//schem copyfolder " + args[2] + " " + args[3] + " deny", p);
-				CommandRequestUtils.addCopyFolderRequest(p.getUniqueId().toString(), args[2]);
-			} else if (args.length == 5 && CommandRequestUtils.checkCopyFolderRequest(p.getUniqueId().toString(), args[2])) {
-				if (args[4].equalsIgnoreCase("confirm")) {
-					CommandRequestUtils.removeCopyFolderRequest(p.getUniqueId().toString());
+				CommandRequestUtils.addCopyFolderRequest(p.getUniqueId(), args[2]);
+			} else if (args.length == 5 && CommandRequestUtils.checkCopyFolderRequest(p.getUniqueId(), args[2])) {
+				if (args[4].equalsIgnoreCase("-confirm")) {
+					CommandRequestUtils.removeCopyFolderRequest(p.getUniqueId());
 					if (directoryOld.exists() && directoryOld.isDirectory()) {
 						if (CopyFolder.deepMerge(directoryOld, directoryNew)) {
 							p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
@@ -223,8 +223,8 @@ public class CopyFolder {
 						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 									  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");
 					}
-				} else if (args[4].equalsIgnoreCase("deny")) {
-					CommandRequestUtils.removeCopyFolderRequest(p.getUniqueId().toString());
+				} else if (args[4].equalsIgnoreCase("-deny")) {
+					CommandRequestUtils.removeCopyFolderRequest(p.getUniqueId());
 					p.sendMessage(ChatColor.GREEN + args[2] + ChatColor.RED + " was not copied");
 				}
 			}

@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class Load {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias, final @NotNull PlayerCommandPreprocessEvent event) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias, final @NotNull PlayerCommandPreprocessEvent event) {
 		if (args.length < 3) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + "Missing argument for "

@@ -20,7 +20,7 @@ public class CommandHandler implements CommandExecutor {
 	 * Gets the user commands and processes them("/schemmanager")
 	 */
 	@Override
-	public boolean onCommand(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String label, final @NotNull String @NotNull [] args) {
+	public boolean onCommand(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String label, final @NotNull String[] args) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -44,13 +44,13 @@ public class CommandHandler implements CommandExecutor {
 										, "/sm disable confirm"
 										, "/sm disable deny"
 										, p);
-								GlobalRequestUtils.addDisableRequest(p.getUniqueId().toString());
+								GlobalRequestUtils.addDisableRequest(p.getUniqueId());
 							} else if (args.length == 2
-									   && (args[1].equalsIgnoreCase("confirm")
-										   || args[1].equalsIgnoreCase("deny"))) {
-								if (GlobalRequestUtils.checkDisableRequest(p.getUniqueId().toString())) {
-									GlobalRequestUtils.removeDisableRequest(p.getUniqueId().toString());
-									if (args[1].equalsIgnoreCase("confirm")) {
+									   && (args[1].equalsIgnoreCase("-confirm")
+										   || args[1].equalsIgnoreCase("-deny"))) {
+								if (GlobalRequestUtils.checkDisableRequest(p.getUniqueId())) {
+									GlobalRequestUtils.removeDisableRequest(p.getUniqueId());
+									if (args[1].equalsIgnoreCase("-confirm")) {
 										p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
 													  + ChatColor.RED + "is being disabled.");
 										if (RunningMode.isPaperSpigot()) {
@@ -87,13 +87,13 @@ public class CommandHandler implements CommandExecutor {
 										, "/sm update confirm"
 										, "/sm update deny"
 										, p);
-								GlobalRequestUtils.addUpdateRequest(p.getUniqueId().toString());
+								GlobalRequestUtils.addUpdateRequest(p.getUniqueId());
 							} else if (args.length == 2
-									   && (args[1].equalsIgnoreCase("confirm")
-										   || args[1].equalsIgnoreCase("deny"))) {
-								if (GlobalRequestUtils.checkUpdateRequest(p.getUniqueId().toString())) {
-									GlobalRequestUtils.removeUpdateRequest(p.getUniqueId().toString());
-									if (args[1].equalsIgnoreCase("confirm")) {
+									   && (args[1].equalsIgnoreCase("-confirm")
+										   || args[1].equalsIgnoreCase("-deny"))) {
+								if (GlobalRequestUtils.checkUpdateRequest(p.getUniqueId())) {
+									GlobalRequestUtils.removeUpdateRequest(p.getUniqueId());
+									if (args[1].equalsIgnoreCase("-confirm")) {
 										if (RunningMode.isPaperSpigot()) {
 											Update.updatePlugin(p, SchemManager.getInstance());
 										} else {
@@ -131,10 +131,10 @@ public class CommandHandler implements CommandExecutor {
 								GlobalRequestUtils.addConsoleUpdateRequest();
 								System.out.println("To update type 'schemmanager update confirm', otherwise type 'schemmanager update deny'");
 							}
-						} else if (args.length == 2 && (args[1].equalsIgnoreCase("deny") || args[1].equalsIgnoreCase("confirm"))) {
+						} else if (args.length == 2 && (args[1].equalsIgnoreCase("-deny") || args[1].equalsIgnoreCase("-confirm"))) {
 							if (args[0].equalsIgnoreCase("disable") && GlobalRequestUtils.checkConsoleDisableRequest()) {
 								GlobalRequestUtils.removeConsoleDisableRequest();
-								if (args[1].equalsIgnoreCase("confirm")) {
+								if (args[1].equalsIgnoreCase("-confirm")) {
 									if (RunningMode.isPaperSpigot()) {
 										SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 									} else {
@@ -150,7 +150,7 @@ public class CommandHandler implements CommandExecutor {
 								}
 							} else if (args[0].equalsIgnoreCase("update") && GlobalRequestUtils.checkConsoleUpdateRequest()) {
 								GlobalRequestUtils.removeConsoleUpdateRequest();
-								if (args[1].equalsIgnoreCase("confirm")) {
+								if (args[1].equalsIgnoreCase("-confirm")) {
 									if (RunningMode.isPaperSpigot()) {
 										Update.updatePlugin(SchemManager.getInstance());
 									} else {

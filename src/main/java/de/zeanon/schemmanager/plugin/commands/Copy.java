@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class Copy {
 
-	public void execute(final @NotNull String @NotNull [] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
+	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -37,9 +37,9 @@ public class Copy {
 						p.sendMessage(ChatColor.RED + "File '" + name + "' resolution error: Path is not allowed.");
 						Copy.usage(p, slash, schemAlias);
 					} else if (args.length == 5
-							   && !args[4].equalsIgnoreCase("confirm")
-							   && !args[4].equalsIgnoreCase("deny")
-							   && !CommandRequestUtils.checkCopyRequest(p.getUniqueId().toString(), args[2])) {
+							   && !args[4].equalsIgnoreCase("-confirm")
+							   && !args[4].equalsIgnoreCase("-deny")
+							   && !CommandRequestUtils.checkCopyRequest(p.getUniqueId(), args[2])) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						Copy.usage(p, slash, schemAlias);
 					} else {
@@ -74,7 +74,7 @@ public class Copy {
 		return slash + schemAlias + " copy ";
 	}
 
-	private void executeInternally(final @NotNull Player p, final @NotNull String @NotNull [] args) {
+	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
 		final @Nullable Path schemPath = SchemUtils.getSchemPath();
 		final @Nullable List<File> oldFiles = schemPath != null
 											  ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
@@ -101,22 +101,22 @@ public class Copy {
 													  ChatColor.RED + "?",
 													  "//schem copy " + args[2] + " " + args[3] + " confirm",
 													  "//schem copy " + args[2] + " " + args[3] + " deny", p);
-				CommandRequestUtils.addCopyRequest(p.getUniqueId().toString(), args[2]);
+				CommandRequestUtils.addCopyRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 			}
-		} else if (args.length == 5 && CommandRequestUtils.checkCopyRequest(p.getUniqueId().toString(), args[2])) {
-			if (args[4].equalsIgnoreCase("confirm")) {
-				CommandRequestUtils.removeCopyRequest(p.getUniqueId().toString());
+		} else if (args.length == 5 && CommandRequestUtils.checkCopyRequest(p.getUniqueId(), args[2])) {
+			if (args[4].equalsIgnoreCase("-confirm")) {
+				CommandRequestUtils.removeCopyRequest(p.getUniqueId());
 				if (!oldFiles.isEmpty()) {
 					Copy.copyFile(p, args[2], oldFiles, newFiles, schemPath.resolve(args[3]));
 				} else {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[2] + ChatColor.RED + " does not exist.");
 				}
-			} else if (args[4].equalsIgnoreCase("deny")) {
-				CommandRequestUtils.removeCopyRequest(p.getUniqueId().toString());
+			} else if (args[4].equalsIgnoreCase("-deny")) {
+				CommandRequestUtils.removeCopyRequest(p.getUniqueId());
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GOLD + args[2] + ChatColor.RED + " was not copied.");
 			}
