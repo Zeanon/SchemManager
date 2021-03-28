@@ -83,8 +83,8 @@ public class Delete {
 													  ChatColor.RED + "Do you really want to delete "
 													  + ChatColor.GOLD + args[2]
 													  + ChatColor.RED + "?",
-													  "//schem del " + args[2] + " confirm",
-													  "//schem del " + args[2] + " deny", p);
+													  "//schem del " + args[2] + " -confirm",
+													  "//schem del " + args[2] + " -deny", p);
 				CommandRequestUtils.addDeleteRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +

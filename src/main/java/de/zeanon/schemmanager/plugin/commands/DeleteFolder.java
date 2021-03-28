@@ -89,8 +89,8 @@ public class DeleteFolder {
 													  ChatColor.RED + "Do you really want to delete "
 													  + ChatColor.GREEN + args[2]
 													  + ChatColor.RED + "?",
-													  "//schem delfolder " + args[2] + " confirm",
-													  "//schem delfolder " + args[2] + " deny", p);
+													  "//schem delfolder " + args[2] + " -confirm",
+													  "//schem delfolder " + args[2] + " -deny", p);
 				CommandRequestUtils.addDeleteFolderRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +

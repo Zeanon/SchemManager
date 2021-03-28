@@ -101,12 +101,12 @@ public class Download {
 			if (file.exists()) {
 				p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[3] + ChatColor.RED + " already exists.");
 				GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[3] + ChatColor.RED + "?",
-													  "//schem download " + args[2] + " " + args[3] + " confirm",
-													  "//schem download " + args[2] + " " + args[3] + " deny", p);
+													  "//schem download " + args[2] + " " + args[3] + " -confirm",
+													  "//schem download " + args[2] + " " + args[3] + " -deny", p);
 			} else {
 				GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you really want to download " + ChatColor.GOLD + args[3] + ChatColor.RED + "?",
-													  "//schem download " + args[2] + " " + args[3] + " confirm",
-													  "//schem download " + args[2] + " " + args[3] + " deny", p);
+													  "//schem download " + args[2] + " " + args[3] + " -confirm",
+													  "//schem download " + args[2] + " " + args[3] + " -deny", p);
 			}
 		} else if (args.length == 5 && CommandRequestUtils.checkDownloadRequest(p.getUniqueId(), args[3])) {
 			if (args[4].equalsIgnoreCase("-confirm")) {

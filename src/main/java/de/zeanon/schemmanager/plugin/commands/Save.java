@@ -116,8 +116,8 @@ public class Save {
 							CommandRequestUtils.addOverwriteRequest(p.getUniqueId(), args[2]);
 							p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
 							GlobalMessageUtils.sendBooleanMessage(ChatColor.RED + "Do you want to overwrite " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
-																  "//schem save " + args[2] + " confirm",
-																  "//schem save " + args[2] + " deny", p);
+																  "//schem save " + args[2] + " -confirm",
+																  "//schem save " + args[2] + " -deny", p);
 						} else {
 							new BukkitRunnable() {
 								@Override

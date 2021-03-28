@@ -205,8 +205,8 @@ public class CopyFolder {
 													  ChatColor.RED + " to " +
 													  ChatColor.GREEN + args[3] +
 													  ChatColor.RED + "?",
-													  "//schem copyfolder " + args[2] + " " + args[3] + " confirm",
-													  "//schem copyfolder " + args[2] + " " + args[3] + " deny", p);
+													  "//schem copyfolder " + args[2] + " " + args[3] + " -confirm",
+													  "//schem copyfolder " + args[2] + " " + args[3] + " -deny", p);
 				CommandRequestUtils.addCopyFolderRequest(p.getUniqueId(), args[2]);
 			} else if (args.length == 5 && CommandRequestUtils.checkCopyFolderRequest(p.getUniqueId(), args[2])) {
 				if (args[4].equalsIgnoreCase("-confirm")) {

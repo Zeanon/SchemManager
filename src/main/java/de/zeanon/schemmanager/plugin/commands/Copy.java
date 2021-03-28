@@ -99,8 +99,8 @@ public class Copy {
 													  ChatColor.RED + " to " +
 													  ChatColor.GOLD + args[3] +
 													  ChatColor.RED + "?",
-													  "//schem copy " + args[2] + " " + args[3] + " confirm",
-													  "//schem copy " + args[2] + " " + args[3] + " deny", p);
+													  "//schem copy " + args[2] + " " + args[3] + " -confirm",
+													  "//schem copy " + args[2] + " " + args[3] + " -deny", p);
 				CommandRequestUtils.addCopyRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +

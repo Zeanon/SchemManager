@@ -164,8 +164,8 @@ public class RenameFolder {
 				}
 				GlobalMessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 													  ChatColor.RED + "Do you really want to rename " + ChatColor.GREEN + args[2] + ChatColor.RED + "?",
-													  "//schem renamefolder " + args[2] + " " + args[3] + " confirm",
-													  "//schem renamefolder " + args[2] + " " + args[3] + " deny", p);
+													  "//schem renamefolder " + args[2] + " " + args[3] + " -confirm",
+													  "//schem renamefolder " + args[2] + " " + args[3] + " -deny", p);
 				CommandRequestUtils.addRenameFolderRequest(p.getUniqueId(), args[2]);
 			} else if (args.length == 5 && CommandRequestUtils.checkRenameFolderRequest(p.getUniqueId(), args[2])) {
 				if (args[4].equalsIgnoreCase("-confirm")) {

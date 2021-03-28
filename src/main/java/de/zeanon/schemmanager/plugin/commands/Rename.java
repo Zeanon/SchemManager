@@ -90,8 +90,8 @@ public class Rename {
 
 				GlobalMessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 													  ChatColor.RED + "Do you really want to rename " + ChatColor.GOLD + args[2] + ChatColor.RED + "?",
-													  "//schem rename " + args[2] + " " + args[3] + " confirm",
-													  "//schem rename " + args[2] + " " + args[3] + " deny", p);
+													  "//schem rename " + args[2] + " " + args[3] + " -confirm",
+													  "//schem rename " + args[2] + " " + args[3] + " -deny", p);
 				CommandRequestUtils.addRenameRequest(p.getUniqueId(), args[2]);
 			} else {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
