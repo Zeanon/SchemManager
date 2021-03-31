@@ -32,7 +32,7 @@ public class Copy {
 									  + ChatColor.GOLD + "filename"
 									  + ChatColor.YELLOW + ">");
 						Copy.usage(p, slash, schemAlias);
-					} else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
+					} else if ((args[2].contains("./") || args[2].contains(".\\")) || args.length >= 4 && (args[3].contains("./") || args[3].contains(".\\"))) {
 						String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "' resolution error: Path is not allowed.");
 						Copy.usage(p, slash, schemAlias);

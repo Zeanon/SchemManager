@@ -41,7 +41,7 @@ public class List {
 					if (args.length == 4 + modifierCount && (StringUtils.isNumeric(args[2 + modifierCount]) || !StringUtils.isNumeric(args[3 + modifierCount]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
 						List.usage(p, slash, schemAlias);
-					} else if (args.length >= 3 + modifierCount && args[2 + modifierCount].contains("./")) {
+					} else if (args.length >= 3 + modifierCount && (args[2 + modifierCount].contains("./") || args[2 + modifierCount].contains(".\\"))) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "' resolution error: Path is not allowed.");
 						List.usage(p, slash, schemAlias);
 					} else {
