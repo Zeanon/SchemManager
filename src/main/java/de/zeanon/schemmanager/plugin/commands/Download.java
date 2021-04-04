@@ -44,7 +44,7 @@ public class Download {
 									  + ChatColor.GOLD + "name"
 									  + ChatColor.YELLOW + ">");
 						Download.usage(p, slash, schemAlias);
-					} else if (args[3].contains("./")) {
+					} else if (args[3].contains("./") || args[2].contains(".\\")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[3] + "' resolution error: Path is not allowed.");
 						Download.usage(p, slash, schemAlias);
 					} else if (args.length == 5 && !CommandRequestUtils.checkDownloadRequest(p.getUniqueId(), args[2])

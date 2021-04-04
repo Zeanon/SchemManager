@@ -22,7 +22,7 @@ public class Load {
 						  + ChatColor.GOLD + "filename"
 						  + ChatColor.YELLOW + ">");
 			Load.usage(p, slash, schemAlias);
-		} else if (args[2].contains("./")) {
+		} else if (args[2].contains("./") || args[2].contains(".\\")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + "File '" + args[2] + "' resolution error: Path is not allowed.");
 			Load.usage(p, slash, schemAlias);

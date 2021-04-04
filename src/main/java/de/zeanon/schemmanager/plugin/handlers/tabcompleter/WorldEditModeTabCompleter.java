@@ -28,7 +28,8 @@ class WorldEditModeTabCompleter {
 			|| args[0].equals("//schematic")
 			|| args[0].equals("/schem")
 			|| args[0].equals("/schematic")) {
-			if (message.contains("./")) {
+			if (message.contains("./")
+				|| message.contains(".\\")) {
 				return Collections.emptyList();
 			} else {
 				boolean deep = false;

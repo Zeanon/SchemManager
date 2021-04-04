@@ -30,7 +30,7 @@ public class Delete {
 									  + ChatColor.GOLD + "filename"
 									  + ChatColor.YELLOW + ">");
 						Delete.usage(p, slash, schemAlias);
-					} else if (args[2].contains("./")) {
+					} else if (args[2].contains("./") || args[2].contains(".\\")) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2] + "' resolution error: Path is not allowed.");
 						Delete.usage(p, slash, schemAlias);
 					} else if (args.length == 4 && !CommandRequestUtils.checkDeleteFolderRequest(p.getUniqueId(), args[2])
