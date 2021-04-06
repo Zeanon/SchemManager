@@ -41,8 +41,8 @@ public class CommandHandler implements CommandExecutor {
 																	  + ChatColor.RED + "Do you really want to disable "
 																	  + ChatColor.DARK_RED + SchemManager.getInstance().getName()
 																	  + ChatColor.RED + "? "
-										, "/sm disable confirm"
-										, "/sm disable deny"
+										, "/sm disable -confirm"
+										, "/sm disable -deny"
 										, p);
 								GlobalRequestUtils.addDisableRequest(p.getUniqueId());
 							} else if (args.length == 2
@@ -84,8 +84,8 @@ public class CommandHandler implements CommandExecutor {
 								}
 								GlobalMessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] "
 																	  + ChatColor.RED + "Do you really want to update?"
-										, "/sm update confirm"
-										, "/sm update deny"
+										, "/sm update -confirm"
+										, "/sm update -deny"
 										, p);
 								GlobalRequestUtils.addUpdateRequest(p.getUniqueId());
 							} else if (args.length == 2

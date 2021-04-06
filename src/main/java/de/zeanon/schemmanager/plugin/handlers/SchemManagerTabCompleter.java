@@ -34,7 +34,7 @@ public class SchemManagerTabCompleter implements TabCompleter {
 										|| (sender instanceof ConsoleCommandSender
 											&& (GlobalRequestUtils.checkConsoleUpdateRequest()
 												|| GlobalRequestUtils.checkConsoleDisableRequest())))) {
-			List<String> completions = SchemManagerTabCompleter.getCompletions(args[1], "allow", "-deny");
+			List<String> completions = SchemManagerTabCompleter.getCompletions(args[1], "-confirm", "-deny");
 			return completions.isEmpty() ? null : completions;
 		} else {
 			return null;
