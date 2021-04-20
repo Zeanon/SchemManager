@@ -3,18 +3,13 @@ package de.zeanon.schemmanager.init;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.handlers.WakeupListener;
 import de.zeanon.schemmanager.plugin.update.Update;
-import de.zeanon.schemmanager.plugin.utils.SchemUtils;
 import de.zeanon.storagemanagercore.internal.base.exceptions.FileParseException;
-import de.zeanon.storagemanagercore.internal.base.exceptions.ObjectNullException;
 import de.zeanon.storagemanagercore.internal.base.exceptions.RuntimeIOException;
 import de.zeanon.storagemanagercore.internal.base.settings.Comment;
 import de.zeanon.storagemanagercore.internal.base.settings.Reload;
 import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import de.zeanon.thunderfilemanager.ThunderFileManager;
 import de.zeanon.thunderfilemanager.internal.files.config.ThunderConfig;
-import de.zeanon.yamlfilemanager.YamlFileManager;
-import de.zeanon.yamlfilemanager.internal.files.raw.YamlFile;
-import java.io.FileNotFoundException;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
@@ -24,8 +19,6 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class InitMode {
 
-	@Getter(onMethod_ = {@NotNull})
-	private YamlFile weConfig;
 	@Getter(onMethod_ = {@NotNull})
 	private ThunderConfig config;
 	@Getter(onMethod_ = {@NotNull})
@@ -75,10 +68,10 @@ public class InitMode {
 	private void initVersion() {
 		if (SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
 			InitMode.worldEditPluginName = "FastAsyncWorldEdit";
-			InitMode.initFastAsyncWorldEditConfig();
+			RunningMode.onEnable();
 		} else if (SchemManager.getPluginManager().getPlugin("WorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("WorldEdit")) {
 			InitMode.worldEditPluginName = "WorldEdit";
-			InitMode.initWorldEditConfig();
+			RunningMode.onEnable();
 		} else {
 			InitMode.enableSleepMode();
 		}
@@ -106,67 +99,6 @@ public class InitMode {
 		}
 	}
 
-	private void initWorldEditConfig() {
-		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching WorldEdit Version of " + SchemManager.getInstance().getName() + "...");
-
-		try {
-			InitMode.weConfig = YamlFileManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit")).getDataFolder(), "config")
-											   .reloadSetting(Reload.AUTOMATICALLY)
-											   .commentSetting(Comment.SKIP)
-											   .concurrentData(false)
-											   .create();
-
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Config is loaded successfully.");
-			InitMode.initWorldEditMode();
-		} catch (final @NotNull RuntimeIOException | FileParseException e) {
-			e.printStackTrace();
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Config file.");
-			InitMode.enableSleepMode();
-		}
-	}
-
-	private void initWorldEditMode() {
-		try {
-			SchemUtils.initSchemPath();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> WorldEdit Schematic-Folder is loaded successfully.");
-			RunningMode.onEnable();
-		} catch (@NotNull FileNotFoundException | ObjectNullException e) {
-			e.printStackTrace();
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load WorldEdit Schematic folder.");
-			InitMode.enableSleepMode();
-		}
-	}
-
-	private void initFastAsyncWorldEditConfig() {
-		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Launching FastAsyncWorldEdit Version of " + SchemManager.getInstance().getName() + "...");
-
-		try {
-			InitMode.weConfig = YamlFileManager.yamlFile(Objects.notNull(SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit")).getDataFolder(), "config-legacy")
-											   .reloadSetting(Reload.AUTOMATICALLY)
-											   .commentSetting(Comment.SKIP)
-											   .concurrentData(false)
-											   .create();
-
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> FastAsyncWorldEdit Config is loaded successfully.");
-			InitMode.initFastAsyncWorldEditMode();
-		} catch (final @NotNull RuntimeIOException | FileParseException e) {
-			e.printStackTrace();
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load FastAsyncWorldEdit Config file.");
-			InitMode.enableSleepMode();
-		}
-	}
-
-	private void initFastAsyncWorldEditMode() {
-		try {
-			SchemUtils.initSchemPath();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> FastAsyncWorldEdit Schematic-Folder is loaded successfully.");
-			RunningMode.onEnable();
-		} catch (@NotNull FileNotFoundException | ObjectNullException e) {
-			e.printStackTrace();
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load FastAsyncWorldEdit Schematic folder.");
-			InitMode.enableSleepMode();
-		}
-	}
 
 	private void enableSleepMode() {
 		SchemManager.getPluginManager().registerEvents(new WakeupListener(), SchemManager.getInstance());
