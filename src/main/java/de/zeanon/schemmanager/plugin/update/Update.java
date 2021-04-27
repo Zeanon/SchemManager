@@ -10,7 +10,6 @@ import de.zeanon.storagemanagercore.internal.utility.basic.Pair;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
@@ -65,12 +64,13 @@ public class Update {
 
 	public void updateConfig() {
 		try {
+			//noinspection unchecked
 			final @NotNull List<String> fileExtensions = ConfigUtils.getConfig().hasKeyUseArray("File Extensions")
 														 ? Objects.notNull(ConfigUtils.getConfig().getListUseArray("File Extensions"))
-														 : Arrays.asList("schem", "schematic");
+														 : ConfigUtils.getDefaultValue(List.class, "File Extensions");
 			final int listmax = ConfigUtils.getConfig().hasKeyUseArray("Listmax")
 								? ConfigUtils.getConfig().getIntUseArray("Listmax")
-								: 10;
+								: ConfigUtils.getDefaultValue(Integer.class, "Listmax");
 			final boolean spaceLists = !ConfigUtils.getConfig().hasKeyUseArray("Space Lists")
 									   || ConfigUtils.getConfig().getBooleanUseArray("Space Lists");
 			final boolean deleteEmptyFolders = !ConfigUtils.getConfig().hasKeyUseArray("Delete empty Folders")

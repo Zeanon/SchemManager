@@ -66,20 +66,21 @@ public class ConfigUtils {
 	 *
 	 * @return value.
 	 */
-	public @NotNull List<String> getStringList(final @NotNull String key) {
-		return ConfigUtils.get(key);
+	public @NotNull List<String> getStringList(final @NotNull String... key) {
+		//noinspection unchecked
+		return ConfigUtils.get(List.class, key);
 	}
 
 	public boolean getBoolean(final @NotNull String... key) {
-		return ConfigUtils.get(key);
+		return Objects.toBoolean(ConfigUtils.get(Boolean.class, key));
 	}
 
 	public int getInt(final @NotNull String... key) {
-		return ConfigUtils.get(key);
+		return Objects.toInt(ConfigUtils.get(Integer.class, key));
 	}
 
-	public @NotNull <V> V get(final @NotNull String... key) {
-		final @Nullable V result = ConfigUtils.getConfig().getUseArray(key);
+	public @NotNull <T> T get(final @NotNull Class<T> type, final @NotNull String... key) {
+		final @Nullable T result = Objects.toDef(ConfigUtils.getConfig().getUseArray(key), type);
 		if (result != null) {
 			return result;
 		}
@@ -90,7 +91,7 @@ public class ConfigUtils {
 				Update.updateConfig();
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
-		return ConfigUtils.getDefaultValue(key);
+		return ConfigUtils.getDefaultValue(type, key);
 	}
 
 	/**
@@ -100,16 +101,15 @@ public class ConfigUtils {
 	 *
 	 * @return the default value.
 	 */
-	public @NotNull <V> V getDefaultValue(final @NotNull String... key) {
+	public @NotNull <T> T getDefaultValue(final @NotNull Class<T> type, final @NotNull String... key) {
 		try {
 			return Objects.notNull(Objects.toDef(ThunderFileParser.readDataAsFileData(BaseFileUtils.createNewInputStreamFromResource("resources/config.tf"),
 																					  ConfigUtils.getConfig().collectionsProvider(),
 																					  ConfigUtils.getConfig().getCommentSetting(),
-																					  ConfigUtils.getConfig().getBufferSize()).getUseArray(key)));
-		} catch (ThunderException e) {
+																					  ConfigUtils.getConfig().getBufferSize()).getUseArray(key), type), "Could not read from the default config.");
+		} catch (final @NotNull ThunderException e) {
 			e.printStackTrace();
 		}
-		//noinspection unchecked
-		return (V) new Object();
+		return Objects.notNull(Objects.toDef(new Object(), type));
 	}
 }
