@@ -1,7 +1,6 @@
 package de.zeanon.schemmanager.plugin.update;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.init.InitMode;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.GlobalMessageUtils;
 import de.zeanon.storagemanagercore.internal.base.exceptions.ObjectNullException;
@@ -48,14 +47,14 @@ public class Update {
 
 	public void checkConfigUpdate() {
 		try {
-			if (!Objects.notNull(InitMode.getConfig().getStringUseArray("Plugin Version"))
+			if (!Objects.notNull(ConfigUtils.getConfig().getStringUseArray("Plugin Version"))
 						.equals(SchemManager.getInstance().getDescription().getVersion())
-				|| !InitMode.getConfig().hasKeyUseArray("File Extensions")
-				|| !InitMode.getConfig().hasKeyUseArray("Listmax")
-				|| !InitMode.getConfig().hasKeyUseArray("Space Lists")
-				|| !InitMode.getConfig().hasKeyUseArray("Delete empty Folders")
-				|| !InitMode.getConfig().hasKeyUseArray("Save Function Override")
-				|| !InitMode.getConfig().hasKeyUseArray("Automatic Reload")) {
+				|| !ConfigUtils.getConfig().hasKeyUseArray("File Extensions")
+				|| !ConfigUtils.getConfig().hasKeyUseArray("Listmax")
+				|| !ConfigUtils.getConfig().hasKeyUseArray("Space Lists")
+				|| !ConfigUtils.getConfig().hasKeyUseArray("Delete empty Folders")
+				|| !ConfigUtils.getConfig().hasKeyUseArray("Save Function Override")
+				|| !ConfigUtils.getConfig().hasKeyUseArray("Automatic Reload")) {
 
 				Update.updateConfig();
 			}
@@ -66,31 +65,31 @@ public class Update {
 
 	public void updateConfig() {
 		try {
-			final @NotNull List<String> fileExtensions = InitMode.getConfig().hasKeyUseArray("File Extensions")
-														 ? Objects.notNull(InitMode.getConfig().getListUseArray("File Extensions"))
+			final @NotNull List<String> fileExtensions = ConfigUtils.getConfig().hasKeyUseArray("File Extensions")
+														 ? Objects.notNull(ConfigUtils.getConfig().getListUseArray("File Extensions"))
 														 : Arrays.asList("schem", "schematic");
-			final int listmax = InitMode.getConfig().hasKeyUseArray("Listmax")
-								? InitMode.getConfig().getIntUseArray("Listmax")
+			final int listmax = ConfigUtils.getConfig().hasKeyUseArray("Listmax")
+								? ConfigUtils.getConfig().getIntUseArray("Listmax")
 								: 10;
-			final boolean spaceLists = !InitMode.getConfig().hasKeyUseArray("Space Lists")
-									   || InitMode.getConfig().getBooleanUseArray("Space Lists");
-			final boolean deleteEmptyFolders = !InitMode.getConfig().hasKeyUseArray("Delete empty Folders")
-											   || InitMode.getConfig().getBooleanUseArray("Delete empty Folders");
-			final boolean saveOverride = !InitMode.getConfig().hasKeyUseArray("Save Function Override")
-										 || InitMode.getConfig().getBooleanUseArray("Save Function Override");
-			final boolean autoReload = !InitMode.getConfig().hasKeyUseArray("Automatic Reload")
-									   || InitMode.getConfig().getBooleanUseArray("Automatic Reload");
+			final boolean spaceLists = !ConfigUtils.getConfig().hasKeyUseArray("Space Lists")
+									   || ConfigUtils.getConfig().getBooleanUseArray("Space Lists");
+			final boolean deleteEmptyFolders = !ConfigUtils.getConfig().hasKeyUseArray("Delete empty Folders")
+											   || ConfigUtils.getConfig().getBooleanUseArray("Delete empty Folders");
+			final boolean saveOverride = !ConfigUtils.getConfig().hasKeyUseArray("Save Function Override")
+										 || ConfigUtils.getConfig().getBooleanUseArray("Save Function Override");
+			final boolean autoReload = !ConfigUtils.getConfig().hasKeyUseArray("Automatic Reload")
+									   || ConfigUtils.getConfig().getBooleanUseArray("Automatic Reload");
 
-			InitMode.getConfig().setDataFromResource("resources/config.tf");
+			ConfigUtils.getConfig().setDataFromResource("resources/config.tf");
 
 			//noinspection unchecked
-			InitMode.getConfig().setAllUseArray(new Pair<>(new String[]{"Plugin Version"}, SchemManager.getInstance().getDescription().getVersion()),
-												new Pair<>(new String[]{"File Extensions"}, fileExtensions),
-												new Pair<>(new String[]{"Listmax"}, listmax),
-												new Pair<>(new String[]{"Space Lists"}, spaceLists),
-												new Pair<>(new String[]{"Delete empty Folders"}, deleteEmptyFolders),
-												new Pair<>(new String[]{"Save Function Override"}, saveOverride),
-												new Pair<>(new String[]{"Automatic Reload"}, autoReload));
+			ConfigUtils.getConfig().setAllUseArray(new Pair<>(new String[]{"Plugin Version"}, SchemManager.getInstance().getDescription().getVersion()),
+												   new Pair<>(new String[]{"File Extensions"}, fileExtensions),
+												   new Pair<>(new String[]{"Listmax"}, listmax),
+												   new Pair<>(new String[]{"Space Lists"}, spaceLists),
+												   new Pair<>(new String[]{"Delete empty Folders"}, deleteEmptyFolders),
+												   new Pair<>(new String[]{"Save Function Override"}, saveOverride),
+												   new Pair<>(new String[]{"Automatic Reload"}, autoReload));
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' updated.");
 		} catch (final @NotNull RuntimeIOException e) {

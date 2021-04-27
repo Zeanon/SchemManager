@@ -1,11 +1,19 @@
 package de.zeanon.schemmanager.plugin.utils;
 
 import de.zeanon.schemmanager.SchemManager;
-import de.zeanon.schemmanager.init.InitMode;
 import de.zeanon.schemmanager.plugin.update.Update;
+import de.zeanon.storagemanagercore.internal.base.exceptions.FileParseException;
+import de.zeanon.storagemanagercore.internal.base.exceptions.RuntimeIOException;
+import de.zeanon.storagemanagercore.internal.base.settings.Comment;
+import de.zeanon.storagemanagercore.internal.base.settings.Reload;
+import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
 import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
-import java.util.Arrays;
+import de.zeanon.thunderfilemanager.ThunderFileManager;
+import de.zeanon.thunderfilemanager.internal.base.exceptions.ThunderException;
+import de.zeanon.thunderfilemanager.internal.files.config.ThunderConfig;
+import de.zeanon.thunderfilemanager.internal.utility.parser.ThunderFileParser;
 import java.util.List;
+import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -15,45 +23,39 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class ConfigUtils {
 
-	/**
-	 * get an int from the config.
-	 *
-	 * @param key the Config key.
-	 *
-	 * @return value.
-	 */
-	public int getInt(final @NotNull String key) {
-		if (InitMode.getConfig().hasKeyUseArray(key)) {
-			return InitMode.getConfig().getIntUseArray(key);
-		} else {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					Update.updateConfig();
-				}
-			}.runTaskAsynchronously(SchemManager.getInstance());
-			return (int) ConfigUtils.getDefaultValue(key);
+	@Getter(onMethod_ = {@NotNull})
+	private ThunderConfig config;
+
+
+	public void loadConfigs() {
+		@Nullable Throwable cause = null;
+		try {
+			ConfigUtils.config = ThunderFileManager.thunderConfig(SchemManager.getInstance().getDataFolder(), "config")
+												   .fromResource("resources/config.tf")
+												   .reloadSetting(Reload.INTELLIGENT)
+												   .commentSetting(Comment.PRESERVE)
+												   .concurrentData(true)
+												   .create();
+
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
+		} catch (final @NotNull RuntimeIOException | FileParseException e) {
+			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be loaded.");
+			e.printStackTrace();
+			cause = e;
+		}
+
+		if (cause != null) {
+			throw new RuntimeIOException(cause);
 		}
 	}
 
-	/**
-	 * get a boolean from the config.
-	 *
-	 * @param key the Config key.
-	 *
-	 * @return value.
-	 */
-	public boolean getBoolean(final @NotNull String key) {
-		if (InitMode.getConfig().hasKeyUseArray(key)) {
-			return InitMode.getConfig().getBooleanUseArray(key);
-		} else {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					Update.updateConfig();
-				}
-			}.runTaskAsynchronously(SchemManager.getInstance());
-			return (boolean) ConfigUtils.getDefaultValue(key);
+	public void initConfigs() {
+		if (!ConfigUtils.getConfig().hasKeyUseArray("Plugin Version")
+			|| !Objects.notNull(ConfigUtils.getConfig().getStringUseArray("Plugin Version"))
+					   .equals(SchemManager.getInstance().getDescription().getVersion())) {
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Updating Configs...");
+			Update.checkConfigUpdate();
+			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
 		}
 	}
 
@@ -64,20 +66,31 @@ public class ConfigUtils {
 	 *
 	 * @return value.
 	 */
-	@Nullable
-	public List<String> getStringList(final @NotNull String key) {
-		if (InitMode.getConfig().hasKeyUseArray(key)) {
-			return Objects.notNull(InitMode.getConfig()).getListUseArray(key);
-		} else {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					Update.updateConfig();
-				}
-			}.runTaskAsynchronously(SchemManager.getInstance());
-			//noinspection unchecked
-			return (List<String>) ConfigUtils.getDefaultValue(key);
+	public @NotNull List<String> getStringList(final @NotNull String key) {
+		return ConfigUtils.get(key);
+	}
+
+	public boolean getBoolean(final @NotNull String... key) {
+		return ConfigUtils.get(key);
+	}
+
+	public int getInt(final @NotNull String... key) {
+		return ConfigUtils.get(key);
+	}
+
+	public @NotNull <V> V get(final @NotNull String... key) {
+		final @Nullable V result = ConfigUtils.getConfig().getUseArray(key);
+		if (result != null) {
+			return result;
 		}
+
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				Update.updateConfig();
+			}
+		}.runTaskAsynchronously(SchemManager.getInstance());
+		return ConfigUtils.getDefaultValue(key);
 	}
 
 	/**
@@ -87,21 +100,16 @@ public class ConfigUtils {
 	 *
 	 * @return the default value.
 	 */
-	private @NotNull Object getDefaultValue(final @NotNull String key) {
-		switch (key) {
-			case "Space Lists":
-			case "Delete empty Folders":
-			case "Save Function Override":
-			case "Automatic Reload":
-				return true;
-			case "Listmax":
-				return 10;
-			case "File Extensions":
-				return Arrays.asList("schem", "schematic");
-			case "Plugin Version":
-				return SchemManager.getInstance().getDescription().getVersion();
-			default:
-				return new Object();
+	public @NotNull <V> V getDefaultValue(final @NotNull String... key) {
+		try {
+			return Objects.notNull(Objects.toDef(ThunderFileParser.readDataAsFileData(BaseFileUtils.createNewInputStreamFromResource("resources/config.tf"),
+																					  ConfigUtils.getConfig().collectionsProvider(),
+																					  ConfigUtils.getConfig().getCommentSetting(),
+																					  ConfigUtils.getConfig().getBufferSize()).getUseArray(key)));
+		} catch (ThunderException e) {
+			e.printStackTrace();
 		}
+		//noinspection unchecked
+		return (V) new Object();
 	}
 }
