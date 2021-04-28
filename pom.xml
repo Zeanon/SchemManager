@@ -134,22 +134,6 @@
                             <goal>install-file</goal>
                         </goals>
                     </execution>
-
-                    <execution>
-                        <id>install-yamlfilemanager</id>
-                        <phase>clean</phase>
-                        <configuration>
-                            <groupId>de.zeanon</groupId>
-                            <artifactId>yamlfilemanager</artifactId>
-                            <version>1.1.100</version>
-                            <file>src/main/resources/dependencies/YamlFileManager.jar</file>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                        </configuration>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                    </execution>
                 </executions>
             </plugin>
 
@@ -173,10 +157,6 @@
                         </relocation>
                         <relocation>
                             <pattern>de.zeanon.thunderfilemanager</pattern>
-                            <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>de.zeanon.yamlfilemanager</pattern>
                             <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
                         </relocation>
                     </relocations>
@@ -268,14 +248,6 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>thunderfilemanager</artifactId>
-            <version>1.1.100</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- YamlFileManager by Zeanon-->
-        <dependency>
-            <groupId>de.zeanon</groupId>
-            <artifactId>yamlfilemanager</artifactId>
             <version>1.1.100</version>
             <scope>compile</scope>
         </dependency>
