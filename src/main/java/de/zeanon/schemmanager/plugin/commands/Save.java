@@ -10,7 +10,6 @@ import de.zeanon.schemmanager.plugin.utils.SchemUtils;
 import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
 import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
-import java.nio.file.Path;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
@@ -99,17 +98,12 @@ public class Save {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				final @Nullable Path schemPath = SchemUtils.getSchemPath();
-				final @Nullable File file = schemPath != null
-											? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[2])) //NOSONAR
-											   ? SchemUtils.getSchemPath().resolve(args[2]).toFile()
-											   : SchemUtils.getSchemPath().resolve(args[2] + "." + Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0)).toFile())
-											: null;
+				//NOSONAR
+				final @Nullable File file = Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[2])) //NOSONAR
+											? SchemUtils.getSchemPath().resolve(args[2]).toFile()
+											: SchemUtils.getSchemPath().resolve(args[2] + "." + Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0)).toFile();
 
-				if (schemPath == null) {
-					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-								  ChatColor.RED + "Could not access schematic folder.");
-				} else if (args.length == 3) {
+				if (args.length == 3) {
 					try {
 						Objects.notNull(RunningMode.getWorldEditPlugin()).getSession(p).getClipboard();
 						if (file.exists() && !file.isDirectory()) {

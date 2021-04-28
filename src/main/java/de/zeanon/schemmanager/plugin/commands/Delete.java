@@ -70,14 +70,9 @@ public class Delete {
 
 	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
 		final @Nullable Path schemPath = SchemUtils.getSchemPath();
-		final @Nullable List<File> files = schemPath != null
-										   ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]))
-										   : null;
+		final @Nullable List<File> files = InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]));
 
-		if (schemPath == null) {
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-						  ChatColor.RED + "Could not access schematic folder.");
-		} else if (args.length == 3) {
+		if (args.length == 3) {
 			if (!files.isEmpty()) {
 				GlobalMessageUtils.sendBooleanMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 													  ChatColor.RED + "Do you really want to delete "

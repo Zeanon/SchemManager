@@ -75,13 +75,10 @@ public class Rename {
 
 	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
 		final @Nullable Path schemPath = SchemUtils.getSchemPath();
-		final @Nullable List<File> oldFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[2])) : null;
-		final @Nullable List<File> newFiles = schemPath != null ? InternalFileUtils.getExistingFiles(schemPath.resolve(args[3])) : null;
+		final @Nullable List<File> oldFiles = InternalFileUtils.getExistingFiles(schemPath.resolve(args[2]));
+		final @Nullable List<File> newFiles = InternalFileUtils.getExistingFiles(schemPath.resolve(args[3]));
 
-		if (schemPath == null) {
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-						  ChatColor.RED + "Could not access schematic folder.");
-		} else if (args.length == 4) {
+		if (args.length == 4) {
 			if (!oldFiles.isEmpty()) {
 				if (!newFiles.isEmpty()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +

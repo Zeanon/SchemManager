@@ -70,12 +70,9 @@ public class DeleteFolder {
 
 	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
 		final @Nullable Path schemPath = SchemUtils.getSchemPath();
-		final @Nullable File file = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
+		final @Nullable File file = schemPath.resolve(args[2]).toFile();
 
-		if (schemPath == null) {
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-						  ChatColor.RED + "Could not access schematic folder.");
-		} else if (args.length == 3) {
+		if (args.length == 3) {
 			if (file.exists() && file.isDirectory()) {
 				if (Objects.notNull(file.listFiles()).length > 0) {
 					GlobalMessageUtils.sendInvertedCommandMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] ",

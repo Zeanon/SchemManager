@@ -11,7 +11,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
@@ -86,17 +85,12 @@ public class Download {
 	}
 
 	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
-		final @Nullable Path schemPath = SchemUtils.getSchemPath();
-		final @Nullable File file = schemPath != null
-									? (Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[3])) //NOSONAR
-									   ? SchemUtils.getSchemPath().resolve(args[3]).toFile()
-									   : SchemUtils.getSchemPath().resolve(args[3] + "." + Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0)).toFile())
-									: null;
+		//NOSONAR
+		final @Nullable File file = Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(args[3])) //NOSONAR
+									? SchemUtils.getSchemPath().resolve(args[3]).toFile()
+									: SchemUtils.getSchemPath().resolve(args[3] + "." + Objects.notNull(ConfigUtils.getStringList("File Extensions")).get(0)).toFile();
 
-		if (schemPath == null) {
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-						  ChatColor.RED + "Could not access schematic folder.");
-		} else if (args.length == 4) {
+		if (args.length == 4) {
 			CommandRequestUtils.addDownloadRequest(p.getUniqueId(), args[3]);
 			if (file.exists()) {
 				p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[3] + ChatColor.RED + " already exists.");

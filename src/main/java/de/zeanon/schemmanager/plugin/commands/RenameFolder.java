@@ -82,13 +82,10 @@ public class RenameFolder {
 	private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
 		try {
 			final @Nullable Path schemPath = SchemUtils.getSchemPath();
-			final @Nullable File directoryOld = schemPath != null ? schemPath.resolve(args[2]).toFile() : null;
-			final @Nullable File directoryNew = schemPath != null ? schemPath.resolve(args[3]).toFile() : null;
+			final @Nullable File directoryOld = schemPath.resolve(args[2]).toFile();
+			final @Nullable File directoryNew = schemPath.resolve(args[3]).toFile();
 
-			if (schemPath == null) {
-				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-							  ChatColor.RED + "Could not access schematic folder.");
-			} else if (args.length == 4) {
+			if (args.length == 4) {
 				if (!directoryOld.exists() || !directoryOld.isDirectory()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GREEN + args[2] + ChatColor.RED + " does not exist.");

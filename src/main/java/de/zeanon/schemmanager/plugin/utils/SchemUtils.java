@@ -6,16 +6,10 @@ import java.io.File;
 import java.nio.file.Path;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
 public class SchemUtils {
-
-	private @Nullable
-	File schemFolder;
-	private @Nullable
-	Path schemFolderPath;
 
 	public @NotNull Path getSchemPath() {
 		return SchemUtils.getSchemFolder().toPath();
