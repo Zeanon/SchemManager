@@ -33,7 +33,7 @@ public class Copy {
 									  + ChatColor.YELLOW + ">");
 						Copy.usage(p, slash, schemAlias);
 					} else if ((args[2].contains("./") || args[2].contains(".\\")) || args.length >= 4 && (args[3].contains("./") || args[3].contains(".\\"))) {
-						String name = args[2].contains("./") || args[2].contains(".\\") ? args[2] : args[3];
+						final String name = args[2].contains("./") || args[2].contains(".\\") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "' resolution error: Path is not allowed.");
 						Copy.usage(p, slash, schemAlias);
 					} else if (args.length == 5
@@ -125,14 +125,14 @@ public class Copy {
 			}
 			for (final @NotNull File file : oldFiles) {
 				if (!Objects.containsIgnoreCase(ConfigUtils.getStringList("File Extensions"), BaseFileUtils.getExtension(destPath))) {
-					FileUtils.copyFile(file, new File(destPath.toString() + "." + BaseFileUtils.getExtension(file.getName())));
+					FileUtils.copyFile(file, new File(destPath + "." + BaseFileUtils.getExtension(file.getName())));
 				} else {
 					FileUtils.copyFile(file, destPath.toFile());
 				}
 			}
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GOLD + fileName + ChatColor.RED + " was copied successfully.");
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GOLD + fileName + ChatColor.RED + " could not be copied, for further information please see [console].");
 			e.printStackTrace();
