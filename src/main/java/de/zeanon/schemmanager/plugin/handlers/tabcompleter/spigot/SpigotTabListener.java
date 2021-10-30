@@ -1,5 +1,6 @@
-package de.zeanon.schemmanager.plugin.handlers.tabcompleter;
+package de.zeanon.schemmanager.plugin.handlers.tabcompleter.spigot;
 
+import de.zeanon.schemmanager.plugin.handlers.tabcompleter.SchematicTabCompleter;
 import java.io.IOException;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -15,7 +16,7 @@ public class SpigotTabListener implements Listener {
 		if (event.getBuffer().startsWith("//schem")
 			|| event.getBuffer().startsWith("/schem")) {
 			final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
-			event.setCompletions(WorldEditModeTabCompleter.execute(message));
+			event.setCompletions(SchematicTabCompleter.getCompletions(message));
 		}
 	}
 }

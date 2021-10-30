@@ -105,7 +105,7 @@ public class Save {
 
 				if (args.length == 3) {
 					try {
-						Objects.notNull(RunningMode.getWorldEditPlugin()).getSession(p).getClipboard();
+						RunningMode.getWorldEditPlugin().getSession(p).getClipboard();
 						if (file.exists() && !file.isDirectory()) {
 							CommandRequestUtils.addOverwriteRequest(p.getUniqueId(), args[2]);
 							p.sendMessage(ChatColor.RED + "The schematic " + ChatColor.GOLD + args[2] + ChatColor.RED + " already exists.");
@@ -120,7 +120,7 @@ public class Save {
 								}
 							}.runTask(SchemManager.getInstance());
 						}
-					} catch (EmptyClipboardException e) {
+					} catch (final EmptyClipboardException e) {
 						p.sendMessage(ChatColor.RED + "Your clipboard is empty. Use //copy first.");
 					}
 				} else if (CommandRequestUtils.checkOverWriteRequest(p.getUniqueId(), args[2])) {

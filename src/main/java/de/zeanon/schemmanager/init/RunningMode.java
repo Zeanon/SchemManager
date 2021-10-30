@@ -4,25 +4,29 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.handlers.CommandListener;
 import de.zeanon.schemmanager.plugin.handlers.EventListener;
-import de.zeanon.schemmanager.plugin.handlers.tabcompleter.PaperTabListener;
-import de.zeanon.schemmanager.plugin.handlers.tabcompleter.SpigotTabListener;
+import de.zeanon.schemmanager.plugin.handlers.tabcompleter.paper.PaperTabListener;
+import de.zeanon.schemmanager.plugin.handlers.tabcompleter.spigot.SpigotTabListener;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 
 @UtilityClass
 public class RunningMode {
 
 	@Getter
-	private final @Nullable WorldEditPlugin worldEditPlugin;
+	private final @NotNull WorldEditPlugin worldEditPlugin;
 	@Getter
 	private final boolean paperSpigot;
+	@Getter
+	private final boolean steamEdit;
 
 	static {
-		worldEditPlugin = (WorldEditPlugin) SchemManager.getPluginManager().getPlugin("WorldEdit");
+		worldEditPlugin = (WorldEditPlugin) Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit"));
 		paperSpigot = Bukkit.getVersion().contains("git-Paper");
+		steamEdit = RunningMode.getWorldEditPlugin().getDescription().getVersion().contains("SteamEdit");
 	}
 
 	public void onEnable() {

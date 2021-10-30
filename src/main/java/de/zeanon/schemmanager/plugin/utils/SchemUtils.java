@@ -16,6 +16,6 @@ public class SchemUtils {
 	}
 
 	public @NotNull File getSchemFolder() {
-		return Objects.notNull(RunningMode.getWorldEditPlugin()).getWorldEdit().getWorkingDirectoryFile(Objects.notNull(RunningMode.getWorldEditPlugin()).getWorldEdit().getConfiguration().saveDir);
+		return RunningMode.getWorldEditPlugin().getWorldEdit().getWorkingDirectoryFile(Objects.notNull(RunningMode.getWorldEditPlugin()).getWorldEdit().getConfiguration().saveDir);
 	}
 }

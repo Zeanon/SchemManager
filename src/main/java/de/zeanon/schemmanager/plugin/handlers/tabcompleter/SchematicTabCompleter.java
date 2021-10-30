@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
@@ -19,9 +20,9 @@ import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
-class WorldEditModeTabCompleter {
+public class SchematicTabCompleter {
 
-	@NotNull List<String> execute(final @NotNull String message) throws IOException {
+	public @NotNull List<String> getCompletions(final @NotNull String message) throws IOException {
 		final @NotNull String[] args = message.split(" ");
 		final boolean argumentEnded = message.endsWith(" ");
 		if (args[0].equals("//schem")
@@ -55,14 +56,14 @@ class WorldEditModeTabCompleter {
 					modifierCount--;
 				}
 
-				return WorldEditModeTabCompleter.onTab(args, deep, caseSensitive, modifierCount, argumentEnded);
+				return SchematicTabCompleter.generateCompletions(args, deep, caseSensitive, modifierCount, argumentEnded);
 			}
 		} else {
 			return Collections.emptyList();
 		}
 	}
 
-	private @NotNull List<String> onTab(final @NotNull String[] args, final boolean alreadyDeep, final boolean alreadyCaseSensitive, final int modifierCount, final boolean argumentEnded) throws IOException {
+	private @NotNull List<String> generateCompletions(final @NotNull String[] args, final boolean alreadyDeep, final boolean alreadyCaseSensitive, final int modifierCount, final boolean argumentEnded) throws IOException {
 		final @NotNull List<String> completions = new GapList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
@@ -83,16 +84,11 @@ class WorldEditModeTabCompleter {
 				}
 
 				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					final @NotNull File pathFile = SchemUtils.getSchemFolder();
-					for (final @NotNull File file : WorldEditModeTabCompleter.getFileList(pathFile)) {
-						completions.add(file.getName());
-					}
+					SchematicTabCompleter.addFilesToCompletions(null, completions, SchematicTabCompleter.getFileList(SchemUtils.getSchemFolder()));
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
 					final @NotNull File pathFile = SchemUtils.getSchemFolder();
 					if (pathFile.exists() && pathFile.isDirectory()) {
-						for (final @NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
-							completions.add(file.getName());
-						}
+						SchematicTabCompleter.addFilesToCompletions(null, completions, Objects.notNull(BaseFileUtils.listFolders(pathFile, false)));
 					}
 				}
 			} else {
@@ -109,46 +105,28 @@ class WorldEditModeTabCompleter {
 					if ("-c".startsWith(args[2 + modifierCount]) && !"-c".equals(args[2 + modifierCount])) {
 						completions.add("-c");
 					}
+
 					if ("-casesensitive".startsWith(args[2 + modifierCount]) && !"-casesensitive".equals(args[2 + modifierCount])) {
 						completions.add("-casesensitive");
 					}
 				}
 
-				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
-					@Nullable Path tempDirectory = SchemUtils.getSchemPath();
-					final @NotNull String[] pathArgs = args[2].split("/");
-					if (!args[2].endsWith("/")) {
-						for (int i = 0; i < pathArgs.length - 1; i++) {
-							tempDirectory = tempDirectory.resolve(pathArgs[i]);
-						}
-					} else {
-						tempDirectory = tempDirectory.resolve(args[2]);
+				@Nullable Path tempDirectory = SchemUtils.getSchemPath();
+				final @NotNull String[] pathArgs = args[2 + modifierCount].split("/");
+				if (!args[2 + modifierCount].endsWith("/")) {
+					for (int i = 0; i < pathArgs.length - 1; i++) {
+						tempDirectory = tempDirectory.resolve(pathArgs[i]);
 					}
+				} else {
+					tempDirectory = tempDirectory.resolve(args[2 + modifierCount].substring(0, args[2 + modifierCount].length() - 1));
+				}
 
-					final @NotNull File pathFile = tempDirectory.toFile();
-					if (pathFile.exists() && pathFile.isDirectory()) {
-						final @NotNull String sequence = args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
-						for (final @NotNull File file : WorldEditModeTabCompleter.getFileList(pathFile)) {
-							WorldEditModeTabCompleter.addFileToCompletions(sequence, completions, file);
-						}
-					}
-				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
-					@Nullable Path tempDirectory = SchemUtils.getSchemPath();
-					final @NotNull String[] pathArgs = args[2 + modifierCount].split("/");
-					if (!args[2 + modifierCount].endsWith("/")) {
-						for (int i = 0; i < pathArgs.length - 1; i++) {
-							tempDirectory = tempDirectory.resolve(pathArgs[i]);
-						}
-					} else {
-						tempDirectory = tempDirectory.resolve(args[2 + modifierCount].substring(0, args[2 + modifierCount].length() - 1));
-					}
-
-					final @NotNull File pathFile = tempDirectory.toFile();
-					if (pathFile.exists() && pathFile.isDirectory()) {
-						for (final @NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
-							final @NotNull String sequence = args[2 + modifierCount].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
-							WorldEditModeTabCompleter.addFileToCompletions(sequence, completions, file);
-						}
+				final @NotNull File pathFile = tempDirectory.toFile();
+				if (pathFile.exists() && pathFile.isDirectory()) {
+					if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
+						SchematicTabCompleter.addFilesToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, Objects.notNull(BaseFileUtils.listFiles(pathFile, false)));
+					} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
+						SchematicTabCompleter.addFilesToCompletions(args[2 + modifierCount].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, Objects.notNull(BaseFileUtils.listFolders(pathFile, false)));
 					}
 				}
 			}
@@ -157,16 +135,11 @@ class WorldEditModeTabCompleter {
 				if (args[1].equalsIgnoreCase("load")) {
 					completions.addAll(Objects.notNull(ConfigUtils.getStringList("File Extensions")));
 				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy") || args[1].equalsIgnoreCase("download")) {
-					final @NotNull File pathFile = SchemUtils.getSchemFolder();
-					for (final @NotNull File file : WorldEditModeTabCompleter.getFileList(pathFile)) {
-						completions.add(file.getName());
-					}
+					SchematicTabCompleter.addFilesToCompletions(null, completions, SchematicTabCompleter.getFileList(SchemUtils.getSchemFolder()));
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
 					final @NotNull File pathFile = SchemUtils.getSchemFolder();
 					if (pathFile.exists() && pathFile.isDirectory()) {
-						for (final @NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
-							completions.add(file.getName());
-						}
+						SchematicTabCompleter.addFilesToCompletions(null, completions, Objects.notNull(BaseFileUtils.listFolders(pathFile, false)));
 					}
 				}
 			} else {
@@ -176,7 +149,7 @@ class WorldEditModeTabCompleter {
 							completions.add(extension);
 						}
 					}
-				} else if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy") || args[1].equalsIgnoreCase("download")) {
+				} else {
 					@NotNull Path tempDirectory = SchemUtils.getSchemPath();
 					final @NotNull String[] pathArgs = args[3].split("/");
 					if (!args[3].endsWith("/")) {
@@ -189,27 +162,10 @@ class WorldEditModeTabCompleter {
 
 					final @NotNull File pathFile = tempDirectory.toFile();
 					if (pathFile.exists() && pathFile.isDirectory()) {
-						final @NotNull String sequence = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
-						for (final @NotNull File file : WorldEditModeTabCompleter.getFileList(pathFile)) {
-							WorldEditModeTabCompleter.addFileToCompletions(sequence, completions, file);
-						}
-					}
-				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
-					@NotNull Path tempDirectory = SchemUtils.getSchemPath();
-					final @NotNull String[] pathArgs = args[3].split("/");
-					if (!args[3].endsWith("/")) {
-						for (int i = 0; i < pathArgs.length - 1; i++) {
-							tempDirectory = tempDirectory.resolve(pathArgs[i]);
-						}
-					} else {
-						tempDirectory = tempDirectory.resolve(args[3].substring(0, args[3].length() - 1));
-					}
-
-					final @NotNull File pathFile = tempDirectory.toFile();
-					if (pathFile.exists() && pathFile.isDirectory()) {
-						for (final @NotNull File file : BaseFileUtils.listFolders(pathFile, false)) {
-							final @NotNull String sequence = args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1];
-							WorldEditModeTabCompleter.addFileToCompletions(sequence, completions, file);
+						if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy") || args[1].equalsIgnoreCase("download")) {
+							SchematicTabCompleter.addFilesToCompletions(args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, Objects.notNull(BaseFileUtils.listFiles(pathFile, false)));
+						} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
+							SchematicTabCompleter.addFilesToCompletions(args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, Objects.notNull(BaseFileUtils.listFolders(pathFile, false)));
 						}
 					}
 				}
@@ -218,19 +174,27 @@ class WorldEditModeTabCompleter {
 		return completions;
 	}
 
+
 	private @NotNull List<File> getFileList(final @NotNull File directory) throws IOException {
-		final @Nullable List<String> extensions = ConfigUtils.getStringList("File Extensions");
-		final @NotNull List<File> rawFiles = BaseFileUtils.listFilesOfTypeAndFolders(directory, false, Objects.notNull(extensions));
-		return rawFiles;
+		return Objects.notNull(BaseFileUtils.listFilesOfTypeAndFolders(directory, false, Objects.notNull(ConfigUtils.getStringList("File Extensions"))));
 	}
 
-	private void addFileToCompletions(final @NotNull String sequence, final @NotNull List<String> completions, final @NotNull File file) {
-		try {
-			if (file.getName().toLowerCase().startsWith(sequence.toLowerCase()) && !file.getName().equalsIgnoreCase(sequence)) {
-				completions.add(BaseFileUtils.removeExtension(FilenameUtils.separatorsToUnix(SchemUtils.getSchemPath().toRealPath().relativize(file.toPath().toRealPath()).toString())));
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+	private void addFilesToCompletions(final @Nullable String sequence, final @NotNull List<String> completions, final @NotNull List<File> fileList) {
+		if (sequence == null) {
+			completions.addAll(fileList.stream().map(File::getName).collect(Collectors.toSet()));
+		} else {
+			completions.addAll(fileList.stream()
+									   .filter(file -> file.getName().toLowerCase().startsWith(sequence.toLowerCase()) && !file.getName().equalsIgnoreCase(sequence))
+									   .map(file -> {
+										   try {
+											   return BaseFileUtils.removeExtension(FilenameUtils.separatorsToUnix(SchemUtils.getSchemPath().toRealPath().relativize(file.toPath().toRealPath()).toString()));
+										   } catch (final @NotNull IOException e) {
+											   e.printStackTrace();
+											   return null;
+										   }
+									   })
+									   .filter(java.util.Objects::nonNull)
+									   .collect(Collectors.toSet()));
 		}
 	}
 }

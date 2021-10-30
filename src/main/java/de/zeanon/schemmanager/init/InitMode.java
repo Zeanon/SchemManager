@@ -22,7 +22,7 @@ public class InitMode {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Loading Config...");
 			ConfigUtils.loadConfigs();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config file are loaded successfully.");
-		} catch (RuntimeIOException e) {
+		} catch (final RuntimeIOException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load config file.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the config file and reload the plugin.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
@@ -35,7 +35,7 @@ public class InitMode {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Initializing Config...");
 			ConfigUtils.initConfigs();
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config file is initialized successfully.");
-		} catch (RuntimeIOException e) {
+		} catch (final RuntimeIOException e) {
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not update config file.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the config file and reload the plugin.");
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");

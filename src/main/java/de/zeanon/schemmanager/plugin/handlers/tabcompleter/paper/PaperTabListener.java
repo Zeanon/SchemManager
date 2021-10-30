@@ -1,6 +1,7 @@
-package de.zeanon.schemmanager.plugin.handlers.tabcompleter;
+package de.zeanon.schemmanager.plugin.handlers.tabcompleter.paper;
 
 import com.destroystokyo.paper.event.server.AsyncTabCompleteEvent;
+import de.zeanon.schemmanager.plugin.handlers.tabcompleter.SchematicTabCompleter;
 import java.io.IOException;
 import java.util.List;
 import org.bukkit.event.EventHandler;
@@ -16,7 +17,7 @@ public class PaperTabListener implements Listener {
 		if (event.getBuffer().startsWith("//schem")
 			|| event.getBuffer().startsWith("/schem")) {
 			final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
-			final @NotNull List<String> completions = WorldEditModeTabCompleter.execute(message);
+			final @NotNull List<String> completions = SchematicTabCompleter.getCompletions(message);
 			if (completions.isEmpty()) {
 				event.setCancelled(true);
 			} else {

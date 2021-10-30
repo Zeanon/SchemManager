@@ -12,6 +12,8 @@ import de.zeanon.thunderfilemanager.ThunderFileManager;
 import de.zeanon.thunderfilemanager.internal.base.exceptions.ThunderException;
 import de.zeanon.thunderfilemanager.internal.files.config.ThunderConfig;
 import de.zeanon.thunderfilemanager.internal.utility.parser.ThunderFileParser;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
@@ -102,12 +104,12 @@ public class ConfigUtils {
 	 * @return the default value.
 	 */
 	public @NotNull <T> T getDefaultValue(final @NotNull Class<T> type, final @NotNull String... key) {
-		try {
-			return Objects.notNull(Objects.toDef(ThunderFileParser.readDataAsFileData(BaseFileUtils.createNewInputStreamFromResource("resources/config.tf"),
+		try (final @NotNull InputStream resourceStream = BaseFileUtils.createNewInputStreamFromResource("resources/config.tf")) {
+			return Objects.notNull(Objects.toDef(ThunderFileParser.readDataAsFileData(resourceStream,
 																					  ConfigUtils.getConfig().collectionsProvider(),
 																					  ConfigUtils.getConfig().getCommentSetting(),
 																					  ConfigUtils.getConfig().getBufferSize()).getUseArray(key), type), "Could not read from the default config.");
-		} catch (final @NotNull ThunderException e) {
+		} catch (final @NotNull ThunderException | IOException e) {
 			e.printStackTrace();
 		}
 		return Objects.notNull(Objects.toDef(new Object(), type));
