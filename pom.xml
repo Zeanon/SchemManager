@@ -18,6 +18,10 @@
         </license>
     </licenses>
 
+    <organization>
+        <name>Zeanon</name>
+    </organization>
+
     <developers>
         <developer>
             <id>Zeanon</id>

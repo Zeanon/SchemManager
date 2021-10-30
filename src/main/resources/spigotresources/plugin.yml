@@ -1,9 +1,9 @@
 name: ${project.name}
 version: ${project.version}
 description: ${project.description}
-author: Zeanon
+author: ${project.organization.name}
 website: ${project.url}
-main: de.zeanon.schemmanager.SchemManager
+main: ${project.groupId}.${project.artifactId}.${project.name}
 api-version: 1.15
 softdepend: [ WorldEdit, FastAsyncWorldEdit, PlugMan ]
 commands:
