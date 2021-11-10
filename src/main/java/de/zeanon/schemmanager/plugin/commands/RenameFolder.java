@@ -34,7 +34,7 @@ public class RenameFolder {
 									  + ChatColor.YELLOW + ">");
 						RenameFolder.usage(p, slash, schemAlias);
 					} else if (args[2].contains("./") || args.length >= 4 && args[3].contains("./")) {
-						String name = args[2].contains("./") ? args[2] : args[3];
+						final String name = args[2].contains("./") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "' resolution error: Path is not allowed.");
 						RenameFolder.usage(p, slash, schemAlias);
 					} else if (args.length == 5
@@ -98,8 +98,8 @@ public class RenameFolder {
 								  ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
 					int id = 0;
 					final @Nullable List<String> extensions = Objects.notNull(ConfigUtils.getStringList("File Extensions"));
-					for (final @NotNull File oldFile : BaseFileUtils.listFilesOfType(directoryOld, true, extensions)) {
-						for (final @NotNull File newFile : BaseFileUtils.searchFilesOfType(directoryNew, true, BaseFileUtils.removeExtension(oldFile.getName()), extensions)) {
+					for (final @NotNull File oldFile : Objects.notNull(Objects.notNull(BaseFileUtils.listFilesOfType(directoryOld, true, extensions)))) {
+						for (final @NotNull File newFile : Objects.notNull(BaseFileUtils.searchFilesOfType(directoryNew, true, BaseFileUtils.removeExtension(oldFile.getName()), extensions))) {
 							if (BaseFileUtils.removeExtension(newFile.toPath().relativize(directoryNew.toPath()).toString())
 											 .equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.toPath().relativize(directoryOld.toPath()).toString()))) {
 
@@ -128,8 +128,8 @@ public class RenameFolder {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
 					int i = 0;
-					for (final @NotNull File oldFolder : BaseFileUtils.listFolders(directoryOld, true)) {
-						for (final @NotNull File newFolder : BaseFileUtils.searchFolders(directoryNew, true, oldFolder.getName())) {
+					for (final @NotNull File oldFolder : Objects.notNull(BaseFileUtils.listFolders(directoryOld, true))) {
+						for (final @NotNull File newFolder : Objects.notNull(BaseFileUtils.searchFolders(directoryNew, true, oldFolder.getName()))) {
 							if (BaseFileUtils.removeExtension(newFolder.toPath().relativize(directoryNew.toPath()).toString())
 											 .equalsIgnoreCase(BaseFileUtils.removeExtension(oldFolder.toPath().relativize(directoryOld.toPath()).toString()))) {
 
@@ -184,7 +184,7 @@ public class RenameFolder {
 								  ChatColor.GREEN + args[2] + ChatColor.RED + " was not renamed");
 				}
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "An Error occurred while getting the filepaths for the schematics and folders, for further information please see [console].");
@@ -194,8 +194,8 @@ public class RenameFolder {
 	private void deleteParents(final @NotNull File directory, final @NotNull String arg, final @NotNull Player p) {
 		try {
 			FileUtils.deleteDirectory(directory);
-			@Nullable String parentName = Objects.notNull(directory.getAbsoluteFile().getParentFile().listFiles()).length == 0
-										  && ConfigUtils.getBoolean("Delete empty Folders") ? InternalFileUtils.deleteEmptyParent(directory, SchemUtils.getSchemFolder()) : null;
+			@Nullable final String parentName = Objects.notNull(directory.getAbsoluteFile().getParentFile().listFiles()).length == 0
+												&& ConfigUtils.getBoolean("Delete empty Folders") ? InternalFileUtils.deleteEmptyParent(directory, SchemUtils.getSchemFolder()) : null;
 
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GREEN + arg + ChatColor.RED + " was renamed successfully.");
@@ -203,7 +203,7 @@ public class RenameFolder {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GREEN + arg + ChatColor.RED + " could not be renamed, for further information please see [console].");
 			e.printStackTrace();
@@ -228,7 +228,7 @@ public class RenameFolder {
 						FileUtils.moveToDirectory(tempFile, newFile, true);
 					}
 				}
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				e.printStackTrace();
 				return false;
 			}

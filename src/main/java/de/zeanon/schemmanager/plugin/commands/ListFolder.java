@@ -5,6 +5,7 @@ import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.GlobalMessageUtils;
 import de.zeanon.schemmanager.plugin.utils.SchemUtils;
 import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
+import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -144,7 +145,7 @@ public class ListFolder {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + "Could not access schematic folder.");
 			} else {
-				final @NotNull java.util.List<File> files = BaseFileUtils.listFolders(directory, deepSearch);
+				final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFolders(directory, deepSearch));
 				final double count = files.size();
 				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -201,7 +202,7 @@ public class ListFolder {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.RED + "Could not access schematic folder.");
 				} else {
-					final @NotNull java.util.List<File> files = BaseFileUtils.listFolders(directory, deepSearch);
+					final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFolders(directory, deepSearch));
 					final double count = files.size();
 					final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 					final int sideNumber = Integer.parseInt(arg);
@@ -282,7 +283,7 @@ public class ListFolder {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GREEN + arg + ChatColor.RED + " is no folder.");
 				} else {
-					final @NotNull java.util.List<File> files = BaseFileUtils.listFolders(directory, deepSearch);
+					final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFolders(directory, deepSearch));
 					final double count = files.size();
 					final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -341,7 +342,7 @@ public class ListFolder {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GREEN + argTwo + ChatColor.RED + " is no folder.");
 			} else {
-				final @NotNull java.util.List<File> files = BaseFileUtils.listFolders(directory, deepSearch);
+				final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFolders(directory, deepSearch));
 				final double count = files.size();
 				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 				final int sideNumber = Integer.parseInt(argThree);

@@ -155,7 +155,7 @@ public class List {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + "Could not access schematic folder.");
 			} else {
-				final @NotNull java.util.List<File> files = BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions));
+				final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions)));
 				final double count = files.size();
 				final int side = (int) (((count / listmax) % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -212,7 +212,7 @@ public class List {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.RED + "Could not access schematic folder.");
 				} else {
-					final @NotNull java.util.List<File> files = BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions));
+					final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions)));
 					final double count = files.size();
 					final int side = (int) (((count / listmax) % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 					final int sideNumber = Integer.parseInt(arg);
@@ -292,7 +292,7 @@ public class List {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GREEN + arg + ChatColor.RED + " is no folder.");
 				} else {
-					final @NotNull java.util.List<File> files = BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions));
+					final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions)));
 					final double count = files.size();
 					final int side = (int) (((count / listmax) % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -350,7 +350,7 @@ public class List {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GREEN + argTwo + ChatColor.RED + " is no folder.");
 			} else {
-				final @NotNull java.util.List<File> files = BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions));
+				final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions)));
 				final double count = files.size();
 				final int side = (int) (((count / listmax) % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 				final int sideNumber = Integer.parseInt(argThree);
