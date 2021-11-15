@@ -36,6 +36,16 @@
     </developers>
 
     <properties>
+        <project.authors>Zeanon</project.authors>
+
+        <plugin.api.version>1.15</plugin.api.version>
+        <plugin.load>POSTWORLD</plugin.load>
+        <plugin.depends></plugin.depends>
+        <plugin.softdepends>[ WorldEdit, FastAsyncWorldEdit, PlugMan ]</plugin.softdepends>
+
+        <storagemanager.core.version>1.1.103</storagemanager.core.version>
+        <storagemanager.thunderfile.version>${storagemanager.core.version}</storagemanager.thunderfile.version>
+
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -119,7 +129,7 @@
                         <configuration>
                             <groupId>de.zeanon</groupId>
                             <artifactId>storagemanagercore</artifactId>
-                            <version>1.1.103</version>
+                            <version>${storagemanager.core.version}</version>
                             <file>src/main/resources/dependencies/StorageManagerCore.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
@@ -135,8 +145,24 @@
                         <configuration>
                             <groupId>de.zeanon</groupId>
                             <artifactId>thunderfilemanager</artifactId>
-                            <version>1.1.103</version>
+                            <version>${storagemanager.thunderfile.version}</version>
                             <file>src/main/resources/dependencies/ThunderFileManager.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>install-commandframework</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>de.steamwar</groupId>
+                            <artifactId>commandframework</artifactId>
+                            <version>1.0.0</version>
+                            <file>src/main/resources/dependencies/CommandFramework.jar</file>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
                         </configuration>
@@ -169,6 +195,11 @@
                         <relocation>
                             <pattern>de.zeanon.thunderfilemanager</pattern>
                             <shadedPattern>de.zeanon.schemmanager.shaded.storagemanager</shadedPattern>
+                        </relocation>
+
+                        <relocation>
+                            <pattern>de.steamwar.commandframework</pattern>
+                            <shadedPattern>de.zeanon.schemmanager.shaded.commandframework</shadedPattern>
                         </relocation>
                     </relocations>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -263,6 +294,14 @@
             <groupId>de.zeanon</groupId>
             <artifactId>thunderfilemanager</artifactId>
             <version>1.1.103</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- CommandFramework-->
+        <dependency>
+            <groupId>de.steamwar</groupId>
+            <artifactId>commandframework</artifactId>
+            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
 

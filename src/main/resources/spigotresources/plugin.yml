@@ -1,11 +1,13 @@
 name: ${project.name}
 version: ${project.version}
 description: ${project.description}
-author: ${project.organization.name}
+author: ${project.authors}
 website: ${project.url}
 main: ${project.groupId}.${project.artifactId}.${project.name}
-api-version: 1.15
-softdepend: [ WorldEdit, FastAsyncWorldEdit, PlugMan ]
+api-version: ${plugin.api.version}
+load: ${plugin.load}
+depend: ${plugin.depends}
+softdepend: ${plugin.softdepends}
 commands:
   schemmanager:
     description: The basic command for SchemManager
