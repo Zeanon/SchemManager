@@ -8,7 +8,3 @@ api-version: ${plugin.api.version}
 load: ${plugin.load}
 depend: ${plugin.depends}
 softdepend: ${plugin.softdepends}
-commands:
-  schemmanager:
-    description: The basic command for SchemManager
-    aliases: [ sm ]

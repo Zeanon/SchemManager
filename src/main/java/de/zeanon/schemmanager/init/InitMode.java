@@ -1,9 +1,14 @@
 package de.zeanon.schemmanager.init;
 
+import de.steamwar.commandframework.SWCommand;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.handlers.WakeupListener;
+import de.zeanon.schemmanager.plugin.schemmanagercommands.SchemmanagerCommand;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
+import de.zeanon.schemmanager.plugin.utils.commands.Mapper;
 import de.zeanon.storagemanagercore.internal.base.exceptions.RuntimeIOException;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
@@ -13,11 +18,13 @@ import org.jetbrains.annotations.NotNull;
 public class InitMode {
 
 
+	private final @NotNull Set<SWCommand> registeredCommands = new HashSet<>();
 	@Getter(onMethod_ = {@NotNull})
 	private String worldEditPluginName;
 
-
 	public void initPlugin() {
+		InitMode.registerCommands();
+
 		try {
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Loading Config...");
 			ConfigUtils.loadConfigs();
@@ -46,6 +53,19 @@ public class InitMode {
 
 		InitMode.initVersion();
 	}
+
+	public void registerCommands() {
+		Mapper.initialize();
+
+		InitMode.registeredCommands.add(new SchemmanagerCommand());
+	}
+
+	public void unregisterCommands() {
+		for (final @NotNull SWCommand command : InitMode.registeredCommands) {
+			command.unregister();
+		}
+	}
+
 
 	private void initVersion() {
 		if (SchemManager.getPluginManager().getPlugin("FastAsyncWorldEdit") != null && SchemManager.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {

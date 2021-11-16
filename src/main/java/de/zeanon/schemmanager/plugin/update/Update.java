@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.plugin.update;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
-import de.zeanon.schemmanager.plugin.utils.GlobalMessageUtils;
+import de.zeanon.schemmanager.plugin.utils.commands.GlobalMessageUtils;
 import de.zeanon.storagemanagercore.internal.base.exceptions.ObjectNullException;
 import de.zeanon.storagemanagercore.internal.base.exceptions.RuntimeIOException;
 import de.zeanon.storagemanagercore.internal.utility.basic.Objects;

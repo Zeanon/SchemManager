@@ -1,6 +1,5 @@
 package de.zeanon.schemmanager.plugin.handlers.tabcompleter;
 
-import de.zeanon.schemmanager.plugin.handlers.SchemManagerTabCompleter;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.SchemUtils;
 import de.zeanon.storagemanagercore.external.browniescollections.GapList;
@@ -63,17 +62,32 @@ public class SchematicTabCompleter {
 		}
 	}
 
+	public static @NotNull List<String> getCompletions(final @NotNull String arg, final @NotNull String... completions) {
+		final List<String> result = new GapList<>();
+		for (final @NotNull String completion : completions) {
+			if (completion.startsWith(arg.toLowerCase()) && !completion.equalsIgnoreCase(arg)) {
+				result.add(completion);
+			}
+		}
+		return result;
+	}
+
 	private @NotNull List<String> generateCompletions(final @NotNull String[] args, final boolean alreadyDeep, final boolean alreadyCaseSensitive, final int modifierCount, final boolean argumentEnded) throws IOException {
 		final @NotNull List<String> completions = new GapList<>();
 		if ((args.length == 2 && !argumentEnded) || (args.length == 1 && argumentEnded)) {
 			if (argumentEnded) {
-				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder", "download");
+				return Arrays.asList("help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listschems", "listfolder", "search", "searchschem", "searchfolder", "download");
 			} else {
-				return SchemManagerTabCompleter.getCompletions(args[1], "help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listfolder", "search", "searchfolder", "download");
+				return SchematicTabCompleter.getCompletions(args[1], "help", "load", "formats", "save", "rename", "renamefolder", "copy", "copyfolder", "del", "delete", "delfolder", "deletefolder", "list", "listschems", "listfolder", "search", "searchschem", "searchfolder", "download");
 			}
 		} else if ((args.length == 3 + modifierCount && !argumentEnded) || args.length == 2 + modifierCount) {
 			if (argumentEnded) {
-				if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
+				if (!alreadyDeep && (args[1].equalsIgnoreCase("list")
+									 || args[1].equalsIgnoreCase("listschems")
+									 || args[1].equalsIgnoreCase("listfolder")
+									 || args[1].equalsIgnoreCase("search")
+									 || args[1].equalsIgnoreCase("searchschem")
+									 || args[1].equalsIgnoreCase("searchfolder"))) {
 					completions.add("-d");
 					completions.add("-deep");
 				}
@@ -85,14 +99,28 @@ public class SchematicTabCompleter {
 
 				if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
 					SchematicTabCompleter.addFilesToCompletions(null, completions, SchematicTabCompleter.getFileList(SchemUtils.getSchemFolder()));
-				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
+				} else if (args[1].equalsIgnoreCase("renamefolder")
+						   || args[1].equalsIgnoreCase("delfolder")
+						   || args[1].equalsIgnoreCase("deletefolder")
+						   || args[1].equalsIgnoreCase("list")
+						   || args[1].equalsIgnoreCase("listschems")
+						   || args[1].equalsIgnoreCase("listfolder")
+						   || args[1].equalsIgnoreCase("search")
+						   || args[1].equalsIgnoreCase("searchschem")
+						   || args[1].equalsIgnoreCase("searchfolder")
+						   || args[1].equalsIgnoreCase("copyfolder")) {
 					final @NotNull File pathFile = SchemUtils.getSchemFolder();
 					if (pathFile.exists() && pathFile.isDirectory()) {
 						SchematicTabCompleter.addFilesToCompletions(null, completions, Objects.notNull(BaseFileUtils.listFolders(pathFile, false)));
 					}
 				}
 			} else {
-				if (!alreadyDeep && (args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder"))) {
+				if (!alreadyDeep && (args[1].equalsIgnoreCase("list")
+									 || args[1].equalsIgnoreCase("listschems")
+									 || args[1].equalsIgnoreCase("listfolder")
+									 || args[1].equalsIgnoreCase("search")
+									 || args[1].equalsIgnoreCase("searchschem")
+									 || args[1].equalsIgnoreCase("searchfolder"))) {
 					if ("-d".startsWith(args[2 + modifierCount]) && !"-d".equals(args[2 + modifierCount])) {
 						completions.add("-d");
 					}
@@ -123,9 +151,23 @@ public class SchematicTabCompleter {
 
 				final @NotNull File pathFile = tempDirectory.toFile();
 				if (pathFile.exists() && pathFile.isDirectory()) {
-					if (args[1].equalsIgnoreCase("load") || args[1].equalsIgnoreCase("save") || args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy")) {
+					if (args[1].equalsIgnoreCase("load")
+						|| args[1].equalsIgnoreCase("save")
+						|| args[1].equalsIgnoreCase("del")
+						|| args[1].equalsIgnoreCase("delete")
+						|| args[1].equalsIgnoreCase("rename")
+						|| args[1].equalsIgnoreCase("copy")) {
 						SchematicTabCompleter.addFilesToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, Objects.notNull(BaseFileUtils.listFiles(pathFile, false)));
-					} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("delfolder") || args[1].equalsIgnoreCase("deletefolder") || args[1].equalsIgnoreCase("list") || args[1].equalsIgnoreCase("listfolder") || args[1].equalsIgnoreCase("search") || args[1].equalsIgnoreCase("searchfolder") || args[1].equalsIgnoreCase("copyfolder")) {
+					} else if (args[1].equalsIgnoreCase("renamefolder")
+							   || args[1].equalsIgnoreCase("delfolder")
+							   || args[1].equalsIgnoreCase("deletefolder")
+							   || args[1].equalsIgnoreCase("list")
+							   || args[1].equalsIgnoreCase("listschems")
+							   || args[1].equalsIgnoreCase("listfolder")
+							   || args[1].equalsIgnoreCase("search")
+							   || args[1].equalsIgnoreCase("searchschem")
+							   || args[1].equalsIgnoreCase("searchfolder")
+							   || args[1].equalsIgnoreCase("copyfolder")) {
 						SchematicTabCompleter.addFilesToCompletions(args[2 + modifierCount].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, Objects.notNull(BaseFileUtils.listFolders(pathFile, false)));
 					}
 				}

@@ -2,7 +2,7 @@ package de.zeanon.schemmanager.plugin.handlers;
 
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.update.Update;
-import de.zeanon.schemmanager.plugin.utils.GlobalRequestUtils;
+import de.zeanon.schemmanager.plugin.utils.commands.GlobalRequestUtils;
 import java.util.UUID;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

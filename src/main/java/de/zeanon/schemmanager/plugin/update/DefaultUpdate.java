@@ -37,7 +37,7 @@ class DefaultUpdate {
 				System.out.println("Server is reloading.");
 				Bukkit.getServer().reload();
 			}
-		} catch (@NotNull IOException | URISyntaxException e) {
+		} catch (@NotNull final IOException | URISyntaxException e) {
 			e.printStackTrace();
 			System.out.println(instance.getName() + " could not be updated.");
 		}
@@ -45,7 +45,7 @@ class DefaultUpdate {
 
 	void updatePlugin(final @NotNull Player p, final boolean autoReload, final @NotNull JavaPlugin instance) {
 		p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
-					  ChatColor.RED + "updating plugin...");
+					  ChatColor.RED + "Updating plugin...");
 		try {
 			BaseFileUtils.writeToFile(new File(SchemManager.class.getProtectionDomain()
 																 .getCodeSource()
@@ -65,7 +65,7 @@ class DefaultUpdate {
 							  ChatColor.RED + "Server is reloading...");
 				Bukkit.getServer().reload();
 			}
-		} catch (@NotNull IOException | URISyntaxException e) {
+		} catch (@NotNull final IOException | URISyntaxException e) {
 			e.printStackTrace();
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "Could not update.");

@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.plugin.utils;
+package de.zeanon.schemmanager.plugin.utils.commands;
 
 import java.util.Map;
 import java.util.UUID;

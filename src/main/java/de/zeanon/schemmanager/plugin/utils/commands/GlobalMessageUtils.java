@@ -1,4 +1,4 @@
-package de.zeanon.schemmanager.plugin.utils;
+package de.zeanon.schemmanager.plugin.utils.commands;
 
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
