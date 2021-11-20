@@ -17,7 +17,7 @@ public class PaperTabListener implements Listener {
 		if (event.getBuffer().startsWith("//schem")
 			|| event.getBuffer().startsWith("/schem")) {
 			final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
-			final @NotNull List<String> completions = SchematicTabCompleter.getCompletions(message);
+			final @NotNull List<String> completions = SchematicTabCompleter.getCompletions(event.getSender(), message);
 			if (completions.isEmpty()) {
 				event.setCancelled(true);
 			} else {

@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.5.43-Beta</version>
+    <version>4.5.44-Beta</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
@@ -170,6 +170,22 @@
                             <goal>install-file</goal>
                         </goals>
                     </execution>
+
+                    <execution>
+                        <id>install-steamedit</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <groupId>de.steamwar</groupId>
+                            <artifactId>steamedit</artifactId>
+                            <version>1.0.0</version>
+                            <file>src/main/resources/dependencies/SteamEdit.jar</file>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
 
@@ -321,19 +337,19 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- WorldEdit API -->
-        <dependency>
-            <groupId>com.sk89q.worldedit</groupId>
-            <artifactId>worldedit-bukkit</artifactId>
-            <version>7.1.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- PlugMan -->
         <dependency>
             <groupId>com.rylinaux</groupId>
             <artifactId>plugman</artifactId>
             <version>2.1.7</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- SteamEdit -->
+        <dependency>
+            <groupId>de.steamwar</groupId>
+            <artifactId>steamedit</artifactId>
+            <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>
 

@@ -5,7 +5,9 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.handlers.CommandListener;
 import de.zeanon.schemmanager.plugin.handlers.EventListener;
 import de.zeanon.schemmanager.plugin.handlers.tabcompleter.paper.PaperTabListener;
+import de.zeanon.schemmanager.plugin.handlers.tabcompleter.paper.SteamEditPaperTabListener;
 import de.zeanon.schemmanager.plugin.handlers.tabcompleter.spigot.SpigotTabListener;
+import de.zeanon.schemmanager.plugin.handlers.tabcompleter.spigot.SteamEditSpigotTabListener;
 import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
@@ -33,9 +35,17 @@ public class RunningMode {
 		SchemManager.getPluginManager().registerEvents(new CommandListener(), SchemManager.getInstance());
 		SchemManager.getPluginManager().registerEvents(new EventListener(), SchemManager.getInstance());
 		if (RunningMode.isPaperSpigot()) {
-			SchemManager.getPluginManager().registerEvents(new PaperTabListener(), SchemManager.getInstance());
+			if (RunningMode.steamEdit) {
+				SchemManager.getPluginManager().registerEvents(new SteamEditPaperTabListener(), SchemManager.getInstance());
+			} else {
+				SchemManager.getPluginManager().registerEvents(new PaperTabListener(), SchemManager.getInstance());
+			}
 		} else {
-			SchemManager.getPluginManager().registerEvents(new SpigotTabListener(), SchemManager.getInstance());
+			if (RunningMode.steamEdit) {
+				SchemManager.getPluginManager().registerEvents(new SteamEditSpigotTabListener(), SchemManager.getInstance());
+			} else {
+				SchemManager.getPluginManager().registerEvents(new SpigotTabListener(), SchemManager.getInstance());
+			}
 		}
 		System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " launched successfully.");
 	}

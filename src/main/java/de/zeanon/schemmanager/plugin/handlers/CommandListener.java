@@ -105,7 +105,7 @@ public class CommandListener implements Listener {
 				// </ListSchems>
 
 				// <ListFolder>
-			} else if (args[1].equalsIgnoreCase("listfolder")
+			} else if (args[1].equalsIgnoreCase("listfolders")
 					   && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
 				ListFolder.execute(args, p, slash, schemAlias);
@@ -154,25 +154,41 @@ public class CommandListener implements Listener {
 				// <Invalid Command>
 			} else {
 				event.setCancelled(true);
-				p.sendMessage(ChatColor.RED + "Invalid sub-command '" + ChatColor.GOLD + "" + args[1] + ChatColor.RED
-							  + "'. Options: " + ChatColor.GOLD + "help" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "formats" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "save" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "load" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "rename" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "renamefolder" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "copy" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "copyfolder" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "delete" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "deletefolder" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "list" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "listfolder" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "search" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "searchfolder" + ChatColor.RED + ", " + ChatColor.GOLD
-							  + "download");
+				p.sendMessage(ChatColor.RED + "Invalid sub-command '"
+							  + ChatColor.GOLD + "" + args[1] + ChatColor.RED + "'. Options: "
+							  + ChatColor.GOLD + "help" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "formats" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "save" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "load" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "rename" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "renamefolder" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "copy" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "copyfolder" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "delete" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "deletefolder" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "list" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "listfolders" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "search" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "searchfolder" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "download");
 				CommandMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
 			}
 			// </Invalid Command>
+		} else if (args[0].equalsIgnoreCase("/session")
+				   || args[0].equalsIgnoreCase("//session")) {
+
+			final @NotNull String slash = args[0].equalsIgnoreCase("//session") ? "//" : "/";
+
+			if (args.length == 1) {
+				event.setCancelled(true);
+				Help.executeInternally(p, slash, "schematic");
+			} else if (args[1].equalsIgnoreCase("list")) {
+				event.setCancelled(true);
+				ListSessions.execute(args, p, slash);
+			} else if (args[1].equalsIgnoreCase("search")) {
+				event.setCancelled(true);
+				SearchSession.execute(args, p, slash);
+			}
 		}
 	}
 }

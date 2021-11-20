@@ -94,10 +94,15 @@ public class Help {
 													  DeleteFolder.usageHoverMessage(slash, schemAlias),
 													  DeleteFolder.usageCommand(slash, schemAlias),
 													  p);
-				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "List schematics: ",
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "List schematics and folders: ",
 													  List.usageMessage(slash, schemAlias),
 													  List.usageHoverMessage(slash, schemAlias),
 													  List.usageCommand(slash, schemAlias),
+													  p);
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "List schematics: ",
+													  ListSchems.usageMessage(slash, schemAlias),
+													  ListSchems.usageHoverMessage(slash, schemAlias),
+													  ListSchems.usageCommand(slash, schemAlias),
 													  p);
 				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "List folders: ",
 													  ListFolder.usageMessage(slash, schemAlias),
@@ -105,6 +110,11 @@ public class Help {
 													  ListFolder.usageCommand(slash, schemAlias),
 													  p);
 				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Search for a schematic: ",
+													  Search.usageMessage(slash, schemAlias),
+													  Search.usageHoverMessage(slash, schemAlias),
+													  Search.usageCommand(slash, schemAlias),
+													  p);
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Search for a schematic or a folder: ",
 													  SearchSchem.usageMessage(slash, schemAlias),
 													  SearchSchem.usageHoverMessage(slash, schemAlias),
 													  SearchSchem.usageCommand(slash, schemAlias),

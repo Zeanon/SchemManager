@@ -14,10 +14,12 @@ public class SteamEditPaperTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onTab(final @NotNull AsyncTabCompleteEvent event) throws IOException {
-		if (event.getBuffer().startsWith("//session")
+		if (event.getBuffer().startsWith("//schem")
+			|| event.getBuffer().startsWith("/schem")
+			|| event.getBuffer().startsWith("//session")
 			|| event.getBuffer().startsWith("/session")) {
 			final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
-			final @NotNull List<String> completions = SchematicTabCompleter.getCompletions(message);
+			final @NotNull List<String> completions = SchematicTabCompleter.getCompletions(event.getSender(), message);
 			if (completions.isEmpty()) {
 				event.setCancelled(true);
 			} else {

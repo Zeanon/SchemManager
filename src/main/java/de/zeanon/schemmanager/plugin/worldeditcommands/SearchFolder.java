@@ -92,9 +92,9 @@ public class SearchFolder {
 			   + ChatColor.YELLOW + "] ["
 			   + ChatColor.DARK_PURPLE + "-c"
 			   + ChatColor.YELLOW + "] ["
-			   + ChatColor.GREEN + "folder"
+			   + ChatColor.DARK_GREEN + "folder"
 			   + ChatColor.YELLOW + "] <"
-			   + ChatColor.GREEN + "foldername"
+			   + ChatColor.DARK_GREEN + "foldername"
 			   + ChatColor.YELLOW + "> ["
 			   + ChatColor.DARK_PURPLE + "page"
 			   + ChatColor.YELLOW + "]";
@@ -109,9 +109,9 @@ public class SearchFolder {
 			   + ChatColor.YELLOW + "] ["
 			   + ChatColor.DARK_PURPLE + "-c"
 			   + ChatColor.YELLOW + "] ["
-			   + ChatColor.GREEN + "folder"
+			   + ChatColor.DARK_GREEN + "folder"
 			   + ChatColor.YELLOW + "] "
-			   + ChatColor.GREEN + "example"
+			   + ChatColor.DARK_GREEN + "example"
 			   + ChatColor.YELLOW + " ["
 			   + ChatColor.DARK_PURPLE + "page"
 			   + ChatColor.YELLOW + "]";
@@ -160,13 +160,13 @@ public class SearchFolder {
 
 			if (deepSearch) {
 				GlobalMessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
-													  ChatColor.GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
-													  ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path + ".",
+													  ChatColor.DARK_GREEN + name + ChatColor.DARK_GRAY + " [" + ChatColor.GRAY + shortenedRelativePath + ChatColor.DARK_GRAY + "]",
+													  ChatColor.RED + "List the schematics in " + ChatColor.DARK_GREEN + path + ".",
 													  "//schem list " + path, p);
 			} else {
 				GlobalMessageUtils.sendCommandMessage(ChatColor.RED + Integer.toString(id + 1) + ": ",
-													  ChatColor.GREEN + name,
-													  ChatColor.RED + "List the schematics in " + ChatColor.GREEN + path + ".",
+													  ChatColor.DARK_GREEN + name,
+													  ChatColor.RED + "List the schematics in " + ChatColor.DARK_GREEN + path + ".",
 													  "//schem list " + path, p);
 			}
 			return false;
@@ -183,8 +183,7 @@ public class SearchFolder {
 			final @Nullable Path listPath = schemPath != null ? schemPath.toAbsolutePath() : null;
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 			if (directory == null || !directory.isDirectory()) {
-				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-							  ChatColor.RED + "Could not access schematic folder.");
+				throw new IOException("Schematic folder does not exist");
 			} else {
 				final @NotNull List<File> files = Objects.notNull(BaseFileUtils.searchFolders(directory, deepSearch, arg, caseSensitiveSearch));
 				final double count = files.size();
@@ -240,8 +239,7 @@ public class SearchFolder {
 				final @Nullable Path listPath = schemPath != null ? schemPath.toAbsolutePath() : null;
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 				if (directory == null || !directory.isDirectory()) {
-					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-								  ChatColor.RED + "Could not access schematic folder.");
+					throw new IOException("Schematic folder does not exist");
 				} else {
 					final @NotNull List<File> files = Objects.notNull(Objects.notNull(BaseFileUtils.searchFolders(directory, deepSearch, argTwo, caseSensitiveSearch)));
 					final double count = Objects.notNull(files).size();
@@ -319,52 +317,52 @@ public class SearchFolder {
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 				if (directory == null || !directory.isDirectory()) {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-								  ChatColor.GREEN + argTwo + ChatColor.RED + " is no folder.");
+								  ChatColor.DARK_GREEN + argTwo + ChatColor.RED + " is no folder.");
+					return;
+				}
+				final @NotNull List<File> files = Objects.notNull(BaseFileUtils.searchFolders(directory, deepSearch, argThree, caseSensitiveSearch));
+				final double count = Objects.notNull(files).size();
+				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
+
+				if (spaceLists) {
+					p.sendMessage("");
+				}
+				if (count < 1) {
+					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+														ChatColor.AQUA + "No folders found",
+														ChatColor.AQUA + " ===",
+														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 				} else {
-					final @NotNull List<File> files = Objects.notNull(BaseFileUtils.searchFolders(directory, deepSearch, argThree, caseSensitiveSearch));
-					final double count = Objects.notNull(files).size();
-					final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
+					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+														ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side,
+														ChatColor.AQUA + " ===",
+														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 
-					if (spaceLists) {
-						p.sendMessage("");
+					if (count < listmax) {
+						listmax = (int) count;
 					}
-					if (count < 1) {
-						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-															ChatColor.AQUA + "No folders found",
-															ChatColor.AQUA + " ===",
-															ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
+
+					for (int i = 0; i < listmax; i++) {
+						if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
+							return;
+						}
+					}
+
+					if (side > 1) {
+						GlobalMessageUtils.sendScrollMessage("//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " 2",
+															 "//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + side,
+															 ChatColor.DARK_PURPLE + "Page 2",
+															 ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 					} else {
-						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-															ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side,
-															ChatColor.AQUA + " ===",
-															ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
-
-						if (count < listmax) {
-							listmax = (int) count;
-						}
-
-						for (int i = 0; i < listmax; i++) {
-							if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
-								return;
-							}
-						}
-
-						if (side > 1) {
-							GlobalMessageUtils.sendScrollMessage("//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " 2",
-																 "//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + side,
-																 ChatColor.DARK_PURPLE + "Page 2",
-																 ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
-						} else {
-							GlobalMessageUtils.sendScrollMessage("",
-																 "",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
-																 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
-						}
+						GlobalMessageUtils.sendScrollMessage("",
+															 "",
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
+															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
 					}
 				}
 			} catch (final @NotNull IOException e) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-							  ChatColor.GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
+							  ChatColor.DARK_GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
 				e.printStackTrace();
 			}
 		}
@@ -376,76 +374,77 @@ public class SearchFolder {
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 			if (directory == null || !directory.isDirectory()) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-							  ChatColor.GREEN + argTwo + ChatColor.RED + " is no folder.");
+							  ChatColor.DARK_GREEN + argTwo + ChatColor.RED + " is no folder.");
+				return;
+			}
+
+			final @NotNull List<File> files = Objects.notNull(BaseFileUtils.searchFolders(directory, deepSearch, argThree, caseSensitiveSearch));
+			final double count = Objects.notNull(files).size();
+			final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
+			final int sideNumber = Integer.parseInt(argFour);
+
+			if (sideNumber > side) {
+				GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
+													ChatColor.RED + "There are only " + side + " pages of folders in this list",
+													"",
+													ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
+				return;
+			}
+			if (spaceLists) {
+				p.sendMessage("");
+			}
+			if (count < 1) {
+				GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+													ChatColor.AQUA + "No folders found",
+													ChatColor.AQUA + " ===",
+													ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 			} else {
-				final @NotNull List<File> files = Objects.notNull(BaseFileUtils.searchFolders(directory, deepSearch, argThree, caseSensitiveSearch));
-				final double count = Objects.notNull(files).size();
-				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
-				final int sideNumber = Integer.parseInt(argFour);
+				GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+													ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
+													ChatColor.AQUA + " ===",
+													ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 
-				if (sideNumber > side) {
-					GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
-														ChatColor.RED + "There are only " + side + " pages of folders in this list",
-														"",
-														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
-					return;
+				int id = (sideNumber - 1) * listmax;
+				if (count < listmax * sideNumber) {
+					listmax = (int) count - (listmax * (sideNumber - 1));
 				}
-				if (spaceLists) {
-					p.sendMessage("");
+
+				for (int i = 0; i < listmax; i++) {
+					if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
+						return;
+					}
+					id++;
 				}
-				if (count < 1) {
-					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "No folders found",
-														ChatColor.AQUA + " ===",
-														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
-				} else {
-					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
-														ChatColor.AQUA + " ===",
-														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 
-					int id = (sideNumber - 1) * listmax;
-					if (count < listmax * sideNumber) {
-						listmax = (int) count - (listmax * (sideNumber - 1));
-					}
-
-					for (int i = 0; i < listmax; i++) {
-						if (SearchFolder.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
-							return;
-						}
-						id++;
-					}
-
-					if (side > 1) {
-						if (sideNumber > 1) {
-							if (sideNumber < side) {
-								GlobalMessageUtils.sendScrollMessage("//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + (sideNumber + 1),
-																	 "//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + (sideNumber - 1),
-																	 ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
-																	 ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
-							} else {
-								GlobalMessageUtils.sendScrollMessage("//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " 1",
-																	 "//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + (sideNumber - 1),
-																	 ChatColor.DARK_PURPLE + "Page 1",
-																	 ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
-							}
-						} else {
+				if (side > 1) {
+					if (sideNumber > 1) {
+						if (sideNumber < side) {
 							GlobalMessageUtils.sendScrollMessage("//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + (sideNumber + 1),
-																 "//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + side,
+																 "//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + (sideNumber - 1),
 																 ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
-																 ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
+																 ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
+						} else {
+							GlobalMessageUtils.sendScrollMessage("//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " 1",
+																 "//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + (sideNumber - 1),
+																 ChatColor.DARK_PURPLE + "Page 1",
+																 ChatColor.DARK_PURPLE + "Page " + (sideNumber - 1), p, ChatColor.DARK_AQUA);
 						}
 					} else {
-						GlobalMessageUtils.sendScrollMessage("",
-															 "",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
-															 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
+						GlobalMessageUtils.sendScrollMessage("//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + (sideNumber + 1),
+															 "//schem searchfolder " + deep + caseSensitive + argTwo + " " + argThree + " " + side,
+															 ChatColor.DARK_PURPLE + "Page " + (sideNumber + 1),
+															 ChatColor.DARK_PURPLE + "Page " + side, p, ChatColor.DARK_AQUA);
 					}
+				} else {
+					GlobalMessageUtils.sendScrollMessage("",
+														 "",
+														 ChatColor.DARK_PURPLE + "There is only one page of folders in this list",
+														 ChatColor.DARK_PURPLE + "There is only one page of folders in this list", p, ChatColor.BLUE);
 				}
 			}
 		} catch (final @NotNull IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
-						  ChatColor.GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
+						  ChatColor.DARK_GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
 			e.printStackTrace();
 		}
 	}
