@@ -167,8 +167,10 @@ public class CommandListener implements Listener {
 							  + ChatColor.GOLD + "delete" + ChatColor.RED + ", "
 							  + ChatColor.GOLD + "deletefolder" + ChatColor.RED + ", "
 							  + ChatColor.GOLD + "list" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "listschems" + ChatColor.RED + ", "
 							  + ChatColor.GOLD + "listfolders" + ChatColor.RED + ", "
 							  + ChatColor.GOLD + "search" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "searchschem" + ChatColor.RED + ", "
 							  + ChatColor.GOLD + "searchfolder" + ChatColor.RED + ", "
 							  + ChatColor.GOLD + "download");
 				CommandMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
