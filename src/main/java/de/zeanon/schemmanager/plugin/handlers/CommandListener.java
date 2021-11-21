@@ -108,7 +108,7 @@ public class CommandListener implements Listener {
 			} else if (args[1].equalsIgnoreCase("listfolders")
 					   && p.hasPermission("worldedit.schematic.list")) {
 				event.setCancelled(true);
-				ListFolder.execute(args, p, slash, schemAlias);
+				ListFolders.execute(args, p, slash, schemAlias);
 				// </ListFolder>
 
 				// <Search>

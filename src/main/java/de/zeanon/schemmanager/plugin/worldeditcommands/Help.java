@@ -105,9 +105,9 @@ public class Help {
 													  ListSchems.usageCommand(slash, schemAlias),
 													  p);
 				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "List folders: ",
-													  ListFolder.usageMessage(slash, schemAlias),
-													  ListFolder.usageHoverMessage(slash, schemAlias),
-													  ListFolder.usageCommand(slash, schemAlias),
+													  ListFolders.usageMessage(slash, schemAlias),
+													  ListFolders.usageHoverMessage(slash, schemAlias),
+													  ListFolders.usageCommand(slash, schemAlias),
 													  p);
 				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Search for a schematic: ",
 													  Search.usageMessage(slash, schemAlias),
@@ -145,6 +145,11 @@ public class Help {
 													  + ChatColor.ITALIC + ""
 													  + ChatColor.BOLD + "PLS DON'T D;",
 													  "/schemmanager disable", p);
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Load a session: ",
+													  ListSessions.usageMessage(slash),
+													  ListSessions.usageHoverMessage(slash),
+													  ListSessions.usageCommand(slash),
+													  p);
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
 	}

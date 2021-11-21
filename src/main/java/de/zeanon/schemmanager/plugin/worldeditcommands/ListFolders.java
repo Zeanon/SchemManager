@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 
 @UtilityClass
-public class ListFolder {
+public class ListFolders {
 
 	public void execute(final @NotNull String[] args, final @NotNull Player p, final @NotNull String slash, final @NotNull String schemAlias) {
 		new BukkitRunnable() {
@@ -40,16 +40,16 @@ public class ListFolder {
 				if (args.length <= 4 + modifierCount) {
 					if (args.length == 4 + modifierCount && (StringUtils.isNumeric(args[2 + modifierCount]) || !StringUtils.isNumeric(args[3 + modifierCount]))) {
 						p.sendMessage(ChatColor.RED + "Too many arguments.");
-						ListFolder.usage(p, slash, schemAlias);
+						ListFolders.usage(p, slash, schemAlias);
 					} else if (args.length >= 3 + modifierCount && (args[2 + modifierCount].contains("./") || args[2 + modifierCount].contains(".\\"))) {
 						p.sendMessage(ChatColor.RED + "File '" + args[2 + modifierCount] + "' resolution error: Path is not allowed.");
-						ListFolder.usage(p, slash, schemAlias);
+						ListFolders.usage(p, slash, schemAlias);
 					} else {
-						ListFolder.executeInternally(p, args, deep, modifierCount);
+						ListFolders.executeInternally(p, args, deep, modifierCount);
 					}
 				} else {
 					p.sendMessage(ChatColor.RED + "Too many arguments.");
-					ListFolder.usage(p, slash, schemAlias);
+					ListFolders.usage(p, slash, schemAlias);
 				}
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
@@ -98,13 +98,13 @@ public class ListFolder {
 
 		switch (args.length - modifierCount) {
 			case 2:
-				ListFolder.twoArgs(schemPath, p, deep, deepSearch, spaceLists, listmax);
+				ListFolders.twoArgs(schemPath, p, deep, deepSearch, spaceLists, listmax);
 				break;
 			case 3:
-				ListFolder.threeArgs(args[2 + modifierCount], schemPath, p, deep, deepSearch, spaceLists, listmax);
+				ListFolders.threeArgs(args[2 + modifierCount], schemPath, p, deep, deepSearch, spaceLists, listmax);
 				break;
 			default:
-				ListFolder.defaultCase(args[2 + modifierCount], args[3 + modifierCount], schemPath, p, deep, deepSearch, spaceLists, listmax);
+				ListFolders.defaultCase(args[2 + modifierCount], args[3 + modifierCount], schemPath, p, deep, deepSearch, spaceLists, listmax);
 		}
 	}
 
@@ -167,7 +167,7 @@ public class ListFolder {
 					}
 
 					for (int i = 0; i < listmax; i++) {
-						if (ListFolder.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
+						if (ListFolders.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
 							return;
 						}
 					}
@@ -234,7 +234,7 @@ public class ListFolder {
 						}
 
 						for (int i = 0; i < listmax; i++) {
-							if (ListFolder.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
+							if (ListFolders.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
 								return;
 							}
 							id++;
@@ -307,7 +307,7 @@ public class ListFolder {
 					}
 
 					for (int i = 0; i < listmax; i++) {
-						if (ListFolder.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
+						if (ListFolders.sendListLineFailed(p, schemPath, listPath, files.get(i), i, deepSearch)) {
 							return;
 						}
 					}
@@ -376,7 +376,7 @@ public class ListFolder {
 				}
 
 				for (int i = 0; i < listmax; i++) {
-					if (ListFolder.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
+					if (ListFolders.sendListLineFailed(p, schemPath, listPath, files.get(id), id, deepSearch)) {
 						return;
 					}
 					id++;
@@ -417,8 +417,8 @@ public class ListFolder {
 
 	private void usage(final @NotNull Player p, @NotNull final String slash, @NotNull final String schemAlias) {
 		GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-											  ListFolder.usageMessage(slash, schemAlias),
-											  ListFolder.usageHoverMessage(slash, schemAlias),
-											  ListFolder.usageCommand(slash, schemAlias), p);
+											  ListFolders.usageMessage(slash, schemAlias),
+											  ListFolders.usageHoverMessage(slash, schemAlias),
+											  ListFolders.usageCommand(slash, schemAlias), p);
 	}
 }
