@@ -81,22 +81,14 @@ public class Disable {
 		}
 	}
 
-	public void usage(final @NotNull CommandSender sender, final @NotNull String... args) {
-		if (sender instanceof Player) {
-			final @NotNull Player p = (Player) sender;
-
-			if (args.length > 0) {
-				p.sendMessage(ChatColor.RED + "Too many arguments.");
-			}
-
-			GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-												  ChatColor.GRAY + "/schemmanager"
-												  + ChatColor.AQUA + " disable",
-												  ChatColor.DARK_RED + ""
-												  + ChatColor.UNDERLINE + ""
-												  + ChatColor.ITALIC + ""
-												  + ChatColor.BOLD + "PLS DON'T D;",
-												  "/schemmanager disable", p);
-		}
+	public void usage(final @NotNull Player p) {
+		GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
+											  ChatColor.GRAY + "/schemmanager"
+											  + ChatColor.AQUA + " disable",
+											  ChatColor.DARK_RED + ""
+											  + ChatColor.UNDERLINE + ""
+											  + ChatColor.ITALIC + ""
+											  + ChatColor.BOLD + "PLS DON'T D;",
+											  "/schemmanager disable", p);
 	}
 }

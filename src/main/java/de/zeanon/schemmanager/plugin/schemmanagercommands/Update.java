@@ -80,22 +80,14 @@ public class Update {
 		}
 	}
 
-	public void usage(final @NotNull CommandSender sender, final @NotNull String... args) {
-		if (sender instanceof Player) {
-			final @NotNull Player p = (Player) sender;
-
-			if (args.length > 0) {
-				p.sendMessage(ChatColor.RED + "Too many arguments.");
-			}
-
-			GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
-												  ChatColor.GRAY + "/schemmanager"
-												  + ChatColor.AQUA + " update",
-												  ChatColor.DARK_GREEN + ""
-												  + ChatColor.UNDERLINE + ""
-												  + ChatColor.ITALIC + ""
-												  + ChatColor.BOLD + "!!UPDATE BABY!!",
-												  "/schemmanager update", p);
-		}
+	public void usage(final @NotNull Player p) {
+		GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Usage: ",
+											  ChatColor.GRAY + "/schemmanager"
+											  + ChatColor.AQUA + " update",
+											  ChatColor.DARK_GREEN + ""
+											  + ChatColor.UNDERLINE + ""
+											  + ChatColor.ITALIC + ""
+											  + ChatColor.BOLD + "!!UPDATE BABY!!",
+											  "/schemmanager update", p);
 	}
 }
