@@ -16,91 +16,98 @@ import org.jetbrains.annotations.NotNull;
 
 public class SchemmanagerCommand extends SWCommand {
 
-	public SchemmanagerCommand() {
-		super(new Prefix("schemmanager"), "schemmanager", "sm");
-	}
-
-	@Register(value = {"disable"}, help = true)
-	public void disableHelp(final @NotNull @Guard("disable") CommandSender sender, final @NotNull String... args) {
-		Disable.usage(sender, args);
-	}
-
-	@Register("disable")
-	public void disableCommand(final @NotNull @Guard("disable") CommandSender sender) {
-		Disable.execute(sender, null);
-	}
-
-	@Register("disable")
-	public void disableCommandConfirm(final @NotNull @Guard("disable") CommandSender sender, final @NotNull CommandConfirmation confirmation) {
-		Disable.execute(sender, confirmation);
-	}
+    public SchemmanagerCommand() {
+        super(new Prefix("schemmanager"), "schemmanager", "sm");
+    }
 
 
-	@Register(value = {"update"}, help = true)
-	public void updateHelp(final @NotNull @Guard("update") CommandSender sender, final @NotNull String... args) {
-		Update.usage(sender, args);
-	}
-
-	@Register("update")
-	public void updateCommand(final @NotNull @Guard("update") CommandSender sender) {
-		Update.execute(sender, null);
-	}
-
-	@Register("update")
-	public void updateCommandConfirmation(final @NotNull @Guard("update") CommandSender sender, final @NotNull CommandConfirmation confirmation) {
-		Update.execute(sender, confirmation);
-	}
+    @Register(help = true)
+    public void helpCommand(final @NotNull Player p, final @NotNull String... args) {
+        Help.execute(args, p, "//", "schem");
+    }
 
 
-	@Guard(value = "update", local = true)
-	private GuardChecker updateGuard() {
-		return new UpdateGuard();
-	}
+    @Register(value = {"disable"}, help = true)
+    public void disableHelp(final @NotNull @Guard("disable") CommandSender sender, final @NotNull String... args) {
+        Disable.usage(sender, args);
+    }
 
-	@Guard(value = "disable", local = true)
-	private GuardChecker disableGuard() {
-		return new DisableGuard();
-	}
+    @Register("disable")
+    public void disableCommand(final @NotNull @Guard("disable") CommandSender sender) {
+        Disable.execute(sender, null);
+    }
+
+    @Register("disable")
+    public void disableCommandConfirm(final @NotNull @Guard("disable") CommandSender sender, final @NotNull CommandConfirmation confirmation) {
+        Disable.execute(sender, confirmation);
+    }
 
 
-	@ClassMapper(value = CommandConfirmation.class, local = true)
-	private @NotNull TypeMapper<CommandConfirmation> mapCommandConfirmation() {
-		return new TypeMapper<CommandConfirmation>() {
-			@Override
-			public CommandConfirmation map(final @NotNull String[] previousArguments, final @NotNull String s) {
-				return CommandConfirmation.map(s);
-			}
+    @Register(value = {"update"}, help = true)
+    public void updateHelp(final @NotNull @Guard("update") CommandSender sender, final @NotNull String... args) {
+        Update.usage(sender, args);
+    }
 
-			@Override
-			public java.util.List<String> tabCompletes(final @NotNull CommandSender commandSender, final @NotNull String[] previousArguments, final @NotNull String arg) {
-				final @NotNull List<String> tabCompletions = Arrays.asList("-confirm", "-deny");
-				if (previousArguments.length > 0) {
-					if (commandSender instanceof Player) {
-						final @NotNull Player p = (Player) commandSender;
-						if (previousArguments[0].equalsIgnoreCase("disable")
-							&& GlobalRequestUtils.checkDisableRequest(p.getUniqueId())) {
-							return tabCompletions;
-						} else if (previousArguments[0].equalsIgnoreCase("update")
-								   && GlobalRequestUtils.checkUpdateRequest(p.getUniqueId())) {
-							return tabCompletions;
-						} else {
-							return null;
-						}
-					} else {
-						if (previousArguments[0].equalsIgnoreCase("disable")
-							&& GlobalRequestUtils.checkConsoleDisableRequest()) {
-							return tabCompletions;
-						} else if (previousArguments[0].equalsIgnoreCase("update")
-								   && GlobalRequestUtils.checkConsoleUpdateRequest()) {
-							return tabCompletions;
-						} else {
-							return null;
-						}
-					}
-				} else {
-					return null;
-				}
-			}
-		};
-	}
+    @Register("update")
+    public void updateCommand(final @NotNull @Guard("update") CommandSender sender) {
+        Update.execute(sender, null);
+    }
+
+    @Register("update")
+    public void updateCommandConfirmation(final @NotNull @Guard("update") CommandSender sender, final @NotNull CommandConfirmation confirmation) {
+        Update.execute(sender, confirmation);
+    }
+
+
+    @Guard(value = "update", local = true)
+    private GuardChecker updateGuard() {
+        return new UpdateGuard();
+    }
+
+    @Guard(value = "disable", local = true)
+    private GuardChecker disableGuard() {
+        return new DisableGuard();
+    }
+
+
+    @ClassMapper(value = CommandConfirmation.class, local = true)
+    private @NotNull TypeMapper<CommandConfirmation> mapCommandConfirmation() {
+        return new TypeMapper<CommandConfirmation>() {
+            @Override
+            public CommandConfirmation map(final @NotNull String[] previousArguments, final @NotNull String s) {
+                return CommandConfirmation.map(s);
+            }
+
+            @Override
+            public java.util.List<String> tabCompletes(final @NotNull CommandSender commandSender, final @NotNull String[] previousArguments, final @NotNull String arg) {
+                final @NotNull List<String> tabCompletions = Arrays.asList("-confirm", "-deny");
+                if (previousArguments.length > 0) {
+                    if (commandSender instanceof Player) {
+                        final @NotNull Player p = (Player) commandSender;
+                        if (previousArguments[0].equalsIgnoreCase("disable")
+                            && GlobalRequestUtils.checkDisableRequest(p.getUniqueId())) {
+                            return tabCompletions;
+                        } else if (previousArguments[0].equalsIgnoreCase("update")
+                                   && GlobalRequestUtils.checkUpdateRequest(p.getUniqueId())) {
+                            return tabCompletions;
+                        } else {
+                            return null;
+                        }
+                    } else {
+                        if (previousArguments[0].equalsIgnoreCase("disable")
+                            && GlobalRequestUtils.checkConsoleDisableRequest()) {
+                            return tabCompletions;
+                        } else if (previousArguments[0].equalsIgnoreCase("update")
+                                   && GlobalRequestUtils.checkConsoleUpdateRequest()) {
+                            return tabCompletions;
+                        } else {
+                            return null;
+                        }
+                    }
+                } else {
+                    return null;
+                }
+            }
+        };
+    }
 }
