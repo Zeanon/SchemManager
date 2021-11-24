@@ -173,7 +173,7 @@ public class CommandListener implements Listener {
 							  + ChatColor.GOLD + "searchschem" + ChatColor.RED + ", "
 							  + ChatColor.GOLD + "searchfolder" + ChatColor.RED + ", "
 							  + ChatColor.GOLD + "download");
-				CommandMessageUtils.sendInvalidSubCommand(p, slash, schemAlias);
+				CommandMessageUtils.sendInvalidSchemSubCommand(p, slash, schemAlias);
 			}
 			// </Invalid Command>
 		} else if (args[0].equalsIgnoreCase("/session")
@@ -184,12 +184,25 @@ public class CommandListener implements Listener {
 			if (args.length == 1) {
 				event.setCancelled(true);
 				Help.executeInternally(p, slash, "schematic");
-			} else if (args[1].equalsIgnoreCase("list")) {
+			} else if (args[1].equalsIgnoreCase("list")
+					   && p.hasPermission("worldedit.session.list")) {
 				event.setCancelled(true);
 				ListSessions.execute(args, p, slash);
-			} else if (args[1].equalsIgnoreCase("search")) {
+			} else if (args[1].equalsIgnoreCase("search")
+					   && p.hasPermission("worldedit.session.list")) {
 				event.setCancelled(true);
 				SearchSession.execute(args, p, slash);
+			} else {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + "Invalid sub-command '"
+							  + ChatColor.GOLD + "" + args[1] + ChatColor.RED + "'. Options: "
+							  + ChatColor.GOLD + "load" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "save" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "swap" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "delete" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "list" + ChatColor.RED + ", "
+							  + ChatColor.GOLD + "search");
+				CommandMessageUtils.sendInvalidSessionSubCommand(p, slash);
 			}
 		}
 	}

@@ -42,13 +42,31 @@ public class SearchSession {
 
 	public @NotNull String usageMessage(final @NotNull String slash) {
 		return ChatColor.GRAY + slash + "session"
-			   + ChatColor.AQUA + " search";
+			   + ChatColor.AQUA + " search "
+			   + ChatColor.YELLOW + "["
+			   + ChatColor.DARK_PURPLE + "-c"
+			   + ChatColor.YELLOW + "] ["
+			   + ChatColor.DARK_PURPLE + "-d"
+			   + ChatColor.YELLOW + "] <"
+			   + ChatColor.GREEN + "sessionname"
+			   + ChatColor.YELLOW + "> ["
+			   + ChatColor.DARK_PURPLE + "page"
+			   + ChatColor.YELLOW + "]";
 	}
 
 	public @NotNull String usageHoverMessage(final @NotNull String slash) {
 		return ChatColor.RED + "e.g. "
 			   + ChatColor.GRAY + slash + "session"
-			   + ChatColor.AQUA + " search";
+			   + ChatColor.AQUA + " search "
+			   + ChatColor.YELLOW + "["
+			   + ChatColor.DARK_PURPLE + "-c"
+			   + ChatColor.YELLOW + "] ["
+			   + ChatColor.DARK_PURPLE + "-d"
+			   + ChatColor.YELLOW + "] "
+			   + ChatColor.GREEN + "example"
+			   + ChatColor.YELLOW + " ["
+			   + ChatColor.DARK_PURPLE + "page"
+			   + ChatColor.YELLOW + "]";
 	}
 
 	public @NotNull String usageCommand(final @NotNull String slash) {

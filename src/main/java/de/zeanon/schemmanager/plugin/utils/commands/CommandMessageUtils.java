@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class CommandMessageUtils {
 
-	public void sendInvalidSubCommand(final @NotNull Player target, final String slash, final String schemAlias) {
+	public void sendInvalidSchemSubCommand(final @NotNull Player target, final String slash, final String schemAlias) {
 		final @NotNull TextComponent base = new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "Usage: "));
 		final @NotNull TextComponent schem = new TextComponent(TextComponent.fromLegacyText(ChatColor.GRAY + slash + "schem"));
 		final @NotNull TextComponent help = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "help"));
@@ -93,7 +93,7 @@ public class CommandMessageUtils {
 																  ChatColor.RED + "e.g. "
 																  + ChatColor.GRAY + "" + slash + schemAlias + " "
 																  + ChatColor.AQUA + "renamefolder"
-																  + ChatColor.GREEN + " example newname")))
+																  + ChatColor.DARK_GREEN + " example newname")))
 														  .create()));
 		delete.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + schemAlias + " delete "));
 		delete.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
@@ -111,7 +111,7 @@ public class CommandMessageUtils {
 																  ChatColor.RED + "e.g. "
 																  + ChatColor.GRAY + "" + slash + schemAlias + " "
 																  + ChatColor.AQUA + "deletefolder"
-																  + ChatColor.GREEN + " example")))
+																  + ChatColor.DARK_GREEN + " example")))
 														  .create()));
 		list.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + schemAlias + " list "));
 		list.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
@@ -123,7 +123,7 @@ public class CommandMessageUtils {
 														  + ChatColor.YELLOW + "["
 														  + ChatColor.DARK_PURPLE + "-d"
 														  + ChatColor.YELLOW + "] ["
-														  + ChatColor.GREEN + "folder"
+														  + ChatColor.DARK_GREEN + "folder"
 														  + ChatColor.YELLOW + "] ["
 														  + ChatColor.DARK_PURPLE + "page"
 														  + ChatColor.YELLOW + "]")))
@@ -138,7 +138,7 @@ public class CommandMessageUtils {
 																+ ChatColor.YELLOW + "["
 																+ ChatColor.DARK_PURPLE + "-d"
 																+ ChatColor.YELLOW + "] ["
-																+ ChatColor.GREEN + "folder"
+																+ ChatColor.DARK_GREEN + "folder"
 																+ ChatColor.YELLOW + "] ["
 																+ ChatColor.DARK_PURPLE + "page"
 																+ ChatColor.YELLOW + "]")))
@@ -154,7 +154,7 @@ public class CommandMessageUtils {
 																 + ChatColor.YELLOW + "["
 																 + ChatColor.DARK_PURPLE + "-d"
 																 + ChatColor.YELLOW + "] ["
-																 + ChatColor.GREEN + "folder"
+																 + ChatColor.DARK_GREEN + "folder"
 																 + ChatColor.YELLOW + "] ["
 																 + ChatColor.DARK_PURPLE + "page"
 																 + ChatColor.YELLOW + "]")))
@@ -169,7 +169,7 @@ public class CommandMessageUtils {
 															+ ChatColor.YELLOW + "["
 															+ ChatColor.DARK_PURPLE + "-d"
 															+ ChatColor.YELLOW + "] ["
-															+ ChatColor.GREEN + "folder"
+															+ ChatColor.DARK_GREEN + "folder"
 															+ ChatColor.YELLOW + "] "
 															+ ChatColor.GOLD + "name"
 															+ ChatColor.YELLOW + " ["
@@ -186,7 +186,7 @@ public class CommandMessageUtils {
 																 + ChatColor.YELLOW + "["
 																 + ChatColor.DARK_PURPLE + "-d"
 																 + ChatColor.YELLOW + "] ["
-																 + ChatColor.GREEN + "folder"
+																 + ChatColor.DARK_GREEN + "folder"
 																 + ChatColor.YELLOW + "] "
 																 + ChatColor.GOLD + "name"
 																 + ChatColor.YELLOW + " ["
@@ -203,7 +203,7 @@ public class CommandMessageUtils {
 																  + ChatColor.YELLOW + "["
 																  + ChatColor.DARK_PURPLE + "-d"
 																  + ChatColor.YELLOW + "] ["
-																  + ChatColor.GREEN + "folder"
+																  + ChatColor.DARK_GREEN + "folder"
 																  + ChatColor.YELLOW + "] "
 																  + ChatColor.GOLD + "name"
 																  + ChatColor.YELLOW + " ["
@@ -250,6 +250,118 @@ public class CommandMessageUtils {
 		base.addExtra(searchfolder);
 		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
 		base.addExtra(download);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + ">")));
+		target.spigot().sendMessage(base);
+	}
+
+	public void sendInvalidSessionSubCommand(final @NotNull Player target, final String slash) {
+		final @NotNull TextComponent base = new TextComponent(TextComponent.fromLegacyText(ChatColor.RED + "Usage: "));
+		final @NotNull TextComponent session = new TextComponent(TextComponent.fromLegacyText(ChatColor.GRAY + slash + "session"));
+		final @NotNull TextComponent help = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "help"));
+		final @NotNull TextComponent load = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "load"));
+		final @NotNull TextComponent save = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "save"));
+		final @NotNull TextComponent swap = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "swap"));
+		final @NotNull TextComponent delete = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "delete"));
+		final @NotNull TextComponent list = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "list"));
+		final @NotNull TextComponent search = new TextComponent(TextComponent.fromLegacyText(ChatColor.AQUA + "search"));
+		session.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "session "));
+		session.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+											 new ComponentBuilder(new TextComponent(
+													 TextComponent.fromLegacyText(
+															 ChatColor.RED + "e.g. "
+															 + ChatColor.GRAY + "" + slash + "schem")))
+													 .create()));
+		help.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "session help"));
+		help.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+										  new ComponentBuilder(new TextComponent(
+												  TextComponent.fromLegacyText(
+														  ChatColor.LIGHT_PURPLE + ""
+														  + ChatColor.UNDERLINE + ""
+														  + ChatColor.ITALIC + ""
+														  + ChatColor.BOLD + "OMG PLS HELP ME")))
+												  .create()));
+		load.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "session load "));
+		load.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+										  new ComponentBuilder(new TextComponent(
+												  TextComponent.fromLegacyText(
+														  ChatColor.RED + "e.g. "
+														  + ChatColor.GRAY + slash + "session "
+														  + ChatColor.AQUA + "load"
+														  + ChatColor.GREEN + " example "
+														  + ChatColor.YELLOW + "["
+														  + ChatColor.DARK_PURPLE + "format"
+														  + ChatColor.YELLOW + "]")))
+												  .create()));
+		save.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "session save "));
+		save.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+										  new ComponentBuilder(new TextComponent(
+												  TextComponent.fromLegacyText(
+														  ChatColor.RED + "e.g. " +
+														  ChatColor.GRAY + slash + "session " +
+														  ChatColor.AQUA + "save" +
+														  ChatColor.GREEN + " example")))
+												  .create()));
+		swap.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "session swap "));
+		swap.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+										  new ComponentBuilder(new TextComponent(
+												  TextComponent.fromLegacyText(
+														  ChatColor.RED + "e.g. " +
+														  ChatColor.GRAY + slash + "session " +
+														  ChatColor.AQUA + "swap" +
+														  ChatColor.GOLD + " example")))
+												  .create()));
+		delete.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "session delete "));
+		delete.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+											new ComponentBuilder(new TextComponent(
+													TextComponent.fromLegacyText(
+															ChatColor.RED + "e.g. " +
+															ChatColor.GRAY + slash + "session " +
+															ChatColor.AQUA + "delete" +
+															ChatColor.GREEN + " example")))
+													.create()));
+		list.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "session list "));
+		list.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+										  new ComponentBuilder(new TextComponent(
+												  TextComponent.fromLegacyText(
+														  ChatColor.RED + "e.g. "
+														  + ChatColor.GRAY + slash + "session "
+														  + ChatColor.AQUA + "list "
+														  + ChatColor.YELLOW + "["
+														  + ChatColor.DARK_PURPLE + "-d"
+														  + ChatColor.YELLOW + "] ["
+														  + ChatColor.DARK_PURPLE + "page"
+														  + ChatColor.YELLOW + "]")))
+												  .create()));
+		search.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, slash + "session search "));
+		search.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+											new ComponentBuilder(new TextComponent(
+													TextComponent.fromLegacyText(
+															ChatColor.RED + "e.g. "
+															+ ChatColor.GRAY + slash + "session "
+															+ ChatColor.AQUA + "search "
+															+ ChatColor.YELLOW + "["
+															+ ChatColor.DARK_PURPLE + "-d"
+															+ ChatColor.YELLOW + "] "
+															+ ChatColor.GREEN + "name"
+															+ ChatColor.YELLOW + " ["
+															+ ChatColor.DARK_PURPLE + "page"
+															+ ChatColor.YELLOW + "]")))
+													.create()));
+		base.addExtra(session);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + " <")));
+		base.addExtra(help);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
+		base.addExtra(load);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
+		base.addExtra(save);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
+		base.addExtra(swap);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
+		base.addExtra(delete);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
+		base.addExtra(list);
+		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + "|")));
+		base.addExtra(search);
 		base.addExtra(new TextComponent(TextComponent.fromLegacyText(ChatColor.YELLOW + ">")));
 		target.spigot().sendMessage(base);
 	}

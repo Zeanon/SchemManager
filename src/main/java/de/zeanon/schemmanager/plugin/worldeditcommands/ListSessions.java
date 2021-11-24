@@ -42,13 +42,23 @@ public class ListSessions {
 
 	public @NotNull String usageMessage(final @NotNull String slash) {
 		return ChatColor.GRAY + slash + "session"
-			   + ChatColor.AQUA + " list";
+			   + ChatColor.AQUA + " list "
+			   + ChatColor.YELLOW + "["
+			   + ChatColor.DARK_PURPLE + "-d"
+			   + ChatColor.YELLOW + "] ["
+			   + ChatColor.DARK_PURPLE + "page"
+			   + ChatColor.YELLOW + "]";
 	}
 
 	public @NotNull String usageHoverMessage(final @NotNull String slash) {
 		return ChatColor.RED + "e.g. "
 			   + ChatColor.GRAY + slash + "session"
-			   + ChatColor.AQUA + " list";
+			   + ChatColor.AQUA + " list "
+			   + ChatColor.YELLOW + "["
+			   + ChatColor.DARK_PURPLE + "-d"
+			   + ChatColor.YELLOW + "] ["
+			   + ChatColor.DARK_PURPLE + "page"
+			   + ChatColor.YELLOW + "]";
 	}
 
 	public @NotNull String usageCommand(final @NotNull String slash) {

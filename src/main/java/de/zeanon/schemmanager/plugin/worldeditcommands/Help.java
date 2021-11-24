@@ -129,6 +129,64 @@ public class Help {
 													  Download.usageHoverMessage(slash, schemAlias),
 													  Download.usageCommand(slash, schemAlias),
 													  p);
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Load a session: ",
+													  ChatColor.GRAY + slash + "session"
+													  + ChatColor.AQUA + " load "
+													  + ChatColor.YELLOW + "<"
+													  + ChatColor.GREEN + "sessionname"
+													  + ChatColor.YELLOW + ">",
+													  ChatColor.RED + "e.g. "
+													  + ChatColor.GRAY + slash + "session"
+													  + ChatColor.AQUA + " load "
+													  + ChatColor.GREEN + "example",
+													  slash + "session load ",
+													  p);
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Save a session: ",
+													  ChatColor.GRAY + slash + "session"
+													  + ChatColor.AQUA + " save "
+													  + ChatColor.YELLOW + "<"
+													  + ChatColor.GREEN + "sessionname"
+													  + ChatColor.YELLOW + ">",
+													  ChatColor.RED + "e.g. "
+													  + ChatColor.GRAY + slash + "session"
+													  + ChatColor.AQUA + " save "
+													  + ChatColor.GREEN + "example",
+													  slash + "session save ",
+													  p);
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Swap with a session: ",
+													  ChatColor.GRAY + slash + "session"
+													  + ChatColor.AQUA + " swap "
+													  + ChatColor.YELLOW + "<"
+													  + ChatColor.GREEN + "sessionname"
+													  + ChatColor.YELLOW + ">",
+													  ChatColor.RED + "e.g. "
+													  + ChatColor.GRAY + slash + "session"
+													  + ChatColor.AQUA + " swap "
+													  + ChatColor.GREEN + "example",
+													  slash + "session swap ",
+													  p);
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Delete a session: ",
+													  ChatColor.GRAY + slash + schemAlias
+													  + ChatColor.AQUA + " delete "
+													  + ChatColor.YELLOW + "<"
+													  + ChatColor.GREEN + "sessionname"
+													  + ChatColor.YELLOW + ">",
+													  ChatColor.RED + "e.g. "
+													  + ChatColor.GRAY + slash + schemAlias
+													  + ChatColor.AQUA + " delete "
+													  + ChatColor.GREEN + "example",
+													  slash + "session delete ",
+													  p);
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "List sessions: ",
+													  ListSessions.usageMessage(slash),
+													  ListSessions.usageHoverMessage(slash),
+													  ListSessions.usageCommand(slash),
+													  p);
+				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Search for a session: ",
+													  SearchSession.usageMessage(slash),
+													  SearchSession.usageHoverMessage(slash),
+													  SearchSession.usageCommand(slash),
+													  p);
 				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Update the plugin: ",
 													  ChatColor.GRAY + "/schemmanager "
 													  + ChatColor.AQUA + "update",
@@ -136,7 +194,8 @@ public class Help {
 													  + ChatColor.UNDERLINE + ""
 													  + ChatColor.ITALIC + ""
 													  + ChatColor.BOLD + "!!UPDATE BABY!!",
-													  "/schemmanager update", p);
+													  "/schemmanager update",
+													  p);
 				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Disable the plugin: ",
 													  ChatColor.GRAY + "/schemmanager "
 													  + ChatColor.AQUA + "disable",
@@ -144,11 +203,7 @@ public class Help {
 													  + ChatColor.UNDERLINE + ""
 													  + ChatColor.ITALIC + ""
 													  + ChatColor.BOLD + "PLS DON'T D;",
-													  "/schemmanager disable", p);
-				GlobalMessageUtils.sendSuggestMessage(ChatColor.RED + "Load a session: ",
-													  ListSessions.usageMessage(slash),
-													  ListSessions.usageHoverMessage(slash),
-													  ListSessions.usageCommand(slash),
+													  "/schemmanager disable",
 													  p);
 			}
 		}.runTaskAsynchronously(SchemManager.getInstance());
