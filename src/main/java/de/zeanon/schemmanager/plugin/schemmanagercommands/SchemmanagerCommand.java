@@ -23,7 +23,13 @@ public class SchemmanagerCommand extends SWCommand {
 
 	@Register(help = true)
 	public void helpCommand(final @NotNull Player p, final @NotNull String... args) {
-		Help.execute(args, p, "//", "schem");
+		Help.execute(p, args);
+	}
+
+
+	@Register("help")
+	public void helpCommand(final @NotNull Player p) {
+		Help.execute(p);
 	}
 
 

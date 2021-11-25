@@ -5,7 +5,7 @@
 
     <groupId>de.zeanon</groupId>
     <artifactId>schemmanager</artifactId>
-    <version>4.5.44-Beta</version>
+    <version>4.5.45-Beta</version>
     <packaging>jar</packaging>
     <name>SchemManager</name>
     <description>Manage your schematics properly</description>
