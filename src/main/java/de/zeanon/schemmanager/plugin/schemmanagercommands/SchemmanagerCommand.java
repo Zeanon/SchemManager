@@ -65,11 +65,13 @@ public class SchemmanagerCommand extends SWCommand {
 	}
 
 
+	@SuppressWarnings("unused")
 	@Guard(value = "update", local = true)
 	private GuardChecker updateGuard() {
 		return new UpdateGuard();
 	}
 
+	@SuppressWarnings("unused")
 	@Guard(value = "disable", local = true)
 	private GuardChecker disableGuard() {
 		return new DisableGuard();

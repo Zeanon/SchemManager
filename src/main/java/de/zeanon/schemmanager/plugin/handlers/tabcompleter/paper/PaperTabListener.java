@@ -13,11 +13,11 @@ import org.jetbrains.annotations.NotNull;
 public class PaperTabListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onTab(final @NotNull AsyncTabCompleteEvent event) throws IOException {
+	public void onTab(final @NotNull AsyncTabCompleteEvent event) throws IOException { //NOSONAR
 		if (event.getBuffer().startsWith("//schem")
 			|| event.getBuffer().startsWith("/schem")) {
 			final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
-			final @NotNull List<String> completions = SchematicTabCompleter.getCompletions(event.getSender(), message);
+			final @NotNull List<String> completions = SchematicTabCompleter.getCompletions(message);
 			if (completions.isEmpty()) {
 				event.setCancelled(true);
 			} else {

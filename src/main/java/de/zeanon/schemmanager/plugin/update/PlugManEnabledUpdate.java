@@ -8,8 +8,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.logging.Level;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +39,7 @@ class PlugManEnabledUpdate {
 				PluginUtil.reload(instance);
 			}
 		} catch (@NotNull final IOException | URISyntaxException e) {
-			e.printStackTrace();
+			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
 			System.out.println(instance.getName() + " could not be updated.");
 		}
 	}
@@ -64,7 +66,7 @@ class PlugManEnabledUpdate {
 				PluginUtil.reload(instance);
 			}
 		} catch (@NotNull final IOException | URISyntaxException e) {
-			e.printStackTrace();
+			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "Could not update.");
 		}

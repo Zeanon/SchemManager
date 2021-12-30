@@ -13,9 +13,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.logging.Level;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +39,7 @@ public class Rename {
 									  + ChatColor.YELLOW + ">");
 						Rename.usage(p, slash, schemAlias);
 					} else if (args[2].contains("./") || args[2].contains(".\\") || args.length >= 4 && (args[3].contains("./") || args[3].contains(".\\"))) {
-						String name = args[2].contains("./") || args[2].contains(".\\") ? args[2] : args[3];
+						final String name = args[2].contains("./") || args[2].contains(".\\") ? args[2] : args[3];
 						p.sendMessage(ChatColor.RED + "File '" + name + "' resolution error: Path is not allowed.");
 						Rename.usage(p, slash, schemAlias);
 					} else if (args.length == 5 && !CommandRequestUtils.checkRenameRequest(p.getUniqueId(), args[2])
@@ -142,10 +144,10 @@ public class Rename {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed, for further information please see [console].");
-			e.printStackTrace();
+			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
 	}
 

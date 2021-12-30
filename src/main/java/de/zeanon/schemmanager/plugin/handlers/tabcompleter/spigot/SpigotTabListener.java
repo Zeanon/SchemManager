@@ -16,7 +16,7 @@ public class SpigotTabListener implements Listener {
 		if (event.getBuffer().startsWith("//schem")
 			|| event.getBuffer().startsWith("/schem")) {
 			final @NotNull String message = event.getBuffer().replaceAll("\\s+", " ");
-			event.setCompletions(SchematicTabCompleter.getCompletions(event.getSender(), message));
+			event.setCompletions(SchematicTabCompleter.getCompletions(message));
 		}
 	}
 }

@@ -11,10 +11,11 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.io.FilenameUtils;
-import org.bukkit.command.CommandSender;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class SchematicTabCompleter {
 
-	public @NotNull List<String> getCompletions(final @NotNull CommandSender sender, final @NotNull String message) throws IOException {
+	public @NotNull List<String> getCompletions(final @NotNull String message) throws IOException {
 		final @NotNull String[] args = message.split(" ");
 		final boolean argumentEnded = message.endsWith(" ");
 		if (args[0].equals("//schem")
@@ -232,7 +233,7 @@ public class SchematicTabCompleter {
 										   try {
 											   return BaseFileUtils.removeExtension(FilenameUtils.separatorsToUnix(SchemUtils.getSchemPath().toRealPath().relativize(file.toPath().toRealPath()).toString()));
 										   } catch (final @NotNull IOException e) {
-											   e.printStackTrace();
+											   Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
 											   return null;
 										   }
 									   })
