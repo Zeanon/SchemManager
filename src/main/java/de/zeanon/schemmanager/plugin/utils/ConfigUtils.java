@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.logging.Level;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -43,8 +42,8 @@ public class ConfigUtils {
 
 			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
 		} catch (final @NotNull UncheckedIOException | FileParseException e) {
+			SchemManager.getChatLogger().log(Level.SEVERE, "Error while loading Configs", e);
 			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be loaded.");
-			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
 			cause = e;
 		}
 
@@ -112,7 +111,7 @@ public class ConfigUtils {
 																					  ConfigUtils.getConfig().getCommentSetting(),
 																					  ConfigUtils.getConfig().getBufferSize()).getUseArray(key), type), "Could not read from the default config.");
 		} catch (final @NotNull ThunderException | IOException e) {
-			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+			SchemManager.getChatLogger().log(Level.SEVERE, "Error while getting default value for config", e);
 		}
 		return Objects.notNull(Objects.toDef(new Object(), type));
 	}

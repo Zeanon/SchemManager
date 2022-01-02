@@ -1,6 +1,7 @@
 package de.zeanon.schemmanager;
 
 import de.zeanon.schemmanager.init.InitMode;
+import java.util.logging.Logger;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,12 +18,16 @@ public class SchemManager extends JavaPlugin {
 	private static SchemManager instance;
 	@Getter
 	@Setter(AccessLevel.PRIVATE)
+	private static Logger chatLogger;
+	@Getter
+	@Setter(AccessLevel.PRIVATE)
 	@SuppressWarnings("CanBeFinal")
 	private static PluginManager pluginManager;
 
 	@Override
 	public void onEnable() {
 		SchemManager.setInstance(this);
+		SchemManager.setChatLogger(SchemManager.getInstance().getServer().getLogger());
 		SchemManager.setPluginManager(Bukkit.getPluginManager());
 		InitMode.initPlugin();
 	}

@@ -14,7 +14,6 @@ import java.net.URL;
 import java.util.logging.Level;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -114,7 +113,7 @@ public class Download {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[3] + ChatColor.RED + " was downloaded successfully.");
 				} catch (final IOException e) {
-					Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+					SchemManager.getChatLogger().log(Level.SEVERE, "Error while downloading " + args[3], e);
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[3] + ChatColor.RED + " could not be downloaded, for further information please see [console].");
 				}

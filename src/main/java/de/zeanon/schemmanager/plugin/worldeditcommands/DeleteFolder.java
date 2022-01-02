@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -116,9 +115,9 @@ public class DeleteFolder {
 										  ChatColor.RED + "Folder " + ChatColor.GREEN + parentName + ChatColor.RED + " was deleted successfully due to being empty.");
 						}
 					} catch (final IOException e) {
-						Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
 						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 									  ChatColor.GREEN + args[2] + ChatColor.RED + " could not be deleted, for further information please see [console].");
+						SchemManager.getChatLogger().log(Level.SEVERE, "Error while deleting " + args[2], e);
 					}
 				} else {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +

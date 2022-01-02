@@ -17,7 +17,6 @@ import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -230,7 +229,7 @@ public class CopyFolder {
 		} catch (final @NotNull IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "An Error occurred while getting the filepaths for the schematics and folders, for further information please see [console].");
-			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+			SchemManager.getChatLogger().log(Level.SEVERE, "Error while getting filepaths for the schematics and folders", e);
 		}
 	}
 
@@ -256,7 +255,7 @@ public class CopyFolder {
 					}
 				}
 			} catch (final @NotNull IOException e) {
-				Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+				SchemManager.getChatLogger().log(Level.SEVERE, "Error while merging the folders", e);
 				return false;
 			}
 		}

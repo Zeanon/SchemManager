@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.logging.Level;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -124,7 +123,7 @@ public class Update {
 			urlConnect.getResponseCode();
 			return urlConnect.getHeaderField("Location").replaceFirst(".*/", "");
 		} catch (final @NotNull IOException e) {
-			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+			SchemManager.getChatLogger().log(Level.SEVERE, "Error while getting newest version tag from Github", e);
 			return null;
 		}
 	}

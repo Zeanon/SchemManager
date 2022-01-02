@@ -1,5 +1,6 @@
 package de.zeanon.schemmanager.plugin.handlers.tabcompleter;
 
+import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.SchemUtils;
 import de.zeanon.storagemanagercore.external.browniescollections.GapList;
@@ -15,7 +16,6 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.io.FilenameUtils;
-import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -233,7 +233,7 @@ public class SchematicTabCompleter {
 										   try {
 											   return BaseFileUtils.removeExtension(FilenameUtils.separatorsToUnix(SchemUtils.getSchemPath().toRealPath().relativize(file.toPath().toRealPath()).toString()));
 										   } catch (final @NotNull IOException e) {
-											   Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+											   SchemManager.getChatLogger().log(Level.SEVERE, "Error while adding file name to Tab-Completion", e);
 											   return null;
 										   }
 									   })

@@ -15,7 +15,6 @@ import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -173,7 +172,7 @@ public class SearchFolder {
 			}
 			return false;
 		} catch (final @NotNull IOException e) {
-			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+			SchemManager.getChatLogger().log(Level.SEVERE, "Error while getting the filepaths for the folders", e);
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "An Error occurred while getting the filepaths for the folders, for further information please see [console].");
 			return true;
@@ -231,7 +230,7 @@ public class SearchFolder {
 		} catch (final @NotNull IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "Could not access schematic folder, for further information please see [console].");
-			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+			SchemManager.getChatLogger().log(Level.SEVERE, "Error while accessing the schematic folder", e);
 		}
 	}
 
@@ -311,7 +310,7 @@ public class SearchFolder {
 			} catch (final @NotNull IOException e) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.RED + "Could not access schematic folder, for further information please see [console].");
-				Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+				SchemManager.getChatLogger().log(Level.SEVERE, "Error while accessing the schematic folder", e);
 			}
 		} else {
 			try {
@@ -365,7 +364,7 @@ public class SearchFolder {
 			} catch (final @NotNull IOException e) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.DARK_GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
-				Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+				SchemManager.getChatLogger().log(Level.SEVERE, "Error while accessing " + argTwo, e);
 			}
 		}
 	}
@@ -447,7 +446,7 @@ public class SearchFolder {
 		} catch (final @NotNull IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.DARK_GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
-			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+			SchemManager.getChatLogger().log(Level.SEVERE, "Error while accessing " + argTwo, e);
 		}
 	}
 

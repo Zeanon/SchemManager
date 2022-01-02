@@ -39,7 +39,7 @@ class DefaultUpdate {
 				Bukkit.getServer().reload();
 			}
 		} catch (@NotNull final IOException | URISyntaxException e) {
-			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+			SchemManager.getChatLogger().log(Level.SEVERE, "Error while updating " + instance.getName(), e);
 			System.out.println(instance.getName() + " could not be updated.");
 		}
 	}
@@ -67,7 +67,7 @@ class DefaultUpdate {
 				Bukkit.getServer().reload();
 			}
 		} catch (@NotNull final IOException | URISyntaxException e) {
-			Bukkit.getLogger().log(Level.SEVERE, e.getMessage(), e.getCause());
+			SchemManager.getChatLogger().log(Level.SEVERE, "Error while updating " + instance.getName(), e);
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + instance.getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.RED + "Could not update.");
 		}
