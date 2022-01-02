@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 class PlugManEnabledUpdate {
 
 	void updatePlugin(final boolean autoReload, final @NotNull JavaPlugin instance) {
-		System.out.println(instance.getName() + " is updating...");
+		SchemManager.getChatLogger().info("is updating...");
 		try {
 			BaseFileUtils.writeToFile(new File(SchemManager.class.getProtectionDomain()
 																 .getCodeSource()

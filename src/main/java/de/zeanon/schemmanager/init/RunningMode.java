@@ -19,39 +19,39 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public class RunningMode {
 
-    @Getter
-    private final @NotNull WorldEditPlugin worldEditPlugin;
-    @Getter
-    private final boolean paperSpigot;
-    @Getter
-    private final boolean steamEdit;
+	@Getter
+	private final @NotNull WorldEditPlugin worldEditPlugin;
+	@Getter
+	private final boolean paperSpigot;
+	@Getter
+	private final boolean steamEdit;
 
-    static {
-        worldEditPlugin = (WorldEditPlugin) Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit"));
-        paperSpigot = Bukkit.getVersion().contains("git-Paper");
-        steamEdit = RunningMode.getWorldEditPlugin().getDescription().getVersion().contains("SteamEdit");
-    }
+	static {
+		worldEditPlugin = (WorldEditPlugin) Objects.notNull(SchemManager.getPluginManager().getPlugin("WorldEdit"));
+		paperSpigot = Bukkit.getVersion().contains("git-Paper");
+		steamEdit = RunningMode.getWorldEditPlugin().getDescription().getVersion().contains("SteamEdit");
+	}
 
-    public void onEnable() {
-        if (RunningMode.isSteamEdit()) {
-            InitMode.registerEvents(new SteamEditCommandListener());
-        } else {
-            InitMode.registerEvents(new WorldEditCommandListener());
-        }
-        InitMode.registerEvents(new EventListener());
-        if (RunningMode.isPaperSpigot()) {
-            if (RunningMode.isSteamEdit()) {
-                InitMode.registerEvents(new SteamEditPaperTabListener());
-            } else {
-                InitMode.registerEvents(new PaperTabListener());
-            }
-        } else {
-            if (RunningMode.isSteamEdit()) {
-                InitMode.registerEvents(new SteamEditSpigotTabListener());
-            } else {
-                InitMode.registerEvents(new SpigotTabListener());
-            }
-        }
-        System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance() + " launched successfully.");
-    }
+	public void onEnable() {
+		if (RunningMode.isSteamEdit()) {
+			InitMode.registerEvents(new SteamEditCommandListener());
+		} else {
+			InitMode.registerEvents(new WorldEditCommandListener());
+		}
+		InitMode.registerEvents(new EventListener());
+		if (RunningMode.isPaperSpigot()) {
+			if (RunningMode.isSteamEdit()) {
+				InitMode.registerEvents(new SteamEditPaperTabListener());
+			} else {
+				InitMode.registerEvents(new PaperTabListener());
+			}
+		} else {
+			if (RunningMode.isSteamEdit()) {
+				InitMode.registerEvents(new SteamEditSpigotTabListener());
+			} else {
+				InitMode.registerEvents(new SpigotTabListener());
+			}
+		}
+		SchemManager.getChatLogger().info(">> " + SchemManager.getInstance() + " launched successfully.");
+	}
 }

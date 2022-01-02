@@ -92,7 +92,7 @@ public class Update {
 												   new Pair<>(new String[]{"Save Function Override"}, saveOverride),
 												   new Pair<>(new String[]{"Automatic Reload"}, autoReload));
 
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' updated.");
+			SchemManager.getChatLogger().info(">> [Configs] >> 'config.tf' updated.");
 		} catch (final @NotNull UncheckedIOException e) {
 			throw new UncheckedIOException("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be updated.", e.getCause());
 		}

@@ -27,26 +27,26 @@ public class InitMode {
 		InitMode.registerCommands();
 
 		try {
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Loading Config...");
+			SchemManager.getChatLogger().info(">> Loading Config...");
 			ConfigUtils.loadConfigs();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config file are loaded successfully.");
+			SchemManager.getChatLogger().info(">> Config file are loaded successfully.");
 		} catch (final UncheckedIOException e) {
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not load config file.");
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the config file and reload the plugin.");
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
+			SchemManager.getChatLogger().info(">> Could not load config file.");
+			SchemManager.getChatLogger().info(">> Maybe try to delete the config file and reload the plugin.");
+			SchemManager.getChatLogger().info(">> Unloading Plugin...");
 
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			return;
 		}
 
 		try {
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Initializing Config...");
+			SchemManager.getChatLogger().info(">> Initializing Config...");
 			ConfigUtils.initConfigs();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config file is initialized successfully.");
+			SchemManager.getChatLogger().info(">> Config file is initialized successfully.");
 		} catch (final UncheckedIOException e) {
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Could not update config file.");
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Maybe try to delete the config file and reload the plugin.");
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> Unloading Plugin...");
+			SchemManager.getChatLogger().info(">> Could not update config file.");
+			SchemManager.getChatLogger().info(">> Maybe try to delete the config file and reload the plugin.");
+			SchemManager.getChatLogger().info(">> Unloading Plugin...");
 
 			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
 			return;
@@ -87,8 +87,8 @@ public class InitMode {
 
 	private void enableSleepMode() {
 		InitMode.registerEvents(new WakeupListener());
-		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work.");
-		System.out.println("[" + SchemManager.getInstance().getName() + "] >> " + SchemManager.getInstance().getName() + " will automatically activate when one of the above gets enabled.");
-		System.out.println("[" + SchemManager.getInstance().getName() + "] >> Rudimentary function like updating and disabling will still work.");
+		SchemManager.getChatLogger().info(">> Could not load plugin, it needs FastAsyncWorldEdit or WorldEdit to work.");
+		SchemManager.getChatLogger().info(">> " + SchemManager.getInstance().getName() + " will automatically activate when one of the above gets enabled.");
+		SchemManager.getChatLogger().info(">> Rudimentary function like updating and disabling will still work.");
 	}
 }

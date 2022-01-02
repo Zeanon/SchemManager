@@ -40,10 +40,10 @@ public class ConfigUtils {
 												   .concurrentData(true)
 												   .create();
 
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' loaded.");
+			SchemManager.getChatLogger().info(">> [Configs] >> 'config.tf' loaded.");
 		} catch (final @NotNull UncheckedIOException | FileParseException e) {
 			SchemManager.getChatLogger().log(Level.SEVERE, "Error while loading Configs", e);
-			System.err.println("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be loaded.");
+			SchemManager.getChatLogger().info(">> [Configs] >> 'config.tf' could not be loaded.");
 			cause = e;
 		}
 
@@ -56,9 +56,9 @@ public class ConfigUtils {
 		if (!ConfigUtils.getConfig().hasKeyUseArray("Plugin Version")
 			|| !Objects.notNull(ConfigUtils.getConfig().getStringUseArray("Plugin Version"))
 					   .equals(SchemManager.getInstance().getDescription().getVersion())) {
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Updating Configs...");
+			SchemManager.getChatLogger().info(">> Updating Configs...");
 			Update.checkConfigUpdate();
-			System.out.println("[" + SchemManager.getInstance().getName() + "] >> Config files are updated successfully.");
+			SchemManager.getChatLogger().info(">> Config files are updated successfully.");
 		}
 	}
 
