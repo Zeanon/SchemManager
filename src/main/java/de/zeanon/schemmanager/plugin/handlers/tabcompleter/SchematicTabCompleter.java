@@ -113,7 +113,7 @@ public class SchematicTabCompleter {
 						   || args[1].equalsIgnoreCase("copyfolder")) {
 					final @NotNull File pathFile = SchemUtils.getSchemFolder();
 					if (pathFile.exists() && pathFile.isDirectory()) {
-						SchematicTabCompleter.addFilesToCompletions(null, completions, Objects.notNull(BaseFileUtils.listFolders(pathFile, false)));
+						SchematicTabCompleter.addFilesToCompletions(null, completions, BaseFileUtils.listFolders(pathFile, false));
 					}
 				}
 			} else {
@@ -159,7 +159,7 @@ public class SchematicTabCompleter {
 						|| args[1].equalsIgnoreCase("delete")
 						|| args[1].equalsIgnoreCase("rename")
 						|| args[1].equalsIgnoreCase("copy")) {
-						SchematicTabCompleter.addFilesToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, Objects.notNull(BaseFileUtils.listFiles(pathFile, false)));
+						SchematicTabCompleter.addFilesToCompletions(args[2].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, BaseFileUtils.listFiles(pathFile, false));
 					} else if (args[1].equalsIgnoreCase("renamefolder")
 							   || args[1].equalsIgnoreCase("delfolder")
 							   || args[1].equalsIgnoreCase("deletefolder")
@@ -170,7 +170,7 @@ public class SchematicTabCompleter {
 							   || args[1].equalsIgnoreCase("searchschem")
 							   || args[1].equalsIgnoreCase("searchfolder")
 							   || args[1].equalsIgnoreCase("copyfolder")) {
-						SchematicTabCompleter.addFilesToCompletions(args[2 + modifierCount].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, Objects.notNull(BaseFileUtils.listFolders(pathFile, false)));
+						SchematicTabCompleter.addFilesToCompletions(args[2 + modifierCount].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, BaseFileUtils.listFolders(pathFile, false));
 					}
 				}
 			}
@@ -183,7 +183,7 @@ public class SchematicTabCompleter {
 				} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
 					final @NotNull File pathFile = SchemUtils.getSchemFolder();
 					if (pathFile.exists() && pathFile.isDirectory()) {
-						SchematicTabCompleter.addFilesToCompletions(null, completions, Objects.notNull(BaseFileUtils.listFolders(pathFile, false)));
+						SchematicTabCompleter.addFilesToCompletions(null, completions, BaseFileUtils.listFolders(pathFile, false));
 					}
 				}
 			} else {
@@ -207,9 +207,9 @@ public class SchematicTabCompleter {
 					final @NotNull File pathFile = tempDirectory.toFile();
 					if (pathFile.exists() && pathFile.isDirectory()) {
 						if (args[1].equalsIgnoreCase("rename") || args[1].equalsIgnoreCase("copy") || args[1].equalsIgnoreCase("download")) {
-							SchematicTabCompleter.addFilesToCompletions(args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, Objects.notNull(BaseFileUtils.listFiles(pathFile, false)));
+							SchematicTabCompleter.addFilesToCompletions(args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, BaseFileUtils.listFiles(pathFile, false));
 						} else if (args[1].equalsIgnoreCase("renamefolder") || args[1].equalsIgnoreCase("copyfolder")) {
-							SchematicTabCompleter.addFilesToCompletions(args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, Objects.notNull(BaseFileUtils.listFolders(pathFile, false)));
+							SchematicTabCompleter.addFilesToCompletions(args[3].endsWith("/") ? "" : pathArgs[pathArgs.length - 1], completions, BaseFileUtils.listFolders(pathFile, false));
 						}
 					}
 				}
@@ -220,7 +220,7 @@ public class SchematicTabCompleter {
 
 
 	private @NotNull List<File> getFileList(final @NotNull File directory) throws IOException {
-		return Objects.notNull(BaseFileUtils.listFilesOfTypeAndFolders(directory, false, Objects.notNull(ConfigUtils.getStringList("File Extensions"))));
+		return BaseFileUtils.listFilesOfTypeAndFolders(directory, false, Objects.notNull(ConfigUtils.getStringList("File Extensions")));
 	}
 
 	private void addFilesToCompletions(final @Nullable String sequence, final @NotNull List<String> completions, final @NotNull List<File> fileList) {

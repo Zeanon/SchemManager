@@ -196,7 +196,7 @@ public class SearchSchem {
 			if (directory == null || !directory.isDirectory()) {
 				throw new IOException("Schematic folder does not exist");
 			} else {
-				final @NotNull List<File> files = Objects.notNull(Objects.notNull(BaseFileUtils.searchFilesOfType(directory, deepSearch, arg, caseSensitiveSearch, extensions)));
+				final @NotNull List<File> files = BaseFileUtils.searchFilesOfType(directory, deepSearch, arg, caseSensitiveSearch, extensions);
 				final double count = Objects.notNull(files).size();
 				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -252,7 +252,7 @@ public class SearchSchem {
 				if (directory == null || !directory.isDirectory()) {
 					throw new IOException("Schematic folder does not exist");
 				} else {
-					final @NotNull List<File> files = Objects.notNull(BaseFileUtils.searchFilesOfType(directory, deepSearch, argTwo, caseSensitiveSearch, extensions));
+					final @NotNull List<File> files = BaseFileUtils.searchFilesOfType(directory, deepSearch, argTwo, caseSensitiveSearch, extensions);
 					final double count = Objects.notNull(files).size();
 					final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 					final int sideNumber = Integer.parseInt(argThree);
@@ -332,7 +332,7 @@ public class SearchSchem {
 					return;
 				}
 
-				final @NotNull List<File> files = Objects.notNull(BaseFileUtils.searchFilesOfType(directory, deepSearch, argThree, caseSensitiveSearch, extensions));
+				final @NotNull List<File> files = BaseFileUtils.searchFilesOfType(directory, deepSearch, argThree, caseSensitiveSearch, extensions);
 				final double count = Objects.notNull(files).size();
 				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -390,7 +390,7 @@ public class SearchSchem {
 				return;
 			}
 
-			final @NotNull List<File> files = Objects.notNull(BaseFileUtils.searchFilesOfType(directory, deepSearch, argThree, caseSensitiveSearch, extensions));
+			final @NotNull List<File> files = BaseFileUtils.searchFilesOfType(directory, deepSearch, argThree, caseSensitiveSearch, extensions);
 			final double count = Objects.notNull(files).size();
 			final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 			final int sideNumber = Integer.parseInt(argFour);
@@ -459,7 +459,7 @@ public class SearchSchem {
 		} catch (final @NotNull IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
-			SchemManager.getChatLogger().log(Level.SEVERE, "Error while accessing " + argTwo, e);
+			SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while accessing %s", argTwo), e);
 		}
 	}
 

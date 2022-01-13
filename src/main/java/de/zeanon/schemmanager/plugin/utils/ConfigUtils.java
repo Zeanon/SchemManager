@@ -3,11 +3,13 @@ package de.zeanon.schemmanager.plugin.utils;
 import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.update.Update;
 import de.zeanon.storagemanagercore.internal.base.exceptions.FileParseException;
+import de.zeanon.storagemanagercore.internal.base.interfaces.DataMap;
 import de.zeanon.storagemanagercore.internal.base.settings.Comment;
 import de.zeanon.storagemanagercore.internal.base.settings.Reload;
 import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
 import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import de.zeanon.thunderfilemanager.ThunderFileManager;
+import de.zeanon.thunderfilemanager.internal.base.cache.filedata.ThunderFileData;
 import de.zeanon.thunderfilemanager.internal.base.exceptions.ThunderException;
 import de.zeanon.thunderfilemanager.internal.files.config.ThunderConfig;
 import de.zeanon.thunderfilemanager.internal.utility.parser.ThunderFileParser;
@@ -26,6 +28,10 @@ import org.jetbrains.annotations.Nullable;
 @UtilityClass
 public class ConfigUtils {
 
+
+	@SuppressWarnings("rawtypes")
+	@Getter
+	private ThunderFileData<DataMap, ?, List> defaultFileData; //NOSONAR
 	@Getter(onMethod_ = {@NotNull})
 	private ThunderConfig config;
 
@@ -49,6 +55,19 @@ public class ConfigUtils {
 
 		if (cause != null) {
 			throw new UncheckedIOException(new IOException(cause.getMessage(), cause.getCause()));
+		}
+	}
+
+	public void initDefaultConfigs() {
+		try {
+			ConfigUtils.defaultFileData = ThunderFileParser.readDataAsFileData(BaseFileUtils.createNewInputStreamFromResource("resources/config.tf"),
+																			   ConfigUtils.getConfig().collectionsProvider(),
+																			   ConfigUtils.getConfig().getCommentSetting(),
+																			   ConfigUtils.getConfig().getBufferSize());
+			SchemManager.getChatLogger().info(">> [Configs] >> default for 'config.tf' loaded.");
+		} catch (final ThunderException e) {
+			SchemManager.getChatLogger().info(">> [Configs] >> default for 'config.tf' could not be loaded.");
+			SchemManager.getChatLogger().log(Level.SEVERE, "Error while loading default configs", e);
 		}
 	}
 

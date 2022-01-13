@@ -40,6 +40,19 @@ public class InitMode {
 		}
 
 		try {
+			SchemManager.getChatLogger().info(">> Initializing default Configs...");
+			ConfigUtils.initDefaultConfigs();
+			SchemManager.getChatLogger().info(">> Default config is initialized successfully.");
+		} catch (final UncheckedIOException e) {
+			SchemManager.getChatLogger().info(">> Could not initialize default config.");
+			SchemManager.getChatLogger().info(">> Maybe try to reload the plugin.");
+			SchemManager.getChatLogger().info(">> Unloading Plugin...");
+
+			SchemManager.getPluginManager().disablePlugin(SchemManager.getInstance());
+			return;
+		}
+
+		try {
 			SchemManager.getChatLogger().info(">> Initializing Config...");
 			ConfigUtils.initConfigs();
 			SchemManager.getChatLogger().info(">> Config file is initialized successfully.");

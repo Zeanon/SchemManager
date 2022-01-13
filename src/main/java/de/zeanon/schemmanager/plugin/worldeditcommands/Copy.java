@@ -140,7 +140,7 @@ public class Copy {
 		} catch (final IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GOLD + fileName + ChatColor.RED + " could not be copied, for further information please see [console].");
-			SchemManager.getChatLogger().log(Level.SEVERE, "Error while copying " + fileName, e);
+			SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while copying %s", fileName), e);
 		}
 	}
 

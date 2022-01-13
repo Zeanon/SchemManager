@@ -155,7 +155,7 @@ public class ListSchems {
 			if (directory == null || !directory.isDirectory()) {
 				throw new IOException("Schematic folder does not exist");
 			} else {
-				final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions)));
+				final @NotNull java.util.List<File> files = BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions));
 				final double count = files.size();
 				final int side = (int) (((count / listmax) % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -211,7 +211,7 @@ public class ListSchems {
 				if (directory == null || !directory.isDirectory()) {
 					throw new IOException("Schematic folder does not exist");
 				} else {
-					final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions)));
+					final @NotNull java.util.List<File> files = BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions));
 					final double count = files.size();
 					final int side = (int) (((count / listmax) % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 					final int sideNumber = Integer.parseInt(arg);
@@ -293,7 +293,7 @@ public class ListSchems {
 					return;
 				}
 
-				final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions)));
+				final @NotNull java.util.List<File> files = BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions));
 				final double count = files.size();
 				final int side = (int) (((count / listmax) % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -336,7 +336,7 @@ public class ListSchems {
 			} catch (final @NotNull IOException e) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.GREEN + arg + ChatColor.RED + " could not be accessed, for further information please see [console].");
-				SchemManager.getChatLogger().log(Level.SEVERE, "Error while accessing " + arg, e);
+				SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while accessing %s", arg), e);
 			}
 		}
 	}
@@ -352,7 +352,7 @@ public class ListSchems {
 				return;
 			}
 
-			final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions)));
+			final @NotNull java.util.List<File> files = BaseFileUtils.listFilesOfType(directory, deepSearch, Objects.notNull(extensions));
 			final double count = files.size();
 			final int side = (int) (((count / listmax) % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 			final int sideNumber = Integer.parseInt(argThree);
@@ -420,7 +420,7 @@ public class ListSchems {
 		} catch (final @NotNull IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
-			SchemManager.getChatLogger().log(Level.SEVERE, "Error while accessing " + argTwo, e);
+			SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while accessing %s", argTwo), e);
 		}
 	}
 

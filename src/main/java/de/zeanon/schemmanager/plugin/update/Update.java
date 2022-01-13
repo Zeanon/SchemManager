@@ -4,8 +4,12 @@ import de.zeanon.schemmanager.SchemManager;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.commands.GlobalMessageUtils;
 import de.zeanon.storagemanagercore.internal.base.exceptions.ObjectNullException;
+import de.zeanon.storagemanagercore.internal.base.interfaces.DataMap;
+import de.zeanon.storagemanagercore.internal.base.settings.Comment;
 import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
-import de.zeanon.storagemanagercore.internal.utility.basic.Pair;
+import de.zeanon.thunderfilemanager.internal.base.cache.filedata.ThunderFileData;
+import de.zeanon.thunderfilemanager.internal.base.exceptions.ThunderException;
+import de.zeanon.thunderfilemanager.internal.utility.parser.ThunderFileParser;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.HttpURLConnection;
@@ -26,37 +30,44 @@ public class Update {
 	private final String RELEASE_URL = "https://github.com/Zeanon/SchemManager/releases/latest";
 
 	public void updatePlugin(final @NotNull JavaPlugin instance) {
+		final @NotNull Updater updater;
 		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
 			&& SchemManager.getPluginManager()
 						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-			PlugManEnabledUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"), instance);
+			updater = new PlugManEnabledUpdater();
 		} else {
-			DefaultUpdate.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"), instance);
+			updater = new PlugManDisabledUpdater();
 		}
+
+		updater.updatePlugin(ConfigUtils.getBoolean("Automatic Reload"), instance);
 	}
 
 	public void updatePlugin(final @NotNull Player p, final @NotNull JavaPlugin instance) {
+		final @NotNull Updater updater;
 		if (SchemManager.getPluginManager().getPlugin("PlugMan") != null
 			&& SchemManager.getPluginManager()
 						   .isPluginEnabled(SchemManager.getPluginManager().getPlugin("PlugMan"))) {
-			PlugManEnabledUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"), instance);
+			updater = new PlugManEnabledUpdater();
 		} else {
-			DefaultUpdate.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"), instance);
+			updater = new PlugManDisabledUpdater();
 		}
+
+		updater.updatePlugin(p, ConfigUtils.getBoolean("Automatic Reload"), instance);
 	}
 
 	public void checkConfigUpdate() {
 		try {
 			if (!Objects.notNull(ConfigUtils.getConfig().getStringUseArray("Plugin Version"))
-						.equals(SchemManager.getInstance().getDescription().getVersion())
-				|| !ConfigUtils.getConfig().hasKeyUseArray("File Extensions")
-				|| !ConfigUtils.getConfig().hasKeyUseArray("Listmax")
-				|| !ConfigUtils.getConfig().hasKeyUseArray("Space Lists")
-				|| !ConfigUtils.getConfig().hasKeyUseArray("Delete empty Folders")
-				|| !ConfigUtils.getConfig().hasKeyUseArray("Save Function Override")
-				|| !ConfigUtils.getConfig().hasKeyUseArray("Automatic Reload")) {
-
+						.equals(SchemManager.getInstance().getDescription().getVersion())) {
 				Update.updateConfig();
+				return;
+			}
+
+			for (final @NotNull String[] entry : Objects.notNull(Objects.notNull(ConfigUtils.getDefaultFileData()).getKeysUseArray())) {
+				if (!ConfigUtils.getConfig().hasKeyUseArray(entry)) {
+					Update.updateConfig();
+					return;
+				}
 			}
 		} catch (final @NotNull ObjectNullException e) {
 			Update.updateConfig();
@@ -65,36 +76,23 @@ public class Update {
 
 	public void updateConfig() {
 		try {
-			//noinspection unchecked
-			final @NotNull List<String> fileExtensions = ConfigUtils.getConfig().hasKeyUseArray("File Extensions")
-														 ? Objects.notNull(ConfigUtils.getConfig().getListUseArray("File Extensions"))
-														 : ConfigUtils.getDefaultValue(List.class, "File Extensions");
-			final int listmax = ConfigUtils.getConfig().hasKeyUseArray("Listmax")
-								? ConfigUtils.getConfig().getIntUseArray("Listmax")
-								: ConfigUtils.getDefaultValue(Integer.class, "Listmax");
-			final boolean spaceLists = !ConfigUtils.getConfig().hasKeyUseArray("Space Lists")
-									   || ConfigUtils.getConfig().getBooleanUseArray("Space Lists");
-			final boolean deleteEmptyFolders = !ConfigUtils.getConfig().hasKeyUseArray("Delete empty Folders")
-											   || ConfigUtils.getConfig().getBooleanUseArray("Delete empty Folders");
-			final boolean saveOverride = !ConfigUtils.getConfig().hasKeyUseArray("Save Function Override")
-										 || ConfigUtils.getConfig().getBooleanUseArray("Save Function Override");
-			final boolean autoReload = !ConfigUtils.getConfig().hasKeyUseArray("Automatic Reload")
-									   || ConfigUtils.getConfig().getBooleanUseArray("Automatic Reload");
+			//noinspection rawtypes
+			final @NotNull ThunderFileData<DataMap, ?, List> data = ThunderFileParser.readDataAsFileData(ConfigUtils.getConfig().file(), //NOSONAR
+																										 ConfigUtils.getConfig().collectionsProvider(),
+																										 Comment.SKIP,
+																										 ConfigUtils.getConfig().getBufferSize()); //NOSONAR
+
+			data.insertUseArray(new String[]{"Plugin Version"}, SchemManager.getInstance().getDescription().getVersion());
 
 			ConfigUtils.getConfig().setDataFromResource("resources/config.tf");
 
-			//noinspection unchecked
-			ConfigUtils.getConfig().setAllUseArray(new Pair<>(new String[]{"Plugin Version"}, SchemManager.getInstance().getDescription().getVersion()),
-												   new Pair<>(new String[]{"File Extensions"}, fileExtensions),
-												   new Pair<>(new String[]{"Listmax"}, listmax),
-												   new Pair<>(new String[]{"Space Lists"}, spaceLists),
-												   new Pair<>(new String[]{"Delete empty Folders"}, deleteEmptyFolders),
-												   new Pair<>(new String[]{"Save Function Override"}, saveOverride),
-												   new Pair<>(new String[]{"Automatic Reload"}, autoReload));
+			for (final @NotNull String[] key : Objects.notNull(data.getKeysUseArray())) {
+				ConfigUtils.getConfig().setUseArray(key, data.getUseArray(key));
+			}
 
 			SchemManager.getChatLogger().info(">> [Configs] >> 'config.tf' updated.");
-		} catch (final @NotNull UncheckedIOException e) {
-			throw new UncheckedIOException("[" + SchemManager.getInstance().getName() + "] >> [Configs] >> 'config.tf' could not be updated.", e.getCause());
+		} catch (final UncheckedIOException | ThunderException e) {
+			SchemManager.getChatLogger().log(Level.SEVERE, ">> [Configs] >> 'config.tf' could not be updated.", e);
 		}
 	}
 

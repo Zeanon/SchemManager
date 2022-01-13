@@ -103,8 +103,8 @@ public class RenameFolder {
 								  ChatColor.RED + "These schematics already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be overwritten.");
 					int id = 0;
 					final @Nullable List<String> extensions = Objects.notNull(ConfigUtils.getStringList("File Extensions"));
-					for (final @NotNull File oldFile : Objects.notNull(Objects.notNull(BaseFileUtils.listFilesOfType(directoryOld, true, extensions)))) {
-						for (final @NotNull File newFile : Objects.notNull(BaseFileUtils.searchFilesOfType(directoryNew, true, BaseFileUtils.removeExtension(oldFile.getName()), extensions))) {
+					for (final @NotNull File oldFile : BaseFileUtils.listFilesOfType(directoryOld, true, extensions)) {
+						for (final @NotNull File newFile : BaseFileUtils.searchFilesOfType(directoryNew, true, BaseFileUtils.removeExtension(oldFile.getName()), extensions)) {
 							if (BaseFileUtils.removeExtension(newFile.toPath().relativize(directoryNew.toPath()).toString())
 											 .equalsIgnoreCase(BaseFileUtils.removeExtension(oldFile.toPath().relativize(directoryOld.toPath()).toString()))) {
 
@@ -133,8 +133,8 @@ public class RenameFolder {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.RED + "These folders already exist in " + ChatColor.GREEN + args[3] + ChatColor.RED + ", they will be merged.");
 					int i = 0;
-					for (final @NotNull File oldFolder : Objects.notNull(BaseFileUtils.listFolders(directoryOld, true))) {
-						for (final @NotNull File newFolder : Objects.notNull(BaseFileUtils.searchFolders(directoryNew, true, oldFolder.getName()))) {
+					for (final @NotNull File oldFolder : BaseFileUtils.listFolders(directoryOld, true)) {
+						for (final @NotNull File newFolder : BaseFileUtils.searchFolders(directoryNew, true, oldFolder.getName())) {
 							if (BaseFileUtils.removeExtension(newFolder.toPath().relativize(directoryNew.toPath()).toString())
 											 .equalsIgnoreCase(BaseFileUtils.removeExtension(oldFolder.toPath().relativize(directoryOld.toPath()).toString()))) {
 
@@ -198,7 +198,7 @@ public class RenameFolder {
 
 	private void deleteParents(final @NotNull File directory, final @NotNull String arg, final @NotNull Player p) {
 		try {
-			FileUtils.deleteDirectory(directory);
+			BaseFileUtils.deleteDirectory(directory);
 			@Nullable final String parentName = Objects.notNull(directory.getAbsoluteFile().getParentFile().listFiles()).length == 0
 												&& ConfigUtils.getBoolean("Delete empty Folders") ? InternalFileUtils.deleteEmptyParent(directory, SchemUtils.getSchemFolder()) : null;
 
@@ -211,7 +211,7 @@ public class RenameFolder {
 		} catch (final IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GREEN + arg + ChatColor.RED + " could not be renamed, for further information please see [console].");
-			SchemManager.getChatLogger().log(Level.SEVERE, "Error while renaming " + arg, e);
+			SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while renaming %s", arg), e);
 			CommandRequestUtils.removeRenameFolderRequest(p.getUniqueId());
 		}
 	}

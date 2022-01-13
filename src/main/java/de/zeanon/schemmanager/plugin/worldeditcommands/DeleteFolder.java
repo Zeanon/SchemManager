@@ -6,6 +6,7 @@ import de.zeanon.schemmanager.plugin.utils.InternalFileUtils;
 import de.zeanon.schemmanager.plugin.utils.SchemUtils;
 import de.zeanon.schemmanager.plugin.utils.commands.CommandRequestUtils;
 import de.zeanon.schemmanager.plugin.utils.commands.GlobalMessageUtils;
+import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
 import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +14,6 @@ import java.nio.file.Path;
 import java.util.logging.Level;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -103,7 +103,7 @@ public class DeleteFolder {
 				CommandRequestUtils.removeDeleteFolderRequest(p.getUniqueId());
 				if (file.exists() && file.isDirectory()) {
 					try {
-						FileUtils.deleteDirectory(file);
+						BaseFileUtils.deleteDirectory(file);
 						@Nullable final String parentName = Objects.notNull(file.getAbsoluteFile().getParentFile().listFiles()).length == 0
 															&& ConfigUtils.getBoolean("Delete empty Folders") ? InternalFileUtils.deleteEmptyParent(file, SchemUtils.getSchemFolder()) : null;
 
@@ -117,7 +117,7 @@ public class DeleteFolder {
 					} catch (final IOException e) {
 						p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 									  ChatColor.GREEN + args[2] + ChatColor.RED + " could not be deleted, for further information please see [console].");
-						SchemManager.getChatLogger().log(Level.SEVERE, "Error while deleting " + args[2], e);
+						SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while deleting %s", args[2]), e);
 					}
 				} else {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +

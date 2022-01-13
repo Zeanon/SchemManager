@@ -5,7 +5,6 @@ import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.SchemUtils;
 import de.zeanon.schemmanager.plugin.utils.commands.GlobalMessageUtils;
 import de.zeanon.storagemanagercore.internal.utility.basic.BaseFileUtils;
-import de.zeanon.storagemanagercore.internal.utility.basic.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -145,7 +144,7 @@ public class ListFolders {
 			if (directory == null || !directory.isDirectory()) {
 				throw new IOException("Schematic folder does not exist");
 			} else {
-				final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFolders(directory, deepSearch));
+				final @NotNull java.util.List<File> files = BaseFileUtils.listFolders(directory, deepSearch);
 				final double count = files.size();
 				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -201,7 +200,7 @@ public class ListFolders {
 				if (directory == null || !directory.isDirectory()) {
 					throw new IOException("Schematic folder does not exist");
 				} else {
-					final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFolders(directory, deepSearch));
+					final @NotNull java.util.List<File> files = BaseFileUtils.listFolders(directory, deepSearch);
 					final double count = files.size();
 					final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 					final int sideNumber = Integer.parseInt(arg);
@@ -284,7 +283,7 @@ public class ListFolders {
 					return;
 				}
 
-				final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFolders(directory, deepSearch));
+				final @NotNull java.util.List<File> files = BaseFileUtils.listFolders(directory, deepSearch);
 				final double count = files.size();
 				final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 
@@ -328,7 +327,7 @@ public class ListFolders {
 			} catch (final @NotNull IOException e) {
 				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 							  ChatColor.DARK_GREEN + arg + ChatColor.RED + " could not be accessed, for further information please see [console].");
-				SchemManager.getChatLogger().log(Level.SEVERE, "Error while accessing " + arg, e);
+				SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while accessing %s", arg), e);
 			}
 		}
 	}
@@ -344,7 +343,7 @@ public class ListFolders {
 				return;
 			}
 
-			final @NotNull java.util.List<File> files = Objects.notNull(BaseFileUtils.listFolders(directory, deepSearch));
+			final @NotNull java.util.List<File> files = BaseFileUtils.listFolders(directory, deepSearch);
 			final double count = files.size();
 			final int side = (int) ((count / listmax % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
 			final int sideNumber = Integer.parseInt(argThree);
@@ -412,7 +411,7 @@ public class ListFolders {
 		} catch (final @NotNull IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.DARK_GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
-			SchemManager.getChatLogger().log(Level.SEVERE, "Error while accessing " + argTwo, e);
+			SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while accessing %s", argTwo), e);
 		}
 	}
 

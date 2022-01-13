@@ -113,7 +113,7 @@ public class Download {
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[3] + ChatColor.RED + " was downloaded successfully.");
 				} catch (final IOException e) {
-					SchemManager.getChatLogger().log(Level.SEVERE, "Error while downloading " + args[3], e);
+					SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while downloading %s", args[3]), e);
 					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 								  ChatColor.GOLD + args[3] + ChatColor.RED + " could not be downloaded, for further information please see [console].");
 				}

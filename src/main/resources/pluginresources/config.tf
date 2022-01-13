@@ -26,7 +26,9 @@
 ################################################################################################################
 
 
+# Defines the version of the plugin (mostly used to check whether the config needs to be updated)
 Plugin Version = ${project.version}
+
 
 # File Extensions: here you can specify the file-types the plugin recognizes as schematics.
 # The first extension in the list will be used as the default one.

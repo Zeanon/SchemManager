@@ -146,7 +146,7 @@ public class Rename {
 		} catch (final IOException e) {
 			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
 						  ChatColor.GOLD + fileName + ChatColor.RED + " could not be renamed, for further information please see [console].");
-			SchemManager.getChatLogger().log(Level.SEVERE, "Error while renaming " + fileName, e);
+			SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while renaming %s", fileName), e);
 		}
 	}
 
