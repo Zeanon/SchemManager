@@ -35,9 +35,10 @@ public class RunningMode {
 	public void onEnable() {
 		if (RunningMode.isSteamEdit()) {
 			InitMode.registerEvents(new SteamEditCommandListener());
-		} else {
-			InitMode.registerEvents(new WorldEditCommandListener());
 		}
+
+		InitMode.registerEvents(new WorldEditCommandListener());
+
 		InitMode.registerEvents(new EventListener());
 		if (RunningMode.isPaperSpigot()) {
 			if (RunningMode.isSteamEdit()) {
