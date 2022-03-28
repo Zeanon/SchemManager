@@ -1,5 +1,6 @@
 package de.zeanon.schemmanager.plugin.utils.commands;
 
+import de.zeanon.schemmanager.SchemManager;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -13,6 +14,8 @@ import org.jetbrains.annotations.Nullable;
 
 @UtilityClass
 public class GlobalMessageUtils {
+
+	public static final String MESSAGE_HEAD = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]";
 
 	/**
 	 * Sends a clickable message performing a command

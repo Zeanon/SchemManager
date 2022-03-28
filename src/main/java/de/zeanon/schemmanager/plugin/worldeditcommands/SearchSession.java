@@ -25,12 +25,30 @@ public class SearchSession {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (args.length <= 4) {
-                    if (args.length == 4 && (StringUtils.isNumeric(args[2]) || !StringUtils.isNumeric(args[3]))) {
+                final int modifierCount;
+                final boolean caseSensitive;
+                if (args[2].equalsIgnoreCase("-casesensitive") || args[2].equalsIgnoreCase("-c")) {
+                    caseSensitive = true;
+                    modifierCount = 1;
+                } else {
+                    caseSensitive = false;
+                    modifierCount = 0;
+                }
+
+                if (args.length <= 4 + modifierCount) {
+                    if (args.length < 3 + modifierCount) {
+                        p.sendMessage(ChatColor.RED + "Missing argument for "
+                                      + ChatColor.YELLOW + "<"
+                                      + ChatColor.GOLD + "sessionname"
+                                      + ChatColor.YELLOW + ">");
+                        SearchSession.usage(p, slash);
+                    } else if (args.length == 4 + modifierCount
+                               && (StringUtils.isNumeric(args[2 + modifierCount])
+                                   || !StringUtils.isNumeric(args[3 + modifierCount]))) {
                         p.sendMessage(ChatColor.RED + "Too many arguments.");
                         SearchSession.usage(p, slash);
                     } else {
-                        SearchSession.executeInternally(p, args);
+                        SearchSession.executeInternally(p, args, caseSensitive);
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "Too many arguments.");
@@ -45,8 +63,6 @@ public class SearchSession {
                + ChatColor.AQUA + " search "
                + ChatColor.YELLOW + "["
                + ChatColor.DARK_PURPLE + "-c"
-               + ChatColor.YELLOW + "] ["
-               + ChatColor.DARK_PURPLE + "-d"
                + ChatColor.YELLOW + "] <"
                + ChatColor.GREEN + "sessionname"
                + ChatColor.YELLOW + "> ["
@@ -60,8 +76,6 @@ public class SearchSession {
                + ChatColor.AQUA + " search "
                + ChatColor.YELLOW + "["
                + ChatColor.DARK_PURPLE + "-c"
-               + ChatColor.YELLOW + "] ["
-               + ChatColor.DARK_PURPLE + "-d"
                + ChatColor.YELLOW + "] "
                + ChatColor.GREEN + "example"
                + ChatColor.YELLOW + " ["
@@ -73,22 +87,87 @@ public class SearchSession {
         return slash + "session search ";
     }
 
-    private void executeInternally(final @NotNull Player p, final @NotNull String[] args) {
+    private void executeInternally(final @NotNull Player p, final @NotNull String[] args, final boolean caseSensitive) {
         final int page;
         if (StringUtils.isNumeric(args[args.length - 1])) {
             page = Integer.parseInt(args[args.length - 1]);
         } else {
             page = 1;
         }
-        SearchSession.printList(p, page, args[2]);
-    }
 
-    private void printList(final @NotNull Player p, final int page, final @NotNull String sequence) {
         int listmax = ConfigUtils.getInt("Listmax");
         final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
 
         final @Nullable Map<String, SessionManager.SessionHolder> sessions = WorldEdit.getInstance().getSessionManager().listSessions(new BukkitPlayer(p));
-        final @Nullable java.util.List<String> sessionList = sessions == null ? new GapList<>() : sessions.keySet().stream().filter(name -> !name.equals("current") && name.toLowerCase().startsWith(sequence)).collect(Collectors.toList());
+        final @Nullable java.util.List<String> sessionList = sessions == null ? new GapList<>() : sessions.keySet()
+                                                                                                          .stream()
+                                                                                                          .filter(name -> !name.equals("current")
+                                                                                                                          && ((!caseSensitive && name.toLowerCase().startsWith(args[2]))
+                                                                                                                              || (caseSensitive && name.startsWith(args[3]))))
+                                                                                                          .collect(Collectors.toList());
+
+        final double count = sessionList.size();
+        final int pageAmount = (int) (((count / listmax) % 1 != 0) ? (count / listmax) + 1 : (count / listmax));
+
+        if (pageAmount != 0 && page > pageAmount) {
+            GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
+                                                ChatColor.RED + "There are only " + pageAmount + " pages of sessions in this list",
+                                                "",
+                                                ChatColor.GRAY + "schematics", p);
+            return;
+        }
+
+        if (spaceLists) {
+            p.sendMessage("");
+        }
+
+        if (sessionList.isEmpty()) {
+            GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+                                                ChatColor.AQUA + "No sessions found",
+                                                ChatColor.AQUA + " ===",
+                                                ChatColor.GRAY + "sessions", p);
+        } else {
+            GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
+                                                ChatColor.AQUA + "" + (int) count + " Sessions | Page " + page + "/" + pageAmount,
+                                                ChatColor.AQUA + " ===", ChatColor.GRAY + "sessions", p);
+            int id = (page - 1) * listmax;
+
+            if (count < listmax * page) {
+                listmax = (int) count - (listmax * (page - 1));
+            }
+
+            for (int i = 0; i < listmax; i++) {
+                SearchSession.sendListLine(p, id, sessionList.get(id));
+                id++;
+            }
+
+            final int nextPage = page >= pageAmount ? 1 : page + 1;
+            final int previousPage = (page <= 1 ? pageAmount : page - 1);
+            if (pageAmount > 1) {
+                GlobalMessageUtils.sendScrollMessage("//session list " + nextPage,
+                                                     "//session list " + previousPage,
+                                                     ChatColor.DARK_PURPLE + "Page " + nextPage,
+                                                     ChatColor.DARK_PURPLE + "Page " + previousPage, p, ChatColor.DARK_AQUA);
+            } else {
+                GlobalMessageUtils.sendScrollMessage("",
+                                                     "",
+                                                     ChatColor.DARK_PURPLE + "There is only one page of sessions in this list",
+                                                     ChatColor.DARK_PURPLE + "There is only one page of sessions in this list", p, ChatColor.BLUE);
+            }
+        }
+    }
+
+    private void printList(final @NotNull Player p, final int page, final @NotNull String sequence, final boolean caseSensitive) {
+        int listmax = ConfigUtils.getInt("Listmax");
+        final boolean spaceLists = ConfigUtils.getBoolean("Space Lists");
+
+        final @Nullable Map<String, SessionManager.SessionHolder> sessions = WorldEdit.getInstance().getSessionManager().listSessions(new BukkitPlayer(p));
+        final @Nullable java.util.List<String> sessionList = sessions == null ? new GapList<>() : sessions.keySet()
+                                                                                                          .stream()
+                                                                                                          .filter(name -> !name.equals("current")
+                                                                                                                          && ((!caseSensitive && name.toLowerCase().startsWith(sequence))
+                                                                                                                              || (caseSensitive && name.startsWith(sequence))))
+                                                                                                          .collect(Collectors.toList());
 
         final double count = sessionList.size();
         final int pageAmount = (int) (((count / listmax) % 1 != 0) ? (count / listmax) + 1 : (count / listmax));

@@ -220,12 +220,12 @@ public class Search {
 
 				if (count < 1) {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "No schematics found",
+														ChatColor.AQUA + "No schematics or folders found",
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side,
+														ChatColor.AQUA + "" + (int) count + " Schematics and Folders | Page 1/" + side,
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 					if (count < listmax) {
@@ -283,12 +283,12 @@ public class Search {
 					}
 					if (count < 1) {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-															ChatColor.AQUA + "No schematics found",
+															ChatColor.AQUA + "No schematics or folders found",
 															ChatColor.AQUA + " ===",
 															ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 					} else {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-															ChatColor.AQUA + "" + (int) count + " Schematics | Page " + sideNumber + "/" + side,
+															ChatColor.AQUA + "" + (int) count + " Schematics and Folders | Page " + sideNumber + "/" + side,
 															ChatColor.AQUA + " ===",
 															ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 						int id = (sideNumber - 1) * listmax;
@@ -356,12 +356,12 @@ public class Search {
 
 				if (count < 1) {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "No schematics found",
+														ChatColor.AQUA + "No schematics or folders found",
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side,
+														ChatColor.AQUA + "" + (int) count + " Schematics and Folders | Page 1/" + side,
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 					if (count < listmax) {
@@ -423,12 +423,12 @@ public class Search {
 
 			if (count < 1) {
 				GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-													ChatColor.AQUA + "No schematics found",
+													ChatColor.AQUA + "No schematics or folders found",
 													ChatColor.AQUA + " ===",
 													ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 			} else {
 				GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-													ChatColor.AQUA + "" + (int) count + " Schematics | Page " + sideNumber + "/" + side,
+													ChatColor.AQUA + "" + (int) count + " Schematics and Folders | Page " + sideNumber + "/" + side,
 													ChatColor.AQUA + " ===",
 													ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 				int id = (sideNumber - 1) * listmax;

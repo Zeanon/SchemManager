@@ -129,7 +129,7 @@ public class ListFolders {
 			}
 			return false;
 		} catch (final @NotNull IOException e) {
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+			p.sendMessage(GlobalMessageUtils.MESSAGE_HEAD + " " +
 						  ChatColor.RED + "An Error occurred while getting the filepaths for the folders, for further information please see [console].");
 			SchemManager.getChatLogger().log(Level.SEVERE, "Error while getting the filepaths for the folders", e);
 			return true;
@@ -159,7 +159,7 @@ public class ListFolders {
 														ChatColor.GRAY + "schematics", p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side,
+														ChatColor.AQUA + "" + (int) count + " Folders | Page 1/" + side,
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + "schematics", p);
 					if (count < listmax) {
@@ -186,7 +186,7 @@ public class ListFolders {
 				}
 			}
 		} catch (final @NotNull IOException e) {
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+			p.sendMessage(GlobalMessageUtils.MESSAGE_HEAD + " " +
 						  ChatColor.RED + "Could not access schematic folder, for further information please see [console].");
 		}
 	}
@@ -206,7 +206,7 @@ public class ListFolders {
 					final int sideNumber = Integer.parseInt(arg);
 
 					if (sideNumber > side) {
-						GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
+						GlobalMessageUtils.sendHoverMessage(GlobalMessageUtils.MESSAGE_HEAD,
 															ChatColor.RED + "There are only " + side + " pages of folders in this list",
 															"",
 															ChatColor.GRAY + "schematics", p);
@@ -224,7 +224,7 @@ public class ListFolders {
 															ChatColor.GRAY + "schematics", p);
 					} else {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-															ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
+															ChatColor.AQUA + "" + (int) count + " Folders | Page " + sideNumber + "/" + side,
 															ChatColor.AQUA + " ===",
 															ChatColor.GRAY + "schematics", p);
 						int id = (sideNumber - 1) * listmax;
@@ -268,7 +268,7 @@ public class ListFolders {
 					}
 				}
 			} catch (final @NotNull IOException e) {
-				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+				p.sendMessage(GlobalMessageUtils.MESSAGE_HEAD + " " +
 							  ChatColor.RED + "Could not access schematic folder, for further information please see [console].");
 				SchemManager.getChatLogger().log(Level.SEVERE, "Error while accessing the schematic folder", e);
 			}
@@ -278,7 +278,7 @@ public class ListFolders {
 				final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 				if (directory == null || !directory.isDirectory()) {
-					p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+					p.sendMessage(GlobalMessageUtils.MESSAGE_HEAD + " " +
 								  ChatColor.DARK_GREEN + arg + ChatColor.RED + " is no folder.");
 					return;
 				}
@@ -298,7 +298,7 @@ public class ListFolders {
 														ChatColor.GRAY + "schematics/" + arg, p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side,
+														ChatColor.AQUA + "" + (int) count + " Folders | Page 1/" + side,
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + "schematics/" + arg, p);
 
@@ -325,7 +325,7 @@ public class ListFolders {
 					}
 				}
 			} catch (final @NotNull IOException e) {
-				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+				p.sendMessage(GlobalMessageUtils.MESSAGE_HEAD + " " +
 							  ChatColor.DARK_GREEN + arg + ChatColor.RED + " could not be accessed, for further information please see [console].");
 				SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while accessing %s", arg), e);
 			}
@@ -338,7 +338,7 @@ public class ListFolders {
 			final @Nullable File directory = listPath != null ? listPath.toFile() : null;
 
 			if (directory == null || !directory.isDirectory()) {
-				p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+				p.sendMessage(GlobalMessageUtils.MESSAGE_HEAD + " " +
 							  ChatColor.DARK_GREEN + argTwo + ChatColor.RED + " is no folder.");
 				return;
 			}
@@ -349,7 +349,7 @@ public class ListFolders {
 			final int sideNumber = Integer.parseInt(argThree);
 
 			if (sideNumber > side) {
-				GlobalMessageUtils.sendHoverMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "]",
+				GlobalMessageUtils.sendHoverMessage(GlobalMessageUtils.MESSAGE_HEAD,
 													ChatColor.RED + "There are only " + side + " pages of folders in this list",
 													"",
 													ChatColor.GRAY + "schematics/" + argTwo, p);
@@ -367,7 +367,7 @@ public class ListFolders {
 													ChatColor.GRAY + "schematics/" + argTwo, p);
 			} else {
 				GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-													ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
+													ChatColor.AQUA + "" + (int) count + " Folders | Page " + sideNumber + "/" + side,
 													ChatColor.AQUA + " ===",
 													ChatColor.GRAY + "schematics/" + argTwo, p);
 				int id = (sideNumber - 1) * listmax;
@@ -409,7 +409,7 @@ public class ListFolders {
 				}
 			}
 		} catch (final @NotNull IOException e) {
-			p.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + SchemManager.getInstance().getName() + ChatColor.DARK_GRAY + "] " +
+			p.sendMessage(GlobalMessageUtils.MESSAGE_HEAD + " " +
 						  ChatColor.DARK_GREEN + argTwo + ChatColor.RED + " could not be accessed, for further information please see [console].");
 			SchemManager.getChatLogger().log(Level.SEVERE, String.format("Error while accessing %s", argTwo), e);
 		}

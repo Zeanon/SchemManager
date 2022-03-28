@@ -179,12 +179,12 @@ public class List {
 
 				if (count < 1) {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "No schematics found",
+														ChatColor.AQUA + "No schematics or folders found",
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + "schematics", p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side,
+														ChatColor.AQUA + "" + (int) count + " Schematics and Folders | Page 1/" + side,
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + "schematics", p);
 					if (count < listmax) {
@@ -244,12 +244,12 @@ public class List {
 
 					if (count < 1) {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-															ChatColor.AQUA + "No schematics found",
+															ChatColor.AQUA + "No schematics or folders found",
 															ChatColor.AQUA + " ===",
 															ChatColor.GRAY + "schematics", p);
 					} else {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-															ChatColor.AQUA + "" + (int) count + " Schematics | Page " + sideNumber + "/" + side,
+															ChatColor.AQUA + "" + (int) count + " Schematics and Folders | Page " + sideNumber + "/" + side,
 															ChatColor.AQUA + " ===", ChatColor.GRAY + "schematics", p);
 						int id = (sideNumber - 1) * listmax;
 
@@ -316,12 +316,12 @@ public class List {
 
 				if (count < 1) {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "No schematics found",
+														ChatColor.AQUA + "No schematics or folders found",
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + "schematics/" + arg, p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "" + (int) count + " Schematics | Page 1/" + side,
+														ChatColor.AQUA + "" + (int) count + " Schematics and Folders | Page 1/" + side,
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + "schematics/" + arg, p);
 					if (count < listmax) {
@@ -384,12 +384,12 @@ public class List {
 
 			if (count < 1) {
 				GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-													ChatColor.AQUA + "No schematics found",
+													ChatColor.AQUA + "No schematics or folders found",
 													ChatColor.AQUA + " ===",
 													ChatColor.GRAY + "schematics/" + argTwo, p);
 			} else {
 				GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-													ChatColor.AQUA + "" + (int) count + " Schematics | Page " + sideNumber + "/" + side,
+													ChatColor.AQUA + "" + (int) count + " Schematics and Folders | Page " + sideNumber + "/" + side,
 													ChatColor.AQUA + " ===", ChatColor.GRAY + "schematics/" + argTwo, p);
 				int id = (sideNumber - 1) * listmax;
 

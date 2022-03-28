@@ -201,7 +201,7 @@ public class SearchFolder {
 														ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side,
+														ChatColor.AQUA + "" + (int) count + " Folders | Page 1/" + side,
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 					if (count < listmax) {
@@ -264,7 +264,7 @@ public class SearchFolder {
 															ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 					} else {
 						GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-															ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
+															ChatColor.AQUA + "" + (int) count + " Folders | Page " + sideNumber + "/" + side,
 															ChatColor.AQUA + " ===",
 															ChatColor.GRAY + (caseSensitiveSearch ? "schematics [-c]" : "schematics"), p);
 
@@ -335,7 +335,7 @@ public class SearchFolder {
 														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 				} else {
 					GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-														ChatColor.AQUA + "" + (int) count + " Folder | Page 1/" + side,
+														ChatColor.AQUA + "" + (int) count + " Folders | Page 1/" + side,
 														ChatColor.AQUA + " ===",
 														ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 
@@ -401,7 +401,7 @@ public class SearchFolder {
 													ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 			} else {
 				GlobalMessageUtils.sendHoverMessage(ChatColor.AQUA + "=== ",
-													ChatColor.AQUA + "" + (int) count + " Folder | Page " + sideNumber + "/" + side,
+													ChatColor.AQUA + "" + (int) count + " Folders | Page " + sideNumber + "/" + side,
 													ChatColor.AQUA + " ===",
 													ChatColor.GRAY + (caseSensitiveSearch ? "schematics/" + argTwo + " [-c]" : "schematics/" + argTwo), p);
 
