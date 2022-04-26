@@ -26,7 +26,7 @@
 ################################################################################################################
 
 
-# Defines the version of the plugin (mostly used to check whether the config needs to be updated)
+# Defines the version of the plugin (mostly used to check whether the config needs to be updated [DO NOT EDIT UNLESS NESCESSARY])
 Plugin Version = ${project.version}
 
 
