@@ -285,12 +285,6 @@
             <id>papermc</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
-
-        <!-- WorldEdit Repo -->
-        <repository>
-            <id>enginehub-maven</id>
-            <url>http://maven.enginehub.org/repo/</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -298,7 +292,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>storagemanagercore</artifactId>
-            <version>1.1.104</version>
+            <version>${storagemanager.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -306,7 +300,7 @@
         <dependency>
             <groupId>de.zeanon</groupId>
             <artifactId>thunderfilemanager</artifactId>
-            <version>1.1.104</version>
+            <version>${storagemanager.thunderfile.version}</version>
             <scope>compile</scope>
         </dependency>
 
