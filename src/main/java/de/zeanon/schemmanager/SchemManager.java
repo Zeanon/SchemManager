@@ -1,13 +1,14 @@
 package de.zeanon.schemmanager;
 
 import de.zeanon.schemmanager.init.InitMode;
-import java.util.logging.Logger;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.logging.Logger;
 
 
 public class SchemManager extends JavaPlugin {
@@ -27,7 +28,7 @@ public class SchemManager extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		SchemManager.setInstance(this);
-		SchemManager.setChatLogger(SchemManager.getInstance().getServer().getLogger());
+		SchemManager.setChatLogger(SchemManager.getInstance().getLogger());
 		SchemManager.setPluginManager(Bukkit.getPluginManager());
 		InitMode.initPlugin();
 	}

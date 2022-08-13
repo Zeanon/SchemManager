@@ -6,13 +6,15 @@ import de.zeanon.schemmanager.plugin.handlers.WakeupListener;
 import de.zeanon.schemmanager.plugin.schemmanagercommands.SchemmanagerCommand;
 import de.zeanon.schemmanager.plugin.utils.ConfigUtils;
 import de.zeanon.schemmanager.plugin.utils.commands.Mapper;
+import lombok.Getter;
+import lombok.experimental.UtilityClass;
+import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.UncheckedIOException;
 import java.util.HashSet;
 import java.util.Set;
-import lombok.Getter;
-import lombok.experimental.UtilityClass;
-import org.bukkit.event.Listener;
-import org.jetbrains.annotations.NotNull;
 
 
 @UtilityClass
@@ -69,9 +71,11 @@ public class InitMode {
 	}
 
 	public void registerCommands() {
-		Mapper.initialize();
+		Bukkit.getScheduler().runTask(SchemManager.getInstance(), () -> {
+			Mapper.initialize();
 
-		InitMode.registeredCommands.add(new SchemmanagerCommand());
+			InitMode.registeredCommands.add(new SchemmanagerCommand());
+		});
 	}
 
 	public void unregisterCommands() {
